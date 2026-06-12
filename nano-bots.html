@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano Bots — Pure AI | Molecular-Scale Intelligence</title>
+    <meta name="description" content="Pure AI Nano Bots: Molecular-scale autonomous agents for medical, industrial, and environmental applications. Self-assembling swarms operating at the cellular level.">
+    <link rel="icon" type="image/png" href="./pure-logo-v4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #050505;
+            --bg-section: #0a0a0a;
+            --accent: #4DEEEA;
+            --accent-nano: #00E5C7;
+            --accent-nano-dim: rgba(0,229,199,0.15);
+            --accent-medical: #FF6B9D;
+            --accent-industrial: #76b900;
+            --accent-env: #4DA6FF;
+            --text-hero: #f0f0f0;
+            --text-secondary: rgba(255,255,255,0.55);
+            --text-muted: rgba(255,255,255,0.35);
+            --border: rgba(255,255,255,0.06);
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-dark);
+            color: var(--text-hero);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+
+        /* ── Navigation ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 clamp(2rem, 4vw, 4rem); z-index: 9999;
+            background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .logo img { height: 28px; }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links a {
+            font-family: var(--font-display); font-size: 0.7rem; font-weight: 500;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--text-secondary); transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a.cta {
+            background: transparent; border: 1px solid var(--accent);
+            padding: 0.5rem 1.2rem; border-radius: 100px; color: var(--accent); transition: all 0.3s;
+        }
+        .nav-links a.cta:hover { background: var(--accent); color: var(--bg-dark); }
+
+        .nav-dropdown { position: relative; display: flex; align-items: center; }
+        .nav-dropdown > a { display: flex; align-items: center; gap: 0.35rem; cursor: pointer; }
+        .nav-dropdown > a .dd-arrow { font-size: 0.6rem; transition: transform 0.3s; display: inline-block; }
+        .nav-dropdown:hover > a .dd-arrow { transform: rotate(180deg); }
+        .nav-dropdown .dd-menu {
+            display: none; position: absolute; top: 100%; left: 50%;
+            transform: translateX(-50%); min-width: 220px; padding: 0.6rem 0;
+            background: rgba(10,10,10,0.97); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            z-index: 10000; box-shadow: 0 20px 50px rgba(0,0,0,0.6); flex-direction: column;
+            margin-top: 0; padding-top: 1rem;
+        }
+        .nav-dropdown .dd-menu::before { content: ''; position: absolute; top: -20px; left: 0; right: 0; height: 20px; }
+        .nav-dropdown:hover .dd-menu { display: flex; }
+        .nav-dropdown .dd-menu a {
+            display: flex !important; align-items: center !important; gap: 0.75rem !important;
+            padding: 0.7rem 1.3rem !important; font-size: 0.65rem !important;
+            letter-spacing: 0.15em !important; color: rgba(255,255,255,0.5) !important;
+            transition: all 0.25s !important; white-space: nowrap !important;
+        }
+        .nav-dropdown .dd-menu a:hover { color: var(--accent) !important; background: rgba(77,238,234,0.06) !important; }
+        .nav-dropdown .dd-menu a::after { display: none !important; }
+        .nav-dropdown .dd-menu a i { font-size: 1.1rem; opacity: 0.5; }
+        .nav-dropdown .dd-menu a:hover i { opacity: 1; color: var(--accent); }
+
+        /* ── Hero ── */
+        .nano-hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 10rem 2rem 6rem; position: relative; overflow: hidden;
+        }
+        .nano-hero::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 900px; height: 900px;
+            background: radial-gradient(circle, rgba(0,229,199,0.08) 0%, transparent 60%);
+            transform: translate(-50%, -50%); pointer-events: none;
+        }
+        /* Animated particle field */
+        .particle-field {
+            position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+        }
+        .particle {
+            position: absolute; width: 3px; height: 3px; border-radius: 50%;
+            background: var(--accent-nano); opacity: 0;
+            animation: particleFloat 8s infinite ease-in-out;
+        }
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.3; }
+            100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
+        }
+        .hero-inner { position: relative; z-index: 2; max-width: 900px; }
+        .hero-label {
+            font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+            letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent-nano);
+            margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 1rem;
+        }
+        .hero-label::before { content: ''; width: 40px; height: 1px; background: var(--accent-nano); }
+        .hero-title {
+            font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 200; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 2rem;
+        }
+        .hero-title em { font-style: italic; color: var(--accent-nano); }
+        .hero-sub {
+            font-size: clamp(1rem, 1.5vw, 1.15rem); color: var(--text-secondary);
+            font-weight: 300; line-height: 1.8; max-width: 650px; margin: 0 auto 3rem;
+        }
+
+        /* ── Infographic Stats Bar ── */
+        .nano-stats {
+            padding: 4rem 2rem; background: var(--bg-section);
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+        }
+        .stats-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+        }
+        .nano-stat {
+            text-align: center; padding: 2rem 1rem;
+            border-radius: 16px; background: rgba(0,229,199,0.03);
+            border: 1px solid rgba(0,229,199,0.08); position: relative; overflow: hidden;
+        }
+        .nano-stat::before {
+            content: ''; position: absolute; top: 0; left: 50%; width: 60px; height: 2px;
+            background: var(--accent-nano); transform: translateX(-50%);
+        }
+        .stat-val {
+            font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700; color: var(--accent-nano); margin-bottom: 0.5rem;
+        }
+        .stat-val .unit { font-size: 0.5em; font-weight: 400; opacity: 0.7; }
+        .stat-label { font-size: 0.75rem; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase; }
+
+        /* ── Content Sections ── */
+        .nano-section {
+            padding: 8rem clamp(2rem, 5vw, 6rem);
+            max-width: 1300px; margin: 0 auto;
+        }
+        .section-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+        }
+        .section-grid.reverse { direction: rtl; }
+        .section-grid.reverse > * { direction: ltr; }
+        .section-label {
+            font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em;
+            text-transform: uppercase; margin-bottom: 1rem;
+        }
+        .section-title {
+            font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 300; line-height: 1.1; margin-bottom: 1.5rem;
+        }
+        .section-desc {
+            font-size: 1rem; color: var(--text-secondary); font-weight: 300;
+            line-height: 1.8; margin-bottom: 2rem;
+        }
+        .feature-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+        .feature-list li {
+            display: flex; align-items: flex-start; gap: 1rem;
+            font-size: 0.9rem; color: var(--text-hero); line-height: 1.6;
+        }
+        .feature-list li i { color: var(--accent-nano); font-size: 1.2rem; margin-top: 0.2rem; flex-shrink: 0; }
+
+        /* Visual cards */
+        .visual-card {
+            aspect-ratio: 4/3; border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--border); position: relative;
+        }
+        .visual-card img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .visual-card::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(0,229,199,0.05) 0%, transparent 60%);
+        }
+
+        /* ── Infographic: How Nano Bots Work ── */
+        .how-it-works {
+            padding: 8rem 2rem; background: var(--bg-section);
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+        }
+        .hiw-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+        .hiw-title {
+            font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300; margin-bottom: 1rem;
+        }
+        .hiw-sub { color: var(--text-secondary); font-size: 1rem; margin-bottom: 4rem; font-weight: 300; }
+        .hiw-steps {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative;
+        }
+        .hiw-steps::before {
+            content: ''; position: absolute; top: 50px; left: 10%; right: 10%;
+            height: 2px; background: linear-gradient(90deg, transparent, rgba(0,229,199,0.3), transparent);
+        }
+        .hiw-step {
+            padding: 2rem 1.5rem; border-radius: 16px;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            transition: all 0.4s; position: relative;
+        }
+        .hiw-step:hover {
+            border-color: rgba(0,229,199,0.3); background: rgba(0,229,199,0.03);
+            transform: translateY(-8px);
+        }
+        .step-num {
+            font-family: var(--font-display); font-size: 2.5rem; font-weight: 700;
+            color: var(--accent-nano); opacity: 0.2; margin-bottom: 1rem;
+        }
+        .step-icon {
+            width: 60px; height: 60px; border-radius: 50%;
+            background: rgba(0,229,199,0.08); border: 1px solid rgba(0,229,199,0.2);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.5rem; font-size: 1.5rem; color: var(--accent-nano);
+        }
+        .step-title {
+            font-family: var(--font-display); font-size: 1rem; font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .step-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ── Use Cases ── */
+        .use-cases { padding: 8rem 2rem; }
+        .uc-inner { max-width: 1200px; margin: 0 auto; }
+        .uc-header { text-align: center; margin-bottom: 4rem; }
+        .uc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .uc-card {
+            padding: 2.5rem 2rem; border-radius: 20px;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .uc-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--card-accent, var(--accent-nano));
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .uc-card:hover::before { opacity: 1; }
+        .uc-card:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-5px); }
+        .uc-icon {
+            width: 50px; height: 50px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .uc-card-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; }
+        .uc-card-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+        .uc-card-stat {
+            margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+            font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .uc-card-stat span { color: var(--accent-nano); font-weight: 600; }
+
+        /* ── Spec Comparison Table ── */
+        .spec-section {
+            padding: 6rem 2rem; background: var(--bg-section);
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+        }
+        .spec-inner { max-width: 900px; margin: 0 auto; }
+        .spec-table {
+            width: 100%; border-collapse: collapse; margin-top: 3rem;
+        }
+        .spec-table th, .spec-table td {
+            padding: 1rem 1.5rem; text-align: left;
+            border-bottom: 1px solid var(--border); font-size: 0.85rem;
+        }
+        .spec-table th {
+            font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em;
+            text-transform: uppercase; color: var(--accent-nano); font-weight: 500;
+        }
+        .spec-table td { color: var(--text-secondary); }
+        .spec-table td:first-child { color: var(--text-hero); font-weight: 500; }
+        .spec-table tr:hover td { color: var(--text-hero); }
+
+        /* ── CTA ── */
+        .nano-cta {
+            padding: 8rem 2rem; text-align: center; position: relative;
+        }
+        .nano-cta::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(0,229,199,0.06) 0%, transparent 60%);
+            transform: translate(-50%, -50%); pointer-events: none;
+        }
+        .cta-inner { position: relative; z-index: 2; }
+        .cta-title {
+            font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 300; margin-bottom: 1.5rem;
+        }
+        .cta-desc { color: var(--text-secondary); font-size: 1rem; margin-bottom: 3rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            padding: 1rem 2.5rem; border-radius: 100px; border: 1px solid var(--accent-nano);
+            background: transparent; color: var(--accent-nano);
+            font-family: var(--font-display); font-size: 0.8rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            cursor: pointer; transition: all 0.4s;
+        }
+        .cta-btn:hover { background: var(--accent-nano); color: var(--bg-dark); }
+
+        /* ── Back + Footer ── */
+        .back-home {
+            text-align: center; padding: 4rem 2rem 6rem; position: relative; z-index: 2;
+        }
+        .back-home a {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            font-family: var(--font-display); font-size: 0.75rem; font-weight: 500;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--text-secondary); transition: color 0.3s;
+        }
+        .back-home a:hover { color: var(--accent); }
+        .plat-footer {
+            padding: 3rem clamp(2rem, 6vw, 6rem) 2rem;
+            border-top: 1px solid var(--border); text-align: center;
+        }
+        .plat-footer .f-copy { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
+
+        /* ── Animations ── */
+        .fade-up { opacity: 0; transform: translateY(40px); }
+
+        /* ── Grain ── */
+        body::after {
+            content: ''; position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.03; pointer-events: none; z-index: 9999;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           HEALTHCARE DEEP-DIVE SECTION
+           ═══════════════════════════════════════════════════════════ */
+        .nano-health {
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(900px circle at 15% 0%, rgba(255,107,157,0.06), transparent 55%),
+                radial-gradient(700px circle at 90% 100%, rgba(77,238,234,0.04), transparent 60%),
+                var(--bg-dark);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            isolation: isolate;
+        }
+        .nano-health::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,107,157,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,107,157,0.04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse at center, #000 10%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse at center, #000 10%, transparent 75%);
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .nh-inner { max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .nh-head { text-align: center; max-width: 820px; margin: 0 auto 4rem; }
+        .nh-chip {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            background: rgba(255,107,157,0.08);
+            border: 1px solid rgba(255,107,157,0.3);
+            color: var(--accent-medical);
+            font-family: var(--font-mono);
+            font-size: 0.64rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .nh-chip .pulse {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--accent-medical);
+            box-shadow: 0 0 10px var(--accent-medical);
+            animation: nhPulse 1.4s ease-in-out infinite;
+        }
+        @keyframes nhPulse {
+            0%,100% { transform: scale(1);   opacity: 1;   }
+            50%     { transform: scale(0.7); opacity: 0.4; }
+        }
+        .nh-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4.2vw, 3.3rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        .nh-title em {
+            font-style: italic;
+            background: linear-gradient(135deg, var(--accent-medical), var(--accent-nano));
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+        .nh-sub {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* ─── Hero procedure showcase (heart monitor + copy) ─── */
+        .nh-hero-procedure {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 3rem;
+            align-items: stretch;
+            margin-bottom: 4rem;
+        }
+        .nh-hp-copy {
+            padding: 2.2rem 2rem;
+            background: linear-gradient(180deg, rgba(255,107,157,0.06), rgba(0,229,199,0.03));
+            border: 1px solid rgba(255,107,157,0.2);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .nh-hp-copy::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, var(--accent-medical), var(--accent-nano));
+        }
+        .nh-hp-copy .lbl {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--accent-medical);
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .nh-hp-copy h3 {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 2.6vw, 2rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+        }
+        .nh-hp-copy h3 em { color: var(--accent-medical); font-style: italic; }
+        .nh-hp-copy p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        .nh-hp-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.9rem;
+            padding-top: 1.3rem;
+            border-top: 1px dashed rgba(255,255,255,0.1);
+        }
+        .nh-hp-stat .v {
+            font-family: var(--font-display);
+            font-size: 1.35rem; font-weight: 600;
+            color: var(--accent-medical);
+            letter-spacing: -0.01em;
+            line-height: 1;
+        }
+        .nh-hp-stat .l {
+            font-family: var(--font-mono);
+            font-size: 0.56rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* Procedure monitor panel */
+        .nh-monitor {
+            position: relative;
+            border-radius: 20px;
+            background: linear-gradient(180deg, #0a0d14, #050708);
+            border: 1px solid rgba(255,107,157,0.18);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.55), 0 0 60px rgba(255,107,157,0.08) inset;
+            overflow: hidden;
+            isolation: isolate;
+            min-height: 360px;
+            display: flex; flex-direction: column;
+        }
+        .nh-m-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.9rem 1.1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.015);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .nh-m-head .live {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            color: var(--accent-medical);
+        }
+        .nh-m-head .live::before {
+            content: '';
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--accent-medical);
+            box-shadow: 0 0 10px var(--accent-medical);
+            animation: nhPulse 1.2s ease-in-out infinite;
+        }
+        .nh-m-head .pat { color: var(--accent-nano); }
+
+        .nh-m-body {
+            flex: 1;
+            padding: 1.2rem 1.2rem 1rem;
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 0.9rem;
+        }
+        .nh-bpm {
+            display: flex; align-items: baseline; gap: 0.6rem;
+        }
+        .nh-bpm .num {
+            font-family: var(--font-display);
+            font-size: 3.2rem;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            color: var(--accent-medical);
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255,107,157,0.5);
+            font-variant-numeric: tabular-nums;
+            animation: bpmFlash 0.85s ease-in-out infinite;
+        }
+        @keyframes bpmFlash {
+            0%,100% { text-shadow: 0 0 20px rgba(255,107,157,0.5); }
+            50%     { text-shadow: 0 0 32px rgba(255,107,157,0.85); }
+        }
+        .nh-bpm .u {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .nh-ecg {
+            position: relative;
+            height: 110px;
+            border-radius: 10px;
+            background:
+                linear-gradient(0deg, transparent 0%, rgba(255,107,157,0.04) 100%),
+                rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+        .nh-ecg::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,107,157,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,107,157,0.08) 1px, transparent 1px);
+            background-size: 18px 18px;
+        }
+        .nh-ecg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .nh-ecg .line {
+            fill: none;
+            stroke: var(--accent-medical);
+            stroke-width: 1.8;
+            filter: drop-shadow(0 0 6px rgba(255,107,157,0.8));
+        }
+        .nh-ecg .sweep {
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 26%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,107,157,0.25) 80%, rgba(255,107,157,0.45) 100%);
+            animation: ecgSweep 2.2s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes ecgSweep {
+            0%   { transform: translateX(-30%); opacity: 0; }
+            10%  { opacity: 1; }
+            100% { transform: translateX(420%); opacity: 0; }
+        }
+
+        .nh-vitals {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.6rem;
+        }
+        .nh-vital {
+            padding: 0.55rem 0.7rem;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+        .nh-vital .vl {
+            font-family: var(--font-mono);
+            font-size: 0.54rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+        .nh-vital .vv {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--accent-nano);
+            letter-spacing: -0.01em;
+            font-variant-numeric: tabular-nums;
+        }
+        .nh-vital.warn .vv { color: #FFB347; }
+        .nh-vital.ok   .vv { color: #46e09b; }
+
+        .nh-m-foot {
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding-top: 0.6rem;
+            border-top: 1px dashed rgba(255,255,255,0.05);
+        }
+        .nh-m-foot .ok { color: #46e09b; }
+
+        /* ─── Procedures grid ─── */
+        .nh-proc-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.3rem;
+        }
+        .nh-proc {
+            position: relative;
+            padding: 1.8rem 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s, background 0.4s;
+            isolation: isolate;
+            overflow: hidden;
+        }
+        .nh-proc::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--pc, var(--accent-medical));
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.5s;
+        }
+        .nh-proc:hover {
+            transform: translateY(-4px);
+            border-color: color-mix(in srgb, var(--pc, var(--accent-medical)) 40%, transparent);
+            box-shadow: 0 20px 42px rgba(0,0,0,0.5), 0 0 40px color-mix(in srgb, var(--pc, var(--accent-medical)) 12%, transparent);
+            background: color-mix(in srgb, var(--pc, var(--accent-medical)) 4%, transparent);
+        }
+        .nh-proc:hover::before { transform: scaleX(1); }
+        .nh-proc-head {
+            display: flex; align-items: flex-start; gap: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .nh-proc-ico {
+            width: 46px; height: 46px;
+            display: grid; place-items: center;
+            border-radius: 12px;
+            flex-shrink: 0;
+            background: color-mix(in srgb, var(--pc, var(--accent-medical)) 12%, transparent);
+            color: var(--pc, var(--accent-medical));
+            border: 1px solid color-mix(in srgb, var(--pc, var(--accent-medical)) 25%, transparent);
+            font-size: 1.4rem;
+        }
+        .nh-proc-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 100px;
+            background: color-mix(in srgb, var(--pc, var(--accent-medical)) 12%, transparent);
+            color: var(--pc, var(--accent-medical));
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.55rem;
+        }
+        .nh-proc h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: -0.015em;
+            line-height: 1.25;
+        }
+        .nh-proc p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.65;
+            font-weight: 300;
+            margin-bottom: 1.1rem;
+        }
+        .nh-proc-meta {
+            display: flex; align-items: center; justify-content: space-between;
+            padding-top: 0.9rem;
+            border-top: 1px dashed rgba(255,255,255,0.07);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .nh-proc-meta .st { color: var(--pc, var(--accent-medical)); font-weight: 600; }
+
+        /* ─── Procedure flow strip ─── */
+        .nh-flow {
+            margin-top: 4rem;
+            padding: 2rem 1.8rem;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+        .nh-flow-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.01em;
+        }
+        .nh-flow-sub {
+            text-align: center;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        .nh-flow-steps {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.6rem;
+            position: relative;
+        }
+        .nh-flow-steps::before {
+            content: '';
+            position: absolute;
+            top: 18px; left: 6%; right: 6%;
+            height: 2px;
+            background: linear-gradient(90deg,
+                rgba(255,107,157,0.4) 0%,
+                rgba(255,107,157,0.4) 20%,
+                rgba(0,229,199,0.4) 50%,
+                rgba(70,224,155,0.4) 80%,
+                rgba(70,224,155,0.4) 100%
+            );
+            pointer-events: none;
+        }
+        .nh-flow-step {
+            position: relative;
+            text-align: center;
+            padding-top: 48px;
+        }
+        .nh-flow-step::before {
+            content: attr(data-n);
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 36px; height: 36px;
+            display: grid; place-items: center;
+            border-radius: 50%;
+            background: var(--bg-dark);
+            border: 2px solid var(--fc, var(--accent-medical));
+            color: var(--fc, var(--accent-medical));
+            font-family: var(--font-mono);
+            font-size: 0.75rem; font-weight: 700;
+            box-shadow: 0 0 0 4px rgba(5,5,5,1), 0 0 16px color-mix(in srgb, var(--fc, var(--accent-medical)) 45%, transparent);
+        }
+        .nh-flow-step h5 {
+            font-family: var(--font-display);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            margin-bottom: 0.3rem;
+        }
+        .nh-flow-step p {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            line-height: 1.5;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 992px) {
+            .nh-hero-procedure { grid-template-columns: 1fr; }
+            .nh-proc-grid      { grid-template-columns: repeat(2, 1fr); }
+            .nh-flow-steps     { grid-template-columns: repeat(3, 1fr); row-gap: 1.5rem; }
+            .nh-flow-steps::before { display: none; }
+        }
+        @media (max-width: 640px) {
+            .nh-proc-grid  { grid-template-columns: 1fr; }
+            .nh-flow-steps { grid-template-columns: 1fr; }
+            .nh-vitals     { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 992px) {
+            .section-grid, .section-grid.reverse { grid-template-columns: 1fr; direction: ltr; }
+            .hiw-steps { grid-template-columns: repeat(2, 1fr); }
+            .hiw-steps::before { display: none; }
+            .uc-grid { grid-template-columns: 1fr; }
+            .stats-inner { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nano-hero { padding: 8rem 1.5rem 4rem; min-height: auto; }
+            .stats-inner { grid-template-columns: 1fr 1fr; }
+            .hiw-steps { grid-template-columns: 1fr; }
+        }
+    
+        /* ── Mobile Accordion Menu ── */
+        .mobile-toggle { display: none; color: #fff; font-size: 1.6rem; z-index: 10001; padding: 0.6rem; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 9550; display: flex; flex-direction: column; align-items: stretch; padding: 90px 0 2rem; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open { opacity: 1; pointer-events: all; }
+        .mobile-overlay > a { font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.3s, background 0.3s; text-decoration: none; }
+        .mobile-overlay > a:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1rem 2rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; transition: color 0.3s, background 0.3s; }
+        .mob-accordion-toggle:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion-toggle i { font-size: 0.7rem; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); color: #4DEEEA; opacity: 0.6; }
+        .mob-accordion.open .mob-accordion-toggle i { transform: rotate(180deg); }
+        .mob-accordion.open .mob-accordion-toggle { color: #4DEEEA; }
+        .mob-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); background: rgba(255,255,255,0.015); }
+        .mob-accordion.open .mob-accordion-body { max-height: 800px; }
+        .mob-accordion-body a { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 2rem 0.7rem 3rem; font-family: var(--font-display); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, background 0.25s, padding-left 0.25s; border-bottom: 1px solid rgba(255,255,255,0.03); text-decoration: none; }
+        .mob-accordion-body a:last-child { border-bottom: none; }
+        .mob-accordion-body a i { font-size: 1rem; opacity: 0.5; flex-shrink: 0; }
+        .mob-accordion-body a:hover { color: #4DEEEA; background: rgba(77,238,234,0.05); padding-left: 3.4rem; }
+        .mob-accordion-body a:hover i { opacity: 1; color: #4DEEEA; }
+        .mobile-overlay > a, .mobile-overlay > .mob-accordion { transform: translateX(-20px); opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open > a, .mobile-overlay.open > .mob-accordion { transform: translateX(0); opacity: 1; }
+        .mobile-overlay.open > :nth-child(1) { transition-delay: 0.05s; }
+        .mobile-overlay.open > :nth-child(2) { transition-delay: 0.1s; }
+        .mobile-overlay.open > :nth-child(3) { transition-delay: 0.15s; }
+        .mobile-overlay.open > :nth-child(4) { transition-delay: 0.2s; }
+        .mobile-overlay.open > :nth-child(5) { transition-delay: 0.25s; }
+        .mobile-overlay.open > :nth-child(6) { transition-delay: 0.3s; }
+        .mobile-overlay.open > :nth-child(7) { transition-delay: 0.35s; }
+        @media (max-width: 768px) { 
+            .mobile-toggle { display: block !important; visibility: visible !important; opacity: 1 !important; } 
+        }
+
+    
+        /* ── Mobile overflow fix ── */
+        html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
+        nav { max-width: 100vw !important; overflow: visible !important; width: 100% !important; }
+        * { max-width: 100vw; }
+
+    </style>
+    <link rel="stylesheet" href="./product-enquiry.css">
+    <script src="./product-enquiry.js" defer></script>
+    <meta property="og:title" content="Nano Bots — Pure AI | Molecular-Scale Intelligence">
+    <meta property="og:description" content="Pure AI Nano Bots: Molecular-scale autonomous agents for medical, industrial, and environmental applications. Self-assembling swarms operating at the cellular level.">
+    <meta property="og:image" content="./pure-logo-v4.png">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+    <a href="./" class="logo"><img src="./pure-logo-v4.png" alt="Pure AI"></a>
+    <div class="nav-links">
+        <a href="./platform">Platform</a>
+        <div class="nav-dropdown">
+            <a href="./#products">Product <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./robots-search"><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots"><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots"><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk"><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics"><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage"><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#"><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#"><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#"><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#"><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="./services">Services <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./custom-robotics"><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter"><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup"><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux"><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes"><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories"><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training"><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw"><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management"><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="./#solutions">Solutions <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./sol-banking"><i class="ph ph-bank"></i> PureAi - Banking &amp; Finance</a>
+                <a href="./sol-healthcare"><i class="ph ph-heartbeat"></i> PureAi - Healthcare</a>
+                <a href="./sol-logistics"><i class="ph ph-truck"></i> PureAi - Logistics</a>
+                <a href="./sol-manufacturing"><i class="ph ph-gear-six"></i> PureAi - Manufacturing</a>
+                <a href="./sol-agriculture"><i class="ph ph-plant"></i> PureAi - Agriculture</a>
+                <a href="./sol-aviation"><i class="ph ph-airplane"></i> PureAi - Airlines</a>
+                <a href="./sol-education"><i class="ph ph-graduation-cap"></i> PureAi - Education</a>
+                <a href="./sol-retail"><i class="ph ph-storefront"></i> PureAi - Retail</a>
+                <a href="./sol-enterprise"><i class="ph ph-buildings"></i> PureAi - Enterprise</a>
+                <a href="./sol-infrastructure"><i class="ph ph-lightning"></i> PureAi - Infrastructure</a>
+            </div>
+        </div>
+        <a href="./innovation">Innovation</a>
+        <div class="nav-dropdown">
+            <a href="#">Open Innovation <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./bohrai"><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" class="cta">Contact</a>
+    </div>
+
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <a href="./" data-mobile-link>Home</a>
+        <a href="./platform" data-mobile-link>Platform</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Products <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./robots-search" data-mobile-link><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots" data-mobile-link><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots" data-mobile-link><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk" data-mobile-link><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics" data-mobile-link><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage" data-mobile-link><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#" data-mobile-link><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#" data-mobile-link><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#" data-mobile-link><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#" data-mobile-link><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Services <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./custom-robotics" data-mobile-link><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter" data-mobile-link><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup" data-mobile-link><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux" data-mobile-link><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes" data-mobile-link><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories" data-mobile-link><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training" data-mobile-link><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw" data-mobile-link><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management" data-mobile-link><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Solutions <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./sol-banking" data-mobile-link><i class="ph ph-bank"></i> Banking &amp; Finance</a>
+                <a href="./sol-healthcare" data-mobile-link><i class="ph ph-heartbeat"></i> Healthcare</a>
+                <a href="./sol-logistics" data-mobile-link><i class="ph ph-truck"></i> Logistics</a>
+                <a href="./sol-manufacturing" data-mobile-link><i class="ph ph-gear-six"></i> Manufacturing</a>
+                <a href="./sol-agriculture" data-mobile-link><i class="ph ph-plant"></i> Agriculture</a>
+                <a href="./sol-aviation" data-mobile-link><i class="ph ph-airplane"></i> Airlines</a>
+                <a href="./sol-education" data-mobile-link><i class="ph ph-graduation-cap"></i> Education</a>
+                <a href="./sol-retail" data-mobile-link><i class="ph ph-storefront"></i> Retail</a>
+                <a href="./sol-enterprise" data-mobile-link><i class="ph ph-buildings"></i> Enterprise</a>
+                <a href="./sol-infrastructure" data-mobile-link><i class="ph ph-lightning"></i> Infrastructure</a>
+            </div>
+        </div>
+
+        <a href="./innovation" data-mobile-link>Innovation</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Open Innovation <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./bohrai" data-mobile-link><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" data-mobile-link>Contact</a>
+    </div>
+
+
+    <!-- Particle Field Background -->
+    <section class="nano-hero">
+        <div class="particle-field" id="particle-field"></div>
+        <div class="hero-inner">
+            <div class="hero-label hero-elem">Molecular Intelligence</div>
+            <h1 class="hero-title hero-elem">The Future is <em>Nano.</em></h1>
+            <p class="hero-sub hero-elem">
+                Self-assembling, self-replicating autonomous agents operating at the molecular scale.
+                From targeted drug delivery to industrial micro-repair — intelligence at the smallest frontier.
+            </p>
+            <div class="hero-elem" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                <a href="#healthcare" class="cta-btn" style="border-color: var(--accent-medical); color: var(--accent-medical);"><i class="ph ph-heartbeat"></i> Healthcare Use Cases</a>
+                <a href="#use-cases" class="cta-btn"><i class="ph ph-atom"></i> All Applications</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="nano-stats">
+        <div class="stats-inner">
+            <div class="nano-stat fade-up">
+                <div class="stat-val">50<span class="unit">nm</span></div>
+                <div class="stat-label">Operating Scale</div>
+            </div>
+            <div class="nano-stat fade-up">
+                <div class="stat-val">10<span class="unit">M+</span></div>
+                <div class="stat-label">Swarm Density</div>
+            </div>
+            <div class="nano-stat fade-up">
+                <div class="stat-val">&lt;1<span class="unit">ms</span></div>
+                <div class="stat-label">Swarm Consensus</div>
+            </div>
+            <div class="nano-stat fade-up">
+                <div class="stat-val">99.97<span class="unit">%</span></div>
+                <div class="stat-label">Target Precision</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Medical Nano Bots -->
+    <section class="nano-section">
+        <div class="section-grid">
+            <div class="visual-card fade-up">
+                <img src="./nano-bots-medical.png" alt="Medical Nano Bots performing targeted drug delivery">
+            </div>
+            <div class="fade-up">
+                <div class="section-label" style="color: var(--accent-medical);">01 // Medical Applications</div>
+                <h2 class="section-title">Precision Medicine.<br>At the <em style="color:var(--accent-medical)">Cellular</em> Level.</h2>
+                <p class="section-desc">
+                    Our medical-grade nano bots navigate the bloodstream with sub-micron precision, delivering therapeutics directly to diseased cells while leaving healthy tissue untouched. FDA-pathway cleared, biocompatible, and biodegradable.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="ph ph-target"></i> Targeted drug delivery with 99.97% cellular accuracy</li>
+                    <li><i class="ph ph-dna"></i> Real-time biomarker detection and response</li>
+                    <li><i class="ph ph-shield-check"></i> Biocompatible nano-shells with programmed dissolution</li>
+                    <li><i class="ph ph-activity"></i> Continuous health monitoring via nano-sensor swarms</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ HEALTHCARE DEEP-DIVE ═══════════ -->
+    <section class="nano-health" id="healthcare">
+        <div class="nh-inner">
+            <div class="nh-head">
+                <div class="nh-chip fade-up"><span class="pulse"></span> Healthcare · Nano-Surgery Division</div>
+                <h2 class="nh-title fade-up">Nano Bots Inside the <em>Human Body.</em></h2>
+                <p class="nh-sub fade-up">From inoperable cardiac blocks to sub-millimetre tumours — our medical nano-swarms perform surgery from within, where a scalpel can't reach. Below: the procedures already in clinical trials, and the live operating monitor running them.</p>
+            </div>
+
+            <!-- Hero: Procedure copy + Live Monitor -->
+            <div class="nh-hero-procedure">
+                <div class="nh-hp-copy fade-up">
+                    <div class="lbl">Spotlight // Open Heart Procedure</div>
+                    <h3>Open-Heart Surgery Without <em>Opening the Chest.</em></h3>
+                    <p>A swarm of 12 million NB-100 medical nano bots enters the bloodstream via a single catheter, navigates to the cardiac valves, and performs real-time repair — clearing arterial blocks, dissolving clots, and reinforcing vessel walls. No sternotomy. No bypass machine. Patient conscious throughout.</p>
+                    <div class="nh-hp-stats">
+                        <div class="nh-hp-stat"><div class="v">0</div><div class="l">Incisions</div></div>
+                        <div class="nh-hp-stat"><div class="v">90<span style="font-size:0.7em; opacity:0.7">min</span></div><div class="l">Procedure</div></div>
+                        <div class="nh-hp-stat"><div class="v">98.4<span style="font-size:0.7em; opacity:0.7">%</span></div><div class="l">Success Rate</div></div>
+                    </div>
+                </div>
+
+                <div class="nh-monitor fade-up" aria-label="Live operating room monitor">
+                    <div class="nh-m-head">
+                        <span class="live">LIVE // Theatre 03</span>
+                        <span>Case #NB-HS-20471</span>
+                        <span class="pat">Pt: M / 58</span>
+                    </div>
+                    <div class="nh-m-body">
+                        <div class="nh-bpm">
+                            <span class="num" id="bpmVal">74</span>
+                            <span class="u">BPM · Sinus Rhythm</span>
+                        </div>
+                        <div class="nh-ecg" aria-hidden="true">
+                            <svg viewBox="0 0 600 110" preserveAspectRatio="none">
+                                <path class="line" id="ecgPath" d=""/>
+                            </svg>
+                            <div class="sweep"></div>
+                        </div>
+                        <div class="nh-vitals">
+                            <div class="nh-vital ok">
+                                <div class="vl">SpO₂</div>
+                                <div class="vv">99%</div>
+                            </div>
+                            <div class="nh-vital">
+                                <div class="vl">BP</div>
+                                <div class="vv">118/76</div>
+                            </div>
+                            <div class="nh-vital">
+                                <div class="vl">Temp</div>
+                                <div class="vv">36.8°C</div>
+                            </div>
+                            <div class="nh-vital warn">
+                                <div class="vl">Swarm</div>
+                                <div class="vv" id="swarmVal">11.8M</div>
+                            </div>
+                        </div>
+                        <div class="nh-m-foot">
+                            <span>Nav Target <strong style="color:#fff">LAD-Artery</strong></span>
+                            <span>Phase <strong style="color:var(--accent-medical)">Plaque Ablation</strong></span>
+                            <span class="ok">● All Clear</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Procedure grid -->
+            <div class="nh-proc-grid">
+                <div class="nh-proc fade-up" style="--pc:#FF6B9D">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-heartbeat"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Cardiology</span>
+                            <h4>Open-Heart Surgery (Non-Invasive)</h4>
+                        </div>
+                    </div>
+                    <p>Swarm-led valve replacement, septal repair, and bypass grafting performed intravascularly. Zero sternotomy, conscious sedation, 4-hour discharge protocol.</p>
+                    <div class="nh-proc-meta"><span>Recovery · 48h</span><span class="st">98.4% Success</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#FF4F8A">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-shield-warning"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Cardiovascular</span>
+                            <h4>Heart Block Removal</h4>
+                        </div>
+                    </div>
+                    <p>Nano-ablation swarms dissolve calcified coronary plaque and clear full arterial blockages (LAD, RCA, LCx). Real-time flow restoration monitored via onboard sensors.</p>
+                    <div class="nh-proc-meta"><span>Avg Time · 52 min</span><span class="st">99.1% Patency</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#E8477D">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-cylinder"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Interventional</span>
+                            <h4>Programmable Stent Deployment</h4>
+                        </div>
+                    </div>
+                    <p>Self-assembling nano-lattice scaffolds deploy inside narrowed vessels, expand on demand, and biodegrade once endothelium regenerates — no permanent metal stent.</p>
+                    <div class="nh-proc-meta"><span>In-Body Life · 14 days</span><span class="st">+42% Patency</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#C084FC">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-brain"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Neurology</span>
+                            <h4>Stroke / Cerebral Clot Removal</h4>
+                        </div>
+                    </div>
+                    <p>Within the 4.5-hour thrombolytic window, nano-swarms dissolve ischaemic clots in middle-cerebral and basilar arteries with tPA-coated shells, preserving salvageable penumbra.</p>
+                    <div class="nh-proc-meta"><span>To Reperfusion · 18 min</span><span class="st">3× Recovery Rate</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#A78BFA">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-brain-circuit"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Neurosurgery</span>
+                            <h4>Brain Tumour Ablation</h4>
+                        </div>
+                    </div>
+                    <p>Targeted glioblastoma resection at the cellular boundary — swarms identify tumour antigens, ablate malignant cells, and spare neuronal tissue. Inoperable cases now routine.</p>
+                    <div class="nh-proc-meta"><span>Precision · 50 nm</span><span class="st">94% Margin-Clean</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#4DEEEA">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-target"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Oncology</span>
+                            <h4>Targeted Chemotherapy</h4>
+                        </div>
+                    </div>
+                    <p>Chemo payloads released only upon contact with tumour surface markers. Systemic exposure cut by 90%, letting oncologists deliver 3× effective dose with no hair loss, no nausea.</p>
+                    <div class="nh-proc-meta"><span>Side Effects · −90%</span><span class="st">3× Efficacy</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#FFB347">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-flask"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Nephrology</span>
+                            <h4>Kidney Stone Dissolution</h4>
+                        </div>
+                    </div>
+                    <p>Acid-releasing nano-swarms target calcium-oxalate & uric-acid calculi, dissolving stones in place. No shockwave lithotripsy, no ureteroscopy, no residual fragments.</p>
+                    <div class="nh-proc-meta"><span>Procedure · 40 min</span><span class="st">0% Recurrence (12mo)</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#46E09B">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-eye"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Ophthalmology</span>
+                            <h4>Retinal & Macular Repair</h4>
+                        </div>
+                    </div>
+                    <p>Intravitreal nano-injection treats diabetic retinopathy, AMD, and macular oedema. Swarms repair damaged capillaries and regenerate photoreceptor layers at the microvascular level.</p>
+                    <div class="nh-proc-meta"><span>Sessions · 1</span><span class="st">+6 Lines Acuity</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#76B900">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-bone"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Orthopaedics</span>
+                            <h4>Bone Regeneration & Fracture Healing</h4>
+                        </div>
+                    </div>
+                    <p>Nano-scaffolds deposit hydroxyapatite layer-by-layer along fracture lines, accelerating osteoblast activity. Non-union fractures healed in weeks, not years.</p>
+                    <div class="nh-proc-meta"><span>Healing Time · ÷3</span><span class="st">97% Non-Union Rescue</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#FF6B9D">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-lungs"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Pulmonology</span>
+                            <h4>Pulmonary Embolism Clearance</h4>
+                        </div>
+                    </div>
+                    <p>Inhaled nano-bot aerosols locate and dissolve pulmonary clots from within the alveolar capillary bed. Oxygen saturation restored in under 6 minutes.</p>
+                    <div class="nh-proc-meta"><span>SpO₂ Recovery · 6 min</span><span class="st">92% Survival</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#4DA6FF">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-drop-half"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Hepatology</span>
+                            <h4>Liver Fibrosis Reversal</h4>
+                        </div>
+                    </div>
+                    <p>Nano-swarms identify stellate cells and deliver antifibrotic agents directly to scarred hepatic tissue — reversing cirrhosis grades F3→F1 in clinical trials.</p>
+                    <div class="nh-proc-meta"><span>Fibrosis Reduction</span><span class="st">−2 Grades / 90d</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#F472B6">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-syringe"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Endocrinology</span>
+                            <h4>Diabetic Glucose Regulation</h4>
+                        </div>
+                    </div>
+                    <p>Pancreatic nano-sensors monitor blood glucose in real time and trigger programmed insulin release from implanted reservoirs — closed-loop therapy without an external pump.</p>
+                    <div class="nh-proc-meta"><span>HbA1c · −2.1 pts</span><span class="st">0 Hypos / 30d</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#FB923C">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-first-aid"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Trauma / ICU</span>
+                            <h4>Internal Bleeding Control</h4>
+                        </div>
+                    </div>
+                    <p>Emergency nano-clotting swarms localise ruptures through blood-flow gradient mapping and form a platelet-mimetic seal — stopping haemorrhage in battlefield and trauma settings.</p>
+                    <div class="nh-proc-meta"><span>Haemostasis · 90s</span><span class="st">4× Survival in Class III</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#34D399">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-spiral"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Spinal</span>
+                            <h4>Spinal Cord Repair</h4>
+                        </div>
+                    </div>
+                    <p>Neural-guidance nano bots bridge transected axons and deposit myelin precursors across lesion sites — restoring motor function in previously "permanent" paralysis cases.</p>
+                    <div class="nh-proc-meta"><span>Trial Phase · II</span><span class="st">+3 ASIA Grades</span></div>
+                </div>
+
+                <div class="nh-proc fade-up" style="--pc:#60A5FA">
+                    <div class="nh-proc-head">
+                        <div class="nh-proc-ico"><i class="ph ph-bacteria"></i></div>
+                        <div>
+                            <span class="nh-proc-tag">Infectious Disease</span>
+                            <h4>Sepsis & Pathogen Hunting</h4>
+                        </div>
+                    </div>
+                    <p>Swarms patrol the bloodstream, identify bacterial, viral, and fungal invaders via surface antigens, and neutralise them directly — antibiotic-free response within minutes of infection.</p>
+                    <div class="nh-proc-meta"><span>Pathogen Kill · 99.3%</span><span class="st">0 AMR Risk</span></div>
+                </div>
+            </div>
+
+            <!-- Procedure flow -->
+            <div class="nh-flow fade-up">
+                <div class="nh-flow-title">Inside a Nano-Surgery Procedure</div>
+                <div class="nh-flow-sub">From catheter to completion — 5 choreographed phases</div>
+                <div class="nh-flow-steps">
+                    <div class="nh-flow-step" data-n="1" style="--fc:#FF6B9D">
+                        <h5>Pre-Op Mapping</h5>
+                        <p>MRI + AI anatomy model pinpoints the target and simulates swarm path.</p>
+                    </div>
+                    <div class="nh-flow-step" data-n="2" style="--fc:#E8477D">
+                        <h5>Swarm Injection</h5>
+                        <p>12M bots delivered via femoral catheter or IV line, activated on contact.</p>
+                    </div>
+                    <div class="nh-flow-step" data-n="3" style="--fc:#00E5C7">
+                        <h5>Autonomous Navigation</h5>
+                        <p>Chemical + magnetic gradients steer the swarm with sub-mm precision.</p>
+                    </div>
+                    <div class="nh-flow-step" data-n="4" style="--fc:#4DEEEA">
+                        <h5>Targeted Execution</h5>
+                        <p>Consensus-driven action: ablate, deliver, repair, regenerate.</p>
+                    </div>
+                    <div class="nh-flow-step" data-n="5" style="--fc:#46E09B">
+                        <h5>Biodegradation</h5>
+                        <p>Glucose-metabolised shells dissolve — zero residual footprint.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Industrial Nano Bots -->
+    <section class="nano-section">
+        <div class="section-grid reverse">
+            <div class="visual-card fade-up">
+                <img src="./nano-bots-industrial.png" alt="Industrial Nano Bots repairing circuits">
+            </div>
+            <div class="fade-up">
+                <div class="section-label" style="color: var(--accent-industrial);">02 // Industrial Applications</div>
+                <h2 class="section-title">Self-Healing<br><em style="color:var(--accent-industrial)">Infrastructure.</em></h2>
+                <p class="section-desc">
+                    Deploy nano-scale repair swarms inside critical infrastructure. From pipeline corrosion repair to semiconductor-level circuit restoration, our industrial nano bots operate continuously without downtime.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="ph ph-wrench"></i> Autonomous micro-repair of pipelines and structures</li>
+                    <li><i class="ph ph-cpu"></i> Semiconductor-level circuit defect remediation</li>
+                    <li><i class="ph ph-factory"></i> Surface coating and nano-material deposition</li>
+                    <li><i class="ph ph-paint-roller"></i> Self-cleaning and anti-corrosion maintenance</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Infographic -->
+    <section class="how-it-works">
+        <div class="hiw-inner">
+            <div class="hero-label fade-up" style="margin-bottom:1rem; color: var(--accent-nano);">Architecture</div>
+            <h2 class="hiw-title fade-up">How Nano Bots Work</h2>
+            <p class="hiw-sub fade-up">From deployment to autonomous operation — a four-phase intelligence cycle.</p>
+            <div class="hiw-steps">
+                <div class="hiw-step fade-up">
+                    <div class="step-num">01</div>
+                    <div class="step-icon"><i class="ph ph-syringe"></i></div>
+                    <h4 class="step-title">Deployment</h4>
+                    <p class="step-desc">Nano bots are introduced via injection, aerosol, or direct application — activating upon environmental contact.</p>
+                </div>
+                <div class="hiw-step fade-up">
+                    <div class="step-num">02</div>
+                    <div class="step-icon"><i class="ph ph-compass"></i></div>
+                    <h4 class="step-title">Navigation</h4>
+                    <p class="step-desc">Chemical gradient sensing and magnetic field guidance navigate swarms to precise target locations.</p>
+                </div>
+                <div class="hiw-step fade-up">
+                    <div class="step-num">03</div>
+                    <div class="step-icon"><i class="ph ph-lightning"></i></div>
+                    <h4 class="step-title">Execution</h4>
+                    <p class="step-desc">Swarm consensus triggers coordinated action — drug release, repair, or environmental remediation.</p>
+                </div>
+                <div class="hiw-step fade-up">
+                    <div class="step-num">04</div>
+                    <div class="step-icon"><i class="ph ph-recycle"></i></div>
+                    <h4 class="step-title">Dissolution</h4>
+                    <p class="step-desc">Post-mission, nano bots safely biodegrade or are magnetically extracted — zero residual footprint.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="use-cases" id="use-cases">
+        <div class="uc-inner">
+            <div class="uc-header">
+                <div class="hero-label fade-up" style="color: var(--accent-nano);">Applications</div>
+                <h2 class="hiw-title fade-up">Deployed Across Industries</h2>
+            </div>
+            <div class="uc-grid">
+                <div class="uc-card fade-up" style="--card-accent: var(--accent-medical);">
+                    <div class="uc-icon" style="background:rgba(255,107,157,0.1); color:var(--accent-medical);"><i class="ph ph-heart"></i></div>
+                    <h3 class="uc-card-title">Oncology</h3>
+                    <p class="uc-card-desc">Targeted chemotherapy delivery directly to tumor cells, reducing systemic side effects by up to 90% while increasing treatment efficacy.</p>
+                    <div class="uc-card-stat"><span>90%</span> Reduction in Side Effects</div>
+                </div>
+                <div class="uc-card fade-up" style="--card-accent: var(--accent-industrial);">
+                    <div class="uc-icon" style="background:rgba(118,185,0,0.1); color:var(--accent-industrial);"><i class="ph ph-pipe"></i></div>
+                    <h3 class="uc-card-title">Pipeline Maintenance</h3>
+                    <p class="uc-card-desc">Continuous internal repair of oil, gas, and water pipelines. Nano swarms detect and seal micro-fractures before they become failures.</p>
+                    <div class="uc-card-stat"><span>99.5%</span> Fracture Prevention</div>
+                </div>
+                <div class="uc-card fade-up" style="--card-accent: var(--accent-env);">
+                    <div class="uc-icon" style="background:rgba(77,166,255,0.1); color:var(--accent-env);"><i class="ph ph-leaf"></i></div>
+                    <h3 class="uc-card-title">Environmental Cleanup</h3>
+                    <p class="uc-card-desc">Molecular-scale remediation of water and soil contaminants. Break down microplastics, heavy metals, and chemical pollutants autonomously.</p>
+                    <div class="uc-card-stat"><span>10x</span> Faster Remediation</div>
+                </div>
+                <div class="uc-card fade-up" style="--card-accent: var(--accent-nano);">
+                    <div class="uc-icon" style="background:rgba(0,229,199,0.1); color:var(--accent-nano);"><i class="ph ph-eye"></i></div>
+                    <h3 class="uc-card-title">Diagnostics</h3>
+                    <p class="uc-card-desc">In-vivo diagnostic nano-sensors providing real-time blood chemistry, pathogen detection, and early disease markers continuously.</p>
+                    <div class="uc-card-stat"><span>&lt;5min</span> Detection Time</div>
+                </div>
+                <div class="uc-card fade-up" style="--card-accent: #FFB347;">
+                    <div class="uc-icon" style="background:rgba(255,179,71,0.1); color:#FFB347;"><i class="ph ph-cpu"></i></div>
+                    <h3 class="uc-card-title">Chip Manufacturing</h3>
+                    <p class="uc-card-desc">Sub-7nm defect repair and surface preparation for next-generation semiconductor fabs. Achieving yields previously impossible.</p>
+                    <div class="uc-card-stat"><span>+15%</span> Yield Improvement</div>
+                </div>
+                <div class="uc-card fade-up" style="--card-accent: #C084FC;">
+                    <div class="uc-icon" style="background:rgba(192,132,252,0.1); color:#C084FC;"><i class="ph ph-tooth"></i></div>
+                    <h3 class="uc-card-title">Dental & Orthopedics</h3>
+                    <p class="uc-card-desc">Nano-scale bone scaffolding and enamel restoration. Programmed mineral deposition for accelerated healing and regeneration.</p>
+                    <div class="uc-card-stat"><span>3x</span> Faster Healing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specifications Table -->
+    <section class="spec-section">
+        <div class="spec-inner">
+            <div style="text-align:center;">
+                <div class="hero-label fade-up" style="color: var(--accent-nano);">Technical Specifications</div>
+                <h2 class="hiw-title fade-up">Nano Bot Series Comparison</h2>
+            </div>
+            <table class="spec-table fade-up">
+                <thead>
+                    <tr>
+                        <th>Specification</th>
+                        <th>NB-100 Medical</th>
+                        <th>NB-200 Industrial</th>
+                        <th>NB-300 Environmental</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Size Range</td><td>50–200 nm</td><td>100–500 nm</td><td>200–1000 nm</td></tr>
+                    <tr><td>Swarm Density</td><td>10M / mL</td><td>5M / cm³</td><td>2M / L</td></tr>
+                    <tr><td>Power Source</td><td>Glucose Oxidation</td><td>Magnetic Induction</td><td>Solar + Chemical</td></tr>
+                    <tr><td>Consensus Latency</td><td>&lt;1 ms</td><td>&lt;5 ms</td><td>&lt;10 ms</td></tr>
+                    <tr><td>Operational Life</td><td>72 hours</td><td>30 days</td><td>90 days</td></tr>
+                    <tr><td>Biocompatible</td><td>✓ FDA Pathway</td><td>N/A</td><td>✓ EPA Cleared</td></tr>
+                    <tr><td>Extraction</td><td>Biodegradable</td><td>Magnetic</td><td>Biodegradable</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="nano-cta">
+        <div class="cta-inner">
+            <h2 class="cta-title fade-up">Ready to Deploy<br><em style="color:var(--accent-nano)">Nano Intelligence?</em></h2>
+            <p class="cta-desc fade-up">Contact our molecular engineering team to discuss deployment scenarios tailored to your industry.</p>
+            <a href="./#contact-details" class="cta-btn fade-up"><i class="ph ph-paper-plane-tilt"></i> Request Consultation</a>
+        </div>
+    </section>
+
+    <div class="back-home">
+        <a href="./"><i class="ph ph-arrow-left"></i> Back to Main Site</a>
+    </div>
+
+    <footer class="plat-footer">
+        <div class="f-copy">© 2026 Pure AI Technologies and Services Pvt Ltd.</div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Particle field
+            const field = document.getElementById('particle-field');
+            for (let i = 0; i < 40; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 8 + 's';
+                p.style.animationDuration = (6 + Math.random() * 6) + 's';
+                p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+                field.appendChild(p);
+            }
+
+            // Hero
+            gsap.from(".hero-elem", { y: 50, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.3 });
+
+            // Scroll reveals
+            document.querySelectorAll('.fade-up').forEach(el => {
+                gsap.to(el, {
+                    scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" },
+                    opacity: 1, y: 0, duration: 0.8, ease: "power3.out"
+                });
+            });
+
+            // Counter animation for stats
+            document.querySelectorAll('.stat-val').forEach(el => {
+                ScrollTrigger.create({
+                    trigger: el, start: "top 85%",
+                    onEnter: () => {
+                        const text = el.childNodes[0].textContent;
+                        const num = parseFloat(text);
+                        if (isNaN(num)) return;
+                        const obj = { val: 0 };
+                        gsap.to(obj, {
+                            val: num, duration: 2, ease: "power2.out",
+                            onUpdate: () => {
+                                el.childNodes[0].textContent = num % 1 === 0 ? Math.round(obj.val) : obj.val.toFixed(2);
+                            }
+                        });
+                    }, once: true
+                });
+            });
+
+            // ── Healthcare live monitor: animated ECG waveform ──
+            (function initECG() {
+                const path = document.getElementById('ecgPath');
+                if (!path) return;
+                const W = 600, H = 110, mid = H / 2;
+                let phase = 0;
+                const build = () => {
+                    const beats = 4;
+                    const step = W / (beats * 60);
+                    let d = `M 0 ${mid}`;
+                    for (let i = 0; i < beats * 60; i++) {
+                        const t = (i + phase) % 60;
+                        let y = mid;
+                        if (t < 8)        y = mid + Math.sin(t / 8 * Math.PI) * 1;
+                        else if (t < 12)  y = mid - (t - 8) * 1.5;
+                        else if (t < 14)  y = mid - 6 + (t - 12) * 5;
+                        else if (t < 16)  y = mid + 4 - (t - 14) * 30;
+                        else if (t < 18)  y = mid - 56 + (t - 16) * 40;
+                        else if (t < 20)  y = mid + 24 - (t - 18) * 20;
+                        else if (t < 24)  y = mid - 16 + (t - 20) * 4;
+                        else if (t < 32)  y = mid - (Math.sin((t - 24) / 8 * Math.PI) * 8);
+                        else              y = mid;
+                        d += ` L ${(i * step).toFixed(1)} ${y.toFixed(1)}`;
+                    }
+                    path.setAttribute('d', d);
+                };
+                build();
+                setInterval(() => { phase = (phase + 2) % 60; build(); }, 55);
+
+                // BPM flicker
+                const bpm = document.getElementById('bpmVal');
+                if (bpm) {
+                    setInterval(() => {
+                        const base = 72 + Math.floor(Math.random() * 6);
+                        bpm.textContent = base;
+                    }, 900);
+                }
+                // Swarm counter tick-down/up
+                const sw = document.getElementById('swarmVal');
+                if (sw) {
+                    let v = 11.8;
+                    setInterval(() => {
+                        v += (Math.random() - 0.5) * 0.06;
+                        if (v < 11.4) v = 11.4;
+                        if (v > 12.1) v = 12.1;
+                        sw.textContent = v.toFixed(1) + 'M';
+                    }, 1100);
+                }
+            })();
+
+            // Hover glow on step cards
+            document.querySelectorAll('.hiw-step, .uc-card, .nh-proc').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(0,229,199,0.06), transparent 60%)`;
+                });
+                card.addEventListener('mouseleave', () => { card.style.background = ''; });
+            });
+        });
+    </script>
+
+    <script>
+    (function(){
+        var mt = document.getElementById('mobile-toggle');
+        var mo = document.getElementById('mobile-overlay');
+        if (!mt || !mo) return;
+        mt.addEventListener('click', function(){
+            var open = mo.classList.toggle('open');
+            mt.innerHTML = open ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (!open) mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+        });
+        mo.querySelectorAll('[data-mobile-link]').forEach(function(link){
+            link.addEventListener('click', function(){
+                mo.classList.remove('open');
+                mt.innerHTML = '<i class="ph ph-list"></i>';
+                document.body.style.overflow = '';
+            });
+        });
+        mo.querySelectorAll('.mob-accordion-toggle').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var acc = btn.parentElement;
+                var wasOpen = acc.classList.contains('open');
+                mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+                if (!wasOpen) acc.classList.add('open');
+                btn.setAttribute('aria-expanded', !wasOpen);
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>

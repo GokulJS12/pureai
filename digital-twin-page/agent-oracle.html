@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oracle | Pure AI Marketplace</title>
+  <meta name="description" content="Oracle — Predictive analytics agent that synthesizes massive data streams into actionable strategy for enterprise decision intelligence.">
+  <link rel="stylesheet" href="css/style.css">
+    <meta property="og:title" content="Oracle | Pure AI Marketplace">
+    <meta property="og:description" content="Oracle — Predictive analytics agent that synthesizes massive data streams into actionable strategy for enterprise decision intelligence.">
+    <meta property="og:image" content="assets/pure-logo.png">
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="assets/pure-logo.png" alt="Pure AI"></a>
+  <div class="nav-links">
+    <a href="marketplace.html">Marketplace</a>
+    <a href="#" class="build-agent-btn">Build Your Agent</a>
+    <a href="mailto:gkai@pureai.com">Contact us</a>
+    <a href="marketplace.html" class="nav-cta">Hire a Digital Twin →</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu">☰</button>
+</nav>
+<div class="mobile-overlay">
+  <a href="marketplace.html">Marketplace</a>
+  <a href="#" class="build-agent-btn">Build Your Agent</a>
+  <a href="mailto:gkai@pureai.com">Contact us</a>
+</div>
+
+<main class="agent-detail">
+  <a href="marketplace.html" class="back-link fade-up">← Back to Marketplace</a>
+  <h1 class="fade-up" data-delay="1">🔮 Oracle</h1>
+  <p class="agent-desc fade-up" data-delay="2">Oracle is a predictive intelligence agent that parses millions of data points across your enterprise to forecast future outcomes and surface actionable strategy. It replaces week-old reporting data with real-time decision intelligence — synthesizing live data streams from operations, finance, supply chain, and market signals into a unified predictive model. Oracle moves your organization from reactive management to proactive dominance, powered by Pure AI's LLM-agnostic inference API.</p>
+  <div class="detail-section fade-up" data-delay="4">
+    <h2><span class="icon">🔒</span> Permissions Map</h2>
+    <div class="detail-card">
+      <ul class="permissions-list">
+        <li><span class="icon">✓</span> Read enterprise data streams (ops, finance, supply chain)</li>
+        <li><span class="icon">✓</span> Generate predictive forecasts and reports</li>
+        <li><span class="icon">✓</span> Surface anomaly alerts and trend signals</li>
+        <li><span class="icon">✓</span> No write access to source systems</li>
+        <li><span class="icon">✓</span> All inference runs locally — no data leaves the mesh</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="detail-section fade-up" data-delay="5">
+    <h2><span class="icon">⚠️</span> Failure Modes</h2>
+    <div class="detail-card">
+      <ul class="failure-list">
+        <li><span class="icon">!</span> <div><strong>Insufficient historical data</strong> — Oracle flags confidence intervals explicitly and recommends minimum data requirements before generating forecasts.</div></li>
+        <li><span class="icon">!</span> <div><strong>Conflicting data signals</strong> — Presents multiple scenario models with probability weights and routes to human decision-maker for final call.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="detail-section fade-up" data-delay="6">
+    <h2><span class="icon">⚡</span> Hire the Digital Twin</h2>
+    <div class="detail-card">
+      <div class="twin-tabs">
+        <button class="twin-tab-btn active" onclick="switchTwinTab(event, 'deploy')">Instantiate</button>
+        <button class="twin-tab-btn" onclick="switchTwinTab(event, 'pricing')">Pricing & License</button>
+        <button class="twin-tab-btn" onclick="switchTwinTab(event, 'docs')">Integration</button>
+      </div>
+      <div class="twin-tab-contents">
+        <div id="twin-deploy" class="twin-tab-content">
+          <p style="margin-bottom: 1rem; font-size: 0.9rem;">Instantiate this Digital Twin instantly within your workspace environment or hosted runner.</p>
+          <div class="code-box-wrapper" style="position: relative; background: #000; padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 1.2rem;">
+            <code style="font-family: monospace; font-size: 0.82rem; color: var(--accent);">npx pureai hire oracle</code>
+          </div>
+          <a href="mailto:gkai@pureai.com" class="btn btn-primary buy-agent-btn" data-agent="Oracle" style="display: inline-flex; width: 100%; justify-content: center;">Hire and Deploy Now</a>
+        </div>
+        <div id="twin-pricing" class="twin-tab-content" style="display: none;">
+          <p style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Outcome-Based Pricing</strong></p>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <li>✓ Pay-per-outcome: $0.20 per compiled prediction model</li>
+            <li>✓ 14-day free trial on custom hosted runtimes</li>
+            <li>✓ Source code access available for enterprise containment</li>
+          </ul>
+        </div>
+        <div id="twin-docs" class="twin-tab-content" style="display: none;">
+          <p style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Local Environment Integration</strong></p>
+          <p style="font-size: 0.82rem; color: var(--text-secondary);">Requires Python 3.10+ and Node.js 18+. Read details in the generated SKILL.md manifest on initialization.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-links"><a href="marketplace.html">Marketplace</a></div>
+  <span>By Pure AI</span>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>

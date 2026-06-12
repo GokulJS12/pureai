@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naolytics — Decision Intelligence Platform | Pure AI</title>
+    <meta name="description" content="Naolytics is a Singapore-headquartered Decision Intelligence platform that turns fragmented Azure and Databricks data into unified, real-time, AI-driven operations — featuring MonitorBricks, NovaSense, FluxStream and Sentinel AI.">
+    <link rel="icon" type="image/png" href="./pure-logo-v4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <link rel="stylesheet" href="./product-enquiry.css">
+    <script src="./product-enquiry.js" defer></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-deep:    #050510;
+            --bg-section: #0a0b14;
+            --bg-elev:    #0f1220;
+            --ink:        #f0f2fa;
+            --ink-soft:   rgba(240,242,250,0.65);
+            --ink-mute:   rgba(240,242,250,0.38);
+            --line:       rgba(255,255,255,0.08);
+            --line-str:   rgba(255,255,255,0.14);
+
+            --accent:     #4DEEEA;   /* Pure AI cyan */
+            --accent-2:   #8b8efc;
+            --accent-3:   #FFB347;
+            --violet:     #a78bff;   /* Naolytics signature */
+            --emerald:    #46e09b;
+            --rose:       #ff6ec7;
+            --amber:      #ffb347;
+
+            --font-body:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-head:  'Space Grotesk', 'Inter', sans-serif;
+            --font-mono:  'JetBrains Mono', monospace;
+            --ease-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--ink);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 400;
+        }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; cursor: pointer; background: none; border: 0; color: inherit; }
+        ::selection { background: rgba(167,139,255,0.28); color: #fff; }
+
+        /* ─────────── Navigation ─────────── */
+        nav {
+            position: fixed; inset: 0 0 auto 0;
+            height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 clamp(2rem, 4vw, 4rem);
+            z-index: 9999;
+            background: rgba(5,5,15,0.78);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border-bottom: 1px solid var(--line);
+        }
+        .logo img { height: 28px; display: block; }
+        .nav-links { display: flex; align-items: center; gap: 2.4rem; }
+        .nav-links a {
+            font-family: var(--font-head);
+            font-size: 0.7rem; font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a.cta {
+            border: 1px solid var(--accent);
+            padding: 0.55rem 1.2rem;
+            border-radius: 100px;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+        .nav-links a.cta:hover { background: var(--accent); color: #07080d; box-shadow: 0 0 30px rgba(77,238,234,0.3); }
+        .dd-arrow { font-size: 0.8em; opacity: 0.7; margin-left: 0.2rem; }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown .dd-menu {
+            display: none;
+            position: absolute; top: 100%; left: 50%;
+            transform: translateX(-50%);
+            min-width: 220px;
+            padding: 1rem 0 0.6rem;
+            background: rgba(10,10,15,0.97);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            z-index: 10000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            flex-direction: column;
+        }
+        .nav-dropdown .dd-menu::before {
+            content: ''; position: absolute; top: -20px; left:0; right:0; height: 20px;
+        }
+        .nav-dropdown:hover .dd-menu { display: flex; }
+        .nav-dropdown .dd-menu a {
+            display: flex !important; align-items: center; gap: 0.75rem;
+            padding: 0.7rem 1.3rem !important;
+            font-size: 0.65rem !important;
+            white-space: nowrap;
+        }
+        .nav-dropdown .dd-menu a:hover { color: var(--accent) !important; background: rgba(77,238,234,0.06); }
+        .nav-dropdown .dd-menu a.active { color: var(--accent) !important; }
+        .nav-dropdown .dd-menu a i { font-size: 1.1rem; opacity: 0.55; }
+        .nav-dropdown .dd-menu a:hover i { opacity: 1; color: var(--accent); }
+
+        /* ═══════════════════════════════════════════════════════════
+           HERO
+           ═══════════════════════════════════════════════════════════ */
+        .na-hero {
+            position: relative;
+            padding: 9rem 1.5rem 5rem;
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1360px;
+            margin: 0 auto;
+            isolation: isolate;
+            min-height: 92vh;
+        }
+        .na-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(520px circle at 15% 30%, rgba(167,139,255,0.16), transparent 55%),
+                radial-gradient(560px circle at 85% 70%, rgba(77,238,234,0.12), transparent 55%),
+                radial-gradient(400px circle at 50% 0%, rgba(255,179,71,0.06), transparent 60%);
+            z-index: -2;
+        }
+        .na-hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(167,139,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(167,139,255,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, #000 10%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, #000 10%, transparent 70%);
+            z-index: -3;
+            opacity: 0.5;
+        }
+
+        .na-chip {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            background: rgba(167,139,255,0.08);
+            border: 1px solid rgba(167,139,255,0.28);
+            color: var(--violet);
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.8rem;
+        }
+        .na-chip .dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--violet);
+            box-shadow: 0 0 12px var(--violet);
+            animation: dotPulse 1.8s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%,100% { opacity: 1;   transform: scale(1); }
+            50%     { opacity: 0.4; transform: scale(0.75); }
+        }
+
+        .na-h1 {
+            font-family: var(--font-head);
+            font-size: clamp(2.5rem, 5.8vw, 4.8rem);
+            font-weight: 300;
+            line-height: 1.04;
+            letter-spacing: -0.035em;
+            margin-bottom: 1.5rem;
+        }
+        .na-h1 em {
+            font-style: italic;
+            background: linear-gradient(135deg, var(--violet), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .na-h1 .hl {
+            color: transparent;
+            background: linear-gradient(135deg, #ffffff 0%, #d0d4ff 55%, var(--violet) 100%);
+            -webkit-background-clip: text; background-clip: text;
+        }
+        .na-lede {
+            color: var(--ink-soft);
+            font-size: clamp(1rem, 1.15vw, 1.1rem);
+            line-height: 1.65;
+            max-width: 54ch;
+            font-weight: 300;
+            margin-bottom: 2.4rem;
+        }
+        .na-lede strong { color: var(--ink); font-weight: 500; }
+
+        .na-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 1rem 1.9rem;
+            border-radius: 100px;
+            background: linear-gradient(135deg, var(--violet), var(--accent));
+            color: #07080d;
+            font-family: var(--font-head);
+            font-size: 0.8rem; font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            box-shadow: 0 12px 34px rgba(167,139,255,0.3);
+            transition: transform 0.3s var(--ease-expo), box-shadow 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(167,139,255,0.42); }
+        .btn-ghost {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 1rem 1.9rem;
+            border-radius: 100px;
+            border: 1px solid var(--line-str);
+            color: var(--ink);
+            font-family: var(--font-head);
+            font-size: 0.8rem; font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+        .na-stats {
+            display: flex; gap: 2rem; flex-wrap: wrap;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--line);
+        }
+        .na-stats-val {
+            font-family: var(--font-head);
+            font-size: 1.5rem; font-weight: 500;
+            color: var(--violet);
+            letter-spacing: -0.01em;
+        }
+        .na-stats-lbl {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-mute);
+            margin-top: 2px;
+        }
+
+        /* ─── HERO LIVE PERFORMANCE TRACKER ─── */
+        .tracker {
+            position: relative;
+            border-radius: 18px;
+            background: linear-gradient(180deg, rgba(15,18,32,0.95), rgba(10,11,20,0.9));
+            border: 1px solid var(--line-str);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(167,139,255,0.08), 0 0 60px rgba(167,139,255,0.08);
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .tracker::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(400px circle at 0% 0%, rgba(167,139,255,0.08), transparent 60%);
+            z-index: -1;
+        }
+        .tracker-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.85rem 1.1rem;
+            border-bottom: 1px solid var(--line);
+            background: rgba(255,255,255,0.015);
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-mute);
+        }
+        .tracker-head .ts {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            color: var(--violet);
+        }
+        .tracker-head .ts::before {
+            content: '';
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--violet);
+            box-shadow: 0 0 8px var(--violet);
+            animation: dotPulse 1.6s ease-in-out infinite;
+        }
+        .tracker-head .st { color: var(--emerald); }
+
+        .tracker-body { padding: 1.3rem 1.2rem; }
+        .tracker-label {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--ink-mute);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+        .tracker-count {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+            color: transparent;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text; background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+        .tracker-sub {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--emerald);
+            letter-spacing: 0.15em;
+        }
+
+        .tracker-query {
+            margin-top: 1.3rem;
+            padding-top: 1.1rem;
+            border-top: 1px dashed var(--line);
+        }
+        .tracker-q-file {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--ink-mute);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.08em;
+        }
+        .tracker-q-file::before { content: '▸ '; color: var(--violet); }
+        .tracker-q-text {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--ink);
+            padding: 0.7rem 0.9rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            margin-bottom: 0.6rem;
+            min-height: 2.3em;
+        }
+        .tracker-q-text::after {
+            content: '▌';
+            color: var(--violet);
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        .tracker-sql {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            line-height: 1.7;
+            color: var(--ink);
+            padding: 0.9rem 1rem;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .tracker-sql .kw { color: var(--violet); font-weight: 500; }
+        .tracker-sql .fn { color: var(--accent); }
+        .tracker-sql .str { color: var(--amber); }
+        .tracker-sql .num { color: var(--emerald); }
+        .tracker-sql .cm  { color: var(--ink-mute); }
+
+        .tracker-foot {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.6rem 0; margin-top: 0.6rem;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--ink-mute);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .tracker-foot .lat { color: var(--emerald); }
+
+        /* mini realtime graph */
+        .tracker-graph { margin-top: 0.4rem; }
+        .tracker-graph svg { display: block; width: 100%; height: 50px; }
+        .tracker-graph path.line { fill: none; stroke: var(--violet); stroke-width: 1.6; filter: drop-shadow(0 0 6px rgba(167,139,255,0.6)); }
+        .tracker-graph path.area { fill: url(#naFill); }
+
+        /* velocity pills */
+        .velo-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
+        .velo-pill {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            padding: 0.32rem 0.55rem;
+            border: 1px solid var(--line);
+            border-radius: 100px;
+            color: var(--ink-soft);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .velo-pill .v { color: var(--violet); }
+
+        /* ═══════════════════════════════════════════════════════════
+           VALUE STRIP
+           ═══════════════════════════════════════════════════════════ */
+        .na-value {
+            padding: 5rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(167,139,255,0.03), transparent 100%);
+            border-top: 1px solid var(--line);
+        }
+        .na-value-title {
+            font-family: var(--font-head);
+            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+        .na-value-title em { color: var(--violet); font-style: italic; }
+        .na-value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            max-width: 1100px;
+            margin: 3rem auto 0;
+        }
+        .na-value-cell {
+            padding: 1.2rem 1rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .na-value-cell:hover { border-color: rgba(167,139,255,0.28); background: rgba(167,139,255,0.03); }
+        .na-value-cell i { font-size: 1.6rem; color: var(--violet); margin-bottom: 0.6rem; display: inline-block; }
+        .na-value-cell .t {
+            font-family: var(--font-head);
+            font-size: 0.92rem; font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+        .na-value-cell .d {
+            font-size: 0.8rem; color: var(--ink-soft); font-weight: 300; line-height: 1.5;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SECTION UTILITIES
+           ═══════════════════════════════════════════════════════════ */
+        .section {
+            padding: 7rem 1.5rem;
+            position: relative;
+        }
+        .section.tinted {
+            background: var(--bg-section);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .section-inner { max-width: 1280px; margin: 0 auto; }
+
+        .sec-head { text-align: center; max-width: 820px; margin: 0 auto 4rem; }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--violet);
+            margin-bottom: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+        .section-label::before, .section-label::after {
+            content: '';
+            width: 30px; height: 1px;
+            background: var(--violet);
+            opacity: 0.6;
+        }
+        .sec-h2 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4vw, 3.3rem);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+        .sec-h2 em {
+            font-style: italic;
+            background: linear-gradient(135deg, var(--violet), var(--accent));
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+        .sec-lede {
+            color: var(--ink-soft);
+            font-size: 1rem;
+            line-height: 1.65;
+            margin-top: 1.2rem;
+            font-weight: 300;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.9s var(--ease-expo), transform 0.9s var(--ease-expo);
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .fade-up[data-d="1"] { transition-delay: 0.1s; }
+        .fade-up[data-d="2"] { transition-delay: 0.2s; }
+        .fade-up[data-d="3"] { transition-delay: 0.3s; }
+        .fade-up[data-d="4"] { transition-delay: 0.4s; }
+        .fade-up[data-d="5"] { transition-delay: 0.5s; }
+
+        /* ═══════════════════════════════════════════════════════════
+           CHALLENGE · DATA-RICH INSIGHT-POOR
+           ═══════════════════════════════════════════════════════════ */
+        .challenge-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .challenge-copy h3 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+        }
+        .challenge-copy h3 em { color: var(--rose); font-style: italic; }
+        .challenge-copy p {
+            color: var(--ink-soft);
+            font-size: 1rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        .challenge-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .ch-stat {
+            padding: 1.5rem 1.3rem;
+            background: rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .ch-stat::before {
+            content: '';
+            position: absolute; top:0; left:0;
+            width: 3px; height: 100%;
+            background: linear-gradient(to bottom, var(--rose), transparent);
+        }
+        .ch-stat-v {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 3.6vw, 2.6rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--rose);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .ch-stat-v .u { color: var(--rose); font-size: 0.7em; margin-left: 2px; }
+        .ch-stat-l {
+            margin-top: 0.4rem;
+            font-size: 0.82rem;
+            color: var(--ink-soft);
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           THREE LAYER ARCHITECTURE
+           ═══════════════════════════════════════════════════════════ */
+        .layers-wrap {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.4rem;
+            position: relative;
+        }
+        .layers-wrap::before {
+            content: '';
+            position: absolute;
+            top: 45%; left: 8%; right: 8%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(167,139,255,0.3) 20%, rgba(77,238,234,0.3) 50%, rgba(255,179,71,0.3) 80%, transparent);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .layer-card {
+            position: relative;
+            z-index: 1;
+            padding: 2.2rem 1.8rem;
+            background: rgba(10,11,20,0.8);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            transition: transform 0.4s var(--ease-expo), border-color 0.4s, box-shadow 0.4s;
+            isolation: isolate;
+            overflow: hidden;
+        }
+        .layer-card::after {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: var(--lc, var(--violet));
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.6s var(--ease-expo);
+        }
+        .layer-card:hover {
+            transform: translateY(-6px);
+            border-color: color-mix(in srgb, var(--lc, var(--violet)) 38%, transparent);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.4), 0 0 60px color-mix(in srgb, var(--lc, var(--violet)) 15%, transparent);
+        }
+        .layer-card:hover::after { transform: scaleX(1); }
+        .layer-badge {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 100px;
+            border: 1px solid color-mix(in srgb, var(--lc, var(--violet)) 35%, transparent);
+            color: var(--lc, var(--violet));
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 1.4rem;
+        }
+        .layer-ico {
+            width: 60px; height: 60px;
+            display: grid; place-items: center;
+            border-radius: 16px;
+            background: color-mix(in srgb, var(--lc, var(--violet)) 12%, transparent);
+            color: var(--lc, var(--violet));
+            font-size: 1.85rem;
+            margin-bottom: 1.4rem;
+            border: 1px solid color-mix(in srgb, var(--lc, var(--violet)) 28%, transparent);
+        }
+        .layer-card h3 {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.015em;
+            margin-bottom: 0.3rem;
+        }
+        .layer-card .layer-prod {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--lc, var(--violet));
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+        .layer-card > p {
+            color: var(--ink-soft);
+            font-size: 0.92rem;
+            line-height: 1.65;
+            font-weight: 300;
+            margin-bottom: 1.4rem;
+        }
+        .layer-feats {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 0.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--line);
+        }
+        .layer-feats li {
+            display: flex; gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--ink-soft);
+            letter-spacing: 0.03em;
+        }
+        .layer-feats li i { color: var(--lc, var(--violet)); font-size: 0.85rem; margin-top: 2px; flex-shrink: 0; }
+
+        /* ═══════════════════════════════════════════════════════════
+           PRODUCTS GRID
+           ═══════════════════════════════════════════════════════════ */
+        .prod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.3rem;
+        }
+        .prod-card {
+            position: relative;
+            padding: 2rem 1.8rem;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)), rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform 0.4s var(--ease-expo), border-color 0.4s, box-shadow 0.4s;
+        }
+        .prod-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(500px circle at var(--mx,50%) var(--my,50%), var(--pc, var(--violet)), transparent 55%);
+            opacity: 0;
+            mix-blend-mode: screen;
+            transition: opacity 0.4s;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .prod-card:hover {
+            transform: translateY(-4px);
+            border-color: color-mix(in srgb, var(--pc, var(--violet)) 38%, transparent);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.4);
+        }
+        .prod-card:hover::before { opacity: 0.08; }
+        .prod-head {
+            display: flex; align-items: flex-start;
+            gap: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+        .prod-ico {
+            width: 50px; height: 50px;
+            display: grid; place-items: center;
+            flex-shrink: 0;
+            border-radius: 13px;
+            background: color-mix(in srgb, var(--pc, var(--violet)) 12%, transparent);
+            color: var(--pc, var(--violet));
+            border: 1px solid color-mix(in srgb, var(--pc, var(--violet)) 25%, transparent);
+            font-size: 1.55rem;
+        }
+        .prod-head-text { flex: 1; }
+        .prod-name {
+            font-family: var(--font-head);
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: -0.015em;
+            margin-bottom: 2px;
+        }
+        .prod-role {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--pc, var(--violet));
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .prod-desc {
+            color: var(--ink-soft);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 1.2rem;
+        }
+        .prod-feats {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 0.45rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--line);
+            margin-bottom: 1.2rem;
+        }
+        .prod-feats li {
+            display: flex; gap: 0.5rem; align-items: flex-start;
+            font-size: 0.82rem;
+            color: var(--ink-soft);
+            line-height: 1.4;
+        }
+        .prod-feats li i { color: var(--pc, var(--violet)); font-size: 0.9rem; margin-top: 2px; flex-shrink: 0; }
+        .prod-link {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-family: var(--font-head);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: var(--pc, var(--violet));
+        }
+        .prod-link .arrow { transition: transform 0.3s var(--ease-expo); }
+        .prod-card:hover .prod-link .arrow { transform: translateX(5px); }
+
+        /* ═══════════════════════════════════════════════════════════
+           MONITORBRICKS · DATABRICKS FOCUS
+           ═══════════════════════════════════════════════════════════ */
+        .mb-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+        .mb-copy .mb-brand {
+            display: inline-flex; align-items: center; gap: 0.7rem;
+            margin-bottom: 1.2rem;
+        }
+        .mb-copy .mb-brand i { font-size: 1.8rem; color: var(--amber); }
+        .mb-copy .mb-brand span {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        .mb-copy h3 {
+            font-family: var(--font-head);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.12;
+            margin-bottom: 1.2rem;
+        }
+        .mb-copy h3 em { color: var(--amber); font-style: italic; }
+        .mb-copy p {
+            color: var(--ink-soft);
+            font-size: 0.98rem;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        .mb-feats { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
+        .mb-feats li { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.5; }
+        .mb-feats li i {
+            color: var(--amber);
+            font-size: 1.1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .mb-feats li strong { color: var(--ink); font-weight: 500; }
+
+        /* MonitorBricks dashboard mockup */
+        .mb-dash {
+            position: relative;
+            padding: 1.4rem;
+            background: linear-gradient(180deg, rgba(15,18,32,0.95), rgba(10,11,20,0.9));
+            border: 1px solid var(--line-str);
+            border-radius: 18px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            isolation: isolate;
+        }
+        .mb-dash-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 1rem;
+        }
+        .mb-dash-head h4 {
+            font-family: var(--font-head); font-size: 1rem; font-weight: 500;
+        }
+        .mb-dash-head .live {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--emerald);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+        }
+        .mb-dash-head .live::before {
+            content: ''; width: 6px; height: 6px; border-radius: 50%;
+            background: var(--emerald); box-shadow: 0 0 8px var(--emerald);
+            animation: dotPulse 1.4s ease-in-out infinite;
+        }
+
+        .mb-kpi {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.7rem;
+            margin-bottom: 1rem;
+        }
+        .mb-k {
+            padding: 0.9rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+        }
+        .mb-k .l {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--ink-mute);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+        .mb-k .v {
+            font-family: var(--font-head);
+            font-size: 1.25rem; font-weight: 500;
+            letter-spacing: -0.015em;
+        }
+        .mb-k .c { font-family: var(--font-mono); font-size: 0.62rem; margin-top: 0.15rem; display: inline-block; }
+        .mb-k .c.pos { color: var(--emerald); }
+        .mb-k .c.neg { color: var(--rose); }
+
+        /* job timeline */
+        .mb-jobs {
+            display: flex; flex-direction: column; gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+        .mb-job-row {
+            display: grid;
+            grid-template-columns: 120px 1fr 60px;
+            gap: 0.7rem;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+        }
+        .mb-job-row .nm { color: var(--ink); }
+        .mb-job-row .bar {
+            height: 6px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 100px;
+            overflow: hidden;
+            position: relative;
+        }
+        .mb-job-row .bar span {
+            display: block; height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--violet));
+            border-radius: 100px;
+            box-shadow: 0 0 8px rgba(77,238,234,0.4);
+        }
+        .mb-job-row.fail .bar span { background: linear-gradient(90deg, var(--amber), var(--rose)); box-shadow: 0 0 8px rgba(255,110,199,0.4); }
+        .mb-job-row .st { text-align: right; letter-spacing: 0.15em; text-transform: uppercase; font-size: 0.58rem; }
+        .mb-job-row.ok .st   { color: var(--emerald); }
+        .mb-job-row.fail .st { color: var(--rose); }
+        .mb-job-row.run .st  { color: var(--amber); }
+
+        .mb-chart { margin-top: 0.4rem; }
+        .mb-chart svg { width: 100%; height: 80px; display: block; }
+
+        /* Databricks / Azure badges */
+        .cloud-badges {
+            display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;
+        }
+        .cloud-badge {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            padding: 0.5rem 0.9rem;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.02);
+            border-radius: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--ink);
+            letter-spacing: 0.06em;
+        }
+        .cloud-badge i { font-size: 1.1rem; }
+        .cloud-badge.dbx i { color: var(--amber); }
+        .cloud-badge.az i  { color: #4DB8FF; }
+        .cloud-badge .dot { width: 6px; height: 6px; background: var(--emerald); border-radius: 50%; box-shadow: 0 0 8px var(--emerald); }
+
+        /* ═══════════════════════════════════════════════════════════
+           SERVICES / OFFERINGS GRID
+           ═══════════════════════════════════════════════════════════ */
+        .svc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.3rem;
+        }
+        .svc-card {
+            position: relative;
+            padding: 1.8rem 1.6rem;
+            background: rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            transition: transform 0.4s var(--ease-expo), border-color 0.4s, box-shadow 0.4s;
+            isolation: isolate;
+            overflow: hidden;
+        }
+        .svc-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(167,139,255,0.15), transparent 55%);
+            opacity: 0; transition: opacity 0.4s;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: -1;
+        }
+        .svc-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(167,139,255,0.32);
+            box-shadow: 0 18px 42px rgba(0,0,0,0.4), 0 0 40px rgba(167,139,255,0.1);
+        }
+        .svc-card:hover::before { opacity: 1; }
+        .svc-card .svc-ico {
+            width: 48px; height: 48px;
+            display: grid; place-items: center;
+            border-radius: 12px;
+            background: rgba(167,139,255,0.08);
+            color: var(--violet);
+            font-size: 1.45rem;
+            margin-bottom: 1.1rem;
+        }
+        .svc-card:nth-child(2) .svc-ico { background: rgba(77,238,234,0.08); color: var(--accent); }
+        .svc-card:nth-child(3) .svc-ico { background: rgba(70,224,155,0.08); color: var(--emerald); }
+        .svc-card:nth-child(4) .svc-ico { background: rgba(255,179,71,0.08); color: var(--amber); }
+        .svc-card:nth-child(5) .svc-ico { background: rgba(255,110,199,0.08); color: var(--rose); }
+        .svc-card:nth-child(6) .svc-ico { background: rgba(139,142,252,0.08); color: var(--accent-2); }
+        .svc-card h4 {
+            font-family: var(--font-head);
+            font-size: 1.15rem; font-weight: 500;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.55rem;
+        }
+        .svc-card p {
+            color: var(--ink-soft);
+            font-size: 0.88rem;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        .svc-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        .svc-tag {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-mute);
+            padding: 0.2rem 0.55rem;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SILOED vs UNIFIED
+           ═══════════════════════════════════════════════════════════ */
+        .compare-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .compare-col {
+            padding: 2rem 1.8rem;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+        }
+        .compare-col.siloed {
+            background: rgba(255,110,199,0.03);
+            border-color: rgba(255,110,199,0.15);
+        }
+        .compare-col.unified {
+            background:
+                radial-gradient(400px circle at 100% 0%, rgba(167,139,255,0.08), transparent 55%),
+                rgba(77,238,234,0.04);
+            border-color: rgba(167,139,255,0.3);
+        }
+        .compare-head {
+            display: flex; align-items: center; gap: 0.7rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px dashed var(--line);
+            margin-bottom: 1.2rem;
+        }
+        .compare-head .h-ico {
+            width: 40px; height: 40px;
+            display: grid; place-items: center;
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+        .compare-col.siloed .h-ico { background: rgba(255,110,199,0.1); color: var(--rose); }
+        .compare-col.unified .h-ico { background: rgba(167,139,255,0.1); color: var(--violet); }
+        .compare-head h4 { font-family: var(--font-head); font-size: 1.2rem; font-weight: 500; }
+        .compare-head .hk { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; margin-left: auto; }
+        .compare-col.siloed .hk { color: var(--rose); }
+        .compare-col.unified .hk { color: var(--violet); }
+
+        .silo-list { display: flex; flex-direction: column; gap: 0.7rem; }
+        .silo-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.7rem;
+            padding: 0.75rem 0.9rem;
+            background: rgba(255,255,255,0.015);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+        }
+        .silo-row .tag {
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 0.15rem 0.55rem;
+            border-radius: 4px;
+            align-self: center;
+        }
+        .silo-row .tag.stale { background: rgba(255,110,199,0.1); color: var(--rose); }
+        .silo-row .tag.drift { background: rgba(255,179,71,0.1); color: var(--amber); }
+        .silo-row .tag.dup   { background: rgba(255,179,71,0.1); color: var(--amber); }
+        .silo-row .tag.nov   { background: rgba(255,110,199,0.1); color: var(--rose); }
+        .silo-row .name i { color: var(--ink-mute); font-size: 1rem; margin-right: 0.45rem; vertical-align: middle; }
+
+        .unified-block {
+            text-align: center;
+            padding: 1.2rem 1rem;
+            border-radius: 14px;
+            background: linear-gradient(180deg, rgba(167,139,255,0.06), rgba(77,238,234,0.04));
+            border: 1px solid rgba(167,139,255,0.2);
+            margin-bottom: 1.2rem;
+        }
+        .unified-block .hub-ic {
+            width: 54px; height: 54px;
+            margin: 0 auto 0.7rem;
+            border-radius: 50%;
+            display: grid; place-items: center;
+            background: radial-gradient(circle, var(--violet) 0%, var(--accent) 80%);
+            color: #07080d;
+            font-size: 1.5rem;
+            box-shadow: 0 0 24px rgba(167,139,255,0.5);
+        }
+        .unified-block h5 {
+            font-family: var(--font-head);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+        .unified-block .st {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--emerald);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+        .unified-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.6rem;
+        }
+        .un-stat {
+            padding: 0.8rem 0.6rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .un-stat .v { font-family: var(--font-head); font-size: 1.1rem; font-weight: 600; color: var(--accent); letter-spacing: -0.01em; }
+        .un-stat .l { font-family: var(--font-mono); font-size: 0.55rem; color: var(--ink-mute); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 2px; }
+
+        /* ═══════════════════════════════════════════════════════════
+           INDUSTRIES
+           ═══════════════════════════════════════════════════════════ */
+        .ind-scroll {
+            position: relative;
+            overflow: hidden;
+            margin: 2rem -1.5rem 0;
+            padding: 0 1.5rem;
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        }
+        .ind-track {
+            display: flex;
+            gap: 0.8rem;
+            animation: indScroll 44s linear infinite;
+            width: max-content;
+        }
+        .ind-chip {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            padding: 0.75rem 1.3rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--line);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--ink);
+            white-space: nowrap;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .ind-chip:hover { border-color: var(--violet); background: rgba(167,139,255,0.06); }
+        .ind-chip i { color: var(--violet); font-size: 1.05rem; }
+        @keyframes indScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           DIFFERENTIATORS
+           ═══════════════════════════════════════════════════════════ */
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+        .diff-cell {
+            padding: 1.6rem 1.3rem;
+            background: rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .diff-cell::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--violet), var(--accent));
+        }
+        .diff-num {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--violet);
+            letter-spacing: 0.26em;
+            margin-bottom: 0.7rem;
+        }
+        .diff-cell h4 {
+            font-family: var(--font-head);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.45rem;
+        }
+        .diff-cell p { color: var(--ink-soft); font-size: 0.82rem; line-height: 1.55; font-weight: 300; }
+
+        /* ═══════════════════════════════════════════════════════════
+           TRAINING
+           ═══════════════════════════════════════════════════════════ */
+        .train-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .train-copy h3 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 3.6vw, 2.8rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+        }
+        .train-copy h3 em { color: var(--violet); font-style: italic; }
+        .train-copy p { color: var(--ink-soft); font-size: 1rem; line-height: 1.7; font-weight: 300; margin-bottom: 1.5rem; }
+        .train-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+        .train-list li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.5; }
+        .train-list li i { color: var(--violet); font-size: 1.05rem; margin-top: 2px; flex-shrink: 0; }
+        .train-list li strong { color: var(--ink); font-weight: 500; }
+
+        .train-viz {
+            padding: 1.5rem;
+            background: linear-gradient(180deg, rgba(15,18,32,0.95), rgba(10,11,20,0.9));
+            border: 1px solid var(--line);
+            border-radius: 18px;
+        }
+        .train-track {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            border-left: 3px solid var(--violet);
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 0.7rem;
+            transition: background 0.3s;
+        }
+        .train-track:hover { background: rgba(167,139,255,0.06); }
+        .train-track:nth-child(2) { border-left-color: var(--accent); }
+        .train-track:nth-child(3) { border-left-color: var(--emerald); }
+        .train-track:nth-child(4) { border-left-color: var(--amber); }
+        .train-track .ic {
+            width: 42px; height: 42px;
+            display: grid; place-items: center;
+            border-radius: 10px;
+            background: rgba(167,139,255,0.1);
+            color: var(--violet);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .train-track:nth-child(2) .ic { background: rgba(77,238,234,0.1); color: var(--accent); }
+        .train-track:nth-child(3) .ic { background: rgba(70,224,155,0.1); color: var(--emerald); }
+        .train-track:nth-child(4) .ic { background: rgba(255,179,71,0.1); color: var(--amber); }
+        .train-track .nm {
+            font-family: var(--font-head);
+            font-size: 0.98rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+        .train-track .mt {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--ink-mute);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           IMPACT STATS
+           ═══════════════════════════════════════════════════════════ */
+        .impact-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+        }
+        .impact-cell {
+            padding: 2rem 1.5rem;
+            background: rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        .impact-cell:hover { border-color: rgba(167,139,255,0.3); }
+        .impact-val {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 3.4vw, 2.8rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--violet), var(--accent));
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .impact-val .plus { color: var(--accent); -webkit-background-clip: unset; background-clip: unset; -webkit-text-fill-color: initial; }
+        .impact-lbl {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--ink-mute);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CTA
+           ═══════════════════════════════════════════════════════════ */
+        .na-cta {
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .na-cta::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(600px circle at 50% 50%, rgba(167,139,255,0.12), transparent 60%),
+                radial-gradient(400px circle at 30% 80%, rgba(77,238,234,0.08), transparent 55%);
+            pointer-events: none;
+        }
+        .na-cta h2 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+        }
+        .na-cta h2 em { color: var(--violet); font-style: italic; }
+        .na-cta p {
+            color: var(--ink-soft);
+            font-size: 1rem;
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.65;
+            font-weight: 300;
+        }
+
+        footer.na-foot {
+            padding: 3rem 2rem;
+            color: var(--ink-mute);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            letter-spacing: 0.12em;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        footer.na-foot a:hover { color: var(--violet); }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 980px) {
+            .na-hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 7rem 1.2rem 3rem; min-height: auto; }
+            .challenge-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+            .layers-wrap { grid-template-columns: 1fr; }
+            .layers-wrap::before { display: none; }
+            .mb-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+            .compare-wrap { grid-template-columns: 1fr; }
+            .train-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+        }
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+            .section { padding: 4.5rem 1.2rem; }
+            .na-h1 { font-size: clamp(2rem, 9vw, 3rem); }
+            .mb-kpi { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001s !important;
+            }
+        }
+    
+        /* ── Mobile Accordion Menu ── */
+        .mobile-toggle { display: none; color: #fff; font-size: 1.6rem; z-index: 10001; padding: 0.6rem; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 9550; display: flex; flex-direction: column; align-items: stretch; padding: 90px 0 2rem; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open { opacity: 1; pointer-events: all; }
+        .mobile-overlay > a { font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.3s, background 0.3s; text-decoration: none; }
+        .mobile-overlay > a:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1rem 2rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; transition: color 0.3s, background 0.3s; }
+        .mob-accordion-toggle:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion-toggle i { font-size: 0.7rem; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); color: #4DEEEA; opacity: 0.6; }
+        .mob-accordion.open .mob-accordion-toggle i { transform: rotate(180deg); }
+        .mob-accordion.open .mob-accordion-toggle { color: #4DEEEA; }
+        .mob-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); background: rgba(255,255,255,0.015); }
+        .mob-accordion.open .mob-accordion-body { max-height: 800px; }
+        .mob-accordion-body a { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 2rem 0.7rem 3rem; font-family: var(--font-display); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, background 0.25s, padding-left 0.25s; border-bottom: 1px solid rgba(255,255,255,0.03); text-decoration: none; }
+        .mob-accordion-body a:last-child { border-bottom: none; }
+        .mob-accordion-body a i { font-size: 1rem; opacity: 0.5; flex-shrink: 0; }
+        .mob-accordion-body a:hover { color: #4DEEEA; background: rgba(77,238,234,0.05); padding-left: 3.4rem; }
+        .mob-accordion-body a:hover i { opacity: 1; color: #4DEEEA; }
+        .mobile-overlay > a, .mobile-overlay > .mob-accordion { transform: translateX(-20px); opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open > a, .mobile-overlay.open > .mob-accordion { transform: translateX(0); opacity: 1; }
+        .mobile-overlay.open > :nth-child(1) { transition-delay: 0.05s; }
+        .mobile-overlay.open > :nth-child(2) { transition-delay: 0.1s; }
+        .mobile-overlay.open > :nth-child(3) { transition-delay: 0.15s; }
+        .mobile-overlay.open > :nth-child(4) { transition-delay: 0.2s; }
+        .mobile-overlay.open > :nth-child(5) { transition-delay: 0.25s; }
+        .mobile-overlay.open > :nth-child(6) { transition-delay: 0.3s; }
+        .mobile-overlay.open > :nth-child(7) { transition-delay: 0.35s; }
+        @media (max-width: 768px) { 
+            .mobile-toggle { display: block !important; visibility: visible !important; opacity: 1 !important; } 
+        }
+
+    
+        /* ── Mobile overflow fix ── */
+        html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
+        nav { max-width: 100vw !important; overflow: visible !important; width: 100% !important; }
+        * { max-width: 100vw; }
+
+    </style>
+    <meta property="og:title" content="Naolytics — Decision Intelligence Platform | Pure AI">
+    <meta property="og:description" content="Naolytics is a Singapore-headquartered Decision Intelligence platform that turns fragmented Azure and Databricks data into unified, real-time, AI-driven operations — featuring MonitorBricks, NovaSense, FluxStream and Sentinel AI.">
+    <meta property="og:image" content="./pure-logo-v4.png">
+</head>
+<body>
+
+    <!-- ═══════════ NAV ═══════════ -->
+    <nav>
+        <a href="./" class="logo"><img src="./pure-logo-v4.png" alt="Pure AI"></a>
+        <div class="nav-links">
+            <a href="./platform">Platform</a>
+            <div class="nav-dropdown">
+                <a href="./#products">Product <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./robots-search"><i class="ph ph-robot"></i> Robots</a>
+                    <a href="./custom-bots"><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                    <a href="./nano-bots"><i class="ph ph-atom"></i> Nano Bots</a>
+                    <a href="./trading-desk"><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                    <a href="./naolytics" class="active"><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                    <a href="./aikage"><i class="ph ph-shield-check"></i> AIKAGE</a>
+                    <a href="#"><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                    <a href="#"><i class="ph ph-paperclip"></i> CLIP</a>
+                    <a href="#"><i class="ph ph-trend-up"></i> Market Genius</a>
+                    <a href="#"><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="./services">Services <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./custom-robotics"><i class="ph ph-robot"></i> Custom Robotics</a>
+                    <a href="./ai-datacenter"><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                    <a href="./ai-setup"><i class="ph ph-gear-six"></i> AI Set Up</a>
+                    <a href="./ibm-linux"><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                    <a href="./ai-boxes"><i class="ph ph-cube"></i> AI Boxes</a>
+                    <a href="./dark-factories"><i class="ph ph-factory"></i> Dark Factories</a>
+                    <a href="./llm-training"><i class="ph ph-brain"></i> LLM Training</a>
+                    <a href="./enterprise-openclaw"><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                    <a href="./bot-management"><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="./#solutions">Solutions <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./sol-banking"><i class="ph ph-bank"></i> PureAi - Banking &amp; Finance</a>
+                    <a href="./sol-healthcare"><i class="ph ph-heartbeat"></i> PureAi - Healthcare</a>
+                    <a href="./sol-logistics"><i class="ph ph-truck"></i> PureAi - Logistics</a>
+                    <a href="./sol-manufacturing"><i class="ph ph-gear-six"></i> PureAi - Manufacturing</a>
+                    <a href="./sol-agriculture"><i class="ph ph-plant"></i> PureAi - Agriculture</a>
+                    <a href="./sol-aviation"><i class="ph ph-airplane"></i> PureAi - Airlines</a>
+                    <a href="./sol-education"><i class="ph ph-graduation-cap"></i> PureAi - Education</a>
+                    <a href="./sol-retail"><i class="ph ph-storefront"></i> PureAi - Retail</a>
+                    <a href="./sol-enterprise"><i class="ph ph-buildings"></i> PureAi - Enterprise</a>
+                    <a href="./sol-infrastructure"><i class="ph ph-lightning"></i> PureAi - Infrastructure</a>
+                </div>
+            </div>
+            <a href="./innovation">Innovation</a>
+            <div class="nav-dropdown">
+                <a href="#">Open Innovation <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./bohrai"><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+                </div>
+            </div>
+            <a href="./#contact-details" class="cta">Contact</a>
+        </div>
+    
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <a href="./" data-mobile-link>Home</a>
+        <a href="./platform" data-mobile-link>Platform</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Products <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./robots-search" data-mobile-link><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots" data-mobile-link><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots" data-mobile-link><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk" data-mobile-link><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics" data-mobile-link><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage" data-mobile-link><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#" data-mobile-link><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#" data-mobile-link><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#" data-mobile-link><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#" data-mobile-link><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Services <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./custom-robotics" data-mobile-link><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter" data-mobile-link><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup" data-mobile-link><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux" data-mobile-link><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes" data-mobile-link><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories" data-mobile-link><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training" data-mobile-link><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw" data-mobile-link><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management" data-mobile-link><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Solutions <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./sol-banking" data-mobile-link><i class="ph ph-bank"></i> Banking &amp; Finance</a>
+                <a href="./sol-healthcare" data-mobile-link><i class="ph ph-heartbeat"></i> Healthcare</a>
+                <a href="./sol-logistics" data-mobile-link><i class="ph ph-truck"></i> Logistics</a>
+                <a href="./sol-manufacturing" data-mobile-link><i class="ph ph-gear-six"></i> Manufacturing</a>
+                <a href="./sol-agriculture" data-mobile-link><i class="ph ph-plant"></i> Agriculture</a>
+                <a href="./sol-aviation" data-mobile-link><i class="ph ph-airplane"></i> Airlines</a>
+                <a href="./sol-education" data-mobile-link><i class="ph ph-graduation-cap"></i> Education</a>
+                <a href="./sol-retail" data-mobile-link><i class="ph ph-storefront"></i> Retail</a>
+                <a href="./sol-enterprise" data-mobile-link><i class="ph ph-buildings"></i> Enterprise</a>
+                <a href="./sol-infrastructure" data-mobile-link><i class="ph ph-lightning"></i> Infrastructure</a>
+            </div>
+        </div>
+
+        <a href="./innovation" data-mobile-link>Innovation</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Open Innovation <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./bohrai" data-mobile-link><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" data-mobile-link>Contact</a>
+    </div>
+
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="na-hero">
+        <div class="na-hero-copy">
+            <div class="na-chip fade-up">
+                <span class="dot"></span>
+                Naolytics · Singapore HQ · 5+ Years
+            </div>
+            <h1 class="na-h1 fade-up" data-d="1">
+                <span class="hl">The Evolution of</span><br>
+                <em>Decision Intelligence.</em>
+            </h1>
+            <p class="na-lede fade-up" data-d="2">
+                Architecting real-time data ecosystems for 5+ years. Naolytics unifies Azure, Databricks, and legacy data into a <strong>single intelligent decision layer</strong> — with natural-language querying, autonomous governance, and Databricks monitoring built in. <strong>Stop reporting. Start deciding.</strong>
+            </p>
+            <div class="na-actions fade-up" data-d="3">
+                <a href="https://www.naolytics.com/" target="_blank" rel="noopener" class="btn-primary">
+                    <i class="ph ph-play-circle"></i> Explore Platform
+                </a>
+                <a href="#architecture" class="btn-ghost">
+                    <i class="ph ph-stack"></i> See Architecture
+                </a>
+            </div>
+            <div class="na-stats fade-up" data-d="4">
+                <div>
+                    <div class="na-stats-val">200+</div>
+                    <div class="na-stats-lbl">Data Sources</div>
+                </div>
+                <div>
+                    <div class="na-stats-val">23 ms</div>
+                    <div class="na-stats-lbl">Query Latency</div>
+                </div>
+                <div>
+                    <div class="na-stats-val">99.7%</div>
+                    <div class="na-stats-lbl">Data Quality</div>
+                </div>
+                <div>
+                    <div class="na-stats-val">SOC 2</div>
+                    <div class="na-stats-lbl">Governed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LIVE PERFORMANCE TRACKER -->
+        <div class="tracker fade-up" data-d="2">
+            <div class="tracker-head">
+                <span>Live Performance Tracker</span>
+                <span class="ts">Engine v1.2.4 <span class="st">· Optimal</span></span>
+            </div>
+            <div class="tracker-body">
+                <div class="tracker-label">Total Prompts Processed by Naolytics Engine (Global)</div>
+                <div class="tracker-count" id="naCount">2,847,153</div>
+                <div class="tracker-sub">▲ Processing continuously · Auto-scaling · Global fleet</div>
+
+                <div class="velo-row">
+                    <span class="velo-pill">Alpha <span class="v">1 / 2 s</span></span>
+                    <span class="velo-pill">Delta <span class="v">4 / 1 s</span></span>
+                    <span class="velo-pill">Max Flow <span class="v">X</span></span>
+                </div>
+
+                <div class="tracker-query">
+                    <div class="tracker-q-file">novasense_query.sql</div>
+                    <div class="tracker-q-text" id="naQ"></div>
+                    <div class="tracker-sql" id="naSql"><span class="kw">SELECT</span> t.id, t.amount, t.risk_score,
+       <span class="fn">anomaly_detect</span>(t.pattern) <span class="kw">AS</span> anomaly
+<span class="kw">FROM</span> transactions t
+<span class="kw">WHERE</span> t.risk_score &gt; <span class="num">0.82</span>
+  <span class="kw">AND</span> t.timestamp &gt; <span class="fn">NOW</span>() - <span class="kw">INTERVAL</span> <span class="str">'24h'</span>
+<span class="kw">ORDER BY</span> t.risk_score <span class="kw">DESC</span>;</div>
+                </div>
+
+                <div class="tracker-graph">
+                    <svg viewBox="0 0 400 50" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="naFill" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#a78bff" stop-opacity="0.45"/>
+                                <stop offset="100%" stop-color="#a78bff" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <path class="area" d="M0,38 L33,28 L66,34 L100,22 L133,26 L166,18 L200,24 L233,14 L266,20 L300,10 L333,16 L366,8 L400,12 L400,50 L0,50 Z"/>
+                        <path class="line" d="M0,38 L33,28 L66,34 L100,22 L133,26 L166,18 L200,24 L233,14 L266,20 L300,10 L333,16 L366,8 L400,12"/>
+                    </svg>
+                </div>
+                <div class="tracker-foot">
+                    <span>NovaSense Processing</span>
+                    <span class="lat">latency: 23 ms</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ VALUE STRIP ═══════════ -->
+    <section class="na-value">
+        <div class="na-value-title fade-up">
+            A data-first, AI-driven transformation partner — turning fragmented systems into <em>unified intelligent ecosystems.</em>
+        </div>
+        <div class="na-value-grid">
+            <div class="na-value-cell fade-up">
+                <i class="ph-duotone ph-cloud-arrow-up"></i>
+                <div class="t">Cloud Architecture</div>
+                <div class="d">Azure &amp; Databricks Lakehouse expertise.</div>
+            </div>
+            <div class="na-value-cell fade-up" data-d="1">
+                <i class="ph-duotone ph-chart-pie-slice"></i>
+                <div class="t">Advanced Analytics</div>
+                <div class="d">Structured + unstructured at scale.</div>
+            </div>
+            <div class="na-value-cell fade-up" data-d="2">
+                <i class="ph-duotone ph-brain"></i>
+                <div class="t">AI / ML Models</div>
+                <div class="d">Custom agents &amp; LLM integration.</div>
+            </div>
+            <div class="na-value-cell fade-up" data-d="3">
+                <i class="ph-duotone ph-gauge"></i>
+                <div class="t">FinOps &amp; Tuning</div>
+                <div class="d">Cost + performance optimization.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ CHALLENGE ═══════════ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="challenge-wrap">
+                <div class="challenge-copy fade-up">
+                    <div class="section-label" style="margin-bottom:1rem;">The Challenge</div>
+                    <h3>Data-Rich,<br><em>Insight-Poor.</em></h3>
+                    <p>Enterprises drown in data lakes while decisions are still made on intuition. Reports are stale before the meeting starts, dashboards live in silos, and 73% of enterprise data is never used. Naolytics transforms that raw data chaos into autonomous, real-time decision systems — so the insight is ready the moment the question is asked.</p>
+                </div>
+                <div class="challenge-stats fade-up" data-d="1">
+                    <div class="ch-stat">
+                        <div class="ch-stat-v" data-c="73"><span>0</span><span class="u">%</span></div>
+                        <div class="ch-stat-l">Enterprise data never used for decisions</div>
+                    </div>
+                    <div class="ch-stat">
+                        <div class="ch-stat-v" data-c="47"><span>0</span><span class="u">h</span></div>
+                        <div class="ch-stat-l">Avg delay before a report reaches a leader</div>
+                    </div>
+                    <div class="ch-stat">
+                        <div class="ch-stat-v" data-c="12"><span>0</span><span class="u">+</span></div>
+                        <div class="ch-stat-l">Siloed systems per enterprise org</div>
+                    </div>
+                    <div class="ch-stat">
+                        <div class="ch-stat-v" data-c="68"><span>0</span><span class="u">%</span></div>
+                        <div class="ch-stat-l">Of reports are still manually assembled</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ THREE LAYERS ARCHITECTURE ═══════════ -->
+    <section class="section tinted" id="architecture">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Architecture</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Three layers. <em>One ecosystem.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">From raw ingestion to autonomous action — every layer is purpose-built for real-time decision intelligence.</p>
+            </div>
+
+            <div class="layers-wrap">
+                <div class="layer-card fade-up" style="--lc: var(--violet);">
+                    <span class="layer-badge">Layer 01 · Data</span>
+                    <div class="layer-ico"><i class="ph-duotone ph-database"></i></div>
+                    <h3>Data Layer</h3>
+                    <div class="layer-prod">AIKage Ingestion</div>
+                    <p>Connects 200+ data sources with real-time streaming, batch processing and change-data-capture at sub-second latency.</p>
+                    <ul class="layer-feats">
+                        <li><i class="ph ph-check"></i> 200+ connectors out of the box</li>
+                        <li><i class="ph ph-check"></i> Streaming · Batch · CDC</li>
+                        <li><i class="ph ph-check"></i> Schema-drift detection + healing</li>
+                    </ul>
+                </div>
+
+                <div class="layer-card fade-up" data-d="1" style="--lc: var(--accent);">
+                    <span class="layer-badge">Layer 02 · Intelligence</span>
+                    <div class="layer-ico"><i class="ph-duotone ph-sparkle"></i></div>
+                    <h3>Intelligence Layer</h3>
+                    <div class="layer-prod">NovaSense AI</div>
+                    <p>Natural-language to SQL, automated root-cause analysis, and predictive anomaly detection powered by purpose-tuned ML models.</p>
+                    <ul class="layer-feats">
+                        <li><i class="ph ph-check"></i> NL → SQL · multi-warehouse</li>
+                        <li><i class="ph ph-check"></i> Automated RCA &amp; forecasts</li>
+                        <li><i class="ph ph-check"></i> Anomaly detection on every stream</li>
+                    </ul>
+                </div>
+
+                <div class="layer-card fade-up" data-d="2" style="--lc: var(--amber);">
+                    <span class="layer-badge">Layer 03 · Action</span>
+                    <div class="layer-ico"><i class="ph-duotone ph-shield-star"></i></div>
+                    <h3>Action Layer</h3>
+                    <div class="layer-prod">Sentinel AI</div>
+                    <p>Autonomous governance, PII masking, real-time alerting and decision orchestration — all with immutable audit trails.</p>
+                    <ul class="layer-feats">
+                        <li><i class="ph ph-check"></i> RBAC + PII auto-masking</li>
+                        <li><i class="ph ph-check"></i> Alerts to Slack / Teams / Email</li>
+                        <li><i class="ph ph-check"></i> Immutable audit log · SOC 2</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ PRODUCTS ═══════════ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Products</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Five modules. <em>One intelligent platform.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">Each Naolytics module can be adopted independently — or fused into an end-to-end decision intelligence stack.</p>
+            </div>
+
+            <div class="prod-grid">
+                <!-- AIKage -->
+                <a class="prod-card fade-up" href="./aikage" style="--pc: var(--violet);">
+                    <div class="prod-head">
+                        <div class="prod-ico"><i class="ph-duotone ph-database"></i></div>
+                        <div class="prod-head-text">
+                            <div class="prod-name">AIKage</div>
+                            <div class="prod-role">Ingestion &amp; Query</div>
+                        </div>
+                    </div>
+                    <p class="prod-desc">Talk to your database in plain English. Real-time ingestion across 200+ sources with instant query answers, charts, and AI insights.</p>
+                    <ul class="prod-feats">
+                        <li><i class="ph ph-check-circle"></i> Natural-language SQL across every warehouse</li>
+                        <li><i class="ph ph-check-circle"></i> Sub-second answers on millions of rows</li>
+                        <li><i class="ph ph-check-circle"></i> 3-layer PII redaction on every output</li>
+                    </ul>
+                    <span class="prod-link">Open AIKage <span class="arrow">→</span></span>
+                </a>
+
+                <!-- NovaSense -->
+                <div class="prod-card fade-up" data-d="1" style="--pc: var(--accent);">
+                    <div class="prod-head">
+                        <div class="prod-ico"><i class="ph-duotone ph-sparkle"></i></div>
+                        <div class="prod-head-text">
+                            <div class="prod-name">NovaSense AI</div>
+                            <div class="prod-role">Intelligence Engine</div>
+                        </div>
+                    </div>
+                    <p class="prod-desc">The reasoning core. NL-to-SQL, root-cause analysis, forecasts, and anomaly detection across every connected data stream.</p>
+                    <ul class="prod-feats">
+                        <li><i class="ph ph-check-circle"></i> NL-to-SQL across Snowflake / Databricks / Postgres</li>
+                        <li><i class="ph ph-check-circle"></i> Automated RCA + predictive anomaly scoring</li>
+                        <li><i class="ph ph-check-circle"></i> 23 ms average query latency</li>
+                    </ul>
+                    <span class="prod-link">Learn More <span class="arrow">→</span></span>
+                </div>
+
+                <!-- FluxStream -->
+                <div class="prod-card fade-up" data-d="2" style="--pc: var(--emerald);">
+                    <div class="prod-head">
+                        <div class="prod-ico"><i class="ph-duotone ph-waveform"></i></div>
+                        <div class="prod-head-text">
+                            <div class="prod-name">FluxStream</div>
+                            <div class="prod-role">Real-Time Streams</div>
+                        </div>
+                    </div>
+                    <p class="prod-desc">Millisecond-grade event streaming and change-data-capture between every source, warehouse and downstream system — one wire, no glue code.</p>
+                    <ul class="prod-feats">
+                        <li><i class="ph ph-check-circle"></i> Kafka / Kinesis / Event Hubs native</li>
+                        <li><i class="ph ph-check-circle"></i> Guaranteed ordering &amp; exactly-once delivery</li>
+                        <li><i class="ph ph-check-circle"></i> Drift-aware schema registry</li>
+                    </ul>
+                    <span class="prod-link">See Streams <span class="arrow">→</span></span>
+                </div>
+
+                <!-- Sentinel AI -->
+                <div class="prod-card fade-up" style="--pc: var(--amber);">
+                    <div class="prod-head">
+                        <div class="prod-ico"><i class="ph-duotone ph-shield-star"></i></div>
+                        <div class="prod-head-text">
+                            <div class="prod-name">Sentinel AI</div>
+                            <div class="prod-role">Governance &amp; Action</div>
+                        </div>
+                    </div>
+                    <p class="prod-desc">Autonomous governance for the modern data stack. PII masking, RBAC, policy enforcement, and immutable audit trails — all in the flow.</p>
+                    <ul class="prod-feats">
+                        <li><i class="ph ph-check-circle"></i> Automatic PII detection &amp; masking</li>
+                        <li><i class="ph ph-check-circle"></i> Policy-driven access control (RBAC)</li>
+                        <li><i class="ph ph-check-circle"></i> SOC 2 / GDPR / HIPAA exports</li>
+                    </ul>
+                    <span class="prod-link">Explore Sentinel <span class="arrow">→</span></span>
+                </div>
+
+                <!-- MonitorBricks -->
+                <div class="prod-card fade-up" data-d="1" style="--pc: var(--rose);">
+                    <div class="prod-head">
+                        <div class="prod-ico"><i class="ph-duotone ph-chart-line-up"></i></div>
+                        <div class="prod-head-text">
+                            <div class="prod-name">MonitorBricks</div>
+                            <div class="prod-role">Databricks Intelligence</div>
+                        </div>
+                    </div>
+                    <p class="prod-desc">The single pane of glass for any Databricks environment — jobs, clusters, cost, user access and compliance all unified in one live dashboard.</p>
+                    <ul class="prod-feats">
+                        <li><i class="ph ph-check-circle"></i> Live cost &amp; compute consumption per workspace</li>
+                        <li><i class="ph ph-check-circle"></i> Job success / failure tracking + alerting</li>
+                        <li><i class="ph ph-check-circle"></i> Governance, logs &amp; compliance reporting</li>
+                    </ul>
+                    <span class="prod-link">See MonitorBricks <span class="arrow">→</span></span>
+                </div>
+
+                <!-- Generative AI -->
+                <div class="prod-card fade-up" data-d="2" style="--pc: var(--accent-2);">
+                    <div class="prod-head">
+                        <div class="prod-ico"><i class="ph-duotone ph-robot"></i></div>
+                        <div class="prod-head-text">
+                            <div class="prod-name">GenAI Studio</div>
+                            <div class="prod-role">Custom Agents &amp; LLMs</div>
+                        </div>
+                    </div>
+                    <p class="prod-desc">Build, integrate and deploy custom AI agents on your own data. LLM-native workflows, guardrails, and enterprise-grade deployment baked in.</p>
+                    <ul class="prod-feats">
+                        <li><i class="ph ph-check-circle"></i> Bring your own model (OpenAI, Claude, Llama, Ollama)</li>
+                        <li><i class="ph ph-check-circle"></i> Retrieval-augmented generation on your warehouse</li>
+                        <li><i class="ph ph-check-circle"></i> Agent orchestration with human-in-the-loop</li>
+                    </ul>
+                    <span class="prod-link">Build an Agent <span class="arrow">→</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ MONITORBRICKS DEEP DIVE ═══════════ -->
+    <section class="section tinted">
+        <div class="section-inner">
+            <div class="mb-wrap">
+                <div class="mb-copy fade-up">
+                    <div class="section-label" style="margin-bottom:1rem;">Spotlight · MonitorBricks</div>
+                    <div class="mb-brand">
+                        <i class="ph-duotone ph-fire"></i>
+                        <span>MonitorBricks</span>
+                    </div>
+                    <h3>Intelligent <em>Databricks monitoring</em><br>— in one live pane.</h3>
+                    <p>A centralized monitoring and intelligence platform built specifically for Databricks environments. Full visibility into compute, data growth, job health, user access, and cost — consolidated into a single dashboard so you can proactively manage performance and reduce cloud spend.</p>
+                    <ul class="mb-feats">
+                        <li><i class="ph ph-gauge"></i><span><strong>Compute &amp; data growth</strong> · live cluster utilisation, DBU burn, storage trajectory</span></li>
+                        <li><i class="ph ph-list-checks"></i><span><strong>Job health</strong> · success / failure tracking with root-cause alerts to Slack + email</span></li>
+                        <li><i class="ph ph-user-gear"></i><span><strong>Governance insights</strong> · user access, audit logs, compliance-ready exports</span></li>
+                        <li><i class="ph ph-wallet"></i><span><strong>FinOps</strong> · per-workspace cost attribution, anomaly budgets, savings recommendations</span></li>
+                    </ul>
+                    <div class="cloud-badges">
+                        <span class="cloud-badge dbx"><i class="ph ph-lightning"></i> Databricks Native <span class="dot"></span></span>
+                        <span class="cloud-badge az"><i class="ph ph-cloud"></i> Azure Certified <span class="dot"></span></span>
+                        <span class="cloud-badge"><i class="ph ph-shield-check" style="color:var(--emerald);"></i> SOC 2 <span class="dot"></span></span>
+                    </div>
+                </div>
+
+                <div class="mb-dash fade-up" data-d="1">
+                    <div class="mb-dash-head">
+                        <h4>MonitorBricks · Production Workspace</h4>
+                        <span class="live">Live</span>
+                    </div>
+
+                    <div class="mb-kpi">
+                        <div class="mb-k">
+                            <div class="l">DBU Burn / 24h</div>
+                            <div class="v">1,284</div>
+                            <div class="c neg">▲ +4.8%</div>
+                        </div>
+                        <div class="mb-k">
+                            <div class="l">Storage Growth</div>
+                            <div class="v">18.2 TB</div>
+                            <div class="c pos">▼ -2.1%</div>
+                        </div>
+                        <div class="mb-k">
+                            <div class="l">Spend MTD</div>
+                            <div class="v">$42.6k</div>
+                            <div class="c pos">▼ -12% saved</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-jobs">
+                        <div class="mb-job-row ok">
+                            <span class="nm">etl_fact_orders</span>
+                            <span class="bar"><span style="width:92%"></span></span>
+                            <span class="st">OK</span>
+                        </div>
+                        <div class="mb-job-row ok">
+                            <span class="nm">streaming_iot</span>
+                            <span class="bar"><span style="width:78%"></span></span>
+                            <span class="st">OK</span>
+                        </div>
+                        <div class="mb-job-row fail">
+                            <span class="nm">ml_train_churn</span>
+                            <span class="bar"><span style="width:34%"></span></span>
+                            <span class="st">Fail</span>
+                        </div>
+                        <div class="mb-job-row run">
+                            <span class="nm">mv_daily_gold</span>
+                            <span class="bar"><span style="width:62%"></span></span>
+                            <span class="st">Run</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-chart">
+                        <svg viewBox="0 0 400 80" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="mbFill" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#4DEEEA" stop-opacity="0.45"/>
+                                    <stop offset="100%" stop-color="#4DEEEA" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M0,60 L30,52 L60,56 L90,42 L120,48 L150,34 L180,40 L210,26 L240,32 L270,20 L300,28 L330,14 L360,22 L400,10 L400,80 L0,80 Z" fill="url(#mbFill)"/>
+                            <path d="M0,60 L30,52 L60,56 L90,42 L120,48 L150,34 L180,40 L210,26 L240,32 L270,20 L300,28 L330,14 L360,22 L400,10" fill="none" stroke="#4DEEEA" stroke-width="1.6" style="filter: drop-shadow(0 0 6px rgba(77,238,234,0.6));"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SERVICES / OFFERINGS ═══════════ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Services &amp; Offerings</div>
+                <h2 class="sec-h2 fade-up" data-d="1">End-to-end: <em>consulting, product, training.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">Six pillars that cover every phase of an enterprise data and AI transformation — from architecture design to upskilling your team.</p>
+            </div>
+
+            <div class="svc-grid">
+                <div class="svc-card fade-up">
+                    <div class="svc-ico"><i class="ph-duotone ph-chart-pie-slice"></i></div>
+                    <h4>Data Analytics &amp; ML</h4>
+                    <p>Scalable analytics platforms on the Databricks Lakehouse — ingest structured &amp; unstructured data, generate insights, and deploy predictive ML models tied to business outcomes.</p>
+                    <div class="svc-tags"><span class="svc-tag">Lakehouse</span><span class="svc-tag">MLOps</span><span class="svc-tag">Forecasting</span></div>
+                </div>
+                <div class="svc-card fade-up" data-d="1">
+                    <div class="svc-ico"><i class="ph-duotone ph-chart-line-up"></i></div>
+                    <h4>MonitorBricks</h4>
+                    <p>Centralised monitoring for Databricks — compute, data growth, jobs, governance and cost in one dashboard, with active alerting and cost optimisation recommendations.</p>
+                    <div class="svc-tags"><span class="svc-tag">FinOps</span><span class="svc-tag">Jobs</span><span class="svc-tag">Audit</span></div>
+                </div>
+                <div class="svc-card fade-up" data-d="2">
+                    <div class="svc-ico"><i class="ph-duotone ph-sparkle"></i></div>
+                    <h4>AI-Powered Insights</h4>
+                    <p>Natural-language interface across every data source. "Show top cost clusters this week" — instantly returns insight, visualisation and recommendations, no SQL required.</p>
+                    <div class="svc-tags"><span class="svc-tag">NL Query</span><span class="svc-tag">Insight</span><span class="svc-tag">Autoviz</span></div>
+                </div>
+                <div class="svc-card fade-up" data-d="3">
+                    <div class="svc-ico"><i class="ph-duotone ph-cloud-arrow-up"></i></div>
+                    <h4>Cloud &amp; Data Engineering</h4>
+                    <p>Consulting to design and implement scalable architectures on Azure and Databricks — pipelines (ETL/ELT), Lakehouse setup, performance tuning and infrastructure optimisation.</p>
+                    <div class="svc-tags"><span class="svc-tag">Azure</span><span class="svc-tag">ETL/ELT</span><span class="svc-tag">Tuning</span></div>
+                </div>
+                <div class="svc-card fade-up" data-d="4">
+                    <div class="svc-ico"><i class="ph-duotone ph-robot"></i></div>
+                    <h4>Generative AI &amp; LLM</h4>
+                    <p>Build custom AI agents, integrate LLMs into enterprise workflows, and design production-grade GenAI applications with guardrails, audit trails and evaluation baked in.</p>
+                    <div class="svc-tags"><span class="svc-tag">Agents</span><span class="svc-tag">RAG</span><span class="svc-tag">Guardrails</span></div>
+                </div>
+                <div class="svc-card fade-up" data-d="5">
+                    <div class="svc-ico"><i class="ph-duotone ph-graduation-cap"></i></div>
+                    <h4>Training &amp; Enablement</h4>
+                    <p>Hands-on programs in Azure architecture, Databricks, data engineering, machine learning workflows and prompt engineering — focused on real-world implementation.</p>
+                    <div class="svc-tags"><span class="svc-tag">Databricks</span><span class="svc-tag">Azure</span><span class="svc-tag">GenAI</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SILOED vs UNIFIED ═══════════ -->
+    <section class="section tinted">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">The Difference</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Siloed chaos vs. <em>unified intelligence.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">See how Naolytics transforms fragmented data operations into a single real-time decision ecosystem.</p>
+            </div>
+
+            <div class="compare-wrap">
+                <div class="compare-col siloed fade-up">
+                    <div class="compare-head">
+                        <div class="h-ico"><i class="ph ph-puzzle-piece"></i></div>
+                        <h4>Siloed Data</h4>
+                        <span class="hk">Before</span>
+                    </div>
+                    <div class="silo-list">
+                        <div class="silo-row"><span class="name"><i class="ph ph-database"></i>CRM Data</span><span class="tag stale">Stale · 47h ago</span></div>
+                        <div class="silo-row"><span class="name"><i class="ph ph-chart-bar"></i>Analytics DB</span><span class="tag drift">Schema drift</span></div>
+                        <div class="silo-row"><span class="name"><i class="ph ph-broadcast"></i>IoT Feeds</span><span class="tag dup">Duplicates</span></div>
+                        <div class="silo-row"><span class="name"><i class="ph ph-desktop"></i>Legacy ERP</span><span class="tag nov">No validation</span></div>
+                        <div class="silo-row"><span class="name"><i class="ph ph-cloud"></i>SaaS Exports</span><span class="tag stale">Manual CSVs</span></div>
+                    </div>
+                </div>
+
+                <div class="compare-col unified fade-up" data-d="1">
+                    <div class="compare-head">
+                        <div class="h-ico"><i class="ph ph-atom"></i></div>
+                        <h4>Naolytics Unified</h4>
+                        <span class="hk">After</span>
+                    </div>
+                    <div class="unified-block">
+                        <div class="hub-ic"><i class="ph ph-tree-structure"></i></div>
+                        <h5>Unified Decision Hub</h5>
+                        <span class="st">● Real-time Sync Active</span>
+                    </div>
+                    <div class="unified-stats">
+                        <div class="un-stat"><div class="v">200+</div><div class="l">Sources</div></div>
+                        <div class="un-stat"><div class="v">99.7%</div><div class="l">Quality</div></div>
+                        <div class="un-stat"><div class="v">23 ms</div><div class="l">Latency</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ INDUSTRIES ═══════════ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Industries Served</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Eight industries. <em>One decision layer.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">Enterprises across finance, health, logistics, manufacturing, government and more run their real-time decisions on Naolytics.</p>
+            </div>
+            <div class="ind-scroll fade-up" data-d="1">
+                <div class="ind-track">
+                    <span class="ind-chip"><i class="ph ph-bank"></i> Global FinTech</span>
+                    <span class="ind-chip"><i class="ph ph-heartbeat"></i> Healthcare Systems</span>
+                    <span class="ind-chip"><i class="ph ph-truck"></i> Logistics &amp; Supply Chain</span>
+                    <span class="ind-chip"><i class="ph ph-factory"></i> Smart Manufacturing</span>
+                    <span class="ind-chip"><i class="ph ph-shield-star"></i> Government &amp; Defense</span>
+                    <span class="ind-chip"><i class="ph ph-lightning"></i> Energy &amp; Utilities</span>
+                    <span class="ind-chip"><i class="ph ph-broadcast"></i> Telecommunications</span>
+                    <span class="ind-chip"><i class="ph ph-storefront"></i> Retail &amp; E-Commerce</span>
+                    <!-- dupe for seamless loop -->
+                    <span class="ind-chip"><i class="ph ph-bank"></i> Global FinTech</span>
+                    <span class="ind-chip"><i class="ph ph-heartbeat"></i> Healthcare Systems</span>
+                    <span class="ind-chip"><i class="ph ph-truck"></i> Logistics &amp; Supply Chain</span>
+                    <span class="ind-chip"><i class="ph ph-factory"></i> Smart Manufacturing</span>
+                    <span class="ind-chip"><i class="ph ph-shield-star"></i> Government &amp; Defense</span>
+                    <span class="ind-chip"><i class="ph ph-lightning"></i> Energy &amp; Utilities</span>
+                    <span class="ind-chip"><i class="ph ph-broadcast"></i> Telecommunications</span>
+                    <span class="ind-chip"><i class="ph ph-storefront"></i> Retail &amp; E-Commerce</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ DIFFERENTIATORS ═══════════ -->
+    <section class="section tinted">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Differentiators</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Why teams choose <em>Naolytics.</em></h2>
+            </div>
+            <div class="diff-grid">
+                <div class="diff-cell fade-up">
+                    <div class="diff-num">01</div>
+                    <h4>Databricks Depth</h4>
+                    <p>Deep specialisation in the Databricks ecosystem — not a generic BI wrapper.</p>
+                </div>
+                <div class="diff-cell fade-up" data-d="1">
+                    <div class="diff-num">02</div>
+                    <h4>FinOps First</h4>
+                    <p>Strong focus on cost optimisation. Every deployment includes an active FinOps layer.</p>
+                </div>
+                <div class="diff-cell fade-up" data-d="2">
+                    <div class="diff-num">03</div>
+                    <h4>AI-Native Analytics</h4>
+                    <p>Natural-language querying and agentic insights baked in — not a bolt-on.</p>
+                </div>
+                <div class="diff-cell fade-up" data-d="3">
+                    <div class="diff-num">04</div>
+                    <h4>End-to-End</h4>
+                    <p>Consulting + product + training under one roof, one SLA, one delivery team.</p>
+                </div>
+                <div class="diff-cell fade-up" data-d="4">
+                    <div class="diff-num">05</div>
+                    <h4>Enterprise Scale</h4>
+                    <p>Production-proven at fintech, health, gov and manufacturing scale since 2021.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ TRAINING ═══════════ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="train-wrap">
+                <div class="train-copy fade-up">
+                    <div class="section-label" style="margin-bottom:1rem;">Training &amp; Enablement</div>
+                    <h3>Upskill your team — <em>not just your stack.</em></h3>
+                    <p>Hands-on programs focused on real-world implementation. Our engineers train your engineers using your data, your architecture, your goals — so the platform capability lives inside the team when we leave.</p>
+                    <ul class="train-list">
+                        <li><i class="ph ph-check-circle"></i><span><strong>Azure cloud architecture</strong> — from landing zones to cost governance</span></li>
+                        <li><i class="ph ph-check-circle"></i><span><strong>Databricks &amp; data engineering</strong> — Lakehouse, Delta, streaming, DLT</span></li>
+                        <li><i class="ph ph-check-circle"></i><span><strong>Machine learning workflows</strong> — MLOps, feature stores, model serving</span></li>
+                        <li><i class="ph ph-check-circle"></i><span><strong>GenAI &amp; prompt engineering</strong> — agents, RAG, evaluation, guardrails</span></li>
+                    </ul>
+                </div>
+                <div class="train-viz fade-up" data-d="1">
+                    <div class="train-track">
+                        <div class="ic"><i class="ph-duotone ph-cloud"></i></div>
+                        <div>
+                            <div class="nm">Azure Architect Path</div>
+                            <div class="mt">5 Days · Cert Ready · Hands-on labs</div>
+                        </div>
+                    </div>
+                    <div class="train-track">
+                        <div class="ic"><i class="ph-duotone ph-database"></i></div>
+                        <div>
+                            <div class="nm">Databricks &amp; Lakehouse</div>
+                            <div class="mt">4 Days · Real datasets · DE + MLE tracks</div>
+                        </div>
+                    </div>
+                    <div class="train-track">
+                        <div class="ic"><i class="ph-duotone ph-graph"></i></div>
+                        <div>
+                            <div class="nm">Machine Learning Ops</div>
+                            <div class="mt">3 Days · From notebook to production</div>
+                        </div>
+                    </div>
+                    <div class="train-track">
+                        <div class="ic"><i class="ph-duotone ph-sparkle"></i></div>
+                        <div>
+                            <div class="nm">GenAI &amp; Agents</div>
+                            <div class="mt">3 Days · RAG · Guardrails · Evaluations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ IMPACT STATS ═══════════ -->
+    <section class="section tinted">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Impact</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Scale that customers <em>feel every day.</em></h2>
+            </div>
+            <div class="impact-strip">
+                <div class="impact-cell fade-up">
+                    <div class="impact-val" data-c="5420"><span>0</span><span class="plus">+</span></div>
+                    <div class="impact-lbl">Beneficial Cashbooks</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="1">
+                    <div class="impact-val" data-c="30" data-suffix="M"><span>0</span><span class="plus">M+</span></div>
+                    <div class="impact-lbl">Satisfied Customers</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="2">
+                    <div class="impact-val" data-c="189"><span>0</span><span class="plus">+</span></div>
+                    <div class="impact-lbl">Countries Available</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="3">
+                    <div class="impact-val" data-c="8"><span>0</span><span class="plus"></span></div>
+                    <div class="impact-lbl">Industries Served</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="4">
+                    <div class="impact-val" data-c="5"><span>0</span><span class="plus">+ yrs</span></div>
+                    <div class="impact-lbl">Decision Intelligence</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="5">
+                    <div class="impact-val" data-c="200"><span>0</span><span class="plus">+</span></div>
+                    <div class="impact-lbl">Data Connectors</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ CTA ═══════════ -->
+    <section class="na-cta">
+        <h2 class="fade-up">Ready to stop reporting <em>and start deciding?</em></h2>
+        <p class="fade-up" data-d="1">Join the enterprises across 8 industries that have transformed their data operations with Naolytics — from fragmented silos to a single real-time decision ecosystem.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="fade-up" data-d="2">
+            <a href="./#contact-details" class="btn-primary"><i class="ph ph-chat-teardrop-text"></i> Get In Touch</a>
+            <a href="https://www.naolytics.com/" target="_blank" rel="noopener" class="btn-ghost"><i class="ph ph-arrow-up-right"></i> Visit Naolytics</a>
+        </div>
+    </section>
+
+    <footer class="na-foot">
+        <div>© 2026 Pure AI · Naolytics Pte Ltd · Singapore · Asia-Pacific HQ</div>
+        <div>
+            <a href="https://www.naolytics.com/" target="_blank" rel="noopener">naolytics.com</a> ·
+            <a href="./#contact-details">Contact</a> ·
+            SOC 2 · RBAC · E2E Encrypted
+        </div>
+    </footer>
+
+    <script>
+        /* ─── Fade-up reveal ─── */
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+        /* ─── Live ticking prompt counter ─── */
+        (function counter() {
+            const el = document.getElementById('naCount');
+            if (!el) return;
+            let v = 2847153;
+            const fmt = (n) => n.toLocaleString('en-US');
+            el.textContent = fmt(v);
+            setInterval(() => {
+                v += Math.floor(1 + Math.random() * 6);
+                el.textContent = fmt(v);
+            }, 900);
+        })();
+
+        /* ─── Typewriter on NovaSense query ─── */
+        (function typeQ() {
+            const el = document.getElementById('naQ');
+            if (!el) return;
+            const msg = 'Show me all high-risk transactions from the last 24 hours with anomaly scores above threshold';
+            let i = 0;
+            const tick = () => {
+                el.textContent = msg.slice(0, i);
+                if (i < msg.length) {
+                    i++;
+                    setTimeout(tick, 22 + Math.random() * 30);
+                }
+            };
+            setTimeout(tick, 600);
+        })();
+
+        /* ─── Count-up for challenge + impact stats ─── */
+        const countIo = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                const span = e.target.querySelector('span');
+                if (!span) return;
+                const target = parseFloat(e.target.dataset.c);
+                if (isNaN(target)) return;
+                const dur = 1600;
+                const start = performance.now();
+                const fmt = (v) => target >= 1000 ? v.toLocaleString('en-US') : String(v);
+                const step = (t) => {
+                    const p = Math.min((t - start) / dur, 1);
+                    const eased = 1 - Math.pow(1 - p, 3);
+                    const v = Math.floor(target * eased);
+                    span.textContent = fmt(v);
+                    if (p < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+                countIo.unobserve(e.target);
+            });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('[data-c]').forEach(el => countIo.observe(el));
+
+        /* ─── Product + service cursor spotlight ─── */
+        document.querySelectorAll('.prod-card, .svc-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const r = card.getBoundingClientRect();
+                card.style.setProperty('--mx', ((e.clientX - r.left) / r.width  * 100) + '%');
+                card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100) + '%');
+            });
+        });
+    </script>
+
+
+    <script>
+    (function(){
+        var mt = document.getElementById('mobile-toggle');
+        var mo = document.getElementById('mobile-overlay');
+        if (!mt || !mo) return;
+        mt.addEventListener('click', function(){
+            var open = mo.classList.toggle('open');
+            mt.innerHTML = open ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (!open) mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+        });
+        mo.querySelectorAll('[data-mobile-link]').forEach(function(link){
+            link.addEventListener('click', function(){
+                mo.classList.remove('open');
+                mt.innerHTML = '<i class="ph ph-list"></i>';
+                document.body.style.overflow = '';
+            });
+        });
+        mo.querySelectorAll('.mob-accordion-toggle').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var acc = btn.parentElement;
+                var wasOpen = acc.classList.contains('open');
+                mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+                if (!wasOpen) acc.classList.add('open');
+                btn.setAttribute('aria-expanded', !wasOpen);
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>

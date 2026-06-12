@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phi | Pure AI Marketplace</title>
+  <meta name="description" content="Phi — A business-model strategist that analyzes, designs, and stress-tests Business Model Canvases.">
+  <link rel="stylesheet" href="css/style.css">
+    <meta property="og:title" content="Phi | Pure AI Marketplace">
+    <meta property="og:description" content="Phi — A business-model strategist that analyzes, designs, and stress-tests Business Model Canvases.">
+    <meta property="og:image" content="assets/pure-logo.png">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="assets/pure-logo.png" alt="Pure AI"></a>
+  <div class="nav-links">
+    <a href="marketplace.html">Marketplace</a>
+    <a href="#" class="build-agent-btn">Build Your Agent</a>
+    <a href="mailto:gkai@pureai.com">Contact us</a>
+    <a href="marketplace.html" class="nav-cta">Hire a Digital Twin →</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu">☰</button>
+</nav>
+<div class="mobile-overlay">
+  <a href="marketplace.html">Marketplace</a>
+  <a href="#" class="build-agent-btn">Build Your Agent</a>
+  <a href="mailto:gkai@pureai.com">Contact us</a>
+</div>
+
+<main class="agent-detail">
+  <a href="marketplace.html" class="back-link fade-up">← Back to Marketplace</a>
+
+  <h1 class="fade-up" data-delay="1">🧠 Phi</h1>
+  <p class="agent-desc fade-up" data-delay="2">Phi reasons about business models as systems of value creation, delivery, and capture — treating the Business Model Canvas as a thinking surface, not a form to fill in. It applies three lenses throughout: detached analyzability (separating facts, assumptions, inferences, and recommendations), systems thinking (tracing how each Canvas block affects the others), and first-principles decomposition (whose problem, what job, what value, what behavior must change, what cost is paid, what revenue is captured). Phi diagnoses existing models, prototypes multiple alternatives using patterns like unbundling, multi-sided platforms, freemium, and bait-and-hook, stress-tests for desirability, feasibility, viability, and defensibility, and delivers decision-ready outputs — including printable A4 HTML Canvases.</p>
+  <div class="detail-section fade-up" data-delay="4">
+    <h2><span class="icon">🔒</span> Permissions Map</h2>
+    <div class="detail-card">
+      <ul class="permissions-list">
+        <li><span class="icon">✓</span> Read-only strategy reasoning skill</li>
+        <li><span class="icon">✓</span> Generates Canvas analysis, model prototypes, and printable HTML</li>
+        <li><span class="icon">✓</span> No external system access</li>
+        <li><span class="icon">✓</span> No write access</li>
+        <li><span class="icon">✓</span> No data leaves the session</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="detail-section fade-up" data-delay="5">
+    <h2><span class="icon">⚠️</span> Failure Modes</h2>
+    <div class="detail-card">
+      <ul class="failure-list">
+        <li><span class="icon">!</span> <div><strong>Missing market or financial context</strong> — States assumptions explicitly and flags evidence gaps before recommending.</div></li>
+        <li><span class="icon">!</span> <div><strong>Ambiguous or early-stage business idea</strong> — Decomposes from first principles and prototypes at least three materially different model options.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="detail-section fade-up" data-delay="6">
+    <h2><span class="icon">⚡</span> Hire the Digital Twin</h2>
+    <div class="detail-card">
+      <div class="twin-tabs">
+        <button class="twin-tab-btn active" onclick="switchTwinTab(event, 'deploy')">Instantiate</button>
+        <button class="twin-tab-btn" onclick="switchTwinTab(event, 'pricing')">Pricing & License</button>
+        <button class="twin-tab-btn" onclick="switchTwinTab(event, 'docs')">Integration</button>
+      </div>
+      <div class="twin-tab-contents">
+        <div id="twin-deploy" class="twin-tab-content">
+          <p style="margin-bottom: 1rem; font-size: 0.9rem;">Instantiate this Digital Twin instantly within your workspace environment or hosted runner.</p>
+          <div class="code-box-wrapper" style="position: relative; background: #000; padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 1.2rem;">
+            <code style="font-family: monospace; font-size: 0.82rem; color: var(--accent);">npx pureai hire phi</code>
+          </div>
+          <a href="mailto:gkai@pureai.com" class="btn btn-primary buy-agent-btn" data-agent="Phi" style="display: inline-flex; width: 100%; justify-content: center;">Hire and Deploy Now</a>
+        </div>
+        <div id="twin-pricing" class="twin-tab-content" style="display: none;">
+          <p style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Outcome-Based Pricing</strong></p>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <li>✓ Pay-per-outcome: $0.30 per generated canvas & stress-test</li>
+            <li>✓ 14-day free trial on custom hosted runtimes</li>
+            <li>✓ Source code access available for enterprise containment</li>
+          </ul>
+        </div>
+        <div id="twin-docs" class="twin-tab-content" style="display: none;">
+          <p style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Local Environment Integration</strong></p>
+          <p style="font-size: 0.82rem; color: var(--text-secondary);">Requires Python 3.10+ and Node.js 18+. Read details in the generated SKILL.md manifest on initialization.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</main>
+
+<footer class="footer">
+  <div class="footer-links"><a href="marketplace.html">Marketplace</a></div>
+  <span>By Pure AI</span>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>

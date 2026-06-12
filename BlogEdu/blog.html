@@ -1,0 +1,2773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PureAI — Education Intelligence Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --card: #161616;
+  --border: rgba(255,255,255,0.08);
+  --orange: #e8641a;
+  --orange-soft: #f07830;
+  --orange-glow: rgba(232, 100, 26, 0.12);
+  --text: #f0ede8;
+  --muted: #7a7672;
+  --serif: 'Playfair Display', 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', sans-serif;
+  --radius: 14px;
+  --max: 1160px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* --- Navigation bar --- */
+nav.main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6vw;
+  height: 64px;
+}
+
+.nav-logo img {
+  height: 36px;
+  display: block;
+  filter: invert(1);
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-tab-item {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-tab-item:hover {
+  color: var(--orange-soft);
+}
+
+.nav-tab-item.active {
+  color: var(--orange);
+  background: rgba(232, 100, 26, 0.08);
+}
+
+.nav-mobile-select {
+  display: none;
+}
+
+.nav-mobile-select select {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+}
+
+.nav-right-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nav-right-tag span {
+  color: var(--orange);
+}
+
+/* --- Section transitions --- */
+.article-section {
+  display: none;
+}
+
+.article-section.active {
+  display: block;
+  animation: fadeUp 0.6s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1050px) {
+  nav.main-nav {
+    padding: 0 4vw;
+  }
+  .nav-tabs {
+    display: none;
+  }
+  .nav-mobile-select {
+    display: block;
+  }
+  .nav-right-tag {
+    display: none;
+  }
+}
+
+/* Custom Footer */
+footer.main-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 3.5rem 6vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 4rem;
+}
+
+footer.main-footer img {
+  height: 36px;
+  filter: invert(1);
+}
+
+footer.main-footer .f-links {
+  display: flex;
+  gap: 2rem;
+}
+
+footer.main-footer .f-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: color 0.2s;
+}
+
+footer.main-footer .f-links a:hover {
+  color: var(--orange);
+}
+
+footer.main-footer .f-copy {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 768px) {
+  footer.main-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2.5rem 5vw;
+  }
+}
+/* --- Article 1 Styles --- */
+:root {
+--bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #222;
+    --orange: #e8671a;
+    --orange-soft: #f07c2e;
+    --orange-glow: rgba(232,103,26,0.15);
+    --text: #f0ede8;
+    --muted: #7a7672;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+}
+*, *::before, *::after {
+box-sizing: border-box; margin: 0; padding: 0;
+}
+html {
+scroll-behavior: smooth;
+}
+body {
+background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 16px;
+}
+nav {
+position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6vw;
+    height: 64px;
+}
+.art-1 .nav-logo img {
+height: 36px; display: block; filter: invert(1);
+}
+.art-1 .nav-links {
+display: flex; gap: 2rem;
+}
+.art-1 .nav-links a {
+color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+    transition: color 0.2s;
+}
+.art-1 .nav-links a:hover {
+color: var(--orange);
+}
+.art-1 .nav-cta {
+background: var(--orange);
+    color: #fff;
+    border: none;
+    padding: 0.45rem 1.1rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    font-family: var(--sans);
+    transition: background 0.2s;
+}
+.art-1 .nav-cta:hover {
+background: var(--orange-soft);
+}
+.art-1 .hero {
+position: relative;
+    overflow: hidden;
+    padding: 100px 6vw 80px;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.art-1 .hero-glow {
+position: absolute;
+    top: -120px;
+    right: -160px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(232,103,26,0.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+.art-1 .hero-glow-2 {
+position: absolute;
+    bottom: -80px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(232,103,26,0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+.art-1 .hero-eyebrow {
+display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--orange-glow);
+    border: 1px solid rgba(232,103,26,0.3);
+    border-radius: 100px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    width: fit-content;
+}
+.art-1 .hero-eyebrow span {
+width: 6px; height: 6px; background: var(--orange); border-radius: 50%;
+}
+.art-1 .hero-title {
+font-family: var(--serif);
+    font-size: clamp(2.6rem, 5.5vw, 5rem);
+    line-height: 1.08;
+    max-width: 820px;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+}
+.art-1 .hero-title em {
+font-style: italic; color: var(--orange);
+}
+.art-1 .hero-subtitle {
+color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+    font-weight: 300;
+}
+.art-1 .hero-meta {
+display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+}
+.art-1 .hero-meta .dot {
+width: 3px; height: 3px; background: var(--muted); border-radius: 50%;
+}
+.art-1 .hero-img-main img {
+width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.art-1 .hero-img-stack > div img {
+width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.art-1 .img-overlay {
+position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,13,13,0.5) 0%, transparent 50%);
+}
+.art-1 .divider {
+height: 1px;
+    background: var(--border);
+    margin: 0 6vw;
+}
+.art-1 section {
+padding: 80px 6vw;
+}
+.art-1 .section-label {
+font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+.art-1 .section-heading {
+font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    line-height: 1.15;
+    max-width: 640px;
+    margin-bottom: 1.5rem;
+}
+.art-1 .section-heading em {
+font-style: italic; color: var(--orange);
+}
+.art-1 .pull-quote {
+border-left: 3px solid var(--orange);
+    padding: 1.2rem 2rem;
+    margin: 2.5rem 0;
+    background: var(--card);
+    border-radius: 0 10px 10px 0;
+}
+.art-1 .pull-quote p {
+font-family: var(--serif);
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text);
+}
+.art-1 .prose {
+color: #b5b0aa;
+    font-size: 1rem;
+    line-height: 1.9;
+    max-width: 720px;
+    font-weight: 300;
+}
+.art-1 .prose p {
+margin-bottom: 1.4rem;
+}
+.art-1 .prose strong {
+color: var(--text); font-weight: 500;
+}
+.art-1 .two-col {
+display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+.art-1 .two-col.reverse {
+direction: rtl;
+}
+.art-1 .two-col.reverse > * {
+direction: ltr;
+}
+.art-1 .cards-grid {
+display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+}
+.art-1 .feat-card {
+background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem 1.6rem;
+    transition: border-color 0.25s, transform 0.25s;
+}
+.art-1 .feat-card:hover {
+border-color: rgba(232,103,26,0.4);
+    transform: translateY(-3px);
+}
+.art-1 .feat-card .icon {
+font-size: 1.6rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+.art-1 .feat-card h4 {
+font-family: var(--serif);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.art-1 .feat-card p {
+color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.7;
+}
+.art-1 .content-img {
+border-radius: 16px;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 4/3;
+}
+.art-1 .content-img img {
+width: 100%; height: 100%; object-fit: cover;
+}
+.art-1 .big-quote-section {
+background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5rem 8vw;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.art-1 .big-quote-section::before {
+content: '"';
+    position: absolute;
+    top: -20px; left: 5%;
+    font-family: var(--serif);
+    font-size: 20rem;
+    color: rgba(232,103,26,0.06);
+    line-height: 1;
+    pointer-events: none;
+}
+.art-1 .big-quote-section p {
+font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    font-style: italic;
+    line-height: 1.45;
+    max-width: 780px;
+    margin: 0 auto;
+}
+.art-1 .big-quote-section p em {
+color: var(--orange); font-style: normal;
+}
+.art-1 .stats-row {
+display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 3rem 0;
+}
+.art-1 .stat {
+background: var(--card);
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+.art-1 .stat .num {
+font-family: var(--serif);
+    font-size: 2.4rem;
+    color: var(--orange);
+    display: block;
+    margin-bottom: 0.3rem;
+}
+.art-1 .stat .lbl {
+color: var(--muted); font-size: 0.82rem; letter-spacing: 0.04em;
+}
+.art-1 .next-page-nav {
+display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem 2.5rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.25s, background 0.25s;
+    margin-top: 4rem;
+}
+.art-1 .next-page-nav:hover {
+border-color: rgba(232,103,26,0.45);
+    background: var(--surface);
+}
+.art-1 .next-page-nav .np-label {
+font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem;
+}
+.art-1 .next-page-nav .np-title {
+font-family: var(--serif); font-size: 1.3rem;
+}
+.art-1 .next-page-nav .np-arrow {
+width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--orange-glow);
+    border: 1px solid rgba(232,103,26,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--orange);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+.art-1 .next-page-nav:hover .np-arrow {
+background: var(--orange); color: #fff;
+}
+footer {
+background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 3.5rem 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+footer svg {
+display: block;
+}
+footer .f-links {
+display: flex; gap: 2rem;
+}
+footer .f-links a {
+color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.2s;
+}
+footer .f-links a:hover {
+color: var(--orange);
+}
+footer .f-copy {
+color: var(--muted); font-size: 0.78rem;
+}
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.art-1 .fade-in {
+animation: fadeUp 0.7s ease forwards;
+}
+.art-1 .delay-1 {
+animation-delay: 0.15s; opacity: 0;
+}
+.art-1 .delay-2 {
+animation-delay: 0.3s; opacity: 0;
+}
+.art-1 .delay-3 {
+animation-delay: 0.45s; opacity: 0;
+}
+.art-1 .delay-4 {
+animation-delay: 0.6s; opacity: 0;
+}
+@media (max-width: 900px) {
+.art-1 .two-col {
+grid-template-columns: 1fr; gap: 2rem;
+}
+.art-1 .two-col.reverse {
+direction: ltr;
+}
+}
+@media (max-width: 768px) {
+nav {
+padding: 0 4vw; height: 56px;
+}
+.art-1 .nav-logo img {
+height: 26px;
+}
+.art-1 section {
+padding: 56px 5vw;
+}
+.art-1 .hero {
+padding: 72px 5vw 56px; min-height: auto;
+}
+.art-1 .hero-title {
+font-size: clamp(2rem, 8vw, 3rem);
+}
+.art-1 .hero-subtitle {
+font-size: 0.95rem;
+}
+.art-1 .stats-row {
+grid-template-columns: 1fr;
+}
+.art-1 .stat .num {
+font-size: 2rem;
+}
+.art-1 .cards-grid {
+grid-template-columns: 1fr 1fr;
+}
+.art-1 .big-quote-section {
+padding: 3rem 6vw;
+}
+.art-1 .big-quote-section p {
+font-size: 1.2rem;
+}
+.art-1 .prose {
+font-size: 0.95rem; columns: 1 !important;
+}
+.art-1 .section-heading {
+font-size: clamp(1.5rem, 6vw, 2rem);
+}
+.art-1 .next-page-nav {
+padding: 1.2rem 1.5rem;
+}
+.art-1 .next-page-nav .np-title {
+font-size: 1.05rem;
+}
+footer {
+flex-direction: column; align-items: flex-start; gap: 1rem; padding: 2.5rem 5vw;
+}
+footer .f-links {
+flex-wrap: wrap; gap: 1rem;
+}
+.art-1 .divider {
+margin: 0 5vw;
+}
+}
+@media (max-width: 480px) {
+.art-1 .cards-grid {
+grid-template-columns: 1fr;
+}
+nav {
+padding: 0 4vw;
+}
+.art-1 .hero {
+padding: 60px 4vw 48px;
+}
+.art-1 section {
+padding: 48px 4vw;
+}
+footer {
+padding: 2rem 4vw;
+}
+.art-1 .big-quote-section::before {
+font-size: 10rem;
+}
+.art-1 .two-col .cards-grid {
+grid-template-columns: 1fr 1fr;
+}
+.art-1 .stats-row {
+border-radius: 10px;
+}
+}
+.art-1 .intro-text-block {
+max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 0 0;
+}
+.art-1 .intro-lead {
+font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+}
+.art-1 .intro-body {
+font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    color: #b5b0aa;
+    line-height: 1.9;
+    font-weight: 300;
+    margin: 0;
+}
+@media (max-width: 768px) {
+.art-1 .intro-text-block {
+padding: 1.5rem 0 0;
+}
+.art-1 .intro-lead {
+font-size: 1rem;
+}
+.art-1 .intro-body {
+font-size: 0.93rem;
+}
+}/* --- Article 2 Styles --- */
+:root {
+--bg: #0c0c0c;
+  --surface: #141414;
+  --card: #1c1c1c;
+  --border: #252525;
+  --orange: #e8641a;
+  --orange-light: #f07830;
+  --orange-glow: rgba(232,100,26,0.12);
+  --text: #f0ece7;
+  --muted: #6e6862;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', sans-serif;
+  --radius: 14px;
+}
+*, *::before, *::after {
+box-sizing: border-box; margin: 0; padding: 0;
+}
+html {
+scroll-behavior: smooth;
+}
+body {
+background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+nav {
+position: sticky; top: 0; z-index: 100;
+  background: rgba(12,12,12,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw; height: 62px;
+}
+.art-2 .nav-logo {
+display: flex; align-items: center;
+}
+.art-2 .nav-logo img {
+height: 36px; display: block; filter: invert(1);
+}
+.art-2 .nav-right {
+display: flex; align-items: center; gap: 2rem;
+}
+.art-2 .nav-tag {
+font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+}
+.art-2 .nav-tag span {
+color: var(--orange);
+}
+.art-2 .hero {
+min-height: 88vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 5vw 5vw;
+  position: relative; overflow: hidden;
+}
+.art-2 .hero-bg {
+position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(160deg, #0c0c0c 0%, #111008 40%, #0c0c0c 100%);
+}
+.art-2 .hero-glow {
+position: absolute; top: -100px; right: -150px;
+  width: 650px; height: 650px;
+  background: radial-gradient(circle, rgba(232,100,26,0.14) 0%, transparent 68%);
+  pointer-events: none; z-index: 0;
+}
+.art-2 .hero-content {
+position: relative; z-index: 1; max-width: 820px;
+}
+.art-2 .hero-eyebrow {
+display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--orange-glow);
+  border: 1px solid rgba(232,100,26,0.28);
+  border-radius: 100px;
+  padding: 0.28rem 0.9rem;
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--orange); font-weight: 500;
+  margin-bottom: 2rem; width: fit-content;
+}
+.art-2 .hero-eyebrow::before {
+content: ''; width: 5px; height: 5px;
+  background: var(--orange); border-radius: 50%;
+}
+.art-2 .hero-title {
+font-family: var(--serif);
+  font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+  line-height: 1.1; letter-spacing: -0.015em;
+  margin-bottom: 1.5rem; font-weight: 700;
+}
+.art-2 .hero-title em {
+font-style: italic; color: var(--orange);
+}
+.art-2 .hero-subtitle {
+font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--muted); line-height: 1.75;
+  max-width: 560px; margin-bottom: 2.5rem; font-weight: 300;
+}
+.art-2 .hero-meta {
+display: flex; align-items: center; gap: 1.5rem;
+  font-size: 0.78rem; color: var(--muted); letter-spacing: 0.03em;
+}
+.art-2 .hero-meta .dot {
+width: 3px; height: 3px; background: var(--muted); border-radius: 50%;
+}
+.art-2 .hero-img-hero {
+position: absolute; top: 0; right: 0;
+  width: 48%; height: 100%;
+  overflow: hidden; z-index: 0;
+}
+.art-2 .hero-img-hero img {
+width: 100%; height: 100%; object-fit: cover;
+}
+.art-2 .hero-img-hero::after {
+content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--bg) 0%, rgba(12,12,12,0.6) 40%, transparent 100%);
+}
+.art-2 .divider {
+height: 1px; background: var(--border); margin: 0 5vw;
+}
+.art-2 section {
+padding: 80px 5vw;
+}
+.art-2 .section-label {
+font-size: 0.7rem; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--orange); font-weight: 500; margin-bottom: 1rem;
+}
+.art-2 .section-heading {
+font-family: var(--serif);
+  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+  line-height: 1.15; max-width: 620px; margin-bottom: 1.5rem;
+}
+.art-2 .section-heading em {
+font-style: italic; color: var(--orange);
+}
+.art-2 .prose {
+color: #a8a29c;
+  font-size: 1rem; line-height: 1.9;
+  font-weight: 300; max-width: 680px;
+}
+.art-2 .prose p {
+margin-bottom: 1.4rem;
+}
+.art-2 .prose strong {
+color: var(--text); font-weight: 500;
+}
+.art-2 .two-col {
+display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start;
+}
+.art-2 .two-col.flip {
+direction: rtl;
+}
+.art-2 .two-col.flip > * {
+direction: ltr;
+}
+.art-2 .content-img {
+border-radius: var(--radius); overflow: hidden;
+  position: relative;
+}
+.art-2 .content-img img {
+width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.6s ease;
+}
+.art-2 .content-img:hover img {
+transform: scale(1.03);
+}
+.art-2 .content-img::after {
+content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,12,12,0.4) 0%, transparent 60%);
+}
+.art-2 .pull-quote {
+border-left: 3px solid var(--orange);
+  padding: 1.2rem 2rem;
+  margin: 2.5rem 0;
+  background: var(--card);
+  border-radius: 0 10px 10px 0;
+}
+.art-2 .pull-quote p {
+font-family: var(--serif); font-size: 1.2rem;
+  font-style: italic; color: var(--text); line-height: 1.5;
+}
+.art-2 .agent-grid {
+display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem; margin-top: 2.5rem;
+}
+.art-2 .agent-card {
+background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.5rem;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.art-2 .agent-card:hover {
+border-color: rgba(232,100,26,0.4); transform: translateY(-3px);
+}
+.art-2 .agent-card .agent-icon {
+font-size: 1.5rem; margin-bottom: 0.8rem; display: block;
+}
+.art-2 .agent-card h4 {
+font-family: var(--serif); font-size: 1rem;
+  margin-bottom: 0.4rem; color: var(--text); font-weight: 600;
+}
+.art-2 .agent-card p {
+color: var(--muted); font-size: 0.87rem; line-height: 1.65;
+}
+.art-2 .timeline {
+margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0;
+}
+.art-2 .tl-item {
+display: grid; grid-template-columns: 100px 1fr;
+  gap: 2rem; align-items: start;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.art-2 .tl-item:last-child {
+border-bottom: none;
+}
+.art-2 .tl-time {
+font-family: var(--serif); font-size: 1.1rem;
+  color: var(--orange); font-style: italic; font-weight: 600;
+  padding-top: 2px;
+}
+.art-2 .tl-text {
+color: #a8a29c; font-size: 0.97rem; line-height: 1.7;
+}
+.art-2 .tl-text strong {
+color: var(--text); font-weight: 500;
+}
+.art-2 .compare-table {
+width: 100%; border-collapse: collapse; margin-top: 2.5rem;
+  font-size: 0.95rem;
+}
+.art-2 .compare-table th {
+background: var(--card); color: var(--text); font-weight: 500;
+  padding: 1rem 1.5rem; text-align: left;
+  border-bottom: 2px solid var(--orange);
+  font-family: var(--serif);
+}
+.art-2 .compare-table th:first-child {
+border-radius: var(--radius) 0 0 0;
+}
+.art-2 .compare-table th:last-child {
+border-radius: 0 var(--radius) 0 0;
+}
+.art-2 .compare-table td {
+padding: 1rem 1.5rem; border-bottom: 1px solid var(--border);
+  color: #a8a29c; vertical-align: top; line-height: 1.65;
+}
+.art-2 .compare-table td:last-child {
+color: var(--text);
+}
+.art-2 .compare-table tr:last-child td {
+border-bottom: none;
+}
+.art-2 .compare-table tr:hover td {
+background: rgba(255,255,255,0.02);
+}
+.art-2 .big-quote {
+background: linear-gradient(135deg, var(--surface), var(--card));
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5rem 8vw;
+  text-align: center; position: relative; overflow: hidden;
+}
+.art-2 .big-quote::before {
+content: 'C';
+  position: absolute; top: -30px; left: 4%;
+  font-family: var(--serif); font-size: 18rem;
+  color: rgba(232,100,26,0.06); line-height: 1;
+  pointer-events: none;
+}
+.art-2 .big-quote p {
+font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  font-style: italic; line-height: 1.45;
+  max-width: 760px; margin: 0 auto;
+}
+.art-2 .big-quote p em {
+font-style: normal; color: var(--orange);
+}
+.art-2 .stats-row {
+display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; margin: 3rem 0;
+}
+.art-2 .stat {
+background: var(--card); padding: 2rem 1.5rem; text-align: center;
+}
+.art-2 .stat .num {
+font-family: var(--serif); font-size: 2.4rem;
+  color: var(--orange); display: block; margin-bottom: 0.3rem;
+}
+.art-2 .stat .lbl {
+color: var(--muted); font-size: 0.82rem; letter-spacing: 0.04em;
+}
+.art-2 .full-img {
+border-radius: var(--radius); overflow: hidden;
+  margin-top: 2.5rem; position: relative;
+}
+.art-2 .full-img img {
+width: 100%; max-height: 520px;
+  object-fit: cover; display: block;
+}
+.art-2 .full-img::after {
+content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,12,12,0.5) 0%, transparent 50%);
+}
+.art-2 .next-nav {
+display: flex; align-items: center; justify-content: space-between;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.8rem 2.2rem;
+  text-decoration: none; color: var(--text);
+  transition: border-color 0.25s, background 0.25s;
+  margin-top: 4rem;
+}
+.art-2 .next-nav:hover {
+border-color: rgba(232,100,26,0.4); background: var(--surface);
+}
+.art-2 .next-nav .np-label {
+font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 0.4rem;
+}
+.art-2 .next-nav .np-title {
+font-family: var(--serif); font-size: 1.25rem; font-weight: 600;
+}
+.art-2 .next-nav .np-arrow {
+width: 48px; height: 48px; border-radius: 50%;
+  background: var(--orange-glow);
+  border: 1px solid rgba(232,100,26,0.3);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--orange); font-size: 1.2rem; flex-shrink: 0;
+  transition: background 0.2s;
+}
+.art-2 .next-nav:hover .np-arrow {
+background: var(--orange); color: #fff;
+}
+footer {
+background: var(--surface); border-top: 1px solid var(--border);
+  padding: 3rem 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.art-2 .footer-links {
+display: flex; gap: 2rem;
+}
+.art-2 .footer-links a {
+color: var(--muted); text-decoration: none; font-size: 0.82rem;
+  transition: color 0.2s;
+}
+.art-2 .footer-links a:hover {
+color: var(--orange);
+}
+.art-2 .footer-copy {
+color: var(--muted); font-size: 0.78rem;
+}
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.art-2 .fade-in {
+animation: fadeUp 0.7s ease forwards;
+}
+.art-2 .d1 {
+animation-delay: 0.1s; opacity: 0;
+}
+.art-2 .d2 {
+animation-delay: 0.25s; opacity: 0;
+}
+.art-2 .d3 {
+animation-delay: 0.4s; opacity: 0;
+}
+@media (max-width: 900px) {
+.art-2 .two-col {
+grid-template-columns: 1fr; gap: 2.5rem;
+}
+.art-2 .two-col.flip {
+direction: ltr;
+}
+.art-2 .hero-img-hero {
+display: block; width: 100%; height: 100%; opacity: 0.15;
+}
+.art-2 .hero-img-hero::after {
+background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%);
+}
+.art-2 .stats-row {
+grid-template-columns: 1fr;
+}
+}
+@media (max-width: 640px) {
+nav {
+padding: 0 4vw;
+}
+.art-2 section {
+padding: 56px 4vw;
+}
+.art-2 .hero {
+padding: 0 4vw 4vw; min-height: 70vh;
+}
+.art-2 .hero-title {
+font-size: 2rem;
+}
+.art-2 .tl-item {
+grid-template-columns: 80px 1fr; gap: 1rem;
+}
+.art-2 .compare-table {
+font-size: 0.83rem;
+}
+.art-2 .compare-table td, .art-2 .compare-table th {
+padding: 0.75rem 1rem;
+}
+.art-2 .big-quote {
+padding: 3rem 5vw;
+}
+.art-2 .big-quote p {
+font-size: 1.1rem;
+}
+.art-2 .next-nav {
+flex-direction: column; align-items: flex-start; gap: 1rem;
+}
+footer {
+flex-direction: column; align-items: flex-start;
+}
+.art-2 .agent-grid {
+grid-template-columns: 1fr;
+}
+}/* --- Article 3 Styles --- */
+*, *::before, *::after {
+box-sizing: border-box; margin: 0; padding: 0;
+}
+:root {
+--bg: #0a0a0a; --card: #161616;
+  --border: rgba(255,255,255,0.07);
+  --accent: #e8632a; --accent2: #ff9060;
+  --text: #f0ede8; --muted: #777;
+  --r: 14px;
+  --max: 1160px;
+  --px: 52px;
+}
+html {
+scroll-behavior: smooth;
+}
+body {
+font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--text); font-weight: 300; -webkit-font-smoothing: antialiased; line-height: 1.6;
+}
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px var(--px);
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.art-3 .logo-img {
+height: 32px; width: auto; display: block;
+}
+.art-3 .hero {
+min-height: 100vh; display: grid; place-items: center;
+  padding: 120px var(--px) 80px;
+  position: relative; overflow: hidden;
+}
+.art-3 .hero-glow {
+position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 50% at 72% 50%, rgba(232,99,42,0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 50% at 10% 90%, rgba(232,99,42,0.06) 0%, transparent 60%);
+}
+.art-3 .hero-grid {
+max-width: var(--max); width: 100%;
+  display: grid; grid-template-columns: 1fr 42%; gap: 72px; align-items: center;
+  position: relative; z-index: 1;
+}
+.art-3 .tag {
+display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(232,99,42,0.1); border: 1px solid rgba(232,99,42,0.25);
+  color: var(--accent2); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 20px; margin-bottom: 24px;
+}
+.art-3 .tag::before {
+content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0;
+}
+.art-3 h2 {
+font-family: "Playfair Display", serif;
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 700; line-height: 1.08; letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+.art-3 h2 em {
+font-style: italic; color: var(--accent);
+}
+.art-3 .lead {
+font-size: clamp(14px, 1.5vw, 16px); color: #999; line-height: 1.78; max-width: 460px; margin-bottom: 32px;
+}
+.art-3 .meta {
+display: flex; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 12.5px; color: var(--muted);
+}
+.art-3 .sep {
+width: 3px; height: 3px; border-radius: 50%; background: #444; flex-shrink: 0;
+}
+.art-3 .hero-img-wrap {
+border-radius: 20px; overflow: hidden; aspect-ratio: 3/4;
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+}
+.art-3 .hero-img-wrap img {
+width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.art-3 .hero-img-wrap::after {
+content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.25) 0%, transparent 50%);
+  pointer-events: none;
+}
+.art-3 .prose {
+max-width: 760px; margin: 0 auto; padding: 80px var(--px);
+}
+.art-3 .prose ul {
+margin: 16px 0 16px 20px; display: flex; flex-direction: column; gap: 10px;
+}
+.art-3 .prose ul li {
+font-size: clamp(14px, 1.4vw, 15.5px); color: #aaa; line-height: 1.7; padding-left: 8px;
+}
+.art-3 .prose ul li::marker {
+color: var(--accent);
+}
+.art-3 h2 {
+font-family: "Playfair Display", serif;
+  font-size: clamp(26px, 3.5vw, 42px);
+  font-weight: 600; line-height: 1.15; letter-spacing: -0.015em;
+  margin-bottom: 18px;
+}
+.art-3 h2 em {
+font-style: italic; color: var(--accent);
+}
+.art-3 p {
+font-size: clamp(14px, 1.4vw, 15.5px); color: #aaa; line-height: 1.84; margin-bottom: 16px;
+}
+.art-3 p:last-child {
+margin-bottom: 0;
+}
+.art-3 .wide-img {
+max-width: var(--max); margin: 0 auto; padding: 0 var(--px);
+}
+.art-3 .wide-img-inner {
+border-radius: 20px; overflow: hidden; aspect-ratio: 16/6.5;
+  position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+}
+.art-3 .wide-img-inner img {
+width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.art-3 .wide-img-inner::after {
+content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(232,99,42,0.07) 0%, transparent 55%);
+  pointer-events: none;
+}
+.art-3 .dims {
+max-width: var(--max); margin: 0 auto; padding: 64px var(--px);
+}
+.art-3 .dims-label {
+font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 26px;
+}
+.art-3 .dims-grid {
+display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
+}
+.art-3 .dim-card {
+background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 26px 20px;
+  transition: border-color .25s, transform .25s;
+}
+.art-3 .dim-card:hover {
+border-color: rgba(232,99,42,0.35); transform: translateY(-5px);
+}
+.art-3 .dim-icon {
+font-size: 24px; margin-bottom: 14px;
+}
+.art-3 .dim-card h3 {
+font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 8px;
+}
+.art-3 .dim-card p {
+font-size: 12px; color: var(--muted); line-height: 1.6; margin: 0;
+}
+.art-3 .rule {
+max-width: var(--max); margin: 0 auto; padding: 0 var(--px);
+}
+.art-3 .rule hr {
+border: none; border-top: 1px solid var(--border);
+}
+.art-3 .two {
+max-width: var(--max); margin: 0 auto; padding: 60px var(--px) 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+}
+.art-3 .two h2 {
+font-size: clamp(22px, 2.5vw, 32px);
+}
+.art-3 .quote-wrap {
+max-width: 760px; margin: 0 auto; padding: 0 var(--px) 72px;
+}
+.art-3 blockquote {
+border-left: 3px solid var(--accent);
+  padding: 24px 28px 24px 30px;
+  background: var(--card); border-radius: 0 var(--r) var(--r) 0;
+  font-family: "Playfair Display", serif; font-size: clamp(16px, 1.8vw, 19px);
+  font-style: italic; color: var(--text); line-height: 1.65;
+}
+.art-3 blockquote cite {
+display: block; margin-top: 14px; font-style: normal;
+  font-family: "DM Sans", sans-serif; font-size: 12px; color: var(--muted);
+}
+.art-3 .page-nav {
+max-width: var(--max); margin: 0 auto; padding: 52px var(--px) 90px;
+  display: flex; justify-content: space-between; gap: 20px;
+}
+.art-3 .nav-card {
+display: flex; flex-direction: column; gap: 7px; text-decoration: none;
+  border: 1px solid var(--border); border-radius: var(--r); padding: 20px 24px;
+  flex: 1; max-width: 340px;
+  transition: border-color .25s, background .25s;
+}
+.art-3 .nav-card:hover {
+border-color: rgba(232,99,42,0.35); background: var(--card);
+}
+.art-3 .nav-label {
+font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.art-3 .nav-title {
+font-family: "Playfair Display", serif; font-size: 15px; color: var(--text); line-height: 1.35;
+}
+.art-3 .nav-arrow {
+font-size: 16px; color: var(--accent);
+}
+.art-3 .nav-card.right {
+align-items: flex-end; text-align: right;
+}
+.art-3 .footer {
+border-top: 1px solid var(--border);
+  max-width: var(--max); margin: 0 auto; padding: 28px var(--px);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.art-3 .footer-logo {
+height: 26px; width: auto; opacity: 0.7;
+}
+.art-3 .footer p {
+font-size: 12px; color: var(--muted);
+}
+.art-3 .reveal {
+opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease;
+}
+.art-3 .visible {
+opacity: 1; transform: none;
+}
+@media (max-width: 1024px) {
+:root {
+--px: 36px;
+}
+.art-3 .dims-grid {
+grid-template-columns: repeat(3, 1fr);
+}
+}
+@media (max-width: 768px) {
+:root {
+--px: 20px;
+}
+nav {
+padding: 12px var(--px);
+}
+.art-3 .logo-img {
+height: 26px;
+}
+.art-3 .nav-cta {
+padding: 8px 16px; font-size: 12px;
+}
+.art-3 .hero {
+padding: 100px var(--px) 60px; min-height: unset;
+}
+.art-3 .hero-grid {
+grid-template-columns: 1fr; gap: 32px; z-index: 1; position: relative;
+}
+.art-3 .hero-img-wrap {
+position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.15; z-index: 0; border-radius: 0; box-shadow: none;
+}
+.art-3 .hero-img-wrap::after {
+content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%); pointer-events: none;
+}
+.art-3 .lead {
+max-width: 100%;
+}
+.art-3 .wide-img-inner {
+aspect-ratio: 4/3;
+}
+.art-3 .dims-grid {
+grid-template-columns: 1fr 1fr;
+}
+.art-3 .two {
+grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px;
+}
+.art-3 .page-nav {
+flex-direction: column; align-items: stretch;
+}
+.art-3 .nav-card.right {
+align-items: flex-start; text-align: left;
+}
+.art-3 .nav-card {
+max-width: 100%;
+}
+.art-3 .footer {
+flex-direction: column; align-items: flex-start; gap: 12px; padding: 24px var(--px);
+}
+}
+@media (max-width: 480px) {
+.art-3 h2 {
+font-size: clamp(32px, 9vw, 46px);
+}
+.art-3 .dims-grid {
+grid-template-columns: 1fr;
+}
+.art-3 blockquote {
+font-size: 15px; padding: 20px 18px 20px 22px;
+}
+}/* --- Article 4 Styles --- */
+:root {
+--bg:#0b0b0b;--surf:#131313;--card:#191919;--border:#222;
+  --or:#e8641a;--or-lt:#f07830;--or-glow:rgba(232,100,26,.11);
+  --txt:#edeae5;--mute:#6a6460;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;--r:14px;
+}
+*, *::before, *::after {
+box-sizing:border-box;margin:0;padding:0
+}
+html {
+scroll-behavior:smooth
+}
+body {
+background:var(--bg);color:var(--txt);font-family:var(--sans);font-weight:300;line-height:1.75;overflow-x:hidden
+}
+nav {
+position:sticky;top:0;z-index:100;
+  background:rgba(11,11,11,.92);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5vw;height:62px;
+}
+.art-4 .nav-logo {
+display: flex; align-items: center;
+}
+.art-4 .nav-logo img {
+height: 36px; display: block; filter: invert(1);
+}
+.art-4 .nav-tag {
+font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)
+}
+.art-4 .nav-tag b {
+color:var(--or);font-weight:500
+}
+.art-4 .hero {
+position:relative;min-height:90vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 5vw 5vw;overflow:hidden;
+}
+.art-4 .hero-bg {
+position:absolute;inset:0;z-index:0;background:linear-gradient(150deg,#0b0b0b 0%,#0e0c0b 50%,#0b0b0b 100%)
+}
+.art-4 .hero-glow {
+position:absolute;top:-60px;right:-100px;
+  width:580px;height:580px;
+  background:radial-gradient(circle,rgba(232,100,26,.16) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+.art-4 .hero-img {
+position:absolute;right:0;top:0;width:50%;height:100%;z-index:0;overflow:hidden;
+}
+.art-4 .hero-img img {
+width:100%;height:100%;object-fit:cover;object-position:center top
+}
+.art-4 .hero-img::after {
+content:'';position:absolute;inset:0;
+  background:linear-gradient(to right,var(--bg) 0%,rgba(11,11,11,.7) 35%,transparent 100%);
+}
+.art-4 .hero-inner {
+position:relative;z-index:1;max-width:820px
+}
+.art-4 .eyebrow {
+display:inline-flex;align-items:center;gap:.45rem;
+  background:var(--or-glow);border:1px solid rgba(232,100,26,.25);
+  border-radius:100px;padding:.28rem .95rem;
+  font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--or);font-weight:500;margin-bottom:1.8rem;width:fit-content;
+}
+.art-4 .eyebrow::before {
+content:'';width:5px;height:5px;background:var(--or);border-radius:50%
+}
+.art-4 h2.hero-title {
+font-family:var(--serif);
+  font-size:clamp(2.2rem,5.2vw,4.8rem);
+  line-height:1.08;letter-spacing:-.018em;
+  font-weight:700;margin-bottom:1.5rem;
+}
+.art-4 h2.hero-title em {
+font-style:italic;color:var(--or)
+}
+.art-4 .hero-sub {
+font-size:clamp(.97rem,1.6vw,1.1rem);color:var(--mute);
+  line-height:1.8;max-width:540px;margin-bottom:2.5rem;font-weight:300;
+}
+.art-4 .hero-meta {
+display:flex;align-items:center;gap:1.3rem;
+  font-size:.77rem;color:var(--mute);letter-spacing:.03em;flex-wrap:wrap;
+}
+.art-4 .dot {
+width:3px;height:3px;background:var(--mute);border-radius:50%
+}
+.art-4 .div {
+height:1px;background:var(--border);margin:0 5vw
+}
+.art-4 section {
+padding:76px 5vw
+}
+.art-4 .s-label {
+font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--or);font-weight:500;margin-bottom:.9rem
+}
+.art-4 .s-head {
+font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.7rem);line-height:1.15;font-weight:700;margin-bottom:1.4rem
+}
+.art-4 .s-head em {
+font-style:italic;color:var(--or)
+}
+.art-4 .prose {
+color:#9e9890;font-size:1rem;line-height:1.9;font-weight:300;max-width:680px
+}
+.art-4 .prose p {
+margin-bottom:1.3rem
+}
+.art-4 .prose strong {
+color:var(--txt);font-weight:500
+}
+.art-4 .two-col {
+display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start
+}
+.art-4 .flip {
+direction:rtl
+}
+.art-4 .flip>* {
+direction:ltr
+}
+.art-4 .cimg {
+border-radius:var(--r);overflow:hidden;position:relative;background:var(--card)
+}
+.art-4 .cimg img {
+width:100%;display:block;object-fit:cover;transition:transform .55s ease
+}
+.art-4 .cimg:hover img {
+transform:scale(1.04)
+}
+.art-4 .cimg::after {
+content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(11,11,11,.4) 0%,transparent 55%)
+}
+.art-4 .full-img {
+border-radius:var(--r);overflow:hidden;margin-top:2.5rem;position:relative
+}
+.art-4 .full-img img {
+width:100%;max-height:480px;object-fit:cover;display:block
+}
+.art-4 .full-img::after {
+content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(11,11,11,.4) 0%,transparent 50%)
+}
+.art-4 .pq {
+border-left:3px solid var(--or);padding:1.1rem 1.8rem;margin:2.4rem 0;background:var(--card);border-radius:0 10px 10px 0
+}
+.art-4 .pq p {
+font-family:var(--serif);font-size:1.15rem;font-style:italic;line-height:1.5
+}
+.art-4 .bq {
+background:linear-gradient(135deg,var(--surf),var(--card));border:1px solid var(--border);border-radius:20px;padding:5rem 8vw;text-align:center;position:relative;overflow:hidden
+}
+.art-4 .bq::before {
+content:'“';position:absolute;top:-20px;left:5%;font-family:var(--serif);font-size:18rem;color:rgba(232,100,26,.055);line-height:1;pointer-events:none
+}
+.art-4 .bq p {
+font-family:var(--serif);font-size:clamp(1.3rem,2.4vw,2rem);font-style:italic;line-height:1.45;max-width:760px;margin:0 auto
+}
+.art-4 .bq p em {
+font-style:normal;color:var(--or)
+}
+.art-4 .stats {
+display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin:2.8rem 0
+}
+.art-4 .stat {
+background:var(--card);padding:1.8rem 1.2rem;text-align:center
+}
+.art-4 .stat .n {
+font-family:var(--serif);font-size:2.1rem;color:var(--or);display:block;margin-bottom:.2rem
+}
+.art-4 .stat .l {
+color:var(--mute);font-size:.79rem;letter-spacing:.03em;line-height:1.4
+}
+.art-4 .pillars {
+display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-top:2.5rem
+}
+.art-4 .pillar {
+background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.8rem 1.5rem;transition:border-color .25s,transform .25s;position:relative;overflow:hidden
+}
+.art-4 .pillar:hover {
+border-color:rgba(232,100,26,.4);transform:translateY(-3px)
+}
+.art-4 .pillar::before {
+content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--or),transparent);opacity:0;transition:opacity .25s
+}
+.art-4 .pillar:hover::before {
+opacity:1
+}
+.art-4 .pillar-num {
+font-family:var(--serif);font-size:.85rem;color:var(--or);font-style:italic;margin-bottom:.6rem;display:block;font-weight:600
+}
+.art-4 .pillar h4 {
+font-family:var(--serif);font-size:1.05rem;margin-bottom:.45rem;font-weight:600
+}
+.art-4 .pillar p {
+color:var(--mute);font-size:.86rem;line-height:1.65
+}
+.art-4 .adv-wrap {
+overflow-x:auto;margin-top:2.5rem;border-radius:var(--r);border:1px solid var(--border)
+}
+.art-4 .adv-table {
+width:100%;border-collapse:collapse;font-size:.92rem
+}
+.art-4 .adv-table th {
+background:var(--card);color:var(--txt);font-weight:500;padding:1rem 1.4rem;text-align:left;border-bottom:2px solid var(--or);font-family:var(--serif);font-size:.97rem;white-space:nowrap
+}
+.art-4 .adv-table td {
+padding:.9rem 1.4rem;border-bottom:1px solid var(--border);color:#9e9890;vertical-align:top;line-height:1.6
+}
+.art-4 .adv-table td:first-child {
+color:var(--txt);font-weight:500
+}
+.art-4 .adv-table td:last-child {
+color:var(--mute);font-size:.85rem
+}
+.art-4 .adv-table tr:last-child td {
+border-bottom:none
+}
+.art-4 .adv-table tr:hover td {
+background:rgba(255,255,255,.018)
+}
+.art-4 .next-nav {
+display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.8rem 2.2rem;text-decoration:none;color:var(--txt);transition:border-color .25s,background .25s;margin-top:4rem;gap:1.5rem
+}
+.art-4 .next-nav:hover {
+border-color:rgba(232,100,26,.4);background:var(--surf)
+}
+.art-4 .np-label {
+font-size:.7rem;color:var(--mute);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem
+}
+.art-4 .np-title {
+font-family:var(--serif);font-size:1.2rem;font-weight:600
+}
+.art-4 .np-arr {
+width:48px;height:48px;border-radius:50%;flex-shrink:0;background:var(--or-glow);border:1px solid rgba(232,100,26,.3);display:flex;align-items:center;justify-content:center;color:var(--or);font-size:1.2rem;transition:background .2s
+}
+.art-4 .next-nav:hover .np-arr {
+background:var(--or);color:#fff
+}
+footer {
+background:var(--surf);border-top:1px solid var(--border);padding:3rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem
+}
+.art-4 .flinks {
+display:flex;gap:2rem;flex-wrap:wrap
+}
+.art-4 .flinks a {
+color:var(--mute);text-decoration:none;font-size:.82rem;transition:color .2s
+}
+.art-4 .flinks a:hover {
+color:var(--or)
+}
+.art-4 .fcopy {
+color:var(--mute);font-size:.78rem
+}
+@keyframes fadeUp {
+from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}
+}
+.art-4 .fi {
+animation:fadeUp .7s ease forwards
+}
+.art-4 .d1 {
+animation-delay:.1s;opacity:0
+}
+.art-4 .d2 {
+animation-delay:.25s;opacity:0
+}
+.art-4 .d3 {
+animation-delay:.4s;opacity:0
+}
+@media(max-width:1024px) {
+.art-4 .two-col {
+gap:3rem
+}
+.art-4 .stats {
+grid-template-columns:repeat(2,1fr)
+}
+}
+@media(max-width:768px) {
+nav {
+padding:0 4vw
+}
+.art-4 .nav-tag {
+display:none
+}
+.art-4 section {
+padding:56px 4vw
+}
+.art-4 .hero {
+padding:0 4vw 4vw;min-height:78vh
+}
+.art-4 .hero-img {
+width:100%;opacity:.15
+}
+.art-4 .hero-img::after {
+background:linear-gradient(to bottom,rgba(11,11,11,.4) 0%,var(--bg) 100%)
+}
+.art-4 h2.hero-title {
+font-size:clamp(1.85rem,7vw,2.8rem)
+}
+.art-4 .two-col {
+grid-template-columns:1fr;gap:2.5rem
+}
+.art-4 .flip {
+direction:ltr
+}
+.art-4 .stats {
+grid-template-columns:repeat(2,1fr)
+}
+.art-4 .pillars {
+grid-template-columns:1fr 1fr
+}
+.art-4 .bq {
+padding:3rem 5vw
+}
+.art-4 .bq p {
+font-size:1.1rem
+}
+.art-4 .next-nav {
+padding:1.3rem 1.5rem
+}
+.art-4 .np-title {
+font-size:1rem
+}
+footer {
+flex-direction:column;align-items:flex-start;padding:2.5rem 4vw
+}
+}
+@media(max-width:480px) {
+.art-4 h2.hero-title {
+font-size:1.8rem
+}
+.art-4 .stats {
+grid-template-columns:1fr 1fr
+}
+.art-4 .pillars {
+grid-template-columns:1fr
+}
+.art-4 section {
+padding:48px 4vw
+}
+.art-4 .bq::before {
+font-size:9rem
+}
+.art-4 .next-nav {
+flex-direction:column;align-items:flex-start;gap:1rem
+}
+.art-4 .np-arr {
+align-self:flex-end
+}
+.art-4 .adv-table th, .art-4 .adv-table td {
+padding:.75rem .9rem;font-size:.83rem
+}
+}
+</style>
+    <meta name="description" content="Explore Pure AI's PureAI — Education Intelligence Blog. Discover our state-of-the-art autonomous systems, intelligent agents, and custom enterprise robotics.">
+    <meta property="og:title" content="PureAI — Education Intelligence Blog">
+    <meta property="og:description" content="Explore Pure AI's PureAI — Education Intelligence Blog. Discover our state-of-the-art autonomous systems, intelligent agents, and custom enterprise robotics.">
+    <meta property="og:image" content="logo.png">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="main-nav">
+  <div class="nav-logo">
+    <img src="./logo.png" alt="Pure AI">
+  </div>
+  
+  <div class="nav-tabs">
+    <button class="nav-tab-item active" onclick="showArticle(1)">Classroom Signals</button>
+    <button class="nav-tab-item" onclick="showArticle(2)">Learning Ecosystems</button>
+    <button class="nav-tab-item" onclick="showArticle(3)">Cognitive Twins</button>
+    <button class="nav-tab-item" onclick="showArticle(4)">Educational Revolution</button>
+  </div>
+  
+  <div class="nav-mobile-select">
+    <select id="article-selector" onchange="showArticle(parseInt(this.value))">
+      <option value="1">1. Classroom Signals</option>
+      <option value="2">2. Learning Ecosystems</option>
+      <option value="3">3. Cognitive Twins</option>
+      <option value="4">4. Educational Revolution</option>
+    </select>
+  </div>
+
+  <div class="nav-right-tag">
+    <span class="nav-tag">Education Intelligence &nbsp;<span>|</span>&nbsp; PureAI Global</span>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT ARTICLES -->
+
+<article id="article-1" class="article-section active art-1">
+  <!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-eyebrow"><span></span> Education Intelligence</div>
+
+  <h1 class="hero-title fade-in">
+    What If Teachers Could See<br>
+    What Students <em>Never Say?</em>
+  </h1>
+  <p class="hero-subtitle fade-in delay-1">
+    The hidden intelligence layer transforming modern classrooms. A deep look at how AI is finally making the invisible side of learning visible.
+  </p>
+  <div class="hero-meta fade-in delay-2">
+    <span>By PureAI Global</span>
+    <span class="dot"></span>
+    <span>June 2026</span>
+    <span class="dot"></span>
+    <span>8 min read</span>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- INTRO TEXT -->
+<section style="padding-top: 0;">
+  <div class="intro-text-block">
+    <p class="intro-lead">Every teacher has faced the same challenge. A classroom full of students. A lesson carefully prepared. Concepts explained. Questions answered. Assignments completed. Everything appears normal.</p>
+    <p class="intro-body">But beneath the surface, an entirely different classroom exists. One student is struggling to understand the concept but is too afraid to ask. Another is overwhelmed by pressure and anxiety. A third has mentally checked out of the lesson. A fourth already understands everything and is becoming disengaged. The teacher cannot see any of it. Not because they lack experience. Not because they lack dedication. But because some of the most important signals in learning are invisible. And for centuries, education has been forced to operate without them.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STATS -->
+<section>
+  <div class="stats-row">
+    <div class="stat">
+      <span class="num">40+</span>
+      <span class="lbl">Different learning experiences in a single lesson</span>
+    </div>
+    <div class="stat">
+      <span class="num">85%</span>
+      <span class="lbl">Of struggling students never raise their hand</span>
+    </div>
+    <div class="stat">
+      <span class="num">1 in 3</span>
+      <span class="lbl">Students disengage before the teacher notices</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 1: The Invisible Side -->
+<section>
+  <div class="two-col">
+    <div>
+      <p class="section-label">The Problem</p>
+      <h2 class="section-heading">The <em>Invisible Side</em> of Learning</h2>
+      <div class="prose">
+        <p>Every teacher has faced the same challenge. A classroom full of students. A lesson carefully prepared. Concepts explained. Questions answered. Assignments completed. Everything appears normal.</p>
+        <p>But beneath the surface, an entirely different classroom exists. One student is struggling to understand the concept but is too afraid to ask. Another is overwhelmed by pressure and anxiety. A third has mentally checked out of the lesson. A fourth already understands everything and is becoming disengaged.</p>
+        <p>The teacher cannot see any of it. Not because they lack experience. Not because they lack dedication. But because some of the most important signals in learning are invisible. And for centuries, education has been forced to operate without them.</p>
+      </div>
+
+      <div class="pull-quote">
+        <p>"A student rarely says: I am losing confidence. I don't understand this. I have stopped paying attention."</p>
+      </div>
+    </div>
+    <div class="content-img">
+      <img src="./images/1_img_1.jpg" alt="AI assisting student learning">
+    </div>
+  </div>
+
+  <div class="cards-grid" style="margin-top:3.5rem">
+    <div class="feat-card">
+      <span class="icon">🧠</span>
+      <h4>Confusion</h4>
+      <p>Students rarely ask for help. Confusion builds silently until it becomes a gap no test can ignore.</p>
+    </div>
+    <div class="feat-card">
+      <span class="icon">😰</span>
+      <h4>Stress and Anxiety</h4>
+      <p>Emotional pressure shapes how students absorb information. Invisible to the naked eye, critical to outcomes.</p>
+    </div>
+    <div class="feat-card">
+      <span class="icon">💭</span>
+      <h4>Disengagement</h4>
+      <p>When a learner mentally leaves the room, the teacher often discovers it too late to turn it around.</p>
+    </div>
+    <div class="feat-card">
+      <span class="icon">⚡</span>
+      <h4>Cognitive Overload</h4>
+      <p>Too much, too fast. A student's capacity to process can silently collapse mid-lesson without a single signal.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BIG QUOTE -->
+<section>
+  <div class="big-quote-section">
+    <p>The problem is not teaching. The problem is <em>visibility.</em></p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 2: What AI Can See -->
+<section>
+  <div class="two-col reverse">
+    <div>
+      <p class="section-label">The Solution</p>
+      <h2 class="section-heading">What If Classrooms Could <em>Understand</em> Students?</h2>
+      <div class="prose">
+        <p>Imagine a classroom supported by an invisible intelligence layer. Not replacing teachers. <strong>Supporting them.</strong> An intelligent system capable of observing patterns that would otherwise go unnoticed.</p>
+        <p>While students learn, the system continuously analyzes attention levels, confidence levels, participation patterns, learning engagement, conceptual understanding, and emotional indicators.</p>
+        <p>Not to judge students. Not to monitor them. But to understand them. For the first time, the classroom gains awareness of the learning experience itself.</p>
+      </div>
+    </div>
+    <div class="content-img">
+      <img src="./images/1_img_2.jpg" alt="Futuristic AI classroom">
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 3: 40 Journeys -->
+<section>
+  <p class="section-label">Personalization at Scale</p>
+  <h2 class="section-heading" style="max-width:100%">One Lesson. <em>Forty Different</em> Journeys.</h2>
+  <div class="prose" style="max-width:100%; columns: 2; column-gap: 4rem;">
+    <p>Every student experiences the same lesson differently. A teacher may explain a concept once. Yet forty students may interpret it in forty different ways. One student needs reassurance. Another needs additional explanation. Another needs a practical example. Another needs a challenge.</p>
+    <p>Traditional education attempts to deliver a single experience to everyone. The future classroom does something different. It personalizes support without increasing teacher workload. While the educator continues teaching, intelligent agents identify individual learning needs and create targeted interventions.</p>
+    <p>A confused learner receives clarification. A disengaged learner receives renewed engagement. An anxious learner receives support. An advanced learner receives greater challenge. The teacher teaches one lesson. <strong>The system creates forty learning journeys.</strong></p>
+  </div>
+  <div style="margin-top:2.5rem">
+    <div class="content-img" style="aspect-ratio: 16/7;">
+      <img src="./images/1_img_3.jpg" alt="Students collaborating on interactive displays">
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 4: Superpowers -->
+<section>
+  <div class="two-col">
+    <div>
+      <p class="section-label">The Teacher's Edge</p>
+      <h2 class="section-heading">The Teacher <em>Gains Superpowers</em></h2>
+      <div class="prose">
+        <p>Whenever artificial intelligence enters education, a familiar question emerges: will AI replace teachers? The better question is: <strong>what happens when teachers gain capabilities they never had before?</strong></p>
+        <p>Imagine understanding the emotional and cognitive state of every learner in the room. Imagine knowing which concepts are causing difficulty before students admit it. Imagine recognizing confidence loss before grades decline.</p>
+        <p>The teacher remains at the center of the classroom. The difference is that they are no longer working alone. They are supported by intelligence. The teacher does not lose authority. <strong>The teacher gains superpowers.</strong></p>
+      </div>
+    </div>
+    <div class="cards-grid" style="grid-template-columns: 1fr 1fr; align-content: start;">
+      <div class="feat-card">
+        <span class="icon">👁️</span>
+        <h4>See the Unseen</h4>
+        <p>Detect confusion before it becomes a gap in understanding.</p>
+      </div>
+      <div class="feat-card">
+        <span class="icon">🎯</span>
+        <h4>Pinpoint Intervention</h4>
+        <p>Know exactly which student needs support and when.</p>
+      </div>
+      <div class="feat-card">
+        <span class="icon">📈</span>
+        <h4>Anticipate Decline</h4>
+        <p>Identify stress before performance suffers.</p>
+      </div>
+      <div class="feat-card">
+        <span class="icon">🔮</span>
+        <h4>Predict Disengagement</h4>
+        <p>Address withdrawal before a learner gives up entirely.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 5: Ecosystem -->
+<section>
+  <div style="text-align:center; max-width:720px; margin:0 auto;">
+    <p class="section-label">The Future</p>
+    <h2 class="section-heading" style="max-width:100%">The Classroom Becomes an <em>Ecosystem</em></h2>
+    <div class="prose" style="margin: 0 auto; text-align:left">
+      <p>For generations, classrooms have been designed around content delivery. A teacher teaches. Students listen. Knowledge is transferred.</p>
+      <p>The future classroom operates differently. It becomes an intelligent ecosystem. A living environment capable of continuously understanding how students learn, think, engage, and grow. The focus shifts from delivering information to developing human potential.</p>
+      <p>The most transformative technologies eventually disappear into the background. Electricity powers buildings without demanding attention. The internet connects billions without being visible. The next educational revolution will follow the same path. An invisible intelligence layer operating quietly beneath the surface.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CLOSING QUOTE -->
+<section>
+  <div class="big-quote-section">
+    <p>The most important transformation in education is not teaching students differently. It is <em>finally seeing them clearly.</em></p>
+  </div>
+
+  <!-- NEXT PAGE NAV -->
+  <a href="javascript:void(0)" class="next-page-nav" onclick="showArticle(2)">
+    <div>
+      <div class="np-label">Next Article</div>
+      <div class="np-title">How AI Tutors Are Closing the Learning Gap at Scale</div>
+    </div>
+    <div class="np-arrow">&#8594;</div>
+  </a>
+</section>
+</article>
+
+<article id="article-2" class="article-section  art-2">
+  <!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-img-hero">
+    <img src="./images/2_img_1.jpg" alt="AI Robot teaching classroom">
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-in d1">Future of Education</div>
+    <h2 class="hero-title fade-in d2">
+      From Educational<br>
+      Institutions to<br>
+      <em>Intelligent Learning</em><br>
+      Ecosystems
+    </h2>
+    <p class="hero-subtitle fade-in d3">
+      Intelligence will no longer be confined to a single location. The Invisible School represents a cognitive layer that continuously supports every learner, everywhere.
+    </p>
+    <div class="hero-meta fade-in d3">
+      <span>By PureAI Global</span>
+      <span class="dot"></span>
+      <span>June 2026</span>
+      <span class="dot"></span>
+      <span>7 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STATS -->
+<section style="padding-top:60px; padding-bottom:60px;">
+  <div class="stats-row">
+    <div class="stat">
+      <span class="num">6+</span>
+      <span class="lbl">Specialized AI Agents operating in the background</span>
+    </div>
+    <div class="stat">
+      <span class="num">24/7</span>
+      <span class="lbl">Learning support, even when the school is closed</span>
+    </div>
+    <div class="stat">
+      <span class="num">1:1</span>
+      <span class="lbl">Digital Twin for every learner in the system</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 1: Beyond the Classroom -->
+<section>
+  <div class="two-col">
+    <div>
+      <p class="section-label">The New Frontier</p>
+      <h2 class="section-heading">Beyond the <em>Classroom</em></h2>
+      <div class="prose">
+        <p>For centuries, education has been built around a physical place: a building, a classroom, a timetable, and a bell. Students arrive, teachers teach, and the system eventually powers down until the next day.</p>
+        <p>However, human curiosity and development do not adhere to a schedule. Breakthroughs and the building of confidence often happen outside traditional classroom hours.</p>
+        <p>The future of education challenges the assumption that learning should be confined to a location or a specific time. <strong>The Invisible School represents an intelligent layer that continuously supports every learner, everywhere.</strong></p>
+      </div>
+      <div class="pull-quote">
+        <p>"The next transformation in education will not just be about better devices or smarter whiteboards."</p>
+      </div>
+    </div>
+    <div>
+      <div class="content-img" style="aspect-ratio:3/4;">
+        <img src="./images/2_img_2.jpg" alt="Professor teaching with AI">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BIG QUOTE -->
+<section>
+  <div class="big-quote">
+    <p>Intelligence will no longer be confined to a single location. Education is becoming an <em>invisible network</em> of intelligence that exists around every student — always present, always learning, always adapting.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 2: Agentic Education -->
+<section>
+  <p class="section-label">Agentic Intelligence</p>
+  <h2 class="section-heading" style="max-width:100%">The Rise of <em>Agentic Education</em></h2>
+  <div class="prose" style="max-width:100%; columns:2; column-gap:4rem;">
+    <p>Unlike current educational technology that waits for instruction, an Agentic Educational Operating System observes, learns, reasons, and acts. It anticipates needs rather than simply responding to events.</p>
+    <p>This ecosystem is powered by specialized agents working in the background, each focused on a distinct dimension of the learner's journey.</p>
+  </div>
+
+  <div class="full-img">
+    <img src="./images/2_img_3.jpg" alt="Student interacting with AI">
+  </div>
+
+  <div class="agent-grid" style="margin-top:3rem;">
+    <div class="agent-card">
+      <span class="agent-icon">🎓</span>
+      <h4>Academic Agent</h4>
+      <p>Identifies knowledge gaps before they are revealed by examinations.</p>
+    </div>
+    <div class="agent-card">
+      <span class="agent-icon">💙</span>
+      <h4>Emotional Agent</h4>
+      <p>Detects stress before performance begins to decline.</p>
+    </div>
+    <div class="agent-card">
+      <span class="agent-icon">🚀</span>
+      <h4>Career Agent</h4>
+      <p>Recognizes emerging interests and recommends potential future pathways.</p>
+    </div>
+    <div class="agent-card">
+      <span class="agent-icon">🏆</span>
+      <h4>Scholarship Agent</h4>
+      <p>Automatically discovers opportunities for the student.</p>
+    </div>
+    <div class="agent-card">
+      <span class="agent-icon">👩‍🏫</span>
+      <h4>Teacher Agent</h4>
+      <p>Provides educators with meaningful insights instead of raw data.</p>
+    </div>
+    <div class="agent-card">
+      <span class="agent-icon">🏗️</span>
+      <h4>Infrastructure Agent</h4>
+      <p>Optimizes resources across the entire institution.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 3: The School That Never Sleeps -->
+<section>
+  <div class="two-col flip">
+    <div>
+      <p class="section-label">Always On</p>
+      <h2 class="section-heading">The School That <em>Never Sleeps</em></h2>
+      <div class="prose">
+        <p>In this living educational system, the infrastructure remains active even when the physical school is closed. Every hour holds potential for a meaningful intervention.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">6:00 AM</div>
+          <div class="tl-text">An agent <strong>adjusts a study plan</strong> after noticing a student had poor sleep.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:00 AM</div>
+          <div class="tl-text"><strong>Targeted interventions</strong> are prepared for a recurring logic gap.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">4:00 PM</div>
+          <div class="tl-text"><strong>Collaborative opportunities</strong> are suggested based on shared learning patterns.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">10:00 PM</div>
+          <div class="tl-text">Instant support appears when a student struggles with <strong>confidence before a presentation.</strong></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="content-img" style="aspect-ratio:3/4;">
+        <img src="./images/2_img_4.jpg" alt="AI brain interface">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 4: From Information to Cognitive Systems -->
+<section>
+  <p class="section-label">A New Paradigm</p>
+  <h2 class="section-heading">From Information to <em>Cognitive Systems</em></h2>
+  <div class="prose">
+    <p>Traditional systems manage administrative information, whereas the Invisible School manages human growth. The distinction is fundamental.</p>
+  </div>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Information Systems (Traditional)</th>
+        <th>Cognitive Systems (The Invisible School)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Attendance Tracking</td>
+        <td>Understanding how a student learns</td>
+      </tr>
+      <tr>
+        <td>Grade Recording</td>
+        <td>Identifying where understanding breaks down</td>
+      </tr>
+      <tr>
+        <td>Assignment Management</td>
+        <td>Motivating engagement and tracking confidence</td>
+      </tr>
+      <tr>
+        <td>Schedule Maintenance</td>
+        <td>Aligning opportunities with future potential</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 5: Digital Twin -->
+<section>
+  <div class="two-col">
+    <div>
+      <p class="section-label">The Digital Twin</p>
+      <h2 class="section-heading">A Living Mirror of <em>Your Growth</em></h2>
+      <div class="prose">
+        <p>Every learner gains a Digital Twin — a living representation of their intellectual growth. This model understands learning patterns, strengths, weaknesses, and problem-solving approaches.</p>
+        <p>It provides students with a mirror of their own development, making growth measurable and potential discoverable. The Digital Twin evolves with every interaction, every question, every breakthrough.</p>
+      </div>
+      <div class="pull-quote">
+        <p>"Making growth measurable and potential discoverable."</p>
+      </div>
+    </div>
+    <div>
+      <div class="content-img" style="aspect-ratio:3/4;">
+        <img src="./images/2_img_5.jpg" alt="Woman and AI robot working together">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 6: Dark Infrastructure -->
+<section>
+  <div class="big-quote">
+    <p>The most transformative technologies eventually become <em>Dark Infrastructure</em> — operating quietly beneath the surface, improving outcomes without adding complexity.</p>
+  </div>
+  <div class="prose" style="margin: 3rem auto 0; max-width: 720px;">
+    <p>In the Invisible School, intelligence exists silently in the background. This system is not designed to replace teachers but to elevate them. By removing administrative friction and increasing classroom awareness, educators can mentor dozens of unique learning journeys simultaneously.</p>
+    <p><strong>The future is human intelligence amplified by artificial intelligence.</strong></p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONCLUSION -->
+<section>
+  <p class="section-label">Conclusion</p>
+  <h2 class="section-heading" style="max-width:100%;">The Future of Education Is What <em>Grows With Them</em></h2>
+  <div class="prose" style="max-width:100%; columns:2; column-gap:4rem;">
+    <p>Agentic Intelligence is creating a new Cognitive Infrastructure — a foundation that learns alongside the people it serves.</p>
+    <p>The Invisible School is an ecosystem that extends beyond classrooms and schedules, guiding students as they evolve.</p>
+    <p>The future of education is not where students go. It is what grows with them.</p>
+  </div>
+
+  <!-- NEXT PAGE NAV -->
+  
+        <div class="page-nav" style="display: flex; justify-content: space-between; gap: 20px; margin-top: 4rem; width: 100%;">
+          <a href="javascript:void(0)" class="nav-card left" onclick="showArticle(1)" style="flex: 1; text-decoration: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; transition: border-color .25s, background .25s;">
+            <span class="nav-arrow" style="color: var(--orange); font-size: 16px;">←</span>
+            <span class="nav-label" style="font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px;">Previous Article</span>
+            <span class="nav-title" style="font-family: var(--serif); font-size: 15px; color: var(--text); line-height: 1.35; font-weight: 600;">What If Teachers Could See What Students Never Say?</span>
+          </a>
+          <a href="javascript:void(0)" class="nav-card right" onclick="showArticle(3)" style="flex: 1; text-decoration: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; transition: border-color .25s, background .25s; text-align: right;">
+            <span class="nav-arrow" style="color: var(--orange); font-size: 16px; float: right;">→</span>
+            <span class="nav-label" style="font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; clear: both;">Next Article</span>
+            <span class="nav-title" style="font-family: var(--serif); font-size: 15px; color: var(--text); line-height: 1.35; font-weight: 600;">Cognitive Digital Twins in Education</span>
+          </a>
+        </div>
+        
+</section>
+</article>
+
+<article id="article-3" class="article-section  art-3">
+  <!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="tag">Cognitive Intelligence</div>
+      <h2>Cognitive<br><em>Digital Twins</em><br>in Education</h2>
+      <p class="lead">The future of assessment shifts from measuring outcomes to understanding growth. A living, continuously evolving representation of every human mind.</p>
+      <div class="meta">
+        <span>By PureAI Global</span>
+        <div class="sep"></div>
+        <span>June 2026</span>
+        <div class="sep"></div>
+        <span>6 min read</span>
+      </div>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="./images/BlogEdu3_img_2.jpg" alt="AI cognitive network">
+    </div>
+  </div>
+</section>
+
+<!-- INTRO TEXT -->
+<div class="prose reveal">
+  <p>The current educational landscape relies on a system where marks and examinations serve as the primary measures of intelligence and future potential. However, these metrics often fail to capture the complexity of the human mind, focusing on achievements rather than the process of learning. As artificial intelligence advances, the focus must shift from measuring outcomes to understanding growth.</p>
+
+  <h2>The Limitations of Traditional Assessment</h2>
+  <p>Traditional systems treat students with identical scores as identical learners, overlooking vast differences in how they think, create, and lead.</p>
+  <ul>
+    <li>A score reveals what was achieved but not how it was achieved.</li>
+    <li>Standardized metrics cannot measure curiosity, resilience, or leadership.</li>
+    <li>Current systems were never designed to understand unique cognitive evolution.</li>
+  </ul>
+</div>
+
+<!-- PROSE -->
+<div class="prose reveal">
+  <h2>Defining the <em>Cognitive Digital Twin</em></h2>
+  <p>The Cognitive Digital Twin (CDT) is a living, continuously evolving representation of human development. Unlike a static report card, it maps growth across multiple dimensions by learning from thousands of educational interactions.</p>
+  <p>Every learner gains a mirror of their own development — making growth measurable and potential discoverable in real time. Where traditional systems measure what a student got right or wrong, the CDT captures how they think, where they hesitate, and what patterns emerge over time.</p>
+</div>
+
+<!-- FULL WIDTH IMAGE -->
+<div class="wide-img reveal">
+  <div class="wide-img-inner">
+    <img src="./images/BlogEdu3_img_3.jpg" alt="AI and child learning together">
+  </div>
+</div>
+
+<!-- DIMENSION CARDS -->
+<div class="dims reveal">
+  <p class="dims-label">Five Dimensions of Growth</p>
+  <div class="dims-grid">
+    <div class="dim-card">
+      <div class="dim-icon">🧠</div>
+      <h3>Knowledge Mastery</h3>
+      <p>Identifies logical gaps and concepts truly understood versus memorized.</p>
+    </div>
+    <div class="dim-card">
+      <div class="dim-icon">⚡</div>
+      <h3>Learning Velocity</h3>
+      <p>Determines the most effective learning methods and acceleration points.</p>
+    </div>
+    <div class="dim-card">
+      <div class="dim-icon">💡</div>
+      <h3>Creativity</h3>
+      <p>Captures the ability to make novel connections and think beyond boundaries.</p>
+    </div>
+    <div class="dim-card">
+      <div class="dim-icon">🤝</div>
+      <h3>Communication &amp; Leadership</h3>
+      <p>Tracks the evolution of confidence and collaborative influence over time.</p>
+    </div>
+    <div class="dim-card">
+      <div class="dim-icon">💙</div>
+      <h3>Emotional Readiness</h3>
+      <p>Monitors the impact of stress and emotional states on performance.</p>
+    </div>
+  </div>
+</div>
+
+<div class="rule"><hr></div>
+
+<!-- TWO COL -->
+<div class="two reveal">
+  <div>
+    <h2>Beyond the Report Card</h2>
+    <p>Traditional assessments reduce a student to a number. They tell us what happened after the fact — a grade on a test, a score on an exam. They capture a moment, not a mind.</p>
+    <p>The Cognitive Digital Twin is longitudinal by design, capturing how a learner evolves across creative reasoning, emotional regulation, and collaborative capability.</p>
+  </div>
+  <div>
+    <h2>Real-Time <em>Growth Intelligence</em></h2>
+    <p>As a student engages with content, the CDT updates. Every question answered, every concept revisited, every moment of struggle or breakthrough feeds back into the model.</p>
+    <p>Institutions move from reactive to predictive — identifying which students need support before they fall behind, and which are ready to accelerate beyond the standard curriculum.</p>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="quote-wrap reveal">
+  <blockquote>
+    "We are not building a smarter report card. We are building a mirror that shows every learner not just where they are, but who they are becoming."
+    <cite>PureAI Global, Education Intelligence Division</cite>
+  </blockquote>
+</div>
+
+<div class="rule"><hr></div>
+
+<!-- FINAL PROSE -->
+<div class="prose reveal" style="padding-top:60px">
+  <h2>The Architecture of <em>Potential</em></h2>
+  <p>PureAI's Cognitive Digital Twin is built on a multi-layered neural architecture that processes language, behaviour, timing, and pattern over time. It does not judge — it observes, models, and reveals.</p>
+  <p>Integration with existing learning management systems is seamless. The CDT aggregates signals that humans would never have the bandwidth to track manually. When something meaningful emerges, it surfaces it clearly, contextually, and without jargon.</p>
+  <p>The result is a system that makes every educator feel like they have a research team behind them. And every student feel genuinely seen.</p>
+</div>
+
+<div class="rule" style="margin-top:0"><hr></div>
+
+<!-- PAGE NAV -->
+
+        <div class="page-nav">
+          <a href="javascript:void(0)" class="nav-card left" onclick="showArticle(2)">
+            <span class="nav-arrow">←</span>
+            <span class="nav-label">Previous Article</span>
+            <span class="nav-title">From Educational Institutions to Intelligent Learning Ecosystems</span>
+          </a>
+          <a href="javascript:void(0)" class="nav-card right" onclick="showArticle(4)">
+            <span class="nav-label">Next Article</span>
+            <span class="nav-title">The Next Great Educational Revolution</span>
+            <span class="nav-arrow">→</span>
+          </a>
+        </div>
+        
+</article>
+
+<article id="article-4" class="article-section  art-4">
+  <!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-img">
+    <img src="./images/4_img_1.jpg" alt="AI and human connection spark">
+  </div>
+  <div class="hero-inner">
+    <div class="eyebrow fi d1">Cognitive Infrastructure</div>
+    <h2 class="hero-title fi d2">
+      The Next Great<br>
+      <em>Educational</em><br>
+      Revolution
+    </h2>
+    <p class="hero-sub fi d3">
+      From Information Systems to Intelligence Systems. Fifteen core ideas that redefine the educational environment where intelligence is embedded into the infrastructure itself.
+    </p>
+    <div class="hero-meta fi d3">
+      <span>By PureAI Global</span>
+      <span class="dot"></span>
+      <span>June 2026</span>
+      <span class="dot"></span>
+      <span>8 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- STATS -->
+<section style="padding-top:52px;padding-bottom:52px">
+  <div class="stats">
+    <div class="stat">
+      <span class="n">15</span>
+      <span class="l">Core ideas redefining education</span>
+    </div>
+    <div class="stat">
+      <span class="n">8</span>
+      <span class="l">Pillars of Cognitive Infrastructure</span>
+    </div>
+    <div class="stat">
+      <span class="n">7</span>
+      <span class="l">Advanced learning environments</span>
+    </div>
+    <div class="stat">
+      <span class="n">1</span>
+      <span class="l">Invisible intelligent layer unifying all</span>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- INTRO SECTION -->
+<section>
+  <div class="two-col">
+    <div>
+      <p class="s-label">The Context</p>
+      <h2 class="s-head">From <em>Infrastructure</em> to Intelligence</h2>
+      <div class="prose">
+        <p>For centuries, education has evolved through infrastructure — from classrooms and libraries to computers and the internet. While Artificial Intelligence is triggering the next transformation, the future will be defined by more than just AI tutors or chatbots.</p>
+        <p>PureAI Global introduces Cognitive Infrastructure: an invisible layer that understands learners, supports educators, and continuously improves human development.</p>
+        <p><strong>This series explores fifteen core ideas that redefine the educational environment where intelligence is embedded into the infrastructure itself.</strong></p>
+      </div>
+      <div class="pq">
+        <p>"The future is not AI replacing humans. It is intelligence embedded into the infrastructure that supports human growth."</p>
+      </div>
+    </div>
+    <div>
+      <div class="cimg" style="aspect-ratio:1/1">
+        <img src="./images/4_img_2.jpg" alt="Developer working with AI interface">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- BIG QUOTE -->
+<section>
+  <div class="bq">
+    <p>Intelligence will be <em>embedded into the infrastructure</em> that supports human growth — always present, always learning, always adapting to every learner.</p>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- PILLARS OF COGNITIVE INFRASTRUCTURE -->
+<section>
+  <p class="s-label">The Eight Pillars</p>
+  <h2 class="s-head" style="max-width:100%">Pillars of <em>Cognitive Infrastructure</em></h2>
+  <div class="prose" style="max-width:100%;columns:2;column-gap:4rem">
+    <p>These eight foundational concepts form the backbone of the Invisible School. Each pillar addresses a dimension of learning that traditional systems have never been designed to understand.</p>
+    <p>Together they create a unified intelligence layer that transforms every institution into a living, adaptive learning organism.</p>
+  </div>
+
+  <div class="full-img">
+    <img src="./images/4_img_3.jpg" alt="AI-powered classroom with children">
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <span class="pillar-num">01</span>
+      <h4>The Hidden Intelligence Layer</h4>
+      <p>Detects hidden signals such as anxiety, confusion, or disengagement, allowing teachers to respond before challenges become visible.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">02</span>
+      <h4>The Cognitive Twin</h4>
+      <p>A living model of intellectual growth that tracks how students think, communicate, and create over time — shifting focus from performance to development.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">03</span>
+      <h4>The Memory Rewind Engine</h4>
+      <p>Learning becomes a continuous narrative. Students can revisit previous moments in their journey to understand how their thinking evolved.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">04</span>
+      <h4>Predictive Education</h4>
+      <p>Rather than reacting to failures, future systems identify patterns of burnout or dropout risk early — enabling proactive intervention.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">05</span>
+      <h4>Autonomous Mentor Networks</h4>
+      <p>Guidance at unprecedented scale through specialized networks covering academics, careers, emotional health, and projects.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">06</span>
+      <h4>Adaptive Classrooms</h4>
+      <p>Lessons dynamically adapt to individual needs, learning styles, and knowledge gaps — creating personalized journeys within one classroom.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">07</span>
+      <h4>Beyond Exams</h4>
+      <p>Systems that track creativity, leadership, curiosity, and collaboration — evaluating human potential that examinations cannot measure.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">08</span>
+      <h4>The Educational Operating System</h4>
+      <p>A unified intelligence layer replacing fragmented software — orchestrating the entire educational ecosystem from attendance to assessment.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ADVANCED ENVIRONMENTS -->
+<section>
+  <div class="two-col flip">
+    <div>
+      <p class="s-label">Advanced Learning Environments</p>
+      <h2 class="s-head">Seven <em>Living Concepts</em> That Complete the Vision</h2>
+      <div class="prose">
+        <p>Beyond the eight pillars, seven advanced environments complete the vision of Cognitive Infrastructure. Each concept addresses an aspect of the learner's world that has historically been invisible to educational systems.</p>
+      </div>
+      <div class="adv-wrap">
+        <table class="adv-table">
+          <thead>
+            <tr>
+              <th>Concept</th>
+              <th>Description</th>
+              <th>Focus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Knowledge Nebula</td>
+              <td>A living map of knowledge where gaps are discoverable</td>
+              <td>Navigation of Mind</td>
+            </tr>
+            <tr>
+              <td>Emotion OS</td>
+              <td>Integrates emotional wellbeing directly into learning</td>
+              <td>Human Development</td>
+            </tr>
+            <tr>
+              <td>Parent Dashboard</td>
+              <td>Visibility into development patterns, not just marks</td>
+              <td>Growth Transparency</td>
+            </tr>
+            <tr>
+              <td>Forecasting</td>
+              <td>Models future pathways based on history and interests</td>
+              <td>Intentionality</td>
+            </tr>
+            <tr>
+              <td>Invisible School</td>
+              <td>Continuous intelligence beyond physical buildings</td>
+              <td>Boundaryless Support</td>
+            </tr>
+            <tr>
+              <td>Scholarship Scout</td>
+              <td>Identifies opportunities aligned with strengths</td>
+              <td>Equitable Access</td>
+            </tr>
+            <tr>
+              <td>Living Institutions</td>
+              <td>Schools that observe, learn, and adapt as systems</td>
+              <td>System Intelligence</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="cimg" style="aspect-ratio:3/4">
+        <img src="./images/4_img_4.jpg" alt="AI robot reading with child">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- CONCLUSION -->
+<section>
+  <div class="bq">
+    <p>By reimagining these fifteen areas, education becomes more <em>personalized, adaptive,</em> and fundamentally more human.</p>
+  </div>
+
+  <div class="prose" style="margin:3rem auto 0;max-width:740px;text-align:center">
+    <p>The future of education is not simply Artificial Intelligence replacing humans. It is the embedding of intelligence into the infrastructure that supports human growth. The Invisible School is not a product. It is a paradigm.</p>
+  </div>
+
+  <!-- NEXT NAV -->
+  <a href="javascript:void(0)" class="next-nav" onclick="showArticle(3)">
+    <div>
+      <div class="np-label">Previous Article</div>
+      <div class="np-title">Cognitive Digital Twins in Education</div>
+    </div>
+    <div class="np-arr">&#8592;</div>
+  </a>
+</section>
+</article>
+
+
+<!-- FOOTER -->
+<footer class="main-footer">
+  <img src="./logo.png" alt="Pure AI">
+  <div class="f-links">
+    <a href="#">Blog</a>
+    <a href="#">Research</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="f-copy">&copy; 2026 PureAI Global. All rights reserved.</div>
+</footer>
+
+<script>
+// Scroll Reveal Animations setup
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { 
+      e.target.classList.add("visible"); 
+      io.unobserve(e.target); 
+    }
+  });
+}, { threshold: 0.08 });
+
+function showArticle(index) {
+  const articles = document.querySelectorAll('.article-section');
+  const tabs = document.querySelectorAll('.nav-tab-item');
+  const dropdown = document.getElementById('article-selector');
+
+  articles.forEach((art, idx) => {
+    if (idx + 1 === index) {
+      art.classList.add('active');
+      art.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    } else {
+      art.classList.remove('active');
+    }
+  });
+
+  // Update tabs active state
+  tabs.forEach((tab, idx) => {
+    if (idx + 1 === index) {
+      tab.classList.add('active');
+    } else {
+      tab.classList.remove('active');
+    }
+  });
+
+  // Update mobile dropdown
+  if (dropdown) {
+    dropdown.value = index;
+  }
+
+  // Scroll smoothly back to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Initialize reveal elements on the first article
+document.addEventListener("DOMContentLoaded", () => {
+  const activeArt = document.getElementById('article-1');
+  if (activeArt) {
+    activeArt.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  }
+});
+</script>
+
+</body>
+</html>

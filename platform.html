@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform — Pure AI</title>
+    <meta name="description" content="One step solution for all your needs. Pure AI, Robotics, DC Center, NVIDIA Implementation, and IBM Linux 3 — a single platform for every intelligence stack.">
+    <link rel="icon" type="image/png" href="./pure-logo-v4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           Pure AI · Platform Hub
+           Brand-new page. All animations inline; fully self-contained.
+           ═══════════════════════════════════════════════════════════ */
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-deep:   #050510;
+            --bg-section:#0a0b14;
+            --ink:       #f0f2fa;
+            --ink-soft:  rgba(240,242,250,0.65);
+            --ink-mute:  rgba(240,242,250,0.38);
+            --line:      rgba(255,255,255,0.08);
+            --line-str:  rgba(255,255,255,0.14);
+
+            --accent:    #4DEEEA;
+            --accent-2:  #8b8efc;
+            --accent-3:  #FFB347;
+
+            --c-pureai:  #4DEEEA;
+            --c-robo:    #ff8a4c;
+            --c-dc:      #8b8efc;
+            --c-nvidia:  #76c94a;
+            --c-ibm:     #ffb347;
+
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-head: 'Space Grotesk', 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--ink);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 400;
+        }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; }
+        ::selection { background: rgba(77,238,234,0.22); color: #fff; }
+
+        /* ───────────────── Navigation (shared) ───────────────── */
+        nav {
+            position: fixed; inset: 0 0 auto 0;
+            height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 clamp(2rem, 4vw, 4rem);
+            z-index: 9999;
+            background: rgba(5,5,15,0.78);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border-bottom: 1px solid var(--line);
+        }
+        .logo img { height: 28px; display:block; }
+        .nav-links { display: flex; align-items: center; gap: 2.4rem; }
+        .nav-links a {
+            font-family: var(--font-head);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a.cta {
+            border: 1px solid var(--accent);
+            padding: 0.55rem 1.2rem;
+            border-radius: 100px;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+        .nav-links a.cta:hover {
+            background: var(--accent);
+            color: #0a0a0a;
+            box-shadow: 0 0 30px rgba(77,238,234,0.3);
+        }
+        .dd-arrow { font-size: 0.8em; opacity: 0.7; margin-left: 0.2rem; }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown .dd-menu {
+            display: none;
+            position: absolute; top: 100%; left: 50%;
+            transform: translateX(-50%);
+            min-width: 220px;
+            padding: 0.6rem 0;
+            background: rgba(10,10,15,0.97);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            z-index: 10000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            flex-direction: column;
+            padding-top: 1rem;
+        }
+        .nav-dropdown .dd-menu::before {
+            content: ''; position: absolute; top: -20px; left:0; right:0; height: 20px;
+        }
+        .nav-dropdown:hover .dd-menu { display: flex; }
+        .nav-dropdown .dd-menu a {
+            display: flex !important;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.7rem 1.3rem !important;
+            font-size: 0.65rem !important;
+            white-space: nowrap;
+        }
+        .nav-dropdown .dd-menu a:hover {
+            color: var(--accent) !important;
+            background: rgba(77,238,234,0.06);
+        }
+        .nav-dropdown .dd-menu a i { font-size: 1.1rem; opacity: 0.55; }
+        .nav-dropdown .dd-menu a:hover i { opacity: 1; color: var(--accent); }
+
+        /* ═══════════════════════════════════════════════════════════
+           HERO · Animated logo reveal
+           ═══════════════════════════════════════════════════════════ */
+        .plat-hero {
+            position: relative;
+            min-height: 100vh;
+            padding: 8rem 1.5rem 4rem;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        /* Background layers */
+        .plat-bg-grid {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(77,238,234,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77,238,234,0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+            animation: gridDrift 60s linear infinite;
+            z-index: -3;
+            opacity: 0.7;
+        }
+        @keyframes gridDrift {
+            from { background-position: 0 0; }
+            to   { background-position: 60px 60px; }
+        }
+
+        .plat-bg-aurora {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(520px circle at 20% 30%, rgba(77,238,234,0.18), transparent 55%),
+                radial-gradient(560px circle at 80% 70%, rgba(139,142,252,0.18), transparent 55%),
+                radial-gradient(400px circle at 50% 50%, rgba(255,179,71,0.06), transparent 60%);
+            animation: auroraShift 24s ease-in-out infinite alternate;
+            z-index: -3;
+        }
+        @keyframes auroraShift {
+            0%   { transform: translate(0,0) scale(1); }
+            50%  { transform: translate(30px, -20px) scale(1.05); }
+            100% { transform: translate(-20px, 30px) scale(0.97); }
+        }
+
+        /* Star particles */
+        .plat-bg-stars {
+            position: absolute; inset: 0;
+            z-index: -2;
+            pointer-events: none;
+        }
+        .plat-bg-stars span {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(77,238,234,0.8);
+            animation: starTwinkle 4s ease-in-out infinite;
+        }
+        @keyframes starTwinkle {
+            0%,100% { opacity: 0.2; transform: scale(0.8); }
+            50%     { opacity: 1;   transform: scale(1.3); }
+        }
+
+        /* Copy block */
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            background: rgba(77,238,234,0.07);
+            border: 1px solid rgba(77,238,234,0.22);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        .hero-chip .dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent);
+            animation: chipPulse 1.8s ease-in-out infinite;
+        }
+        @keyframes chipPulse {
+            0%, 100% { opacity: 1;   transform: scale(1); }
+            50%      { opacity: 0.4; transform: scale(0.75); }
+        }
+
+        .hero-motto {
+            font-family: var(--font-head);
+            font-size: clamp(2.4rem, 6vw, 5rem);
+            font-weight: 300;
+            line-height: 1.05;
+            letter-spacing: -0.035em;
+            max-width: 18ch;
+            color: transparent;
+            background: linear-gradient(135deg, #ffffff 0%, #bac7ff 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin: 0 auto 1.2rem;
+        }
+        .hero-motto em {
+            font-style: italic;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        .hero-sub {
+            font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+            color: var(--ink-soft);
+            max-width: 620px;
+            line-height: 1.6;
+            margin: 0 auto 3.5rem;
+            font-weight: 300;
+        }
+        .hero-sub strong { color: var(--ink); font-weight: 500; }
+
+        /* Logo stage */
+        .logo-stage {
+            position: relative;
+            width: clamp(280px, 40vw, 460px);
+            height: clamp(280px, 40vw, 460px);
+            margin: 0 auto;
+            display: grid; place-items: center;
+            isolation: isolate;
+        }
+        .logo-glow {
+            position: absolute; inset: 18%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(77,238,234,0.4), rgba(139,142,252,0.2) 35%, transparent 70%);
+            filter: blur(30px);
+            animation: glowBreathe 4s ease-in-out infinite;
+            z-index: -1;
+        }
+        @keyframes glowBreathe {
+            0%, 100% { opacity: 0.55; transform: scale(1); }
+            50%      { opacity: 1;    transform: scale(1.2); }
+        }
+
+        .orbit {
+            position: absolute;
+            border: 1px solid;
+            border-radius: 50%;
+            opacity: 0.35;
+        }
+        .orbit-1 {
+            inset: 0;
+            border-color: rgba(77,238,234,0.45);
+            border-style: dashed;
+            animation: orbitSpin 30s linear infinite;
+        }
+        .orbit-2 {
+            inset: 15%;
+            border-color: rgba(139,142,252,0.5);
+            border-style: solid;
+            animation: orbitSpin 40s linear infinite reverse;
+        }
+        .orbit-3 {
+            inset: 30%;
+            border-color: rgba(255,179,71,0.45);
+            border-style: dotted;
+            animation: orbitSpin 20s linear infinite;
+        }
+        @keyframes orbitSpin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        /* Orbital dots riding the middle orbit */
+        .orbit-dots {
+            position: absolute;
+            inset: 15%;
+            animation: orbitSpin 18s linear infinite;
+        }
+        .orbit-dots::before,
+        .orbit-dots::after,
+        .orbit-dots span {
+            content: '';
+            position: absolute;
+            width: 10px; height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--accent);
+            top: -5px; left: 50%;
+            transform-origin: 50% calc(50% + 5px);
+        }
+        .orbit-dots::before { transform: translateX(-50%) rotate(0deg); }
+        .orbit-dots::after  {
+            background: var(--accent-2);
+            box-shadow: 0 0 20px var(--accent-2);
+            transform: translateX(-50%) rotate(120deg);
+        }
+        .orbit-dots span {
+            background: var(--accent-3);
+            box-shadow: 0 0 20px var(--accent-3);
+            transform: translateX(-50%) rotate(240deg);
+        }
+
+        .plat-logo {
+            position: relative;
+            width: clamp(140px, 20vw, 220px);
+            height: auto;
+            filter: drop-shadow(0 0 30px rgba(77,238,234,0.55));
+            animation: logoBreathe 4s ease-in-out infinite;
+            z-index: 2;
+        }
+        @keyframes logoBreathe {
+            0%, 100% { transform: scale(1); }
+            50%      { transform: scale(1.05); }
+        }
+
+        /* Particle canvas overlay */
+        .plat-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .scroll-cue {
+            position: absolute;
+            bottom: 2rem; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center;
+            gap: 0.5rem;
+            color: var(--ink-mute);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+        }
+        .scroll-cue .line {
+            width: 1px; height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--accent));
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+            50%      { opacity: 1;   transform: scaleY(1); }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           PILLARS · 5 interactive service cards
+           ═══════════════════════════════════════════════════════════ */
+        .section-head {
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto 4rem;
+            padding: 0 1.5rem;
+        }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+        .section-label::before, .section-label::after {
+            content: '';
+            width: 30px; height: 1px;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+        .section-head h2 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+        .section-head h2 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+        .section-head p {
+            color: var(--ink-soft);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-top: 1.2rem;
+            font-weight: 300;
+        }
+
+        .pillars {
+            padding: 6rem 2rem 4rem;
+            position: relative;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.4rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        /* Feature the first card (Pure AI) across 2 cols on wide screens */
+        @media (min-width: 1100px) {
+            .pillars-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .pillar-card:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+            .pillar-card:nth-child(2),
+            .pillar-card:nth-child(3) { grid-column: span 2; }
+            .pillar-card:nth-child(4),
+            .pillar-card:nth-child(5) { grid-column: span 2; }
+        }
+
+        .pillar-card {
+            --c: var(--accent);
+            position: relative;
+            display: flex; flex-direction: column;
+            padding: 2rem 1.8rem;
+            min-height: 280px;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%),
+                rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform 0.4s var(--ease-expo),
+                        border-color 0.4s,
+                        box-shadow 0.4s;
+            cursor: pointer;
+        }
+        .pillar-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%), var(--c), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: -1;
+        }
+        .pillar-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--c);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease-expo);
+        }
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            border-color: color-mix(in srgb, var(--c) 40%, transparent);
+            box-shadow:
+                0 18px 50px rgba(0,0,0,0.4),
+                0 0 60px color-mix(in srgb, var(--c) 18%, transparent);
+        }
+        .pillar-card:hover::before { opacity: 0.09; }
+        .pillar-card:hover::after  { transform: scaleX(1); }
+
+        .pillar-num {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            color: var(--ink-mute);
+            margin-bottom: 1.5rem;
+        }
+        .pillar-icon {
+            width: 54px; height: 54px;
+            display: grid; place-items: center;
+            background: color-mix(in srgb, var(--c) 10%, transparent);
+            border: 1px solid color-mix(in srgb, var(--c) 28%, transparent);
+            border-radius: 14px;
+            color: var(--c);
+            font-size: 1.65rem;
+            margin-bottom: 1.3rem;
+            transition: transform 0.4s var(--ease-expo), background 0.4s;
+        }
+        .pillar-card:hover .pillar-icon {
+            transform: scale(1.08) rotate(-4deg);
+            background: color-mix(in srgb, var(--c) 18%, transparent);
+        }
+        .pillar-title {
+            font-family: var(--font-head);
+            font-size: 1.55rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.6rem;
+        }
+        .pillar-desc {
+            color: var(--ink-soft);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 1.3rem;
+            flex-grow: 1;
+        }
+        .pillar-meta {
+            display: flex;
+            gap: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--line);
+            margin-bottom: 1.2rem;
+        }
+        .pillar-meta-cell {
+            display: flex; flex-direction: column; gap: 2px;
+        }
+        .pillar-meta-val {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--c);
+            letter-spacing: 0.02em;
+        }
+        .pillar-meta-lbl {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ink-mute);
+        }
+        .pillar-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-head);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--c);
+            margin-top: auto;
+        }
+        .pillar-link .arrow {
+            transition: transform 0.3s var(--ease-expo);
+        }
+        .pillar-card:hover .pillar-link .arrow { transform: translateX(6px); }
+
+        /* Featured card (Pure AI) extra styling */
+        .pillar-card.featured {
+            padding: 2.4rem 2.2rem;
+            background:
+                radial-gradient(600px 400px at 80% 0%, rgba(77,238,234,0.12), transparent 55%),
+                linear-gradient(180deg, rgba(77,238,234,0.04), rgba(10,11,20,0.6));
+            border-color: rgba(77,238,234,0.25);
+        }
+        .pillar-card.featured .pillar-icon {
+            width: 68px; height: 68px;
+            font-size: 2rem;
+        }
+        .pillar-card.featured .pillar-title {
+            font-size: 2.2rem;
+        }
+        .pillar-card.featured .pillar-desc {
+            font-size: 1rem;
+            max-width: 36ch;
+        }
+
+        /* Decorative corner dots */
+        .pillar-card .corner {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--c);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        .pillar-card .c-tl { top: 10px; left: 10px; }
+        .pillar-card .c-tr { top: 10px; right: 10px; }
+        .pillar-card .c-bl { bottom: 10px; left: 10px; }
+        .pillar-card .c-br { bottom: 10px; right: 10px; }
+
+        /* ═══════════════════════════════════════════════════════════
+           DATA FLOW · SVG hub & spoke with animated packets
+           ═══════════════════════════════════════════════════════════ */
+        .dataflow {
+            padding: 8rem 2rem 6rem;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(139,142,252,0.08), transparent 60%),
+                var(--bg-deep);
+            position: relative;
+            overflow: hidden;
+        }
+        .dataflow-stage {
+            max-width: 900px;
+            margin: 0 auto;
+            aspect-ratio: 1;
+            position: relative;
+        }
+        .dataflow-stage svg {
+            width: 100%; height: 100%;
+            overflow: visible;
+        }
+        .df-hub-label {
+            font-family: var(--font-head);
+            font-weight: 600;
+            font-size: 16px;
+            fill: #fff;
+            letter-spacing: 0.02em;
+            text-anchor: middle;
+        }
+        .df-hub-sub {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            fill: rgba(255,255,255,0.45);
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            text-anchor: middle;
+        }
+        .df-node-label {
+            font-family: var(--font-head);
+            font-weight: 500;
+            font-size: 13px;
+            fill: rgba(255,255,255,0.88);
+            text-anchor: middle;
+            letter-spacing: 0.01em;
+        }
+        .df-node-sub {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            fill: rgba(255,255,255,0.4);
+            text-anchor: middle;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        /* Legend */
+        .df-legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem 2.5rem;
+            margin-top: 3rem;
+        }
+        .df-legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+        }
+        .df-legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CAPABILITIES · 6 mini cards
+           ═══════════════════════════════════════════════════════════ */
+        .capabilities {
+            padding: 6rem 2rem;
+            background: var(--bg-section);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .caps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.4rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .cap-card {
+            padding: 1.8rem 1.6rem;
+            background: rgba(255,255,255,0.015);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            transition: background 0.3s, border-color 0.3s;
+            position: relative;
+        }
+        .cap-card:hover {
+            background: rgba(77,238,234,0.035);
+            border-color: rgba(77,238,234,0.25);
+        }
+        .cap-icon {
+            width: 42px; height: 42px;
+            display: grid; place-items: center;
+            border-radius: 10px;
+            background: rgba(77,238,234,0.08);
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+        }
+        .cap-title {
+            font-family: var(--font-head);
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .cap-desc {
+            color: var(--ink-soft);
+            font-size: 0.88rem;
+            line-height: 1.55;
+            font-weight: 300;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CTA
+           ═══════════════════════════════════════════════════════════ */
+        .plat-cta {
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .plat-cta::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(600px circle at 50% 50%, rgba(77,238,234,0.12), transparent 60%);
+            pointer-events: none;
+        }
+        .plat-cta h2 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+        }
+        .plat-cta h2 em { color: var(--accent); font-style: italic; }
+        .plat-cta p {
+            color: var(--ink-soft);
+            font-size: 1rem;
+            max-width: 560px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .plat-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.05rem 2.2rem;
+            border-radius: 100px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #07080d;
+            font-family: var(--font-head);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: transform 0.3s var(--ease-expo), box-shadow 0.3s;
+            box-shadow: 0 12px 36px rgba(77,238,234,0.3);
+        }
+        .plat-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 50px rgba(77,238,234,0.45);
+        }
+
+        /* ───────── Footer ───────── */
+        footer.plat-footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--ink-mute);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            letter-spacing: 0.12em;
+            border-top: 1px solid var(--line);
+        }
+
+        /* ───────── Fade-up animation utility ───────── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.9s var(--ease-expo), transform 0.9s var(--ease-expo);
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .fade-up[data-delay="1"] { transition-delay: 0.12s; }
+        .fade-up[data-delay="2"] { transition-delay: 0.24s; }
+        .fade-up[data-delay="3"] { transition-delay: 0.36s; }
+        .fade-up[data-delay="4"] { transition-delay: 0.48s; }
+        .fade-up[data-delay="5"] { transition-delay: 0.60s; }
+
+        /* Stage entrance for logo area */
+        .logo-stage { opacity: 0; transform: scale(0.85); transition: opacity 1.2s var(--ease-expo), transform 1.2s var(--ease-expo); transition-delay: 0.35s; }
+        .logo-stage.visible { opacity: 1; transform: scale(1); }
+
+        /* ───────── Responsive ───────── */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .plat-hero { padding: 7rem 1rem 3rem; }
+            .hero-motto { font-size: clamp(2rem, 8vw, 3rem); }
+            .logo-stage { width: min(82vw, 320px); height: min(82vw, 320px); }
+            .pillars { padding: 4rem 1.2rem 3rem; }
+            .pillar-card.featured .pillar-title { font-size: 1.8rem; }
+            .dataflow { padding: 5rem 1rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001s !important;
+            }
+        }
+    
+        /* ── Mobile Accordion Menu ── */
+        .mobile-toggle { display: none; color: #fff; font-size: 1.6rem; z-index: 10001; padding: 0.6rem; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 9550; display: flex; flex-direction: column; align-items: stretch; padding: 90px 0 2rem; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open { opacity: 1; pointer-events: all; }
+        .mobile-overlay > a { font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.3s, background 0.3s; text-decoration: none; }
+        .mobile-overlay > a:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1rem 2rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; transition: color 0.3s, background 0.3s; }
+        .mob-accordion-toggle:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion-toggle i { font-size: 0.7rem; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); color: #4DEEEA; opacity: 0.6; }
+        .mob-accordion.open .mob-accordion-toggle i { transform: rotate(180deg); }
+        .mob-accordion.open .mob-accordion-toggle { color: #4DEEEA; }
+        .mob-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); background: rgba(255,255,255,0.015); }
+        .mob-accordion.open .mob-accordion-body { max-height: 800px; }
+        .mob-accordion-body a { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 2rem 0.7rem 3rem; font-family: var(--font-display); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, background 0.25s, padding-left 0.25s; border-bottom: 1px solid rgba(255,255,255,0.03); text-decoration: none; }
+        .mob-accordion-body a:last-child { border-bottom: none; }
+        .mob-accordion-body a i { font-size: 1rem; opacity: 0.5; flex-shrink: 0; }
+        .mob-accordion-body a:hover { color: #4DEEEA; background: rgba(77,238,234,0.05); padding-left: 3.4rem; }
+        .mob-accordion-body a:hover i { opacity: 1; color: #4DEEEA; }
+        .mobile-overlay > a, .mobile-overlay > .mob-accordion { transform: translateX(-20px); opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open > a, .mobile-overlay.open > .mob-accordion { transform: translateX(0); opacity: 1; }
+        .mobile-overlay.open > :nth-child(1) { transition-delay: 0.05s; }
+        .mobile-overlay.open > :nth-child(2) { transition-delay: 0.1s; }
+        .mobile-overlay.open > :nth-child(3) { transition-delay: 0.15s; }
+        .mobile-overlay.open > :nth-child(4) { transition-delay: 0.2s; }
+        .mobile-overlay.open > :nth-child(5) { transition-delay: 0.25s; }
+        .mobile-overlay.open > :nth-child(6) { transition-delay: 0.3s; }
+        .mobile-overlay.open > :nth-child(7) { transition-delay: 0.35s; }
+        @media (max-width: 768px) { 
+            .mobile-toggle { display: block !important; visibility: visible !important; opacity: 1 !important; } 
+        }
+
+    
+        /* ── Mobile overflow fix ── */
+        html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
+        nav { max-width: 100vw !important; overflow: visible !important; width: 100% !important; }
+        * { max-width: 100vw; }
+
+    </style>
+    <meta property="og:title" content="Platform — Pure AI">
+    <meta property="og:description" content="One step solution for all your needs. Pure AI, Robotics, DC Center, NVIDIA Implementation, and IBM Linux 3 — a single platform for every intelligence stack.">
+    <meta property="og:image" content="./pure-logo-v4.png">
+</head>
+<body>
+
+    <!-- ═══════════ NAV ═══════════ -->
+    <nav>
+        <a href="./" class="logo"><img src="./pure-logo-v4.png" alt="Pure AI"></a>
+        <div class="nav-links">
+            <a href="./platform" class="active">Platform</a>
+            <div class="nav-dropdown">
+                <a href="./#products">Product <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./robots-search"><i class="ph ph-robot"></i> Robots</a>
+                    <a href="./custom-bots"><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                    <a href="./nano-bots"><i class="ph ph-atom"></i> Nano Bots</a>
+                    <a href="./trading-desk"><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                    <a href="./naolytics"><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                    <a href="./aikage"><i class="ph ph-shield-check"></i> AIKAGE</a>
+                    <a href="#"><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                    <a href="#"><i class="ph ph-paperclip"></i> CLIP</a>
+                    <a href="#"><i class="ph ph-trend-up"></i> Market Genius</a>
+                    <a href="#"><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+                </div>
+            </div>
+            <a href="./digital-workers">Digital Workers</a>
+            <div class="nav-dropdown">
+                <a href="./services">Services <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./custom-robotics"><i class="ph ph-robot"></i> Custom Robotics</a>
+                    <a href="./ai-datacenter"><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                    <a href="./ai-setup"><i class="ph ph-gear-six"></i> AI Set Up</a>
+                    <a href="./ibm-linux"><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                    <a href="./ai-boxes"><i class="ph ph-cube"></i> AI Boxes</a>
+                    <a href="./dark-factories"><i class="ph ph-factory"></i> Dark Factories</a>
+                    <a href="./llm-training"><i class="ph ph-brain"></i> LLM Training</a>
+                    <a href="./enterprise-openclaw"><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                    <a href="./bot-management"><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="./#solutions">Solutions <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./sol-banking"><i class="ph ph-bank"></i> PureAi - Banking &amp; Finance</a>
+                    <a href="./sol-healthcare"><i class="ph ph-heartbeat"></i> PureAi - Healthcare</a>
+                    <a href="./sol-logistics"><i class="ph ph-truck"></i> PureAi - Logistics</a>
+                    <a href="./sol-manufacturing"><i class="ph ph-gear-six"></i> PureAi - Manufacturing</a>
+                    <a href="./sol-agriculture"><i class="ph ph-plant"></i> PureAi - Agriculture</a>
+                    <a href="./sol-aviation"><i class="ph ph-airplane"></i> PureAi - Airlines</a>
+                    <a href="./sol-education"><i class="ph ph-graduation-cap"></i> PureAi - Education</a>
+                    <a href="./sol-retail"><i class="ph ph-storefront"></i> PureAi - Retail</a>
+                    <a href="./sol-enterprise"><i class="ph ph-buildings"></i> PureAi - Enterprise</a>
+                    <a href="./sol-infrastructure"><i class="ph ph-lightning"></i> PureAi - Infrastructure</a>
+                </div>
+            </div>
+            <a href="./innovation">Innovation</a>
+            <div class="nav-dropdown">
+                <a href="#">Open Innovation <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./bohrai"><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+                </div>
+            </div>
+            <a href="./#contact-details" class="cta">Contact</a>
+        </div>
+    
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <a href="./" data-mobile-link>Home</a>
+        <a href="./platform" data-mobile-link>Platform</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Products <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./robots-search" data-mobile-link><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots" data-mobile-link><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots" data-mobile-link><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk" data-mobile-link><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics" data-mobile-link><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage" data-mobile-link><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#" data-mobile-link><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#" data-mobile-link><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#" data-mobile-link><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#" data-mobile-link><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+        <a href="./digital-workers" data-mobile-link>Digital Workers</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Services <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./custom-robotics" data-mobile-link><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter" data-mobile-link><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup" data-mobile-link><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux" data-mobile-link><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes" data-mobile-link><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories" data-mobile-link><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training" data-mobile-link><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw" data-mobile-link><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management" data-mobile-link><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Solutions <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./sol-banking" data-mobile-link><i class="ph ph-bank"></i> Banking &amp; Finance</a>
+                <a href="./sol-healthcare" data-mobile-link><i class="ph ph-heartbeat"></i> Healthcare</a>
+                <a href="./sol-logistics" data-mobile-link><i class="ph ph-truck"></i> Logistics</a>
+                <a href="./sol-manufacturing" data-mobile-link><i class="ph ph-gear-six"></i> Manufacturing</a>
+                <a href="./sol-agriculture" data-mobile-link><i class="ph ph-plant"></i> Agriculture</a>
+                <a href="./sol-aviation" data-mobile-link><i class="ph ph-airplane"></i> Airlines</a>
+                <a href="./sol-education" data-mobile-link><i class="ph ph-graduation-cap"></i> Education</a>
+                <a href="./sol-retail" data-mobile-link><i class="ph ph-storefront"></i> Retail</a>
+                <a href="./sol-enterprise" data-mobile-link><i class="ph ph-buildings"></i> Enterprise</a>
+                <a href="./sol-infrastructure" data-mobile-link><i class="ph ph-lightning"></i> Infrastructure</a>
+            </div>
+        </div>
+
+        <a href="./innovation" data-mobile-link>Innovation</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Open Innovation <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./bohrai" data-mobile-link><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" data-mobile-link>Contact</a>
+    </div>
+
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="plat-hero">
+        <div class="plat-bg-grid"></div>
+        <div class="plat-bg-aurora"></div>
+        <div class="plat-bg-stars" id="stars"></div>
+
+        <div class="hero-chip fade-up">
+            <span class="dot"></span>
+            The Platform · One Core
+        </div>
+
+        <h1 class="hero-motto fade-up" data-delay="1">
+            One Step Solution<br>for <em>All Your Needs.</em>
+        </h1>
+
+        <p class="hero-sub fade-up" data-delay="2">
+            Five pillars — <strong>Pure AI, Robotics, DC Center Setup, NVIDIA Implementation, and IBM Linux 3 Setup</strong> — fused into a single, intelligent operating layer that runs at machine speed.
+        </p>
+
+        <!-- Logo Stage Animation -->
+        <div class="logo-stage fade-up" data-delay="3">
+            <div class="logo-glow"></div>
+            <div class="orbit orbit-1"></div>
+            <div class="orbit orbit-2"></div>
+            <div class="orbit orbit-3"></div>
+            <div class="orbit-dots"><span></span></div>
+            <canvas class="plat-particles" id="plat-particles"></canvas>
+            <img class="plat-logo" src="./pure-logo-v4.png" alt="Pure AI Logo">
+        </div>
+
+        <div class="scroll-cue">
+            <span>Scroll</span>
+            <div class="line"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════ PILLARS ═══════════ -->
+    <section class="pillars">
+        <div class="section-head">
+            <div class="section-label fade-up">Five Pillars · One Core</div>
+            <h2 class="fade-up" data-delay="1">Everything your intelligence stack needs, <em>under one roof.</em></h2>
+            <p class="fade-up" data-delay="2">From the autonomous core to the hardware it runs on — every layer of your AI infrastructure lives inside a single, orchestrated platform.</p>
+        </div>
+
+        <div class="pillars-grid">
+            <!-- 01 · Pure AI (featured) -->
+            <a class="pillar-card featured fade-up" href="./innovation" style="--c: var(--c-pureai);">
+                <span class="corner c-tl"></span><span class="corner c-tr"></span>
+                <span class="corner c-bl"></span><span class="corner c-br"></span>
+                <div class="pillar-num">01 · THE CORE</div>
+                <div class="pillar-icon"><i class="ph-duotone ph-hexagon"></i></div>
+                <h3 class="pillar-title">Pure AI</h3>
+                <p class="pillar-desc">The autonomous intelligence layer — agentic models, swarm consensus, and self-healing reasoning. Every other pillar pipelines its signals through this core.</p>
+                <div class="pillar-meta">
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">30 PF</span>
+                        <span class="pillar-meta-lbl">Compute</span>
+                    </div>
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">&lt; 4 ms</span>
+                        <span class="pillar-meta-lbl">Latency</span>
+                    </div>
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">99.999%</span>
+                        <span class="pillar-meta-lbl">Uptime</span>
+                    </div>
+                </div>
+                <span class="pillar-link">Explore Innovation <span class="arrow">→</span></span>
+            </a>
+
+            <!-- 02 · Robotics -->
+            <a class="pillar-card fade-up" data-delay="1" href="./robots-search" style="--c: var(--c-robo);">
+                <span class="corner c-tl"></span><span class="corner c-tr"></span>
+                <span class="corner c-bl"></span><span class="corner c-br"></span>
+                <div class="pillar-num">02</div>
+                <div class="pillar-icon"><i class="ph-duotone ph-robot"></i></div>
+                <h3 class="pillar-title">Robotics</h3>
+                <p class="pillar-desc">Humanoids, quadrupeds, warehouse swarms, drones, and service bots — 56+ embodied units orchestrated through one platform.</p>
+                <div class="pillar-meta">
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">56+</span>
+                        <span class="pillar-meta-lbl">Models</span>
+                    </div>
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">8</span>
+                        <span class="pillar-meta-lbl">Categories</span>
+                    </div>
+                </div>
+                <span class="pillar-link">Browse Fleet <span class="arrow">→</span></span>
+            </a>
+
+            <!-- 03 · DC Center Setup -->
+            <a class="pillar-card fade-up" data-delay="2" href="./ai-datacenter" style="--c: var(--c-dc);">
+                <span class="corner c-tl"></span><span class="corner c-tr"></span>
+                <span class="corner c-bl"></span><span class="corner c-br"></span>
+                <div class="pillar-num">03</div>
+                <div class="pillar-icon"><i class="ph-duotone ph-hard-drives"></i></div>
+                <h3 class="pillar-title">DC Center Setup</h3>
+                <p class="pillar-desc">Full-stack AI data centers — liquid-cooled, InfiniBand fabric, sovereign-grade encryption. From rack to production in weeks, not quarters.</p>
+                <div class="pillar-meta">
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">400 Gb/s</span>
+                        <span class="pillar-meta-lbl">Fabric</span>
+                    </div>
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">Liquid</span>
+                        <span class="pillar-meta-lbl">Cooling</span>
+                    </div>
+                </div>
+                <span class="pillar-link">Build a DC <span class="arrow">→</span></span>
+            </a>
+
+            <!-- 04 · NVIDIA Implementation -->
+            <a class="pillar-card fade-up" data-delay="3" href="./ai-setup" style="--c: var(--c-nvidia);">
+                <span class="corner c-tl"></span><span class="corner c-tr"></span>
+                <span class="corner c-bl"></span><span class="corner c-br"></span>
+                <div class="pillar-num">04</div>
+                <div class="pillar-icon"><i class="ph-duotone ph-graphics-card"></i></div>
+                <h3 class="pillar-title">NVIDIA Implementation</h3>
+                <p class="pillar-desc">H100 / H200 / Blackwell deployments, CUDA stack tuning, NIM microservices, Triton inference — optimized end-to-end for your workload.</p>
+                <div class="pillar-meta">
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">H100 · B200</span>
+                        <span class="pillar-meta-lbl">Silicon</span>
+                    </div>
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">CUDA 12+</span>
+                        <span class="pillar-meta-lbl">Stack</span>
+                    </div>
+                </div>
+                <span class="pillar-link">Deploy GPUs <span class="arrow">→</span></span>
+            </a>
+
+            <!-- 05 · IBM Linux 3 Setup -->
+            <a class="pillar-card fade-up" data-delay="4" href="./ibm-linux" style="--c: var(--c-ibm);">
+                <span class="corner c-tl"></span><span class="corner c-tr"></span>
+                <span class="corner c-bl"></span><span class="corner c-br"></span>
+                <div class="pillar-num">05</div>
+                <div class="pillar-icon"><i class="ph-duotone ph-linux-logo"></i></div>
+                <h3 class="pillar-title">IBM Linux 3 Setup</h3>
+                <p class="pillar-desc">Enterprise IBM LinuxONE & Red Hat Enterprise Linux — hardened kernels, LPAR partitioning, mainframe-grade reliability for mission-critical AI.</p>
+                <div class="pillar-meta">
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">LinuxONE</span>
+                        <span class="pillar-meta-lbl">Platform</span>
+                    </div>
+                    <div class="pillar-meta-cell">
+                        <span class="pillar-meta-val">RHEL 9+</span>
+                        <span class="pillar-meta-lbl">Stack</span>
+                    </div>
+                </div>
+                <span class="pillar-link">Configure <span class="arrow">→</span></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══════════ DATA FLOW VISUALIZATION ═══════════ -->
+    <section class="dataflow">
+        <div class="section-head">
+            <div class="section-label fade-up">Architecture</div>
+            <h2 class="fade-up" data-delay="1">Data flows like <em>intelligence.</em></h2>
+            <p class="fade-up" data-delay="2">Every pillar pipelines bi-directionally through the Pure AI core. No silos. No manual glue code. Signals travel at machine speed.</p>
+        </div>
+
+        <div class="dataflow-stage fade-up" data-delay="2">
+            <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <defs>
+                    <!-- Hub gradient -->
+                    <radialGradient id="hubGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#4DEEEA" stop-opacity="1"/>
+                        <stop offset="70%" stop-color="#4DEEEA" stop-opacity="0.3"/>
+                        <stop offset="100%" stop-color="#4DEEEA" stop-opacity="0"/>
+                    </radialGradient>
+                    <!-- Spoke line gradients (from hub color -> pillar color) -->
+                    <linearGradient id="lineRobo" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%"  stop-color="#4DEEEA" stop-opacity="0.85"/>
+                        <stop offset="100%" stop-color="#ff8a4c" stop-opacity="0.85"/>
+                    </linearGradient>
+                    <linearGradient id="lineDC" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%"  stop-color="#4DEEEA" stop-opacity="0.85"/>
+                        <stop offset="100%" stop-color="#8b8efc" stop-opacity="0.85"/>
+                    </linearGradient>
+                    <linearGradient id="lineNv" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%"  stop-color="#4DEEEA" stop-opacity="0.85"/>
+                        <stop offset="100%" stop-color="#76c94a" stop-opacity="0.85"/>
+                    </linearGradient>
+                    <linearGradient id="lineIbm" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%"  stop-color="#4DEEEA" stop-opacity="0.85"/>
+                        <stop offset="100%" stop-color="#ffb347" stop-opacity="0.85"/>
+                    </linearGradient>
+                    <linearGradient id="lineCustom" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%"  stop-color="#4DEEEA" stop-opacity="0.85"/>
+                        <stop offset="100%" stop-color="#ff6ec7" stop-opacity="0.85"/>
+                    </linearGradient>
+                    <!-- Soft glow filter -->
+                    <filter id="softGlow">
+                        <feGaussianBlur stdDeviation="6" result="blur"/>
+                        <feMerge>
+                            <feMergeNode in="blur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- Decorative concentric circles behind hub -->
+                <circle cx="400" cy="400" r="310" fill="none" stroke="rgba(77,238,234,0.06)" stroke-width="1"/>
+                <circle cx="400" cy="400" r="240" fill="none" stroke="rgba(77,238,234,0.08)" stroke-width="1" stroke-dasharray="3 8"/>
+                <circle cx="400" cy="400" r="170" fill="none" stroke="rgba(77,238,234,0.12)" stroke-width="1"/>
+
+                <!-- Rotating outer ring -->
+                <g style="transform-origin: 400px 400px; animation: orbitSpin 60s linear infinite;">
+                    <circle cx="400" cy="90"  r="2" fill="#4DEEEA" opacity="0.7"/>
+                    <circle cx="680" cy="280" r="2" fill="#4DEEEA" opacity="0.7"/>
+                    <circle cx="560" cy="660" r="2" fill="#4DEEEA" opacity="0.7"/>
+                    <circle cx="220" cy="630" r="2" fill="#4DEEEA" opacity="0.7"/>
+                    <circle cx="130" cy="280" r="2" fill="#4DEEEA" opacity="0.7"/>
+                </g>
+
+                <!-- Spokes (Bezier curves hub -> pillar nodes) -->
+                <path id="pathRobo"   d="M400,400 Q500,250 680,140" fill="none" stroke="url(#lineRobo)"   stroke-width="1.5" stroke-dasharray="5 4" opacity="0.55"/>
+                <path id="pathDC"     d="M400,400 Q620,500 720,600" fill="none" stroke="url(#lineDC)"     stroke-width="1.5" stroke-dasharray="5 4" opacity="0.55"/>
+                <path id="pathNv"     d="M400,400 Q320,590 400,710" fill="none" stroke="url(#lineNv)"     stroke-width="1.5" stroke-dasharray="5 4" opacity="0.55"/>
+                <path id="pathIbm"    d="M400,400 Q180,500 80,600"  fill="none" stroke="url(#lineIbm)"    stroke-width="1.5" stroke-dasharray="5 4" opacity="0.55"/>
+                <path id="pathCustom" d="M400,400 Q300,250 120,140" fill="none" stroke="url(#lineCustom)" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.55"/>
+
+                <!-- Data packets traveling along each spoke -->
+                <circle r="5" fill="#ff8a4c" filter="url(#softGlow)">
+                    <animateMotion dur="3s" repeatCount="indefinite">
+                        <mpath href="#pathRobo"/>
+                    </animateMotion>
+                </circle>
+                <circle r="5" fill="#8b8efc" filter="url(#softGlow)">
+                    <animateMotion dur="3.4s" repeatCount="indefinite" begin="0.5s">
+                        <mpath href="#pathDC"/>
+                    </animateMotion>
+                </circle>
+                <circle r="5" fill="#76c94a" filter="url(#softGlow)">
+                    <animateMotion dur="3.1s" repeatCount="indefinite" begin="1s">
+                        <mpath href="#pathNv"/>
+                    </animateMotion>
+                </circle>
+                <circle r="5" fill="#ffb347" filter="url(#softGlow)">
+                    <animateMotion dur="3.6s" repeatCount="indefinite" begin="0.8s">
+                        <mpath href="#pathIbm"/>
+                    </animateMotion>
+                </circle>
+                <circle r="5" fill="#ff6ec7" filter="url(#softGlow)">
+                    <animateMotion dur="3.3s" repeatCount="indefinite" begin="1.4s">
+                        <mpath href="#pathCustom"/>
+                    </animateMotion>
+                </circle>
+
+                <!-- Return packets (reverse direction for bi-directional flow) -->
+                <circle r="3" fill="#4DEEEA" opacity="0.9">
+                    <animateMotion dur="3s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                        <mpath href="#pathRobo"/>
+                    </animateMotion>
+                </circle>
+                <circle r="3" fill="#4DEEEA" opacity="0.9">
+                    <animateMotion dur="3.4s" repeatCount="indefinite" begin="1.2s" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                        <mpath href="#pathDC"/>
+                    </animateMotion>
+                </circle>
+                <circle r="3" fill="#4DEEEA" opacity="0.9">
+                    <animateMotion dur="3.1s" repeatCount="indefinite" begin="0.3s" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                        <mpath href="#pathNv"/>
+                    </animateMotion>
+                </circle>
+                <circle r="3" fill="#4DEEEA" opacity="0.9">
+                    <animateMotion dur="3.6s" repeatCount="indefinite" begin="1.8s" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                        <mpath href="#pathIbm"/>
+                    </animateMotion>
+                </circle>
+                <circle r="3" fill="#4DEEEA" opacity="0.9">
+                    <animateMotion dur="3.3s" repeatCount="indefinite" begin="2s" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                        <mpath href="#pathCustom"/>
+                    </animateMotion>
+                </circle>
+
+                <!-- Pillar nodes (outer) -->
+                <!-- Robotics -->
+                <g>
+                    <circle cx="680" cy="140" r="42" fill="rgba(255,138,76,0.1)" stroke="#ff8a4c" stroke-width="1.5"/>
+                    <circle cx="680" cy="140" r="42" fill="none" stroke="#ff8a4c" stroke-width="2" opacity="0.35">
+                        <animate attributeName="r" values="42;58;42" dur="2.8s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.35;0;0.35" dur="2.8s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="680" y="146" class="df-node-label" style="font-size:22px;">🤖</text>
+                    <text x="680" y="205" class="df-node-label">Robotics</text>
+                    <text x="680" y="222" class="df-node-sub">56+ Units</text>
+                </g>
+                <!-- DC Center -->
+                <g>
+                    <circle cx="720" cy="600" r="42" fill="rgba(139,142,252,0.1)" stroke="#8b8efc" stroke-width="1.5"/>
+                    <circle cx="720" cy="600" r="42" fill="none" stroke="#8b8efc" stroke-width="2" opacity="0.35">
+                        <animate attributeName="r" values="42;58;42" dur="3.2s" begin="0.5s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.35;0;0.35" dur="3.2s" begin="0.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="720" y="608" class="df-node-label" style="font-size:20px;">🖥</text>
+                    <text x="720" y="665" class="df-node-label">DC Center</text>
+                    <text x="720" y="682" class="df-node-sub">Infrastructure</text>
+                </g>
+                <!-- NVIDIA -->
+                <g>
+                    <circle cx="400" cy="710" r="42" fill="rgba(118,201,74,0.1)" stroke="#76c94a" stroke-width="1.5"/>
+                    <circle cx="400" cy="710" r="42" fill="none" stroke="#76c94a" stroke-width="2" opacity="0.35">
+                        <animate attributeName="r" values="42;58;42" dur="3s" begin="1s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.35;0;0.35" dur="3s" begin="1s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="400" y="717" class="df-node-label" style="font-size:20px;">⚡</text>
+                    <text x="400" y="775" class="df-node-label">NVIDIA</text>
+                    <text x="400" y="792" class="df-node-sub">GPU Fabric</text>
+                </g>
+                <!-- IBM Linux -->
+                <g>
+                    <circle cx="80" cy="600" r="42" fill="rgba(255,179,71,0.1)" stroke="#ffb347" stroke-width="1.5"/>
+                    <circle cx="80" cy="600" r="42" fill="none" stroke="#ffb347" stroke-width="2" opacity="0.35">
+                        <animate attributeName="r" values="42;58;42" dur="3.4s" begin="0.8s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.35;0;0.35" dur="3.4s" begin="0.8s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="80" y="608" class="df-node-label" style="font-size:18px;">🐧</text>
+                    <text x="80" y="665" class="df-node-label">IBM Linux 3</text>
+                    <text x="80" y="682" class="df-node-sub">Enterprise</text>
+                </g>
+                <!-- Custom (extra connection for balance) -->
+                <g>
+                    <circle cx="120" cy="140" r="42" fill="rgba(255,110,199,0.1)" stroke="#ff6ec7" stroke-width="1.5"/>
+                    <circle cx="120" cy="140" r="42" fill="none" stroke="#ff6ec7" stroke-width="2" opacity="0.35">
+                        <animate attributeName="r" values="42;58;42" dur="3.3s" begin="1.4s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.35;0;0.35" dur="3.3s" begin="1.4s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="120" y="148" class="df-node-label" style="font-size:20px;">◆</text>
+                    <text x="120" y="205" class="df-node-label">Custom</text>
+                    <text x="120" y="222" class="df-node-sub">Integrations</text>
+                </g>
+
+                <!-- Hub · Pure AI core -->
+                <circle cx="400" cy="400" r="100" fill="url(#hubGrad)" opacity="0.7"/>
+                <circle cx="400" cy="400" r="72" fill="rgba(10,11,20,0.95)" stroke="#4DEEEA" stroke-width="2"/>
+                <circle cx="400" cy="400" r="72" fill="none" stroke="#4DEEEA" stroke-width="2" opacity="0.4">
+                    <animate attributeName="r" values="72;100;72" dur="2.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.4;0;0.4" dur="2.5s" repeatCount="indefinite"/>
+                </circle>
+                <text x="400" y="397" class="df-hub-label">Pure AI</text>
+                <text x="400" y="420" class="df-hub-sub">THE CORE</text>
+            </svg>
+        </div>
+
+        <div class="df-legend fade-up" data-delay="2">
+            <div class="df-legend-item">
+                <span class="df-legend-dot" style="background:#4DEEEA; box-shadow:0 0 10px #4DEEEA;"></span>
+                Return signals
+            </div>
+            <div class="df-legend-item">
+                <span class="df-legend-dot" style="background:#ff8a4c; box-shadow:0 0 10px #ff8a4c;"></span>
+                Outbound commands
+            </div>
+            <div class="df-legend-item">
+                <span class="df-legend-dot" style="background:rgba(255,255,255,0.35);"></span>
+                Bi-directional fabric
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ CAPABILITIES ═══════════ -->
+    <section class="capabilities">
+        <div class="section-head">
+            <div class="section-label fade-up">Capabilities</div>
+            <h2 class="fade-up" data-delay="1">Enterprise-grade, <em>out of the box.</em></h2>
+        </div>
+
+        <div class="caps-grid">
+            <div class="cap-card fade-up">
+                <div class="cap-icon"><i class="ph ph-shield-check"></i></div>
+                <h4 class="cap-title">Zero-Trust Security</h4>
+                <p class="cap-desc">End-to-end encrypted data flows with autonomous threat detection and containment at every layer.</p>
+            </div>
+            <div class="cap-card fade-up" data-delay="1">
+                <div class="cap-icon"><i class="ph ph-gear-six"></i></div>
+                <h4 class="cap-title">Auto-Orchestration</h4>
+                <p class="cap-desc">Self-configuring infrastructure that scales, heals, and optimizes without human intervention.</p>
+            </div>
+            <div class="cap-card fade-up" data-delay="2">
+                <div class="cap-icon"><i class="ph ph-lightning"></i></div>
+                <h4 class="cap-title">Sub-ms Latency</h4>
+                <p class="cap-desc">Edge-optimized inference pipelines delivering decisions at machine speed, below 4ms.</p>
+            </div>
+            <div class="cap-card fade-up">
+                <div class="cap-icon"><i class="ph ph-graph"></i></div>
+                <h4 class="cap-title">Predictive Analytics</h4>
+                <p class="cap-desc">Deep pattern recognition across billions of data points surfacing actionable intelligence.</p>
+            </div>
+            <div class="cap-card fade-up" data-delay="1">
+                <div class="cap-icon"><i class="ph ph-globe-hemisphere-west"></i></div>
+                <h4 class="cap-title">Global Deployment</h4>
+                <p class="cap-desc">Multi-region autonomous nodes ensuring 99.999% uptime across every continent.</p>
+            </div>
+            <div class="cap-card fade-up" data-delay="2">
+                <div class="cap-icon"><i class="ph ph-plugs-connected"></i></div>
+                <h4 class="cap-title">Unified APIs</h4>
+                <p class="cap-desc">Single SDK and REST/GraphQL surface — any pillar, any layer, any stack, one contract.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ CTA ═══════════ -->
+    <section class="plat-cta">
+        <h2 class="fade-up">Ready to make everything <em>run as one?</em></h2>
+        <p class="fade-up" data-delay="1">Tell us about your stack — robots, racks, GPUs, or legacy mainframes. We'll design a single-platform rollout that replaces the chaos with intelligence.</p>
+        <a href="./#contact-details" class="plat-cta-btn fade-up" data-delay="2">
+            Deploy Intelligence <i class="ph ph-arrow-right"></i>
+        </a>
+    </section>
+
+    <footer class="plat-footer">
+        © 2026 Pure AI Technologies and Services Pvt Ltd. · One platform, infinite intelligence.
+    </footer>
+
+    <script>
+        /* ═══════════════════════════════════════════════════
+           Fade-up reveal + stage entrance
+           ═══════════════════════════════════════════════════ */
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.fade-up, .logo-stage').forEach(el => io.observe(el));
+
+        /* ═══════════════════════════════════════════════════
+           Random twinkling stars in hero background
+           ═══════════════════════════════════════════════════ */
+        (function stars() {
+            const container = document.getElementById('stars');
+            if (!container) return;
+            const STAR_COUNT = 60;
+            const frag = document.createDocumentFragment();
+            for (let i = 0; i < STAR_COUNT; i++) {
+                const s = document.createElement('span');
+                s.style.top  = (Math.random() * 100) + '%';
+                s.style.left = (Math.random() * 100) + '%';
+                s.style.animationDelay    = (Math.random() * 4) + 's';
+                s.style.animationDuration = (3 + Math.random() * 4) + 's';
+                s.style.opacity = (0.3 + Math.random() * 0.7).toString();
+                frag.appendChild(s);
+            }
+            container.appendChild(frag);
+        })();
+
+        /* ═══════════════════════════════════════════════════
+           Particles emanating from the Pure AI logo (Canvas 2D)
+           ═══════════════════════════════════════════════════ */
+        (function particles() {
+            const canvas = document.getElementById('plat-particles');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const COLORS = ['#4DEEEA', '#8b8efc', '#FFB347', '#76c94a', '#ff8a4c'];
+            const particles = [];
+            let W = 0, H = 0;
+
+            function resize() {
+                const rect = canvas.getBoundingClientRect();
+                const dpr  = window.devicePixelRatio || 1;
+                W = canvas.width  = rect.width  * dpr;
+                H = canvas.height = rect.height * dpr;
+                canvas.style.width  = rect.width  + 'px';
+                canvas.style.height = rect.height + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function spawn() {
+                const cx = canvas.clientWidth  / 2;
+                const cy = canvas.clientHeight / 2;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 0.4 + Math.random() * 0.9;
+                particles.push({
+                    x: cx, y: cy,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    life: 1,
+                    decay: 0.004 + Math.random() * 0.006,
+                    size: 1 + Math.random() * 2.2,
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)]
+                });
+            }
+
+            function loop() {
+                ctx.clearRect(0, 0, W, H);
+                if (particles.length < 140 && Math.random() < 0.8) spawn();
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life -= p.decay;
+                    if (p.life <= 0) { particles.splice(i, 1); continue; }
+                    ctx.globalAlpha = p.life * 0.8;
+                    ctx.fillStyle = p.color;
+                    ctx.shadowColor = p.color;
+                    ctx.shadowBlur = 10;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.globalAlpha = 1;
+                ctx.shadowBlur  = 0;
+                requestAnimationFrame(loop);
+            }
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) loop();
+        })();
+
+        /* ═══════════════════════════════════════════════════
+           Pillar cards · cursor-tracked radial spotlight
+           ═══════════════════════════════════════════════════ */
+        document.querySelectorAll('.pillar-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const r = card.getBoundingClientRect();
+                card.style.setProperty('--mx', ((e.clientX - r.left) / r.width  * 100) + '%');
+                card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100) + '%');
+            });
+        });
+    </script>
+
+
+    <script>
+    (function(){
+        var mt = document.getElementById('mobile-toggle');
+        var mo = document.getElementById('mobile-overlay');
+        if (!mt || !mo) return;
+        mt.addEventListener('click', function(){
+            var open = mo.classList.toggle('open');
+            mt.innerHTML = open ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (!open) mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+        });
+        mo.querySelectorAll('[data-mobile-link]').forEach(function(link){
+            link.addEventListener('click', function(){
+                mo.classList.remove('open');
+                mt.innerHTML = '<i class="ph ph-list"></i>';
+                document.body.style.overflow = '';
+            });
+        });
+        mo.querySelectorAll('.mob-accordion-toggle').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var acc = btn.parentElement;
+                var wasOpen = acc.classList.contains('open');
+                mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+                if (!wasOpen) acc.classList.add('open');
+                btn.setAttribute('aria-expanded', !wasOpen);
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>

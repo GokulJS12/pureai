@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services — Pure AI</title>
+    <meta name="description" content="Pure AI Services: NVIDIA implementation, IBM Linux implementation, AI boxes, and Robotic Dark Factories.">
+    <link rel="icon" type="image/png" href="./pure-logo-v4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <style>
+        /* ── Reset & Variables ── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #050505;
+            --bg-section: #0a0a0a;
+            --accent: #4DEEEA;
+            --accent-orange: #FF6B35;
+            --accent-gold: #FFB347;
+            --text-hero: #f0f0f0;
+            --text-secondary: rgba(255,255,255,0.55);
+            --text-muted: rgba(255,255,255,0.35);
+            --border: rgba(255,255,255,0.06);
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-dark);
+            color: var(--text-hero);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ── Navigation ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 clamp(2rem, 4vw, 4rem);
+            z-index: 9999;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo img { height: 28px; }
+
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+
+        .nav-links a {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+        .nav-links a.cta {
+            background: transparent;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1.2rem;
+            border-radius: 100px;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+
+        .nav-links a.cta:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        /* ── Nav Dropdown ── */
+        .nav-dropdown { position: relative; display: flex; align-items: center; }
+        .nav-dropdown > a { display: flex; align-items: center; gap: 0.35rem; cursor: pointer; }
+        .nav-dropdown > a .dd-arrow { font-size: 0.6rem; transition: transform 0.3s; display: inline-block; }
+        .nav-dropdown:hover > a .dd-arrow { transform: rotate(180deg); }
+        .nav-dropdown .dd-menu {
+            display: none; position: absolute; top: 100%; left: 50%;
+            transform: translateX(-50%); min-width: 200px; padding: 0.6rem 0;
+            background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            z-index: 10000; box-shadow: 0 20px 50px rgba(0,0,0,0.6); flex-direction: column;
+            margin-top: 0; padding-top: 1rem;
+        }
+        .nav-dropdown .dd-menu::before {
+            content: ''; position: absolute; top: -20px; left: 0; right: 0; height: 20px; background: transparent;
+        }
+        .nav-dropdown:hover .dd-menu { display: flex; }
+        .nav-dropdown .dd-menu a {
+            display: flex !important; align-items: center !important; gap: 0.75rem !important;
+            padding: 0.7rem 1.3rem !important; font-size: 0.65rem !important;
+            letter-spacing: 0.15em !important; color: rgba(255,255,255,0.5) !important;
+            transition: all 0.25s !important; white-space: nowrap !important; opacity: 1 !important;
+        }
+        .nav-dropdown .dd-menu a:hover { color: var(--accent) !important; background: rgba(77,238,234,0.06) !important; }
+        .nav-dropdown .dd-menu a::after { display: none !important; width: 0 !important; }
+        .nav-dropdown .dd-menu a i { font-size: 1.1rem; opacity: 0.5; }
+        .nav-dropdown .dd-menu a:hover i { opacity: 1; color: var(--accent); }
+
+        /* ── Hero Section ── */
+        .srv-hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10rem 2rem 4rem;
+            position: relative;
+        }
+
+        .srv-hero::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(255,107,53,0.06) 0%, transparent 60%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .srv-hero-content { position: relative; z-index: 2; max-width: 800px; }
+
+        .srv-hero .label {
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent-orange);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .srv-hero .label::before {
+            content: '';
+            width: 40px; height: 1px;
+            background: var(--accent-orange);
+        }
+
+        .srv-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 2rem;
+        }
+
+        .srv-hero h1 em {
+            font-style: italic;
+            color: var(--accent-orange);
+        }
+
+        .srv-hero-sub {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ── Services Layout ── */
+        .services-container {
+            padding: 4rem clamp(2rem, 5vw, 6rem) 8rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+            position: relative;
+        }
+
+        /* Connecting vertical line */
+        .services-container::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border), transparent);
+            transform: translateX(-50%);
+        }
+
+        .service-row {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .service-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .srv-visual {
+            flex: 1;
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 20px;
+            background: var(--bg-section);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .srv-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.03) 0%, transparent 70%);
+        }
+
+        /* Abstract Visualizations */
+        .visual-nvidia {
+            background: radial-gradient(circle at center, rgba(118, 185, 0, 0.1) 0%, transparent 60%), #0a0d0a;
+            border-color: rgba(118, 185, 0, 0.2);
+        }
+        .visual-nvidia .abstract-shape {
+            width: 100px; height: 100px;
+            border: 2px solid #76b900;
+            transform: rotate(45deg);
+            box-shadow: 0 0 30px rgba(118,185,0,0.3);
+        }
+        
+        .visual-ibm {
+            background: radial-gradient(circle at center, rgba(15, 98, 254, 0.1) 0%, transparent 60%), #050a14;
+            border-color: rgba(15, 98, 254, 0.2);
+        }
+        .visual-ibm .abstract-shape {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 2px solid #0f62fe;
+            box-shadow: 0 0 30px rgba(15,98,254,0.3);
+        }
+
+        .visual-box {
+            background: radial-gradient(circle at center, rgba(77, 238, 234, 0.1) 0%, transparent 60%), #050d0d;
+            border-color: rgba(77, 238, 234, 0.2);
+        }
+        .visual-box .abstract-shape {
+            width: 100px; height: 100px;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(77,238,234,0.3);
+        }
+
+        .visual-factory {
+            background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, transparent 60%), #140805;
+            border-color: rgba(255, 107, 53, 0.2);
+        }
+        .visual-factory .abstract-shape {
+            width: 0; height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 100px solid var(--accent-orange);
+            filter: drop-shadow(0 0 20px rgba(255,107,53,0.3));
+        }
+
+        .srv-content {
+            flex: 1;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .srv-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .srv-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text-hero);
+        }
+
+        .srv-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .srv-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .srv-features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-hero);
+        }
+
+        .srv-features li i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        /* ── Back to Home ── */
+        .back-home {
+            text-align: center;
+            padding: 4rem 2rem 6rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+
+        .back-home a:hover { color: var(--accent); }
+
+        /* ── Footer ── */
+        .plat-footer {
+            padding: 3rem clamp(2rem, 6vw, 6rem) 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .plat-footer .f-copy {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Animations ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .service-row, .service-row:nth-child(even) {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .services-container::before { display: none; }
+            .srv-visual { width: 100%; aspect-ratio: 16/9; }
+            .srv-content { padding: 1rem 0 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .srv-hero { padding: 8rem 1.5rem 4rem; min-height: auto; }
+            .srv-title { font-size: 1.8rem; }
+        }
+
+        /* ── Grain Texture ── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    
+        /* ── Mobile Accordion Menu ── */
+        .mobile-toggle { display: none; color: #fff; font-size: 1.6rem; z-index: 10001; padding: 0.6rem; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 9550; display: flex; flex-direction: column; align-items: stretch; padding: 90px 0 2rem; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open { opacity: 1; pointer-events: all; }
+        .mobile-overlay > a { font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.3s, background 0.3s; text-decoration: none; }
+        .mobile-overlay > a:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1rem 2rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; transition: color 0.3s, background 0.3s; }
+        .mob-accordion-toggle:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion-toggle i { font-size: 0.7rem; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); color: #4DEEEA; opacity: 0.6; }
+        .mob-accordion.open .mob-accordion-toggle i { transform: rotate(180deg); }
+        .mob-accordion.open .mob-accordion-toggle { color: #4DEEEA; }
+        .mob-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); background: rgba(255,255,255,0.015); }
+        .mob-accordion.open .mob-accordion-body { max-height: 800px; }
+        .mob-accordion-body a { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 2rem 0.7rem 3rem; font-family: var(--font-display); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, background 0.25s, padding-left 0.25s; border-bottom: 1px solid rgba(255,255,255,0.03); text-decoration: none; }
+        .mob-accordion-body a:last-child { border-bottom: none; }
+        .mob-accordion-body a i { font-size: 1rem; opacity: 0.5; flex-shrink: 0; }
+        .mob-accordion-body a:hover { color: #4DEEEA; background: rgba(77,238,234,0.05); padding-left: 3.4rem; }
+        .mob-accordion-body a:hover i { opacity: 1; color: #4DEEEA; }
+        .mobile-overlay > a, .mobile-overlay > .mob-accordion { transform: translateX(-20px); opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open > a, .mobile-overlay.open > .mob-accordion { transform: translateX(0); opacity: 1; }
+        .mobile-overlay.open > :nth-child(1) { transition-delay: 0.05s; }
+        .mobile-overlay.open > :nth-child(2) { transition-delay: 0.1s; }
+        .mobile-overlay.open > :nth-child(3) { transition-delay: 0.15s; }
+        .mobile-overlay.open > :nth-child(4) { transition-delay: 0.2s; }
+        .mobile-overlay.open > :nth-child(5) { transition-delay: 0.25s; }
+        .mobile-overlay.open > :nth-child(6) { transition-delay: 0.3s; }
+        .mobile-overlay.open > :nth-child(7) { transition-delay: 0.35s; }
+        @media (max-width: 768px) { 
+            .mobile-toggle { display: block !important; visibility: visible !important; opacity: 1 !important; } 
+        }
+
+    
+        /* ── Mobile overflow fix ── */
+        html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
+        nav { max-width: 100vw !important; overflow: visible !important; width: 100% !important; }
+        * { max-width: 100vw; }
+
+    </style>
+    <meta property="og:title" content="Services — Pure AI">
+    <meta property="og:description" content="Pure AI Services: NVIDIA implementation, IBM Linux implementation, AI boxes, and Robotic Dark Factories.">
+    <meta property="og:image" content="./pure-logo-v4.png">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+    <a href="./" class="logo"><img src="./pure-logo-v4.png" alt="Pure AI"></a>
+    <div class="nav-links">
+        <a href="./platform">Platform</a>
+        <div class="nav-dropdown">
+            <a href="./#products">Product <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./robots-search"><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots"><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots"><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk"><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics"><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage"><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#"><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#"><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#"><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#"><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+        <a href="./digital-workers">Digital Workers</a>
+        <div class="nav-dropdown">
+            <a href="./services">Services <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./custom-robotics"><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter"><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup"><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux"><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes"><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories"><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training"><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw"><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management"><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="./#solutions">Solutions <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./sol-banking"><i class="ph ph-bank"></i> PureAi - Banking &amp; Finance</a>
+                <a href="./sol-healthcare"><i class="ph ph-heartbeat"></i> PureAi - Healthcare</a>
+                <a href="./sol-logistics"><i class="ph ph-truck"></i> PureAi - Logistics</a>
+                <a href="./sol-manufacturing"><i class="ph ph-gear-six"></i> PureAi - Manufacturing</a>
+                <a href="./sol-agriculture"><i class="ph ph-plant"></i> PureAi - Agriculture</a>
+                <a href="./sol-aviation"><i class="ph ph-airplane"></i> PureAi - Airlines</a>
+                <a href="./sol-education"><i class="ph ph-graduation-cap"></i> PureAi - Education</a>
+                <a href="./sol-retail"><i class="ph ph-storefront"></i> PureAi - Retail</a>
+                <a href="./sol-enterprise"><i class="ph ph-buildings"></i> PureAi - Enterprise</a>
+                <a href="./sol-infrastructure"><i class="ph ph-lightning"></i> PureAi - Infrastructure</a>
+            </div>
+        </div>
+        <a href="./innovation">Innovation</a>
+        <div class="nav-dropdown">
+            <a href="#">Open Innovation <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./bohrai"><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" class="cta">Contact</a>
+    </div>
+
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <a href="./" data-mobile-link>Home</a>
+        <a href="./platform" data-mobile-link>Platform</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Products <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./robots-search" data-mobile-link><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots" data-mobile-link><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots" data-mobile-link><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk" data-mobile-link><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics" data-mobile-link><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage" data-mobile-link><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#" data-mobile-link><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#" data-mobile-link><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#" data-mobile-link><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#" data-mobile-link><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+        <a href="./digital-workers" data-mobile-link>Digital Workers</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Services <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./custom-robotics" data-mobile-link><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter" data-mobile-link><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup" data-mobile-link><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux" data-mobile-link><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes" data-mobile-link><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories" data-mobile-link><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training" data-mobile-link><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw" data-mobile-link><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management" data-mobile-link><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Solutions <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./sol-banking" data-mobile-link><i class="ph ph-bank"></i> Banking &amp; Finance</a>
+                <a href="./sol-healthcare" data-mobile-link><i class="ph ph-heartbeat"></i> Healthcare</a>
+                <a href="./sol-logistics" data-mobile-link><i class="ph ph-truck"></i> Logistics</a>
+                <a href="./sol-manufacturing" data-mobile-link><i class="ph ph-gear-six"></i> Manufacturing</a>
+                <a href="./sol-agriculture" data-mobile-link><i class="ph ph-plant"></i> Agriculture</a>
+                <a href="./sol-aviation" data-mobile-link><i class="ph ph-airplane"></i> Airlines</a>
+                <a href="./sol-education" data-mobile-link><i class="ph ph-graduation-cap"></i> Education</a>
+                <a href="./sol-retail" data-mobile-link><i class="ph ph-storefront"></i> Retail</a>
+                <a href="./sol-enterprise" data-mobile-link><i class="ph ph-buildings"></i> Enterprise</a>
+                <a href="./sol-infrastructure" data-mobile-link><i class="ph ph-lightning"></i> Infrastructure</a>
+            </div>
+        </div>
+
+        <a href="./innovation" data-mobile-link>Innovation</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Open Innovation <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./bohrai" data-mobile-link><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" data-mobile-link>Contact</a>
+    </div>
+
+
+    <!-- Hero Section -->
+    <section class="srv-hero">
+        <div class="srv-hero-content">
+            <div class="label hero-elem">Intelligence Deployments</div>
+            <h1 class="hero-elem">Architecting the <em>Future Floor.</em></h1>
+            <p class="srv-hero-sub hero-elem">
+                From high-density tensor cores bridging edge and cloud, to entirely dark robotic autonomous environments, we build the physical layer of the AI revolution.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Container -->
+    <div class="services-container">
+
+        <!-- 1. NVIDIA Implementation -->
+        <div class="service-row">
+            <div class="srv-visual visual-nvidia">
+                <div class="abstract-shape"></div>
+            </div>
+            <div class="srv-content">
+                <span class="srv-tag">01 // High Performance Compute</span>
+                <h2 class="srv-title">NVIDIA Implementation</h2>
+                <p class="srv-desc">
+                    Unleash raw, uncompromised performance. We orchestrate and deploy enterprise-level NVIDIA hardware and software architectures, tuning DGX systems, unified networking fabrics, and CUDA optimizations perfectly suited for LLM training and hyper-scale inference.
+                </p>
+                <ul class="srv-features">
+                    <li><i class="ph ph-cpu"></i> Full Stack GPU Orchestration</li>
+                    <li><i class="ph ph-network"></i> High-Bandwidth Interconnect Optimization</li>
+                    <li><i class="ph ph-lightning"></i> Model Training Accelerations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. IBM Linux Implementation -->
+        <div class="service-row">
+            <div class="srv-visual visual-ibm">
+                <div class="abstract-shape"></div>
+            </div>
+            <div class="srv-content">
+                <span class="srv-tag">02 // Enterprise Mainframe</span>
+                <h2 class="srv-title">IBM Linux Implementation</h2>
+                <p class="srv-desc">
+                    Secure, scalable, and resilient. Our LinuxONE and IBM Z integration services provide ultra-secure execution environments. We bridge legacy systems with cloud-native, confidential computing practices ensuring your data and models remain isolated and uncompromisingly secure.
+                </p>
+                <ul class="srv-features">
+                    <li><i class="ph ph-shield-check"></i> Zero-Trust Confidential Computing</li>
+                    <li><i class="ph ph-linux-logo"></i> Specialized Linux Workload Optimization</li>
+                    <li><i class="ph ph-arrows-merge"></i> Hybrid Cloud Mainframe Bridging</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3. AI Boxes -->
+        <div class="service-row">
+            <div class="srv-visual visual-box">
+                <div class="abstract-shape"></div>
+            </div>
+            <div class="srv-content">
+                <span class="srv-tag">03 // Edge Computing</span>
+                <h2 class="srv-title">AI Boxes (Edge Deployments)</h2>
+                <p class="srv-desc">
+                    Bringing intelligence where the data is born. Our AI Boxes are ruggedized, turnkey edge inference nodes designed for extreme environments. They operate fully autonomously in zero-connectivity scenarios, ensuring deterministic latency for critical systems.
+                </p>
+                <ul class="srv-features">
+                    <li><i class="ph ph-cube"></i> Turnkey Rugged Deployments</li>
+                    <li><i class="ph ph-wifi-slash"></i> Offline & Autonomous Operation</li>
+                    <li><i class="ph ph-timer"></i> Microsecond Edge Inference</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. Robotic Dark Factories -->
+        <div class="service-row">
+            <div class="srv-visual visual-factory">
+                <div class="abstract-shape"></div>
+            </div>
+            <div class="srv-content">
+                <span class="srv-tag">04 // Autonomous Frameworks</span>
+                <h2 class="srv-title">Robotic Dark Factories</h2>
+                <p class="srv-desc">
+                    We are building Industry 4.5. Leveraging AI-driven orchestration, we design "lights-out" factory implementations where robotics and automated supply lineages operate flawlessly without human intervention. Self-healing, self-optimizing production arrays.
+                </p>
+                <ul class="srv-features">
+                    <li><i class="ph ph-robot"></i> Advanced Swarm Robotics</li>
+                    <li><i class="ph ph-lightbulb"></i> "Lights-Out" Manufacturing Frameworks</li>
+                    <li><i class="ph ph-chart-line-up"></i> Autonomous Yield Optimization</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Back to Home -->
+    <div class="back-home">
+        <a href="./">
+            <i class="ph ph-arrow-left"></i>
+            Back to Main Site
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="plat-footer">
+        <div class="f-copy">© 2026 Pure AI Technologies and Services Pvt Ltd.</div>
+    </footer>
+
+    <!-- GSAP Animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero Animation
+            gsap.from(".hero-elem", {
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.15,
+                ease: "power3.out",
+                delay: 0.2
+            });
+
+            // Service rows animation
+            const rows = document.querySelectorAll('.service-row');
+            
+            rows.forEach((row, i) => {
+                const visual = row.querySelector('.srv-visual');
+                const content = row.querySelector('.srv-content');
+                const isEven = i % 2 !== 0; // 0-indexed, so 1,3 are even visually using row-reverse
+                
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: row,
+                        start: "top 80%",
+                        end: "top 50%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+
+                // Row reveal
+                tl.to(row, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+
+                // Shape pulse via GSAP
+                const shape = row.querySelector('.abstract-shape');
+                gsap.to(shape, {
+                    scale: 1.05,
+                    rotation: isEven ? -10 : 10,
+                    duration: 4,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            });
+        });
+    </script>
+
+    <script>
+    (function(){
+        var mt = document.getElementById('mobile-toggle');
+        var mo = document.getElementById('mobile-overlay');
+        if (!mt || !mo) return;
+        mt.addEventListener('click', function(){
+            var open = mo.classList.toggle('open');
+            mt.innerHTML = open ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (!open) mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+        });
+        mo.querySelectorAll('[data-mobile-link]').forEach(function(link){
+            link.addEventListener('click', function(){
+                mo.classList.remove('open');
+                mt.innerHTML = '<i class="ph ph-list"></i>';
+                document.body.style.overflow = '';
+            });
+        });
+        mo.querySelectorAll('.mob-accordion-toggle').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var acc = btn.parentElement;
+                var wasOpen = acc.classList.contains('open');
+                mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+                if (!wasOpen) acc.classList.add('open');
+                btn.setAttribute('aria-expanded', !wasOpen);
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>

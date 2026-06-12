@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge | Pure AI Marketplace</title>
+  <meta name="description" content="Forge — Autonomous manufacturing optimization agent for dark factory environments. Monitors robotic swarms, optimizes yield, and manages lights-out production.">
+  <link rel="stylesheet" href="css/style.css">
+    <meta property="og:title" content="Forge | Pure AI Marketplace">
+    <meta property="og:description" content="Forge — Autonomous manufacturing optimization agent for dark factory environments. Monitors robotic swarms, optimizes yield, and manages lights-out production.">
+    <meta property="og:image" content="assets/pure-logo.png">
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="assets/pure-logo.png" alt="Pure AI"></a>
+  <div class="nav-links">
+    <a href="marketplace.html">Marketplace</a>
+    <a href="#" class="build-agent-btn">Build Your Agent</a>
+    <a href="mailto:gkai@pureai.com">Contact us</a>
+    <a href="marketplace.html" class="nav-cta">Hire a Digital Twin →</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu">☰</button>
+</nav>
+<div class="mobile-overlay">
+  <a href="marketplace.html">Marketplace</a>
+  <a href="#" class="build-agent-btn">Build Your Agent</a>
+  <a href="mailto:gkai@pureai.com">Contact us</a>
+</div>
+
+<main class="agent-detail">
+  <a href="marketplace.html" class="back-link fade-up">← Back to Marketplace</a>
+  <h1 class="fade-up" data-delay="1">🏭 Forge</h1>
+  <p class="agent-desc fade-up" data-delay="2">Forge is an autonomous manufacturing optimization agent purpose-built for dark factory environments. It orchestrates robotic swarm operations, monitors production line throughput in real-time, predicts equipment maintenance windows, and autonomously adjusts production schedules to maximize yield. Forge integrates with Pure AI's swarm consensus protocol to synchronize 300K+ bot operations within 11ms, enabling true lights-out manufacturing at planetary scale.</p>
+  <div class="detail-section fade-up" data-delay="4">
+    <h2><span class="icon">🔒</span> Permissions Map</h2>
+    <div class="detail-card">
+      <ul class="permissions-list">
+        <li><span class="icon">✓</span> Read production telemetry and robot status</li>
+        <li><span class="icon">✓</span> Adjust production scheduling parameters</li>
+        <li><span class="icon">✓</span> Trigger predictive maintenance alerts</li>
+        <li><span class="icon">✓</span> Generate yield optimization reports</li>
+        <li><span class="icon">✓</span> No direct robot motor control without approval</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="detail-section fade-up" data-delay="5">
+    <h2><span class="icon">⚠️</span> Failure Modes</h2>
+    <div class="detail-card">
+      <ul class="failure-list">
+        <li><span class="icon">!</span> <div><strong>Robot swarm desynchronization</strong> — Forge pauses affected production line, initiates swarm re-consensus, and escalates to human ops if re-sync fails within 30 seconds.</div></li>
+        <li><span class="icon">!</span> <div><strong>Unexpected material shortage</strong> — Automatically adjusts schedule to prioritize available materials and triggers procurement alert.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="detail-section fade-up" data-delay="6">
+    <h2><span class="icon">⚡</span> Hire the Digital Twin</h2>
+    <div class="detail-card">
+      <div class="twin-tabs">
+        <button class="twin-tab-btn active" onclick="switchTwinTab(event, 'deploy')">Instantiate</button>
+        <button class="twin-tab-btn" onclick="switchTwinTab(event, 'pricing')">Pricing & License</button>
+        <button class="twin-tab-btn" onclick="switchTwinTab(event, 'docs')">Integration</button>
+      </div>
+      <div class="twin-tab-contents">
+        <div id="twin-deploy" class="twin-tab-content">
+          <p style="margin-bottom: 1rem; font-size: 0.9rem;">Instantiate this Digital Twin instantly within your workspace environment or hosted runner.</p>
+          <div class="code-box-wrapper" style="position: relative; background: #000; padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 1.2rem;">
+            <code style="font-family: monospace; font-size: 0.82rem; color: var(--accent);">npx pureai hire forge</code>
+          </div>
+          <a href="mailto:gkai@pureai.com" class="btn btn-primary buy-agent-btn" data-agent="Forge" style="display: inline-flex; width: 100%; justify-content: center;">Hire and Deploy Now</a>
+        </div>
+        <div id="twin-pricing" class="twin-tab-content" style="display: none;">
+          <p style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Outcome-Based Pricing</strong></p>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <li>✓ Pay-per-outcome: $0.15 per synchronized operations batch</li>
+            <li>✓ 14-day free trial on custom hosted runtimes</li>
+            <li>✓ Source code access available for enterprise containment</li>
+          </ul>
+        </div>
+        <div id="twin-docs" class="twin-tab-content" style="display: none;">
+          <p style="margin-bottom: 0.5rem; font-size: 0.9rem;"><strong>Local Environment Integration</strong></p>
+          <p style="font-size: 0.82rem; color: var(--text-secondary);">Requires Python 3.10+ and Node.js 18+. Read details in the generated SKILL.md manifest on initialization.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-links"><a href="marketplace.html">Marketplace</a></div>
+  <span>By Pure AI</span>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>

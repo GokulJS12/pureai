@@ -1,0 +1,30 @@
+# ─────────────────────────────────────────────────────────────────────
+#  Pure AI — Netlify configuration
+#  Deploys the static site with extensionless, canonical URLs.
+# ─────────────────────────────────────────────────────────────────────
+
+[build]
+  publish = "."
+
+# Strip .html from URLs and 301 legacy *.html -> clean slug.
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = true
+
+# Canonical redirects — force the clean URL for any legacy bookmark.
+[[redirects]]
+  from = "/*.html"
+  to   = "/:splat"
+  status = 301
+  force = true
+
+# Sensible security headers for all routes.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options   = "nosniff"
+    X-Frame-Options          = "SAMEORIGIN"
+    Referrer-Policy          = "strict-origin-when-cross-origin"
+    Permissions-Policy       = "geolocation=(), microphone=(), camera=()"

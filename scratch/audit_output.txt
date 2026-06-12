@@ -1,0 +1,294 @@
+Root directory set to: /home/ubuntu/Desktop/PURE AI WEBSITE MAINTANACE/Final Pure AI Website1/Final Pure AI Website/pure ai
+Found 59 HTML files to parse.
+
+==================================================
+AUDIT RESULTS SUMMARY
+==================================================
+
+[STYLING] Broken Stylesheet References: 0
+
+[SCRIPTS] Broken Script References: 0
+
+[IMAGES] Broken Image References: 0
+
+[LINKS] Broken Link/Anchor References: 0
+
+[SEO] Pages with SEO Issues: 58
+  - In trading-desk.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In custom-bots.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-workers.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In robots-search.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In platform.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In ai-setup.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In custom-robotics.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In sol-healthcare.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In nano-bots.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In services.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In innovation.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In index.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In robots-3.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In robots-2.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In autonomous-mission-intelligence-blog.html:
+    * Missing meta description
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+    * Multiple <h1> tags (6 found)
+  - In sol-retail.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In sol-education.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In ai-datacenter.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In ibm-linux.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In aikage.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In bohrai.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In sol-agriculture.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In enterprise-openclaw.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In llm-training.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In sol-infrastructure.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In sol-logistics.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In dark-infrastructure-blog.html:
+    * Missing meta description
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In naolytics.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In robots-4.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In robots.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In robots-5.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In knowledge.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In sol-manufacturing.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In ai-boxes.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In medical-blogs.html:
+    * Missing meta description
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+    * Multiple <h1> tags (3 found)
+  - In sol-banking.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In bot-management.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In robots-6.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In sol-enterprise.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In sol-aviation.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In dark-factories.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-medix.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-sales.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/index.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-lucy.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-finance.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-content.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-forge.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-support.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-nexus.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-sentinel.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/agent-oracle.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In digital-twin-page/marketplace.html:
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In BlogEdu/blog.html:
+    * Missing meta description
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+    * Multiple <h1> tags (4 found)
+  - In BlogEdu/BlogEdu3.html:
+    * Missing meta description
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In BlogEdu/4.html:
+    * Missing meta description
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In BlogEdu/2.html:
+    * Missing meta description
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+  - In BlogEdu/1.html:
+    * Missing meta description
+    * Missing og:title
+    * Missing og:description
+    * Missing og:image
+
+[SECURITY] Potential Security Issues: 0
+
+[UNUSED] Unreferenced files on disk (excluding server script/configs): 53
+  - BlogEdu/1.html
+  - BlogEdu/2.html
+  - BlogEdu/4.html
+  - BlogEdu/BlogEdu3.html
+  - BlogEdu/images/BlogEdu3_img_1.png
+  - BlogEdu/images/BlogEdu3_img_4.png
+  - brain-research.png
+  - css/style.css
+  - nano-bots-hero.png
+  - robot-a2.png
+  - robot-anymal-c.png
+  - robot-anymal-x.png
+  - robot-astribot-s1.png
+  - robot-astribot.png
+  - robot-bellabot.png
+  - robot-deebot-n50.png
+  - robot-deebot-t80.png
+  - robot-deebot-x11.png
+  - robot-deep-dr01.png
+  - robot-deep-dr02.png
+  - robot-deep-lynx-m20.png
+  - robot-deep-x30.png
+  - robot-dinerbot-t10.png
+  - robot-dinerbot-t11.png
+  - robot-drone-cleaning.png
+  - robot-ecovacs-t50.png
+  - robot-fourier-gr1.png
+  - robot-fourier-gr3.png
+  - robot-go2.png
+  - robot-gr1.png
+  - ... and 23 more

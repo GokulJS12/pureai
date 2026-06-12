@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Trading Desk — Pure AI | NVIDIA-Powered Autonomous Trading</title>
+    <meta name="description" content="Pure AI Corporate Trading Desk: NVIDIA GPU-accelerated autonomous trading bots. Sub-microsecond latency, multi-asset strategies, and institutional-grade risk management.">
+    <link rel="icon" type="image/png" href="./pure-logo-v4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #050505; --bg-section: #0a0a0a;
+            --accent: #4DEEEA; --accent-trade: #76B900; --accent-trade-dim: rgba(118,185,0,0.15);
+            --accent-risk: #FF6B6B; --accent-strategy: #4DA6FF; --accent-infra: #FFB347;
+            --text-hero: #f0f0f0; --text-secondary: rgba(255,255,255,0.55);
+            --text-muted: rgba(255,255,255,0.35); --border: rgba(255,255,255,0.06);
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--bg-dark); color: var(--text-hero); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
+
+        /* ── Nav ── */
+        nav { position: fixed; top: 0; left: 0; right: 0; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(2rem, 4vw, 4rem); z-index: 9999; background: rgba(5,5,5,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .logo img { height: 28px; }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links a { font-family: var(--font-display); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a.cta { background: transparent; border: 1px solid var(--accent); padding: 0.5rem 1.2rem; border-radius: 100px; color: var(--accent); transition: all 0.3s; }
+        .nav-links a.cta:hover { background: var(--accent); color: var(--bg-dark); }
+        .nav-dropdown { position: relative; display: flex; align-items: center; }
+        .nav-dropdown > a { display: flex; align-items: center; gap: 0.35rem; cursor: pointer; }
+        .nav-dropdown > a .dd-arrow { font-size: 0.6rem; transition: transform 0.3s; display: inline-block; }
+        .nav-dropdown:hover > a .dd-arrow { transform: rotate(180deg); }
+        .nav-dropdown .dd-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 220px; padding: 0.6rem 0; background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; z-index: 10000; box-shadow: 0 20px 50px rgba(0,0,0,0.6); flex-direction: column; margin-top: 0; padding-top: 1rem; }
+        .nav-dropdown .dd-menu::before { content: ''; position: absolute; top: -20px; left: 0; right: 0; height: 20px; }
+        .nav-dropdown:hover .dd-menu { display: flex; }
+        .nav-dropdown .dd-menu a { display: flex !important; align-items: center !important; gap: 0.75rem !important; padding: 0.7rem 1.3rem !important; font-size: 0.65rem !important; letter-spacing: 0.15em !important; color: rgba(255,255,255,0.5) !important; transition: all 0.25s !important; white-space: nowrap !important; }
+        .nav-dropdown .dd-menu a:hover { color: var(--accent) !important; background: rgba(77,238,234,0.06) !important; }
+        .nav-dropdown .dd-menu a::after { display: none !important; }
+        .nav-dropdown .dd-menu a i { font-size: 1.1rem; opacity: 0.5; }
+        .nav-dropdown .dd-menu a:hover i { opacity: 1; color: var(--accent); }
+
+        /* ── Hero ── */
+        .td-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10rem 2rem 6rem; position: relative; overflow: hidden; }
+        .td-hero::before { content: ''; position: absolute; top: 50%; left: 50%; width: 900px; height: 900px; background: radial-gradient(circle, rgba(118,185,0,0.08) 0%, transparent 60%); transform: translate(-50%, -50%); pointer-events: none; }
+
+        /* Animated ticker tape */
+        .ticker-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; opacity: 0.06; }
+        .ticker-line { position: absolute; white-space: nowrap; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--accent-trade); animation: tickerScroll 30s linear infinite; }
+        .ticker-line:nth-child(1) { top: 20%; animation-duration: 25s; }
+        .ticker-line:nth-child(2) { top: 40%; animation-duration: 35s; animation-direction: reverse; }
+        .ticker-line:nth-child(3) { top: 60%; animation-duration: 28s; }
+        .ticker-line:nth-child(4) { top: 80%; animation-duration: 32s; animation-direction: reverse; }
+        @keyframes tickerScroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+
+        /* Candlestick chart animation */
+        .chart-bg { position: absolute; bottom: 0; left: 0; right: 0; height: 300px; pointer-events: none; display: flex; align-items: flex-end; justify-content: center; gap: 6px; padding: 0 5%; opacity: 0.08; }
+        .candle { width: 8px; background: var(--accent-trade); border-radius: 2px; animation: candlePulse 3s ease-in-out infinite; }
+        .candle.red { background: var(--accent-risk); }
+        @keyframes candlePulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        .hero-inner { position: relative; z-index: 2; max-width: 900px; }
+        .hero-label { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent-trade); margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 1rem; }
+        .hero-label::before { content: ''; width: 40px; height: 1px; background: var(--accent-trade); }
+        .hero-title { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 200; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 2rem; }
+        .hero-title em { font-style: italic; color: var(--accent-trade); }
+        .hero-sub { font-size: clamp(1rem, 1.5vw, 1.15rem); color: var(--text-secondary); font-weight: 300; line-height: 1.8; max-width: 650px; margin: 0 auto 3rem; }
+        .nvidia-badge { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.6rem 1.5rem; border-radius: 100px; background: rgba(118,185,0,0.08); border: 1px solid rgba(118,185,0,0.2); font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-trade); letter-spacing: 0.15em; margin-bottom: 2rem; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2.5rem; border-radius: 100px; border: 1px solid var(--accent-trade); background: transparent; color: var(--accent-trade); font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.4s; }
+        .cta-btn:hover { background: var(--accent-trade); color: var(--bg-dark); }
+
+        /* ── Live Clock Stats ── */
+        .td-stats { padding: 4rem 2rem; background: var(--bg-section); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; }
+        .td-stat { text-align: center; padding: 2rem 1rem; border-radius: 16px; background: rgba(118,185,0,0.03); border: 1px solid rgba(118,185,0,0.08); position: relative; overflow: hidden; }
+        .td-stat::before { content: ''; position: absolute; top: 0; left: 50%; width: 60px; height: 2px; background: var(--accent-trade); transform: translateX(-50%); }
+        .stat-val { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; color: var(--accent-trade); margin-bottom: 0.5rem; }
+        .stat-val .unit { font-size: 0.5em; font-weight: 400; opacity: 0.7; }
+        .stat-label { font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase; }
+
+        /* ── Architecture Section ── */
+        .arch-section { padding: 8rem 2rem; }
+        .arch-inner { max-width: 1200px; margin: 0 auto; }
+        .arch-header { text-align: center; margin-bottom: 5rem; }
+        .arch-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; margin-bottom: 1rem; }
+        .arch-sub { color: var(--text-secondary); font-size: 1rem; font-weight: 300; }
+
+        /* Architecture layers */
+        .arch-layers { display: flex; flex-direction: column; gap: 1rem; max-width: 900px; margin: 0 auto; }
+        .arch-layer {
+            display: grid; grid-template-columns: 180px 1fr; gap: 2rem; align-items: center;
+            padding: 2rem 2.5rem; border-radius: 16px; background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border); transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .arch-layer:hover { border-color: rgba(118,185,0,0.3); transform: translateX(10px); }
+        .arch-layer::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+        .layer-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; }
+        .layer-tag { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.5; margin-top: 0.3rem; }
+        .layer-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+        .layer-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+        .layer-chip { font-family: var(--font-mono); font-size: 0.6rem; padding: 0.3rem 0.8rem; border-radius: 100px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-secondary); letter-spacing: 0.1em; }
+
+        /* ── Strategy Cards ── */
+        .strat-section { padding: 8rem 2rem; background: var(--bg-section); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .strat-inner { max-width: 1200px; margin: 0 auto; }
+        .strat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
+        .strat-card { padding: 2.5rem 2rem; border-radius: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); transition: all 0.4s; position: relative; overflow: hidden; }
+        .strat-card:hover { border-color: rgba(118,185,0,0.3); transform: translateY(-5px); }
+        .strat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent-trade); opacity: 0; transition: opacity 0.4s; }
+        .strat-card:hover::before { opacity: 1; }
+        .strat-icon { width: 56px; height: 56px; border-radius: 14px; background: rgba(118,185,0,0.08); border: 1px solid rgba(118,185,0,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent-trade); margin-bottom: 1.5rem; }
+        .strat-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; margin-bottom: 1rem; }
+        .strat-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+        .strat-perf { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; padding: 0.5rem 1rem; border-radius: 100px; display: inline-block; }
+
+        /* ── Visual Section ── */
+        .td-visual { padding: 8rem clamp(2rem, 5vw, 6rem); max-width: 1300px; margin: 0 auto; }
+        .td-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .td-grid.reverse { direction: rtl; }
+        .td-grid.reverse > * { direction: ltr; }
+        .td-img { aspect-ratio: 4/3; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
+        .td-img img { width: 100%; height: 100%; object-fit: cover; }
+        .td-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 1rem; }
+        .td-title { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.5rem; }
+        .td-desc { font-size: 1rem; color: var(--text-secondary); font-weight: 300; line-height: 1.8; margin-bottom: 2rem; }
+        .feature-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+        .feature-list li { display: flex; align-items: flex-start; gap: 1rem; font-size: 0.9rem; line-height: 1.6; }
+        .feature-list li i { color: var(--accent-trade); font-size: 1.2rem; margin-top: 0.2rem; flex-shrink: 0; }
+
+        /* ── Risk Management ── */
+        .risk-section { padding: 8rem 2rem; }
+        .risk-inner { max-width: 1000px; margin: 0 auto; }
+        .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+        .risk-card { padding: 2rem; border-radius: 16px; background: rgba(255,107,107,0.03); border: 1px solid rgba(255,107,107,0.1); transition: all 0.4s; }
+        .risk-card:hover { border-color: rgba(255,107,107,0.3); transform: translateY(-3px); }
+        .risk-icon { font-size: 1.5rem; color: var(--accent-risk); margin-bottom: 1rem; }
+        .risk-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .risk-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ── CTA ── */
+        .td-cta { padding: 8rem 2rem; text-align: center; position: relative; }
+        .td-cta::before { content: ''; position: absolute; top: 50%; left: 50%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(118,185,0,0.06) 0%, transparent 60%); transform: translate(-50%, -50%); pointer-events: none; }
+        .cta-inner { position: relative; z-index: 2; }
+        .cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; margin-bottom: 1.5rem; }
+        .cta-desc { color: var(--text-secondary); font-size: 1rem; margin-bottom: 3rem; max-width: 550px; margin-left: auto; margin-right: auto; }
+
+        .back-home { text-align: center; padding: 4rem 2rem 6rem; }
+        .back-home a { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.3s; }
+        .back-home a:hover { color: var(--accent); }
+        .plat-footer { padding: 3rem clamp(2rem, 6vw, 6rem) 2rem; border-top: 1px solid var(--border); text-align: center; }
+        .plat-footer .f-copy { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
+        .fade-up { opacity: 0; transform: translateY(40px); }
+        body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 9999; }
+
+        /* ═══════════════════════════════════════════════════
+           MOTTO RIBBON — Big statement banner
+        ═══════════════════════════════════════════════════ */
+        .motto-ribbon {
+            position: relative;
+            padding: 6rem clamp(1.5rem, 5vw, 4rem);
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(118,185,0,0.06) 0%, rgba(5,5,5,0) 45%, rgba(77,238,234,0.05) 100%);
+        }
+        .motto-ribbon::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 15% 30%, rgba(118,185,0,0.14), transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(77,238,234,0.10), transparent 40%);
+            pointer-events: none;
+        }
+        .motto-ribbon::after {
+            content: '';
+            position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+            background-image: linear-gradient(rgba(118,185,0,0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(118,185,0,0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at 50% 50%, black, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black, transparent 80%);
+            pointer-events: none;
+        }
+        .motto-inner {
+            position: relative; z-index: 2;
+            max-width: 1200px; margin: 0 auto;
+            text-align: center;
+        }
+        .motto-chips {
+            display: inline-flex; flex-wrap: wrap; justify-content: center;
+            gap: 0.6rem; margin-bottom: 2rem;
+        }
+        .motto-chip {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            padding: 0.45rem 1rem;
+            border-radius: 100px;
+            border: 1px solid rgba(118,185,0,0.28);
+            background: rgba(118,185,0,0.06);
+            color: var(--accent-trade);
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .motto-chip::before {
+            content: '';
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent-trade);
+            box-shadow: 0 0 10px var(--accent-trade);
+            animation: mottoDot 2s ease-in-out infinite;
+        }
+        .motto-chip:nth-child(2) { border-color: rgba(77,238,234,0.28); background: rgba(77,238,234,0.06); color: var(--accent); }
+        .motto-chip:nth-child(2)::before { background: var(--accent); box-shadow: 0 0 10px var(--accent); animation-delay: 0.3s; }
+        .motto-chip:nth-child(3) { border-color: rgba(255,179,71,0.28); background: rgba(255,179,71,0.06); color: var(--accent-infra); }
+        .motto-chip:nth-child(3)::before { background: var(--accent-infra); box-shadow: 0 0 10px var(--accent-infra); animation-delay: 0.6s; }
+        @keyframes mottoDot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
+
+        .motto-quote-mark {
+            font-family: 'Space Grotesk', serif;
+            font-size: clamp(5rem, 12vw, 10rem);
+            line-height: 0.8;
+            color: var(--accent-trade);
+            opacity: 0.18;
+            font-weight: 700;
+            margin-bottom: -2rem;
+        }
+        .motto-text {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4.5vw, 3.6rem);
+            font-weight: 200;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--text-hero);
+            max-width: 1100px;
+            margin: 0 auto 2rem;
+        }
+        .motto-text em {
+            font-style: italic;
+            color: var(--accent-trade);
+            font-weight: 400;
+            position: relative;
+        }
+        .motto-text em::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: -4px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-trade), transparent);
+        }
+        .motto-text .hl-word {
+            color: var(--accent);
+            font-weight: 300;
+        }
+        .motto-signoff {
+            display: inline-flex; align-items: center; gap: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        .motto-signoff .arrow {
+            display: inline-block;
+            width: 36px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-trade));
+            position: relative;
+        }
+        .motto-signoff .arrow::after {
+            content: '';
+            position: absolute; right: 0; top: -3px;
+            width: 7px; height: 7px;
+            border-top: 1px solid var(--accent-trade);
+            border-right: 1px solid var(--accent-trade);
+            transform: rotate(45deg);
+        }
+        .motto-cta {
+            display: inline-flex; align-items: center; gap: 0.9rem;
+            padding: 1.2rem 2.8rem;
+            border-radius: 100px;
+            background: var(--accent-trade);
+            color: var(--bg-dark);
+            font-family: var(--font-display);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            transition: all 0.4s;
+            box-shadow: 0 15px 45px rgba(118,185,0,0.25);
+            margin-top: 2rem;
+        }
+        .motto-cta:hover { transform: translateY(-3px); box-shadow: 0 20px 55px rgba(118,185,0,0.4); }
+        .motto-cta i { font-size: 1.1rem; }
+
+        /* ═══════════════════════════════════════════════════
+           MARKETS WE TRADE
+        ═══════════════════════════════════════════════════ */
+        .markets-section { padding: 8rem clamp(1.5rem, 4vw, 3rem); max-width: 1320px; margin: 0 auto; }
+        .markets-header { text-align: center; margin-bottom: 4rem; }
+        .markets-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.4rem;
+        }
+        .market-card {
+            position: relative;
+            padding: 2rem 1.8rem 1.6rem;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.4s;
+            isolation: isolate;
+        }
+        .market-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgba(118,185,0,0.08), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .market-card:hover {
+            border-color: rgba(118,185,0,0.3);
+            transform: translateY(-4px);
+        }
+        .market-card:hover::before { opacity: 1; }
+        .market-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.4rem; }
+        .market-icon {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+            background: rgba(118,185,0,0.08);
+            border: 1px solid rgba(118,185,0,0.22);
+            color: var(--accent-trade);
+            transition: transform 0.4s;
+        }
+        .market-card:hover .market-icon { transform: rotate(-4deg) scale(1.06); }
+        .market-live {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-family: var(--font-mono);
+            font-size: 0.56rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--accent-trade);
+        }
+        .market-live::before {
+            content: '';
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent-trade);
+            box-shadow: 0 0 8px var(--accent-trade);
+            animation: mottoDot 1.5s ease-in-out infinite;
+        }
+        .market-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.35rem; }
+        .market-sub { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 1.2rem; }
+        .market-price {
+            display: flex; align-items: baseline; gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .market-price .big {
+            font-family: var(--font-display);
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--text-hero);
+            letter-spacing: -0.015em;
+        }
+        .market-price .chg {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-trade);
+        }
+        .market-price .chg.down { color: var(--accent-risk); }
+        .market-spark { width: 100%; height: 54px; margin-bottom: 1.2rem; }
+        .market-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; padding-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.08); }
+        .market-stats > div { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+        .market-stats > div b { display: block; color: var(--text-hero); font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; letter-spacing: 0; margin-top: 0.2rem; }
+        .market-card.m-gold .market-icon { background: rgba(255,179,71,0.08); border-color: rgba(255,179,71,0.25); color: var(--accent-infra); }
+        .market-card.m-gold:hover { border-color: rgba(255,179,71,0.3); }
+        .market-card.m-forex .market-icon { background: rgba(77,166,255,0.08); border-color: rgba(77,166,255,0.25); color: var(--accent-strategy); }
+        .market-card.m-forex:hover { border-color: rgba(77,166,255,0.3); }
+        .market-card.m-crypto .market-icon { background: rgba(247,147,26,0.08); border-color: rgba(247,147,26,0.28); color: #F7931A; }
+        .market-card.m-crypto:hover { border-color: rgba(247,147,26,0.32); }
+        .market-card.m-defi .market-icon { background: rgba(192,132,252,0.08); border-color: rgba(192,132,252,0.25); color: #C084FC; }
+        .market-card.m-defi:hover { border-color: rgba(192,132,252,0.3); }
+        .market-card.m-comm .market-icon { background: rgba(255,107,107,0.08); border-color: rgba(255,107,107,0.25); color: var(--accent-risk); }
+        .market-card.m-comm:hover { border-color: rgba(255,107,107,0.3); }
+
+        /* ═══════════════════════════════════════════════════
+           LIVE TERMINAL — Animated "video" showcase
+        ═══════════════════════════════════════════════════ */
+        .terminal-section {
+            padding: 8rem clamp(1.5rem, 4vw, 3rem);
+            position: relative;
+            background: var(--bg-section);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .terminal-section::before {
+            content: '';
+            position: absolute; top: 50%; left: 50%;
+            width: 1100px; height: 1100px;
+            background: radial-gradient(circle, rgba(118,185,0,0.07), transparent 55%);
+            transform: translate(-50%,-50%);
+            pointer-events: none;
+        }
+        .terminal-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+        .terminal-head { text-align: center; margin-bottom: 3rem; }
+        .terminal-frame {
+            position: relative;
+            border-radius: 18px;
+            background: #0c0c0c;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.55), 0 0 0 1px rgba(118,185,0,0.08) inset, 0 0 80px rgba(118,185,0,0.08);
+            overflow: hidden;
+        }
+        .terminal-bar {
+            display: flex; align-items: center;
+            padding: 0.7rem 1rem;
+            background: linear-gradient(180deg, #111, #0a0a0a);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            gap: 0.7rem;
+        }
+        .tb-dots { display: flex; gap: 0.4rem; }
+        .tb-dots span { width: 12px; height: 12px; border-radius: 50%; }
+        .tb-dots span:nth-child(1) { background: #ff5f57; }
+        .tb-dots span:nth-child(2) { background: #febc2e; }
+        .tb-dots span:nth-child(3) { background: #28c840; }
+        .tb-title {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin: 0 auto;
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .tb-title::before {
+            content: ''; width: 8px; height: 8px; border-radius: 50%;
+            background: var(--accent-trade); box-shadow: 0 0 10px var(--accent-trade);
+            animation: mottoDot 1.6s ease-in-out infinite;
+        }
+        .tb-tabs { display: flex; gap: 0.3rem; margin-left: auto; }
+        .tb-tabs span {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+        }
+        .tb-tabs span.active { color: var(--accent-trade); border-color: rgba(118,185,0,0.25); background: rgba(118,185,0,0.05); }
+
+        .terminal-body {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            min-height: 520px;
+        }
+        .term-left { padding: 1.2rem; border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 1rem; }
+        .term-right { padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+        /* Price header */
+        .term-price {
+            display: flex; align-items: baseline; gap: 1.2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .term-price .symbol {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .term-price .val {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-trade);
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+        }
+        .term-price .delta {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--accent-trade);
+            font-weight: 600;
+        }
+
+        /* Candle chart */
+        .term-chart {
+            flex: 1;
+            min-height: 200px;
+            background: radial-gradient(circle at 50% 50%, rgba(118,185,0,0.04), transparent 70%);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 0.8rem;
+            display: flex; align-items: flex-end; gap: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+        .term-chart::before {
+            content: '';
+            position: absolute; inset: 0.8rem;
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+        .term-candle {
+            flex: 1;
+            min-width: 6px;
+            max-width: 14px;
+            background: var(--accent-trade);
+            border-radius: 1px;
+            position: relative;
+            transition: height 0.35s ease;
+        }
+        .term-candle.red { background: var(--accent-risk); }
+        .term-candle::before {
+            content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+            width: 1px;
+            background: currentColor;
+            color: inherit;
+            top: -6px; bottom: -6px;
+            opacity: 0.6;
+        }
+
+        /* Order book */
+        .term-orderbook {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            display: flex; flex-direction: column;
+            min-height: 280px;
+        }
+        .ob-head {
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            padding: 0.5rem 0.6rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .ob-body { flex: 1; display: flex; flex-direction: column; }
+        .ob-row {
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            padding: 0.3rem 0.6rem;
+            position: relative;
+            font-variant-numeric: tabular-nums;
+        }
+        .ob-row::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; right: 0;
+            width: var(--depth, 10%);
+            opacity: 0.18;
+            transition: width 0.4s;
+        }
+        .ob-row.ask { color: #ff8878; }
+        .ob-row.ask::before { background: linear-gradient(90deg, transparent, rgba(255,107,107,0.5)); }
+        .ob-row.bid { color: #9bdf3c; }
+        .ob-row.bid::before { background: linear-gradient(90deg, transparent, rgba(118,185,0,0.5)); }
+        .ob-spread {
+            text-align: center;
+            padding: 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .ob-spread b { color: var(--accent); font-weight: 600; letter-spacing: 0; }
+
+        /* Bot log */
+        .term-log {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 10px;
+            padding: 0.9rem;
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            max-height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .term-log .log-head {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.55rem;
+            letter-spacing: 0.22em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .term-log .log-head b { color: var(--accent-trade); letter-spacing: 0.15em; }
+        .term-log .log-line {
+            padding: 0.22rem 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-variant-numeric: tabular-nums;
+        }
+        .term-log .log-line .time { color: var(--text-muted); margin-right: 0.7rem; }
+        .term-log .log-line .action.buy { color: var(--accent-trade); }
+        .term-log .log-line .action.sell { color: var(--accent-risk); }
+        .term-log .log-line .action.info { color: var(--accent); }
+        .term-log .log-line .action.alert { color: var(--accent-infra); }
+        .term-log::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 70%, rgba(12,12,12,0.9) 100%);
+            pointer-events: none;
+        }
+
+        /* ═══════════════════════════════════════════════════
+           BIG P&L SHOWCASE
+        ═══════════════════════════════════════════════════ */
+        .pnl-section {
+            padding: 8rem clamp(1.5rem, 4vw, 3rem);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .pnl-section::before {
+            content: '';
+            position: absolute; top: 50%; left: 50%;
+            width: 1400px; height: 1400px;
+            background:
+                radial-gradient(circle, rgba(118,185,0,0.08), transparent 50%);
+            transform: translate(-50%,-50%);
+            pointer-events: none;
+        }
+        .pnl-section::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(118,185,0,0.04) 1px, transparent 1px);
+            background-size: 100% 60px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+            pointer-events: none;
+        }
+        .pnl-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+        .pnl-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent-trade);
+            margin-bottom: 1.5rem;
+            display: inline-flex; align-items: center; gap: 1rem;
+        }
+        .pnl-label::before, .pnl-label::after {
+            content: ''; width: 36px; height: 1px; background: var(--accent-trade); opacity: 0.5;
+        }
+        .pnl-caption { font-family: var(--font-display); font-size: clamp(1.3rem, 2.4vw, 1.8rem); font-weight: 300; color: var(--text-secondary); margin-bottom: 3rem; }
+        .pnl-caption em { font-style: italic; color: var(--accent-trade); }
+
+        /* Mega number */
+        .pnl-hero {
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.3rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            position: relative;
+            padding: 1rem 0 2rem;
+        }
+        .pnl-hero .dollar {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--accent-trade);
+            font-weight: 300;
+        }
+        .pnl-hero .num {
+            font-size: clamp(5rem, 18vw, 13rem);
+            background: linear-gradient(180deg, #c1ff4a 0%, var(--accent-trade) 55%, #3d6500 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-variant-numeric: tabular-nums;
+            filter: drop-shadow(0 10px 40px rgba(118,185,0,0.25));
+        }
+        .pnl-hero .unit {
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--accent-trade);
+            font-weight: 400;
+        }
+        .pnl-hero .plus {
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--accent-trade);
+            font-weight: 300;
+            opacity: 0.8;
+        }
+        .pnl-hero-sub { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.3em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4rem; }
+        .pnl-hero-sub .up { color: var(--accent-trade); }
+
+        .pnl-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin-top: 3rem;
+        }
+        .pnl-cell {
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            background: rgba(118,185,0,0.03);
+            border: 1px solid rgba(118,185,0,0.10);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+        .pnl-cell:hover { border-color: rgba(118,185,0,0.3); transform: translateY(-4px); background: rgba(118,185,0,0.05); }
+        .pnl-cell::before {
+            content: '';
+            position: absolute; top: 0; left: 50%;
+            width: 60px; height: 2px;
+            background: var(--accent-trade);
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--accent-trade);
+        }
+        .pnl-cell .val {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            color: var(--accent-trade);
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 0.6rem;
+            font-variant-numeric: tabular-nums;
+        }
+        .pnl-cell .val .plus { font-weight: 300; opacity: 0.7; margin-right: 0.1em; }
+        .pnl-cell .lbl {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .pnl-cell .spark { width: 100%; height: 30px; margin-top: 0.8rem; opacity: 0.7; }
+
+        /* Running tape */
+        .pnl-tape {
+            margin-top: 4rem;
+            padding: 1.2rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+            background: rgba(118,185,0,0.02);
+        }
+        .pnl-tape-inner {
+            display: inline-flex; gap: 3rem; white-space: nowrap;
+            animation: tickerScroll 40s linear infinite;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+        }
+        .pnl-tape-inner span { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); }
+        .pnl-tape-inner span b { color: var(--accent-trade); font-weight: 600; }
+        .pnl-tape-inner span.dn b { color: var(--accent-risk); }
+
+        /* Responsive adjustments for new sections */
+        @media (max-width: 1100px) {
+            .markets-grid { grid-template-columns: repeat(2, 1fr); }
+            .pnl-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 760px) {
+            .markets-grid { grid-template-columns: 1fr; }
+            .pnl-grid { grid-template-columns: 1fr 1fr; }
+            .terminal-body { grid-template-columns: 1fr; min-height: auto; }
+            .term-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .motto-text { font-size: clamp(1.4rem, 6vw, 2.2rem); }
+            .tb-tabs { display: none; }
+        }
+
+        @media (max-width: 992px) {
+            .td-grid, .td-grid.reverse { grid-template-columns: 1fr; direction: ltr; }
+            .strat-grid { grid-template-columns: 1fr; }
+            .arch-layer { grid-template-columns: 1fr; }
+            .stats-inner { grid-template-columns: repeat(3, 1fr); }
+            .risk-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) { .nav-links { display: none; } .td-hero { padding: 8rem 1.5rem 4rem; min-height: auto; } .stats-inner { grid-template-columns: 1fr 1fr; } }
+    
+        /* ── Mobile Accordion Menu ── */
+        .mobile-toggle { display: none; color: #fff; font-size: 1.6rem; z-index: 10001; padding: 0.6rem; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 9550; display: flex; flex-direction: column; align-items: stretch; padding: 90px 0 2rem; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open { opacity: 1; pointer-events: all; }
+        .mobile-overlay > a { font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.3s, background 0.3s; text-decoration: none; }
+        .mobile-overlay > a:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1rem 2rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; transition: color 0.3s, background 0.3s; }
+        .mob-accordion-toggle:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion-toggle i { font-size: 0.7rem; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); color: #4DEEEA; opacity: 0.6; }
+        .mob-accordion.open .mob-accordion-toggle i { transform: rotate(180deg); }
+        .mob-accordion.open .mob-accordion-toggle { color: #4DEEEA; }
+        .mob-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); background: rgba(255,255,255,0.015); }
+        .mob-accordion.open .mob-accordion-body { max-height: 800px; }
+        .mob-accordion-body a { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 2rem 0.7rem 3rem; font-family: var(--font-display); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, background 0.25s, padding-left 0.25s; border-bottom: 1px solid rgba(255,255,255,0.03); text-decoration: none; }
+        .mob-accordion-body a:last-child { border-bottom: none; }
+        .mob-accordion-body a i { font-size: 1rem; opacity: 0.5; flex-shrink: 0; }
+        .mob-accordion-body a:hover { color: #4DEEEA; background: rgba(77,238,234,0.05); padding-left: 3.4rem; }
+        .mob-accordion-body a:hover i { opacity: 1; color: #4DEEEA; }
+        .mobile-overlay > a, .mobile-overlay > .mob-accordion { transform: translateX(-20px); opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open > a, .mobile-overlay.open > .mob-accordion { transform: translateX(0); opacity: 1; }
+        .mobile-overlay.open > :nth-child(1) { transition-delay: 0.05s; }
+        .mobile-overlay.open > :nth-child(2) { transition-delay: 0.1s; }
+        .mobile-overlay.open > :nth-child(3) { transition-delay: 0.15s; }
+        .mobile-overlay.open > :nth-child(4) { transition-delay: 0.2s; }
+        .mobile-overlay.open > :nth-child(5) { transition-delay: 0.25s; }
+        .mobile-overlay.open > :nth-child(6) { transition-delay: 0.3s; }
+        .mobile-overlay.open > :nth-child(7) { transition-delay: 0.35s; }
+        @media (max-width: 768px) { 
+            .mobile-toggle { display: block !important; visibility: visible !important; opacity: 1 !important; } 
+        }
+
+    
+        /* ── Mobile overflow fix ── */
+        html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
+        nav { max-width: 100vw !important; overflow: visible !important; width: 100% !important; }
+        * { max-width: 100vw; }
+
+    </style>
+    <link rel="stylesheet" href="./product-enquiry.css">
+    <script src="./product-enquiry.js" defer></script>
+    <meta property="og:title" content="Corporate Trading Desk — Pure AI | NVIDIA-Powered Autonomous Trading">
+    <meta property="og:description" content="Pure AI Corporate Trading Desk: NVIDIA GPU-accelerated autonomous trading bots. Sub-microsecond latency, multi-asset strategies, and institutional-grade risk management.">
+    <meta property="og:image" content="./pure-logo-v4.png">
+</head>
+<body>
+
+    <nav>
+    <a href="./" class="logo"><img src="./pure-logo-v4.png" alt="Pure AI"></a>
+    <div class="nav-links">
+        <a href="./platform">Platform</a>
+        <div class="nav-dropdown">
+            <a href="./#products">Product <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./robots-search"><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots"><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots"><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk"><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics"><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage"><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#"><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#"><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#"><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#"><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="./services">Services <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./custom-robotics"><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter"><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup"><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux"><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes"><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories"><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training"><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw"><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management"><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="./#solutions">Solutions <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./sol-banking"><i class="ph ph-bank"></i> PureAi - Banking &amp; Finance</a>
+                <a href="./sol-healthcare"><i class="ph ph-heartbeat"></i> PureAi - Healthcare</a>
+                <a href="./sol-logistics"><i class="ph ph-truck"></i> PureAi - Logistics</a>
+                <a href="./sol-manufacturing"><i class="ph ph-gear-six"></i> PureAi - Manufacturing</a>
+                <a href="./sol-agriculture"><i class="ph ph-plant"></i> PureAi - Agriculture</a>
+                <a href="./sol-aviation"><i class="ph ph-airplane"></i> PureAi - Airlines</a>
+                <a href="./sol-education"><i class="ph ph-graduation-cap"></i> PureAi - Education</a>
+                <a href="./sol-retail"><i class="ph ph-storefront"></i> PureAi - Retail</a>
+                <a href="./sol-enterprise"><i class="ph ph-buildings"></i> PureAi - Enterprise</a>
+                <a href="./sol-infrastructure"><i class="ph ph-lightning"></i> PureAi - Infrastructure</a>
+            </div>
+        </div>
+        <a href="./innovation">Innovation</a>
+        <div class="nav-dropdown">
+            <a href="#">Open Innovation <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./bohrai"><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" class="cta">Contact</a>
+    </div>
+
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <a href="./" data-mobile-link>Home</a>
+        <a href="./platform" data-mobile-link>Platform</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Products <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./robots-search" data-mobile-link><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots" data-mobile-link><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots" data-mobile-link><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk" data-mobile-link><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics" data-mobile-link><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage" data-mobile-link><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#" data-mobile-link><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#" data-mobile-link><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#" data-mobile-link><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#" data-mobile-link><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Services <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./custom-robotics" data-mobile-link><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter" data-mobile-link><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup" data-mobile-link><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux" data-mobile-link><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes" data-mobile-link><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories" data-mobile-link><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training" data-mobile-link><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw" data-mobile-link><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management" data-mobile-link><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Solutions <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./sol-banking" data-mobile-link><i class="ph ph-bank"></i> Banking &amp; Finance</a>
+                <a href="./sol-healthcare" data-mobile-link><i class="ph ph-heartbeat"></i> Healthcare</a>
+                <a href="./sol-logistics" data-mobile-link><i class="ph ph-truck"></i> Logistics</a>
+                <a href="./sol-manufacturing" data-mobile-link><i class="ph ph-gear-six"></i> Manufacturing</a>
+                <a href="./sol-agriculture" data-mobile-link><i class="ph ph-plant"></i> Agriculture</a>
+                <a href="./sol-aviation" data-mobile-link><i class="ph ph-airplane"></i> Airlines</a>
+                <a href="./sol-education" data-mobile-link><i class="ph ph-graduation-cap"></i> Education</a>
+                <a href="./sol-retail" data-mobile-link><i class="ph ph-storefront"></i> Retail</a>
+                <a href="./sol-enterprise" data-mobile-link><i class="ph ph-buildings"></i> Enterprise</a>
+                <a href="./sol-infrastructure" data-mobile-link><i class="ph ph-lightning"></i> Infrastructure</a>
+            </div>
+        </div>
+
+        <a href="./innovation" data-mobile-link>Innovation</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Open Innovation <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./bohrai" data-mobile-link><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" data-mobile-link>Contact</a>
+    </div>
+
+
+    <section class="td-hero">
+        <div class="ticker-bg">
+            <div class="ticker-line">NVDA +2.4% ▲ &nbsp; AAPL -0.3% ▼ &nbsp; BTC $68,420 ▲ &nbsp; ETH $3,890 ▲ &nbsp; SPX 5,320 ▲ &nbsp; TSLA +1.8% ▲ &nbsp; MSFT +0.7% ▲ &nbsp; AMZN -0.1% ▼ &nbsp; GPU UTIL 99.7% &nbsp;</div>
+            <div class="ticker-line">EUR/USD 1.0842 &nbsp; GBP/USD 1.2710 &nbsp; USD/JPY 154.20 &nbsp; GOLD $2,340 ▲ &nbsp; CRUDE $78.40 ▼ &nbsp; VIX 14.2 &nbsp; DXY 104.3 &nbsp;</div>
+            <div class="ticker-line">ORDER FILL 0.3µs &nbsp; ALPHA +3.2% &nbsp; SHARPE 2.8 &nbsp; MAX DD -4.1% &nbsp; WIN RATE 67% &nbsp; LATENCY <800ns &nbsp; THROUGHPUT 2.1M msg/s &nbsp;</div>
+            <div class="ticker-line">H100 CLUSTER ONLINE &nbsp; INFERENCE ACTIVE &nbsp; RISK ENGINE OK &nbsp; COMPLIANCE PASS &nbsp; MARKET OPEN &nbsp; SWARM CONSENSUS 11ms &nbsp;</div>
+        </div>
+        <div class="chart-bg" id="chart-bg"></div>
+        <div class="hero-inner">
+            <div class="nvidia-badge hero-elem"><i class="ph ph-gpu"></i> NVIDIA H100 POWERED</div>
+            <div class="hero-label hero-elem">Autonomous Trading</div>
+            <h1 class="hero-title hero-elem">Corporate <em>Trading Desk.</em></h1>
+            <p class="hero-sub hero-elem">
+                GPU-accelerated autonomous trading bots powered by NVIDIA H100 tensor cores. Sub-microsecond execution, multi-asset strategies, and institutional-grade risk management — operating 24/7 without human intervention.
+            </p>
+            <a href="#architecture" class="cta-btn hero-elem"><i class="ph ph-chart-line-up"></i> Explore Architecture</a>
+        </div>
+    </section>
+
+    <!-- Motto Ribbon — the big statement -->
+    <section class="motto-ribbon">
+        <div class="motto-inner">
+            <div class="motto-chips fade-up">
+                <span class="motto-chip">First of its Kind</span>
+                <span class="motto-chip">AI-Native</span>
+                <span class="motto-chip">Fully Autonomous</span>
+            </div>
+            <div class="motto-quote-mark fade-up">"</div>
+            <h2 class="motto-text fade-up">
+                Talk to us — the <em>world's first agentic AI Trading Desk</em>,<br>
+                calibrated to trade <span class="hl-word">your market,</span> for you.
+            </h2>
+            <div class="motto-signoff fade-up">
+                <span class="arrow"></span>
+                <span>BTC · Gold · Forex · Crypto · Equities</span>
+                <span class="arrow" style="transform: scaleX(-1);"></span>
+            </div>
+            <div><a href="./#contact-details" class="motto-cta fade-up"><i class="ph ph-chats-circle"></i> Talk to Us</a></div>
+        </div>
+    </section>
+
+    <!-- Live Stats -->
+    <section class="td-stats">
+        <div class="stats-inner">
+            <div class="td-stat fade-up">
+                <div class="stat-val">&lt;0.8<span class="unit">µs</span></div>
+                <div class="stat-label">Order Latency</div>
+            </div>
+            <div class="td-stat fade-up">
+                <div class="stat-val">2.1<span class="unit">M</span></div>
+                <div class="stat-label">Messages/sec</div>
+            </div>
+            <div class="td-stat fade-up">
+                <div class="stat-val">2.8<span class="unit">σ</span></div>
+                <div class="stat-label">Sharpe Ratio</div>
+            </div>
+            <div class="td-stat fade-up">
+                <div class="stat-val">67<span class="unit">%</span></div>
+                <div class="stat-label">Win Rate</div>
+            </div>
+            <div class="td-stat fade-up">
+                <div class="stat-val">24<span class="unit">/7</span></div>
+                <div class="stat-label">Autonomous</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Markets We Trade -->
+    <section class="markets-section" id="markets">
+        <div class="markets-header">
+            <div class="hero-label fade-up" style="color: var(--accent-trade);">Markets We Trade</div>
+            <h2 class="arch-title fade-up">Every market. <em style="color:var(--accent-trade)">Traded by agents.</em></h2>
+            <p class="arch-sub fade-up">From Bitcoin to Bullion, Forex to Futures — our GPU-accelerated swarm operates across every major asset class, 24 hours a day, seven days a week.</p>
+        </div>
+
+        <div class="markets-grid">
+            <!-- BTC / Crypto -->
+            <div class="market-card m-crypto fade-up">
+                <div class="market-head">
+                    <div class="market-icon"><i class="ph ph-currency-btc"></i></div>
+                    <span class="market-live">Live · 24/7</span>
+                </div>
+                <div class="market-name">Bitcoin &amp; Crypto</div>
+                <div class="market-sub">BTC · ETH · SOL · 100+ alts</div>
+                <div class="market-price">
+                    <div class="big" data-price="68420.50">$68,420.50</div>
+                    <div class="chg">+2.41%</div>
+                </div>
+                <svg class="market-spark" viewBox="0 0 200 54" preserveAspectRatio="none">
+                    <defs><linearGradient id="sp-btc" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F7931A" stop-opacity="0.35"/><stop offset="100%" stop-color="#F7931A" stop-opacity="0"/></linearGradient></defs>
+                    <path d="M0,36 L18,32 L36,38 L54,28 L72,30 L90,22 L108,26 L126,18 L144,22 L162,12 L180,16 L200,8 L200,54 L0,54 Z" fill="url(#sp-btc)"/>
+                    <path d="M0,36 L18,32 L36,38 L54,28 L72,30 L90,22 L108,26 L126,18 L144,22 L162,12 L180,16 L200,8" fill="none" stroke="#F7931A" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                <div class="market-stats">
+                    <div>24h Vol<b>$42.3B</b></div>
+                    <div>Pairs<b>120+</b></div>
+                    <div>Uptime<b>99.99%</b></div>
+                </div>
+            </div>
+
+            <!-- Gold / Precious Metals -->
+            <div class="market-card m-gold fade-up">
+                <div class="market-head">
+                    <div class="market-icon"><i class="ph ph-coins"></i></div>
+                    <span class="market-live" style="color: var(--accent-infra);">Live · 23h/5</span>
+                </div>
+                <div class="market-name">Gold &amp; Precious Metals</div>
+                <div class="market-sub">XAU/USD · XAG/USD · Platinum</div>
+                <div class="market-price">
+                    <div class="big" data-price="2340.80">$2,340.80</div>
+                    <div class="chg">+0.68%</div>
+                </div>
+                <svg class="market-spark" viewBox="0 0 200 54" preserveAspectRatio="none">
+                    <defs><linearGradient id="sp-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFB347" stop-opacity="0.35"/><stop offset="100%" stop-color="#FFB347" stop-opacity="0"/></linearGradient></defs>
+                    <path d="M0,30 L18,32 L36,28 L54,30 L72,24 L90,26 L108,20 L126,22 L144,16 L162,18 L180,12 L200,14 L200,54 L0,54 Z" fill="url(#sp-gold)"/>
+                    <path d="M0,30 L18,32 L36,28 L54,30 L72,24 L90,26 L108,20 L126,22 L144,16 L162,18 L180,12 L200,14" fill="none" stroke="#FFB347" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                <div class="market-stats">
+                    <div>Spot Spread<b>0.25</b></div>
+                    <div>Instruments<b>18</b></div>
+                    <div>Sessions<b>LDN+NY</b></div>
+                </div>
+            </div>
+
+            <!-- Forex -->
+            <div class="market-card m-forex fade-up">
+                <div class="market-head">
+                    <div class="market-icon"><i class="ph ph-arrows-left-right"></i></div>
+                    <span class="market-live" style="color: var(--accent-strategy);">Live · 24/5</span>
+                </div>
+                <div class="market-name">Forex Majors &amp; Minors</div>
+                <div class="market-sub">EUR/USD · GBP/USD · USD/JPY · 28 pairs</div>
+                <div class="market-price">
+                    <div class="big" data-price="1.08422">1.08422</div>
+                    <div class="chg">+0.12%</div>
+                </div>
+                <svg class="market-spark" viewBox="0 0 200 54" preserveAspectRatio="none">
+                    <defs><linearGradient id="sp-fx" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4DA6FF" stop-opacity="0.35"/><stop offset="100%" stop-color="#4DA6FF" stop-opacity="0"/></linearGradient></defs>
+                    <path d="M0,28 L18,32 L36,30 L54,34 L72,28 L90,30 L108,24 L126,28 L144,22 L162,26 L180,18 L200,22 L200,54 L0,54 Z" fill="url(#sp-fx)"/>
+                    <path d="M0,28 L18,32 L36,30 L54,34 L72,28 L90,30 L108,24 L126,28 L144,22 L162,26 L180,18 L200,22" fill="none" stroke="#4DA6FF" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                <div class="market-stats">
+                    <div>Pairs<b>28</b></div>
+                    <div>Exec<b>ECN+STP</b></div>
+                    <div>Lat<b>0.4µs</b></div>
+                </div>
+            </div>
+
+            <!-- Commodities -->
+            <div class="market-card m-comm fade-up">
+                <div class="market-head">
+                    <div class="market-icon"><i class="ph ph-drop"></i></div>
+                    <span class="market-live" style="color: var(--accent-risk);">Live · CME</span>
+                </div>
+                <div class="market-name">Commodities &amp; Futures</div>
+                <div class="market-sub">Crude · Nat Gas · Wheat · Corn</div>
+                <div class="market-price">
+                    <div class="big" data-price="78.42">$78.42</div>
+                    <div class="chg down">-0.84%</div>
+                </div>
+                <svg class="market-spark" viewBox="0 0 200 54" preserveAspectRatio="none">
+                    <defs><linearGradient id="sp-comm" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF6B6B" stop-opacity="0.3"/><stop offset="100%" stop-color="#FF6B6B" stop-opacity="0"/></linearGradient></defs>
+                    <path d="M0,18 L18,20 L36,22 L54,18 L72,24 L90,22 L108,28 L126,26 L144,32 L162,30 L180,36 L200,40 L200,54 L0,54 Z" fill="url(#sp-comm)"/>
+                    <path d="M0,18 L18,20 L36,22 L54,18 L72,24 L90,22 L108,28 L126,26 L144,32 L162,30 L180,36 L200,40" fill="none" stroke="#FF6B6B" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                <div class="market-stats">
+                    <div>Products<b>24</b></div>
+                    <div>Venues<b>CME+ICE</b></div>
+                    <div>Contracts<b>Futures</b></div>
+                </div>
+            </div>
+
+            <!-- Equities & Indices -->
+            <div class="market-card fade-up">
+                <div class="market-head">
+                    <div class="market-icon"><i class="ph ph-trend-up"></i></div>
+                    <span class="market-live">Live · NYSE</span>
+                </div>
+                <div class="market-name">Equities &amp; Indices</div>
+                <div class="market-sub">S&amp;P 500 · NASDAQ · FTSE · 6,000+ stocks</div>
+                <div class="market-price">
+                    <div class="big" data-price="5320.15">5,320.15</div>
+                    <div class="chg">+0.92%</div>
+                </div>
+                <svg class="market-spark" viewBox="0 0 200 54" preserveAspectRatio="none">
+                    <defs><linearGradient id="sp-eq" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#76B900" stop-opacity="0.35"/><stop offset="100%" stop-color="#76B900" stop-opacity="0"/></linearGradient></defs>
+                    <path d="M0,40 L18,36 L36,38 L54,30 L72,32 L90,26 L108,28 L126,20 L144,24 L162,14 L180,18 L200,10 L200,54 L0,54 Z" fill="url(#sp-eq)"/>
+                    <path d="M0,40 L18,36 L36,38 L54,30 L72,32 L90,26 L108,28 L126,20 L144,24 L162,14 L180,18 L200,10" fill="none" stroke="#76B900" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                <div class="market-stats">
+                    <div>Tickers<b>6,000+</b></div>
+                    <div>Venues<b>Global</b></div>
+                    <div>Dark Pools<b>Yes</b></div>
+                </div>
+            </div>
+
+            <!-- DeFi & On-Chain -->
+            <div class="market-card m-defi fade-up">
+                <div class="market-head">
+                    <div class="market-icon"><i class="ph ph-tree-structure"></i></div>
+                    <span class="market-live" style="color: #C084FC;">Live · Multi-Chain</span>
+                </div>
+                <div class="market-name">DeFi &amp; On-Chain</div>
+                <div class="market-sub">Uniswap · Curve · Aave · 20+ protocols</div>
+                <div class="market-price">
+                    <div class="big" data-price="18.7">18.7<span style="font-size: 0.55em;">%</span></div>
+                    <div class="chg">APY · Multi-chain</div>
+                </div>
+                <svg class="market-spark" viewBox="0 0 200 54" preserveAspectRatio="none">
+                    <defs><linearGradient id="sp-defi" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C084FC" stop-opacity="0.35"/><stop offset="100%" stop-color="#C084FC" stop-opacity="0"/></linearGradient></defs>
+                    <path d="M0,34 L18,30 L36,32 L54,24 L72,28 L90,20 L108,22 L126,16 L144,18 L162,10 L180,14 L200,6 L200,54 L0,54 Z" fill="url(#sp-defi)"/>
+                    <path d="M0,34 L18,30 L36,32 L54,24 L72,28 L90,20 L108,22 L126,16 L144,18 L162,10 L180,14 L200,6" fill="none" stroke="#C084FC" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                <div class="market-stats">
+                    <div>Chains<b>L1+L2</b></div>
+                    <div>Protocols<b>20+</b></div>
+                    <div>MEV<b>Enabled</b></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Terminal — video-style animated dashboard -->
+    <section class="terminal-section" id="live-terminal">
+        <div class="terminal-inner">
+            <div class="terminal-head">
+                <div class="hero-label fade-up" style="color: var(--accent-trade);">Live Dashboard</div>
+                <h2 class="arch-title fade-up">Watch the desk <em style="color:var(--accent-trade)">trade in real time.</em></h2>
+                <p class="arch-sub fade-up" style="max-width:640px;margin:1rem auto 0;">A peek inside the agentic trading engine as it ingests market data, generates alpha signals, manages risk, and fills orders — autonomously, millisecond by millisecond.</p>
+            </div>
+
+            <div class="terminal-frame fade-up">
+                <!-- Title bar -->
+                <div class="terminal-bar">
+                    <div class="tb-dots"><span></span><span></span><span></span></div>
+                    <div class="tb-title">PURE-AI TRADING TERMINAL · SWARM #03 · LIVE</div>
+                    <div class="tb-tabs">
+                        <span class="active">BTC/USD</span>
+                        <span>XAU/USD</span>
+                        <span>EUR/USD</span>
+                        <span>SPX</span>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div class="terminal-body">
+                    <!-- Left: chart + price -->
+                    <div class="term-left">
+                        <div class="term-price">
+                            <span class="symbol">BTC / USD</span>
+                            <span class="val" id="term-price">68,420.50</span>
+                            <span class="delta" id="term-delta">+1,624.20 (+2.43%)</span>
+                        </div>
+                        <div class="term-chart" id="term-chart"></div>
+                        <div class="term-log" id="term-log">
+                            <div class="log-head">
+                                <span>Agent Activity Stream</span>
+                                <b>● LIVE</b>
+                            </div>
+                            <!-- log-lines are injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Right: orderbook -->
+                    <div class="term-right">
+                        <div class="term-orderbook">
+                            <div class="ob-head"><span>PRICE (USD)</span><span>SIZE (BTC)</span><span>TOTAL</span></div>
+                            <div class="ob-body" id="ob-asks"></div>
+                            <div class="ob-spread">SPREAD · <b id="ob-spread">0.50</b> · MID <b id="ob-mid">68,420.25</b></div>
+                            <div class="ob-body" id="ob-bids"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BIG P&L Showcase -->
+    <section class="pnl-section" id="pnl">
+        <div class="pnl-inner">
+            <div class="pnl-label fade-up">Cumulative Performance</div>
+            <p class="pnl-caption fade-up">Since inception, our agentic desk has generated <em>measurable alpha</em> across every asset class.</p>
+
+            <!-- MEGA NUMBER -->
+            <div class="pnl-hero fade-up">
+                <span class="plus">+</span>
+                <span class="dollar">$</span>
+                <span class="num" data-counter="2.47" data-fmt="decimal2">0.00</span>
+                <span class="unit">B</span>
+            </div>
+            <div class="pnl-hero-sub fade-up"><span class="up">▲</span> &nbsp; Cumulative Net P&amp;L · All-Time &nbsp; <span class="up">▲</span></div>
+
+            <div class="pnl-grid">
+                <div class="pnl-cell fade-up">
+                    <div class="val"><span class="plus">+$</span><span data-counter="18.7" data-fmt="decimal">0</span>M</div>
+                    <div class="lbl">Avg Monthly P&amp;L</div>
+                    <svg class="spark" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0,22 L20,20 L40,24 L60,16 L80,18 L100,14 L120,16 L140,10 L160,12 L180,6 L200,4" fill="none" stroke="#76B900" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="pnl-cell fade-up">
+                    <div class="val"><span class="plus">+$</span><span data-counter="487" data-fmt="int">0</span>K</div>
+                    <div class="lbl">Best Single Day</div>
+                    <svg class="spark" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0,24 L20,22 L40,18 L60,20 L80,14 L100,10 L120,12 L140,6 L160,8 L180,4 L200,2" fill="none" stroke="#76B900" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="pnl-cell fade-up">
+                    <div class="val"><span data-counter="67.3" data-fmt="decimal">0</span>%</div>
+                    <div class="lbl">Trade Win Rate</div>
+                    <svg class="spark" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0,18 L20,16 L40,18 L60,14 L80,16 L100,12 L120,14 L140,10 L160,12 L180,8 L200,10" fill="none" stroke="#76B900" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="pnl-cell fade-up">
+                    <div class="val"><span data-counter="3.14" data-fmt="decimal2">0</span>σ</div>
+                    <div class="lbl">Best Sharpe Ratio</div>
+                    <svg class="spark" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0,22 L20,20 L40,16 L60,18 L80,12 L100,14 L120,8 L140,10 L160,6 L180,8 L200,4" fill="none" stroke="#76B900" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+            </div>
+
+            <!-- Running P&L tape -->
+            <div class="pnl-tape">
+                <div class="pnl-tape-inner">
+                    <span>BTC <b>+$128,420</b></span>
+                    <span>XAU <b>+$47,830</b></span>
+                    <span>EUR/USD <b>+$22,108</b></span>
+                    <span>SPX <b>+$94,210</b></span>
+                    <span class="dn">CRUDE <b>-$3,480</b></span>
+                    <span>ETH <b>+$61,720</b></span>
+                    <span>GBP/USD <b>+$18,340</b></span>
+                    <span>NASDAQ <b>+$142,800</b></span>
+                    <span>SOL <b>+$84,620</b></span>
+                    <span>USD/JPY <b>+$12,740</b></span>
+                    <span>SILVER <b>+$8,920</b></span>
+                    <span>NAT GAS <b>+$15,280</b></span>
+                    <!-- repeat for seamless loop -->
+                    <span>BTC <b>+$128,420</b></span>
+                    <span>XAU <b>+$47,830</b></span>
+                    <span>EUR/USD <b>+$22,108</b></span>
+                    <span>SPX <b>+$94,210</b></span>
+                    <span class="dn">CRUDE <b>-$3,480</b></span>
+                    <span>ETH <b>+$61,720</b></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="arch-section" id="architecture">
+        <div class="arch-inner">
+            <div class="arch-header">
+                <div class="hero-label fade-up" style="color: var(--accent-trade);">System Architecture</div>
+                <h2 class="arch-title fade-up">Five-Layer <em style="color:var(--accent-trade)">Trading Stack</em></h2>
+                <p class="arch-sub fade-up">A vertically integrated architecture from raw market data to autonomous execution.</p>
+            </div>
+            <div class="arch-layers">
+                <div class="arch-layer fade-up" style="--layer-color: var(--accent-strategy);">
+                    <div>
+                        <div class="layer-name" style="color:var(--accent-strategy);">Market Data</div>
+                        <div class="layer-tag">Layer 1 — Ingestion</div>
+                    </div>
+                    <div>
+                        <p class="layer-desc">Direct exchange feeds with kernel-bypass networking. Raw tick data normalized and distributed across GPU memory in &lt;100ns.</p>
+                        <div class="layer-chips">
+                            <span class="layer-chip">FPGA NIC</span>
+                            <span class="layer-chip">Kernel Bypass</span>
+                            <span class="layer-chip">Multi-Exchange</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-layer fade-up" style="--layer-color: var(--accent-trade);">
+                    <div>
+                        <div class="layer-name" style="color:var(--accent-trade);">AI Engine</div>
+                        <div class="layer-tag">Layer 2 — Intelligence</div>
+                    </div>
+                    <div>
+                        <p class="layer-desc">NVIDIA H100 tensor cores running transformer-based signal models. Real-time feature extraction, regime detection, and alpha generation.</p>
+                        <div class="layer-chips">
+                            <span class="layer-chip">H100 SXM5</span>
+                            <span class="layer-chip">TensorRT</span>
+                            <span class="layer-chip">cuDNN</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-layer fade-up" style="--layer-color: var(--accent-infra);">
+                    <div>
+                        <div class="layer-name" style="color:var(--accent-infra);">Strategy</div>
+                        <div class="layer-tag">Layer 3 — Decision</div>
+                    </div>
+                    <div>
+                        <p class="layer-desc">Multi-strategy portfolio optimizer balancing alpha signals with risk constraints. Dynamic allocation across 1000+ instruments simultaneously.</p>
+                        <div class="layer-chips">
+                            <span class="layer-chip">Portfolio Opt</span>
+                            <span class="layer-chip">Dynamic Alloc</span>
+                            <span class="layer-chip">Multi-Asset</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-layer fade-up" style="--layer-color: var(--accent-risk);">
+                    <div>
+                        <div class="layer-name" style="color:var(--accent-risk);">Risk Engine</div>
+                        <div class="layer-tag">Layer 4 — Protection</div>
+                    </div>
+                    <div>
+                        <p class="layer-desc">Pre-trade and post-trade risk checks in &lt;100ns. Position limits, drawdown controls, and regulatory compliance enforced at hardware speed.</p>
+                        <div class="layer-chips">
+                            <span class="layer-chip">Pre-Trade</span>
+                            <span class="layer-chip">VaR</span>
+                            <span class="layer-chip">Kill Switch</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-layer fade-up">
+                    <div>
+                        <div class="layer-name" style="color:var(--accent);">Execution</div>
+                        <div class="layer-tag">Layer 5 — Action</div>
+                    </div>
+                    <div>
+                        <p class="layer-desc">Smart order routing with adaptive execution algorithms. Minimizing market impact while achieving optimal fill rates across dark pools and lit venues.</p>
+                        <div class="layer-chips">
+                            <span class="layer-chip">SOR</span>
+                            <span class="layer-chip">TWAP/VWAP</span>
+                            <span class="layer-chip">Dark Pools</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GPU Visual -->
+    <section class="td-visual">
+        <div class="td-grid">
+            <div class="td-img fade-up">
+                <img src="./trading-desk-gpu.png" alt="NVIDIA GPU cluster for trading">
+            </div>
+            <div class="fade-up">
+                <div class="td-label" style="color: var(--accent-trade);">Infrastructure</div>
+                <h2 class="td-title">NVIDIA H100 <em style="color:var(--accent-trade)">Backbone.</em></h2>
+                <p class="td-desc">Each trading desk is powered by a dedicated cluster of NVIDIA H100 SXM5 GPUs interconnected via NVLink 4.0 — delivering 3.96 TB/s of bisection bandwidth for real-time model inference.</p>
+                <ul class="feature-list">
+                    <li><i class="ph ph-cpu"></i> 8× H100 SXM5 per desk (640 GB HBM3)</li>
+                    <li><i class="ph ph-lightning"></i> 3.96 TB/s NVLink 4.0 interconnect</li>
+                    <li><i class="ph ph-chart-bar"></i> 32 PFLOPS FP8 inference capacity</li>
+                    <li><i class="ph ph-thermometer-simple"></i> Liquid-cooled, &lt;42°C sustained operation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading Desk Visual -->
+    <section class="td-visual">
+        <div class="td-grid reverse">
+            <div class="td-img fade-up">
+                <img src="./trading-desk-hero.png" alt="Corporate AI Trading Desk">
+            </div>
+            <div class="fade-up">
+                <div class="td-label" style="color: var(--accent-strategy);">Operations</div>
+                <h2 class="td-title">Zero-Touch <em style="color:var(--accent-strategy)">Autonomy.</em></h2>
+                <p class="td-desc">Our trading bots operate entirely autonomously — from market analysis to execution to risk management. Human oversight is available but never required.</p>
+                <ul class="feature-list">
+                    <li><i class="ph ph-robot"></i> Fully autonomous 24/7 operation</li>
+                    <li><i class="ph ph-shield-check"></i> Regulatory-compliant execution logging</li>
+                    <li><i class="ph ph-chart-line-up"></i> Real-time P&L dashboard and alerts</li>
+                    <li><i class="ph ph-arrows-clockwise"></i> Self-optimizing strategy adaptation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategy Cards -->
+    <section class="strat-section">
+        <div class="strat-inner">
+            <div style="text-align:center;">
+                <div class="hero-label fade-up" style="color: var(--accent-trade);">Trading Strategies</div>
+                <h2 class="arch-title fade-up">Multi-Strategy <em style="color:var(--accent-trade)">Portfolio</em></h2>
+            </div>
+            <div class="strat-grid">
+                <div class="strat-card fade-up">
+                    <div class="strat-icon"><i class="ph ph-lightning"></i></div>
+                    <h3 class="strat-title">Statistical Arbitrage</h3>
+                    <p class="strat-desc">Mean-reversion and co-integration signals across 500+ equity pairs. GPU-accelerated covariance matrix updates at tick-level frequency.</p>
+                    <span class="strat-perf" style="background:rgba(118,185,0,0.1); color:var(--accent-trade);">Sharpe: 2.4 | MDD: -3.8%</span>
+                </div>
+                <div class="strat-card fade-up">
+                    <div class="strat-icon"><i class="ph ph-trend-up"></i></div>
+                    <h3 class="strat-title">Momentum Alpha</h3>
+                    <p class="strat-desc">Transformer-based trend detection across multi-timeframe signals. Adaptive position sizing with volatility-regime awareness.</p>
+                    <span class="strat-perf" style="background:rgba(77,166,255,0.1); color:var(--accent-strategy);">Sharpe: 1.9 | Win: 62%</span>
+                </div>
+                <div class="strat-card fade-up">
+                    <div class="strat-icon"><i class="ph ph-currency-dollar"></i></div>
+                    <h3 class="strat-title">Market Making</h3>
+                    <p class="strat-desc">Continuous two-sided quoting with adaptive spread management. Inventory-aware pricing with adverse selection protection.</p>
+                    <span class="strat-perf" style="background:rgba(255,179,71,0.1); color:var(--accent-infra);">Sharpe: 3.1 | Uptime: 99.9%</span>
+                </div>
+                <div class="strat-card fade-up">
+                    <div class="strat-icon"><i class="ph ph-coin"></i></div>
+                    <h3 class="strat-title">Crypto DeFi</h3>
+                    <p class="strat-desc">Cross-chain arbitrage, MEV extraction, and yield optimization across 20+ DeFi protocols. Gas-optimized execution on L1 and L2.</p>
+                    <span class="strat-perf" style="background:rgba(192,132,252,0.1); color:#C084FC;">APY: 18–35% | Multi-Chain</span>
+                </div>
+                <div class="strat-card fade-up">
+                    <div class="strat-icon"><i class="ph ph-newspaper"></i></div>
+                    <h3 class="strat-title">Sentiment & News</h3>
+                    <p class="strat-desc">LLM-powered real-time news parsing, earnings call analysis, and social sentiment scoring. Trade before the market reacts.</p>
+                    <span class="strat-perf" style="background:rgba(255,107,107,0.1); color:var(--accent-risk);">Signal Lag: &lt;200ms</span>
+                </div>
+                <div class="strat-card fade-up">
+                    <div class="strat-icon"><i class="ph ph-swap"></i></div>
+                    <h3 class="strat-title">Cross-Asset</h3>
+                    <p class="strat-desc">Multi-asset rotation across equities, bonds, commodities, and FX. Macro regime detection with dynamic allocation optimization.</p>
+                    <span class="strat-perf" style="background:rgba(0,229,199,0.1); color:var(--accent);">Sharpe: 2.1 | 6 Assets</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risk Management -->
+    <section class="risk-section">
+        <div class="risk-inner">
+            <div style="text-align:center;">
+                <div class="hero-label fade-up" style="color: var(--accent-risk);">Risk Management</div>
+                <h2 class="arch-title fade-up">Institutional-Grade <em style="color:var(--accent-risk)">Protection</em></h2>
+            </div>
+            <div class="risk-grid">
+                <div class="risk-card fade-up">
+                    <div class="risk-icon"><i class="ph ph-shield-warning"></i></div>
+                    <h3 class="risk-title">Pre-Trade Risk Checks</h3>
+                    <p class="risk-desc">Every order validated against position limits, concentration thresholds, and notional exposure caps in &lt;100 nanoseconds.</p>
+                </div>
+                <div class="risk-card fade-up">
+                    <div class="risk-icon"><i class="ph ph-chart-line-down"></i></div>
+                    <h3 class="risk-title">Dynamic Drawdown Control</h3>
+                    <p class="risk-desc">Automated position reduction and strategy deactivation when drawdown exceeds configurable thresholds. No human delay.</p>
+                </div>
+                <div class="risk-card fade-up">
+                    <div class="risk-icon"><i class="ph ph-power"></i></div>
+                    <h3 class="risk-title">Hardware Kill Switch</h3>
+                    <p class="risk-desc">FPGA-level circuit breaker that can flatten all positions in under 1 microsecond — independent of software stack.</p>
+                </div>
+                <div class="risk-card fade-up">
+                    <div class="risk-icon"><i class="ph ph-scales"></i></div>
+                    <h3 class="risk-title">Regulatory Compliance</h3>
+                    <p class="risk-desc">Full MiFID II, SEC Rule 15c3-5, and exchange-specific compliance. Immutable audit trails for every order and fill.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="td-cta">
+        <div class="cta-inner">
+            <h2 class="cta-title fade-up">Ready to Deploy<br><em style="color:var(--accent-trade)">Alpha Intelligence?</em></h2>
+            <p class="cta-desc fade-up">Contact our quantitative engineering team to discuss a custom trading desk deployment for your fund or institution.</p>
+            <a href="./#contact-details" class="cta-btn fade-up"><i class="ph ph-paper-plane-tilt"></i> Request Demo</a>
+        </div>
+    </section>
+
+    <div class="back-home"><a href="./"><i class="ph ph-arrow-left"></i> Back to Main Site</a></div>
+    <footer class="plat-footer"><div class="f-copy">© 2026 Pure AI Technologies and Services Pvt Ltd.</div></footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Candlestick chart
+            const chartBg = document.getElementById('chart-bg');
+            for (let i = 0; i < 60; i++) {
+                const c = document.createElement('div');
+                c.className = 'candle' + (Math.random() > 0.55 ? '' : ' red');
+                c.style.height = (20 + Math.random() * 180) + 'px';
+                c.style.animationDelay = (Math.random() * 3) + 's';
+                c.style.animationDuration = (2 + Math.random() * 3) + 's';
+                chartBg.appendChild(c);
+            }
+
+            // Hero animation
+            gsap.from(".hero-elem", { y: 50, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.3 });
+
+            // Scroll reveals
+            document.querySelectorAll('.fade-up').forEach(el => {
+                gsap.to(el, {
+                    scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" },
+                    opacity: 1, y: 0, duration: 0.8, ease: "power3.out"
+                });
+            });
+
+            // Interactive glow on cards
+            document.querySelectorAll('.strat-card, .arch-layer, .risk-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.background = `radial-gradient(circle at ${e.clientX - rect.left}px ${e.clientY - rect.top}px, rgba(118,185,0,0.04), transparent 60%)`;
+                });
+                card.addEventListener('mouseleave', () => { card.style.background = ''; });
+            });
+
+            // Cursor-tracked spotlight on market cards
+            document.querySelectorAll('.market-card').forEach(c => {
+                c.addEventListener('mousemove', e => {
+                    const r = c.getBoundingClientRect();
+                    c.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+                    c.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+                });
+            });
+
+            /* ────────────────────────────────────────────
+               BIG P&L COUNTERS — animate on scroll
+            ──────────────────────────────────────────── */
+            function animateCount(el, target, fmt) {
+                const duration = 2200;
+                const start = performance.now();
+                function frame(now) {
+                    const t = Math.min(1, (now - start) / duration);
+                    const eased = 1 - Math.pow(1 - t, 3);
+                    const v = target * eased;
+                    if (fmt === 'int') el.textContent = Math.round(v).toLocaleString();
+                    else if (fmt === 'decimal2') el.textContent = v.toFixed(2);
+                    else el.textContent = v.toFixed(1);
+                    if (t < 1) requestAnimationFrame(frame);
+                    else {
+                        if (fmt === 'int') el.textContent = Math.round(target).toLocaleString();
+                        else if (fmt === 'decimal2') el.textContent = target.toFixed(2);
+                        else el.textContent = target.toFixed(1);
+                    }
+                }
+                requestAnimationFrame(frame);
+            }
+            const pnlIO = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        const el = e.target;
+                        animateCount(el, parseFloat(el.dataset.counter), el.dataset.fmt);
+                        pnlIO.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+            document.querySelectorAll('[data-counter]').forEach(el => pnlIO.observe(el));
+
+            /* ────────────────────────────────────────────
+               LIVE TRADING TERMINAL — candles, book, log
+            ──────────────────────────────────────────── */
+            const chart = document.getElementById('term-chart');
+            const priceEl = document.getElementById('term-price');
+            const deltaEl = document.getElementById('term-delta');
+            const obAsks = document.getElementById('ob-asks');
+            const obBids = document.getElementById('ob-bids');
+            const obSpread = document.getElementById('ob-spread');
+            const obMid = document.getElementById('ob-mid');
+            const logEl = document.getElementById('term-log');
+
+            if (chart) {
+                // Generate 45 candles with a trending-up random walk
+                const CANDLES = 45;
+                let y = 0.55;
+                const candles = [];
+                for (let i = 0; i < CANDLES; i++) {
+                    const drift = 0.012;
+                    const vol = (Math.random() - 0.48) * 0.12 + drift * 0.1;
+                    y = Math.max(0.18, Math.min(0.92, y + vol));
+                    const up = Math.random() > 0.42;
+                    const el = document.createElement('div');
+                    el.className = 'term-candle' + (up ? '' : ' red');
+                    el.style.height = (18 + y * 80) + '%';
+                    chart.appendChild(el);
+                    candles.push({ el, y, up });
+                }
+                // Periodically shift: push new candle, drop oldest
+                setInterval(() => {
+                    const prev = candles[candles.length - 1];
+                    const drift = 0.008;
+                    const newY = Math.max(0.2, Math.min(0.95, prev.y + (Math.random() - 0.45) * 0.12 + drift));
+                    const up = newY >= prev.y;
+                    const oldest = candles.shift();
+                    chart.removeChild(oldest.el);
+                    const el = document.createElement('div');
+                    el.className = 'term-candle' + (up ? '' : ' red');
+                    el.style.height = (18 + newY * 80) + '%';
+                    chart.appendChild(el);
+                    candles.push({ el, y: newY, up });
+                }, 1400);
+
+                // Live price flicker
+                let basePrice = 68420.50;
+                setInterval(() => {
+                    const drift = (Math.random() - 0.45) * 120;
+                    basePrice = Math.max(66800, Math.min(69800, basePrice + drift));
+                    const up = drift >= 0;
+                    priceEl.textContent = basePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    priceEl.style.color = up ? 'var(--accent-trade)' : 'var(--accent-risk)';
+                    const dpct = ((basePrice - 66796.30) / 66796.30) * 100;
+                    const abs = basePrice - 66796.30;
+                    deltaEl.textContent = (abs >= 0 ? '+' : '') + abs.toFixed(2) + ' (' + (dpct >= 0 ? '+' : '') + dpct.toFixed(2) + '%)';
+                    deltaEl.style.color = abs >= 0 ? 'var(--accent-trade)' : 'var(--accent-risk)';
+
+                    // Update orderbook around current mid
+                    if (obAsks && obBids) {
+                        const mid = basePrice;
+                        obMid.textContent = mid.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        obSpread.textContent = (0.2 + Math.random() * 0.8).toFixed(2);
+                        obAsks.innerHTML = '';
+                        obBids.innerHTML = '';
+                        // 6 asks above mid (top-to-bottom: higher price first)
+                        for (let i = 5; i >= 0; i--) {
+                            const p = mid + (i + 0.5) * (0.8 + Math.random() * 2);
+                            const sz = (Math.random() * 3.5 + 0.08).toFixed(3);
+                            const tot = (Math.random() * 8 + 0.3).toFixed(2);
+                            const depth = 20 + Math.random() * 60;
+                            const row = document.createElement('div');
+                            row.className = 'ob-row ask';
+                            row.style.setProperty('--depth', depth + '%');
+                            row.innerHTML = '<span>' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</span><span>' + sz + '</span><span>' + tot + '</span>';
+                            obAsks.appendChild(row);
+                        }
+                        // 6 bids below mid
+                        for (let i = 0; i < 6; i++) {
+                            const p = mid - (i + 0.5) * (0.8 + Math.random() * 2);
+                            const sz = (Math.random() * 3.5 + 0.08).toFixed(3);
+                            const tot = (Math.random() * 8 + 0.3).toFixed(2);
+                            const depth = 20 + Math.random() * 60;
+                            const row = document.createElement('div');
+                            row.className = 'ob-row bid';
+                            row.style.setProperty('--depth', depth + '%');
+                            row.innerHTML = '<span>' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</span><span>' + sz + '</span><span>' + tot + '</span>';
+                            obBids.appendChild(row);
+                        }
+                    }
+                }, 1200);
+
+                // Agent activity log stream
+                const LOG_EVENTS = [
+                    { a: 'buy',   t: 'BUY', msg: (p) => '0.42 BTC @ $' + p.toFixed(2) + ' — FILLED' },
+                    { a: 'info',  t: 'SIG', msg: () => 'Regime: TRENDING_UP · Confidence 0.87' },
+                    { a: 'sell',  t: 'SELL', msg: (p) => '12.8 XAU @ $' + (2340 + Math.random()*3).toFixed(2) + ' — FILLED' },
+                    { a: 'buy',   t: 'BUY', msg: () => '120k EUR/USD @ 1.08421 — FILLED' },
+                    { a: 'info',  t: 'AI', msg: () => 'Alpha signal +2.14σ · strategy Stat-Arb #7' },
+                    { a: 'alert', t: 'RISK', msg: () => 'VaR 0.98% · within limits · OK' },
+                    { a: 'buy',   t: 'BUY', msg: () => '2.4 ETH @ $3,890.20 — FILLED' },
+                    { a: 'info',  t: 'ROUTE', msg: () => 'SOR → Coinbase:40% Binance:35% Kraken:25%' },
+                    { a: 'sell',  t: 'SELL', msg: () => '450 SPY @ $532.14 — FILLED' },
+                    { a: 'info',  t: 'GPU', msg: () => 'H100 util 99.7% · inference 0.42ms' },
+                    { a: 'buy',   t: 'BUY', msg: () => '38 SOL @ $172.40 — FILLED' },
+                    { a: 'alert', t: 'HEDGE', msg: () => 'Delta-neutral rebalance · 0.28 BTC' },
+                    { a: 'info',  t: 'FILL', msg: () => 'Slippage 0.3bps · price improvement +0.2bps' },
+                    { a: 'sell',  t: 'SELL', msg: () => '80k GBP/USD @ 1.27102 — FILLED' },
+                    { a: 'info',  t: 'PNL', msg: () => 'Session P&L +$142,820 · Sharpe 2.8' },
+                ];
+                function pad(n) { return n < 10 ? '0' + n : '' + n; }
+                function timeStamp() {
+                    const d = new Date();
+                    return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()) + '.' + pad(Math.floor(d.getMilliseconds() / 10));
+                }
+                function pushLog() {
+                    const ev = LOG_EVENTS[Math.floor(Math.random() * LOG_EVENTS.length)];
+                    const line = document.createElement('div');
+                    line.className = 'log-line';
+                    line.innerHTML = '<span class="time">' + timeStamp() + '</span><span class="action ' + ev.a + '">' + ev.t + '</span> ' + ev.msg(basePrice);
+                    logEl.insertBefore(line, logEl.children[1] || null);
+                    // Keep max 8 log lines
+                    const lines = logEl.querySelectorAll('.log-line');
+                    if (lines.length > 8) lines[lines.length - 1].remove();
+                }
+                // Seed with 6 lines
+                for (let i = 0; i < 6; i++) pushLog();
+                setInterval(pushLog, 1600);
+            }
+        });
+    </script>
+
+    <script>
+    (function(){
+        var mt = document.getElementById('mobile-toggle');
+        var mo = document.getElementById('mobile-overlay');
+        if (!mt || !mo) return;
+        mt.addEventListener('click', function(){
+            var open = mo.classList.toggle('open');
+            mt.innerHTML = open ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (!open) mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+        });
+        mo.querySelectorAll('[data-mobile-link]').forEach(function(link){
+            link.addEventListener('click', function(){
+                mo.classList.remove('open');
+                mt.innerHTML = '<i class="ph ph-list"></i>';
+                document.body.style.overflow = '';
+            });
+        });
+        mo.querySelectorAll('.mob-accordion-toggle').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var acc = btn.parentElement;
+                var wasOpen = acc.classList.contains('open');
+                mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+                if (!wasOpen) acc.classList.add('open');
+                btn.setAttribute('aria-expanded', !wasOpen);
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>

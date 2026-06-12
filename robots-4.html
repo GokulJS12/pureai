@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics Fleet — Page 4 — Pure AI</title>
+    <meta name="description" content="Pure AI Robotics Fleet Page 4 — Home Cleaning Robots, Warehouse Automation Systems.">
+    <link rel="icon" type="image/png" href="./pure-logo-v4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg-dark: #050505; --bg-section: #0a0a0a; --bg-card: #0d0d0d; --accent: #4DEEEA; --text-hero: #f0f0f0; --text-secondary: rgba(255,255,255,0.55); --text-muted: rgba(255,255,255,0.35); --border: rgba(255,255,255,0.06); --font-body: 'Inter', -apple-system, sans-serif; --font-display: 'Space Grotesk', sans-serif; --font-mono: 'JetBrains Mono', monospace; --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1); }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--bg-dark); color: var(--text-hero); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
+        nav { position: fixed; top: 0; left: 0; right: 0; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(2rem, 4vw, 4rem); z-index: 9999; background: rgba(5,5,5,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .logo img { height: 28px; } .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links a { font-family: var(--font-display); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a.cta { background: transparent; border: 1px solid var(--accent); padding: 0.5rem 1.2rem; border-radius: 100px; color: var(--accent); transition: all 0.3s; }
+        .nav-links a.cta:hover { background: var(--accent); color: var(--bg-dark); }
+        .nav-dropdown { position: relative; display: flex; align-items: center; }
+        .nav-dropdown > a { display: flex; align-items: center; gap: 0.35rem; cursor: pointer; }
+        .nav-dropdown > a .dd-arrow { font-size: 0.6rem; transition: transform 0.3s; display: inline-block; }
+        .nav-dropdown:hover > a .dd-arrow { transform: rotate(180deg); }
+        .nav-dropdown .dd-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 200px; padding: 0.6rem 0; background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; z-index: 10000; box-shadow: 0 20px 50px rgba(0,0,0,0.6); flex-direction: column; padding-top: 1rem; }
+        .nav-dropdown .dd-menu::before { content: ''; position: absolute; top: -20px; left: 0; right: 0; height: 20px; }
+        .nav-dropdown:hover .dd-menu { display: flex; }
+        .nav-dropdown .dd-menu a { display: flex !important; align-items: center !important; gap: 0.75rem !important; padding: 0.7rem 1.3rem !important; font-size: 0.65rem !important; letter-spacing: 0.15em !important; color: rgba(255,255,255,0.5) !important; transition: all 0.25s !important; white-space: nowrap !important; opacity: 1 !important; }
+        .nav-dropdown .dd-menu a:hover { color: var(--accent) !important; background: rgba(77,238,234,0.06) !important; }
+        .nav-dropdown .dd-menu a::after { display: none !important; } .nav-dropdown .dd-menu a i { font-size: 1.1rem; opacity: 0.5; }
+        .page-header { padding: 10rem 2rem 4rem; text-align: center; }
+        .page-header .label { font-family: var(--font-display); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; }
+        .page-header .label::before, .page-header .label::after { content: ''; width: 40px; height: 1px; background: var(--accent); }
+        .page-header h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1.1; }
+        .page-header h1 em { font-style: italic; color: var(--accent); }
+        .robot-showcase { padding: 6rem 0; position: relative; border-top: 1px solid var(--border); }
+        .robot-showcase:nth-child(odd) { background: var(--bg-dark); } .robot-showcase:nth-child(even) { background: var(--bg-section); }
+        .showcase-inner { max-width: 1300px; margin: 0 auto; padding: 0 clamp(2rem, 5vw, 6rem); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .robot-showcase:nth-child(even) .showcase-inner { direction: rtl; } .robot-showcase:nth-child(even) .showcase-inner > * { direction: ltr; }
+        .robot-image-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+        .robot-image-frame { position: relative; width: 100%; max-width: 480px; aspect-ratio: 3/4; border-radius: 24px; overflow: hidden; border: 1px solid var(--border); background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005)); }
+        .robot-image-frame img { width: 100%; height: 100%; object-fit: contain; padding: 1.5rem; transition: transform 0.8s var(--ease-out-expo); }
+        .robot-showcase:hover .robot-image-frame img { transform: scale(1.05); }
+        .robot-image-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, rgba(5,5,5,0.6) 100%); pointer-events: none; }
+        .robot-glow { position: absolute; width: 250px; height: 250px; border-radius: 50%; filter: blur(80px); opacity: 0.4; z-index: -1; }
+        .robot-content { padding: 1rem 0; } .robot-index { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem; }
+        .robot-name { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+        .robot-subtitle { font-size: 0.9rem; font-weight: 300; font-style: italic; margin-bottom: 2rem; }
+        .robot-key-desc { font-size: 1rem; color: var(--text-secondary); font-weight: 300; line-height: 1.8; margin-bottom: 2.5rem; border-left: 2px solid; padding-left: 1.5rem; }
+        .desc-grid { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem; }
+        .desc-item { display: flex; gap: 1rem; align-items: flex-start; }
+        .desc-item-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
+        .desc-item-text h4 { font-family: var(--font-display); font-size: 0.85rem; font-weight: 500; margin-bottom: 0.3rem; }
+        .desc-item-text p { font-size: 0.8rem; color: var(--text-secondary); font-weight: 300; line-height: 1.6; }
+        .feature-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+        .chip i { font-size: 0.85rem; }
+
+        /* ── Source Link ── */
+        .robot-source { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.55rem 0.95rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.55); text-decoration: none; transition: all 0.35s ease; width: fit-content; }
+        .robot-source:hover { border-color: var(--ra, rgba(255,255,255,0.3)); color: #fff; background: rgba(255,255,255,0.04); transform: translateX(2px); }
+        .robot-source .rs-lbl { text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.55rem; padding-right: 0.65rem; border-right: 1px solid rgba(255,255,255,0.12); color: var(--ra, #4DEEEA); }
+        .robot-source .rs-url { font-weight: 500; letter-spacing: 0.02em; }
+        .robot-source i { font-size: 0.85rem; color: var(--ra, #4DEEEA); transition: transform 0.35s ease; }
+        .robot-source:hover i { transform: translate(2px, -2px); }
+
+        .accent-cyan { --ra: #4DEEEA; } .accent-cyan .robot-glow { background: rgba(77,238,234,0.3); } .accent-cyan .robot-name, .accent-cyan .robot-subtitle { color: #4DEEEA; } .accent-cyan .robot-key-desc { border-color: rgba(77,238,234,0.3); } .accent-cyan .desc-item-icon { background: rgba(77,238,234,0.08); color: #4DEEEA; } .accent-cyan .chip { color: #4DEEEA; border-color: rgba(77,238,234,0.2); } .accent-cyan .robot-image-frame { border-color: rgba(77,238,234,0.1); }
+        .accent-violet { --ra: #8B5CF6; } .accent-violet .robot-glow { background: rgba(139,92,246,0.25); } .accent-violet .robot-name, .accent-violet .robot-subtitle { color: #8B5CF6; } .accent-violet .robot-key-desc { border-color: rgba(139,92,246,0.3); } .accent-violet .desc-item-icon { background: rgba(139,92,246,0.08); color: #8B5CF6; } .accent-violet .chip { color: #8B5CF6; border-color: rgba(139,92,246,0.2); } .accent-violet .robot-image-frame { border-color: rgba(139,92,246,0.1); }
+        .accent-lime { --ra: #84CC16; } .accent-lime .robot-glow { background: rgba(132,204,22,0.25); } .accent-lime .robot-name, .accent-lime .robot-subtitle { color: #84CC16; } .accent-lime .robot-key-desc { border-color: rgba(132,204,22,0.3); } .accent-lime .desc-item-icon { background: rgba(132,204,22,0.08); color: #84CC16; } .accent-lime .chip { color: #84CC16; border-color: rgba(132,204,22,0.2); } .accent-lime .robot-image-frame { border-color: rgba(132,204,22,0.1); }
+        .accent-sky { --ra: #38BDF8; } .accent-sky .robot-glow { background: rgba(56,189,248,0.25); } .accent-sky .robot-name, .accent-sky .robot-subtitle { color: #38BDF8; } .accent-sky .robot-key-desc { border-color: rgba(56,189,248,0.3); } .accent-sky .desc-item-icon { background: rgba(56,189,248,0.08); color: #38BDF8; } .accent-sky .chip { color: #38BDF8; border-color: rgba(56,189,248,0.2); } .accent-sky .robot-image-frame { border-color: rgba(56,189,248,0.1); }
+        .accent-gold { --ra: #FFB347; } .accent-gold .robot-glow { background: rgba(255,179,71,0.25); } .accent-gold .robot-name, .accent-gold .robot-subtitle { color: #FFB347; } .accent-gold .robot-key-desc { border-color: rgba(255,179,71,0.3); } .accent-gold .desc-item-icon { background: rgba(255,179,71,0.08); color: #FFB347; } .accent-gold .chip { color: #FFB347; border-color: rgba(255,179,71,0.2); } .accent-gold .robot-image-frame { border-color: rgba(255,179,71,0.1); }
+        .accent-rose { --ra: #FB7185; } .accent-rose .robot-glow { background: rgba(251,113,133,0.25); } .accent-rose .robot-name, .accent-rose .robot-subtitle { color: #FB7185; } .accent-rose .robot-key-desc { border-color: rgba(251,113,133,0.3); } .accent-rose .desc-item-icon { background: rgba(251,113,133,0.08); color: #FB7185; } .accent-rose .chip { color: #FB7185; border-color: rgba(251,113,133,0.2); } .accent-rose .robot-image-frame { border-color: rgba(251,113,133,0.1); }
+        .accent-emerald { --ra: #10B981; } .accent-emerald .robot-glow { background: rgba(16,185,129,0.25); } .accent-emerald .robot-name, .accent-emerald .robot-subtitle { color: #10B981; } .accent-emerald .robot-key-desc { border-color: rgba(16,185,129,0.3); } .accent-emerald .desc-item-icon { background: rgba(16,185,129,0.08); color: #10B981; } .accent-emerald .chip { color: #10B981; border-color: rgba(16,185,129,0.2); } .accent-emerald .robot-image-frame { border-color: rgba(16,185,129,0.1); }
+        .accent-amber { --ra: #F59E0B; } .accent-amber .robot-glow { background: rgba(245,158,11,0.25); } .accent-amber .robot-name, .accent-amber .robot-subtitle { color: #F59E0B; } .accent-amber .robot-key-desc { border-color: rgba(245,158,11,0.3); } .accent-amber .desc-item-icon { background: rgba(245,158,11,0.08); color: #F59E0B; } .accent-amber .chip { color: #F59E0B; border-color: rgba(245,158,11,0.2); } .accent-amber .robot-image-frame { border-color: rgba(245,158,11,0.1); }
+        .accent-pink { --ra: #EC4899; } .accent-pink .robot-glow { background: rgba(236,72,153,0.25); } .accent-pink .robot-name, .accent-pink .robot-subtitle { color: #EC4899; } .accent-pink .robot-key-desc { border-color: rgba(236,72,153,0.3); } .accent-pink .desc-item-icon { background: rgba(236,72,153,0.08); color: #EC4899; } .accent-pink .chip { color: #EC4899; border-color: rgba(236,72,153,0.2); } .accent-pink .robot-image-frame { border-color: rgba(236,72,153,0.1); }
+        .accent-indigo { --ra: #6366F1; } .accent-indigo .robot-glow { background: rgba(99,102,241,0.25); } .accent-indigo .robot-name, .accent-indigo .robot-subtitle { color: #6366F1; } .accent-indigo .robot-key-desc { border-color: rgba(99,102,241,0.3); } .accent-indigo .desc-item-icon { background: rgba(99,102,241,0.08); color: #6366F1; } .accent-indigo .chip { color: #6366F1; border-color: rgba(99,102,241,0.2); } .accent-indigo .robot-image-frame { border-color: rgba(99,102,241,0.1); }
+
+        .pagination { display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 4rem 2rem 2rem; flex-wrap: wrap; }
+        .pagination a, .pagination span { font-family: var(--font-display); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.2rem; border-radius: 100px; border: 1px solid var(--border); color: var(--text-secondary); transition: all 0.3s; text-decoration: none; }
+        .pagination a:hover { border-color: var(--accent); color: var(--accent); }
+        .pagination .active-page { background: var(--accent); color: var(--bg-dark); border-color: var(--accent); font-weight: 600; }
+        .pagination .prev-btn, .pagination .next-btn { display: inline-flex; align-items: center; gap: 0.5rem; border-color: rgba(77,238,234,0.3); color: var(--accent); }
+        .pagination .prev-btn:hover, .pagination .next-btn:hover { background: rgba(77,238,234,0.1); }
+        .back-home { text-align: center; padding: 2rem 2rem 6rem; } .back-home a { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.3s; } .back-home a:hover { color: var(--accent); }
+        .plat-footer { padding: 3rem clamp(2rem, 6vw, 6rem) 2rem; border-top: 1px solid var(--border); text-align: center; } .plat-footer .f-copy { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
+        @media (max-width: 992px) { .showcase-inner { grid-template-columns: 1fr; gap: 2.5rem; } .robot-showcase:nth-child(even) .showcase-inner { direction: ltr; } .robot-image-frame { max-width: 340px; margin: 0 auto; } }
+        @media (max-width: 768px) { .nav-links { display: none; } .page-header { padding: 8rem 1.5rem 3rem; } .robot-showcase { padding: 4rem 0; } .robot-image-frame { max-width: 280px; } }
+        @media (max-width: 480px) { .desc-item { flex-direction: column; gap: 0.5rem; } }
+        body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 9999; }
+    
+        /* ── Mobile Accordion Menu ── */
+        .mobile-toggle { display: none; color: #fff; font-size: 1.6rem; z-index: 10001; padding: 0.6rem; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 9550; display: flex; flex-direction: column; align-items: stretch; padding: 90px 0 2rem; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open { opacity: 1; pointer-events: all; }
+        .mobile-overlay > a { font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.3s, background 0.3s; text-decoration: none; }
+        .mobile-overlay > a:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1rem 2rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; transition: color 0.3s, background 0.3s; }
+        .mob-accordion-toggle:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion-toggle i { font-size: 0.7rem; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); color: #4DEEEA; opacity: 0.6; }
+        .mob-accordion.open .mob-accordion-toggle i { transform: rotate(180deg); }
+        .mob-accordion.open .mob-accordion-toggle { color: #4DEEEA; }
+        .mob-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); background: rgba(255,255,255,0.015); }
+        .mob-accordion.open .mob-accordion-body { max-height: 800px; }
+        .mob-accordion-body a { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 2rem 0.7rem 3rem; font-family: var(--font-display); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, background 0.25s, padding-left 0.25s; border-bottom: 1px solid rgba(255,255,255,0.03); text-decoration: none; }
+        .mob-accordion-body a:last-child { border-bottom: none; }
+        .mob-accordion-body a i { font-size: 1rem; opacity: 0.5; flex-shrink: 0; }
+        .mob-accordion-body a:hover { color: #4DEEEA; background: rgba(77,238,234,0.05); padding-left: 3.4rem; }
+        .mob-accordion-body a:hover i { opacity: 1; color: #4DEEEA; }
+        .mobile-overlay > a, .mobile-overlay > .mob-accordion { transform: translateX(-20px); opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open > a, .mobile-overlay.open > .mob-accordion { transform: translateX(0); opacity: 1; }
+        .mobile-overlay.open > :nth-child(1) { transition-delay: 0.05s; }
+        .mobile-overlay.open > :nth-child(2) { transition-delay: 0.1s; }
+        .mobile-overlay.open > :nth-child(3) { transition-delay: 0.15s; }
+        .mobile-overlay.open > :nth-child(4) { transition-delay: 0.2s; }
+        .mobile-overlay.open > :nth-child(5) { transition-delay: 0.25s; }
+        .mobile-overlay.open > :nth-child(6) { transition-delay: 0.3s; }
+        .mobile-overlay.open > :nth-child(7) { transition-delay: 0.35s; }
+        @media (max-width: 768px) { 
+            .mobile-toggle { display: block !important; visibility: visible !important; opacity: 1 !important; } 
+        }
+
+    
+        /* ── Mobile overflow fix ── */
+        html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
+        nav { max-width: 100vw !important; overflow: visible !important; width: 100% !important; }
+        * { max-width: 100vw; }
+
+    </style>
+    <link rel="stylesheet" href="./product-enquiry.css">
+    <script src="./product-enquiry.js" defer></script>
+    <meta property="og:title" content="Robotics Fleet — Page 4 — Pure AI">
+    <meta property="og:description" content="Pure AI Robotics Fleet Page 4 — Home Cleaning Robots, Warehouse Automation Systems.">
+    <meta property="og:image" content="./pure-logo-v4.png">
+</head>
+<body>
+    <nav>
+    <a href="./" class="logo"><img src="./pure-logo-v4.png" alt="Pure AI"></a>
+    <div class="nav-links">
+        <a href="./platform">Platform</a>
+        <div class="nav-dropdown">
+            <a href="./#products">Product <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./robots-search"><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots"><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots"><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk"><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics"><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage"><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#"><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#"><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#"><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#"><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="./services">Services <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./custom-robotics"><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter"><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup"><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux"><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes"><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories"><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training"><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw"><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management"><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="./#solutions">Solutions <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./sol-banking"><i class="ph ph-bank"></i> PureAi - Banking &amp; Finance</a>
+                <a href="./sol-healthcare"><i class="ph ph-heartbeat"></i> PureAi - Healthcare</a>
+                <a href="./sol-logistics"><i class="ph ph-truck"></i> PureAi - Logistics</a>
+                <a href="./sol-manufacturing"><i class="ph ph-gear-six"></i> PureAi - Manufacturing</a>
+                <a href="./sol-agriculture"><i class="ph ph-plant"></i> PureAi - Agriculture</a>
+                <a href="./sol-aviation"><i class="ph ph-airplane"></i> PureAi - Airlines</a>
+                <a href="./sol-education"><i class="ph ph-graduation-cap"></i> PureAi - Education</a>
+                <a href="./sol-retail"><i class="ph ph-storefront"></i> PureAi - Retail</a>
+                <a href="./sol-enterprise"><i class="ph ph-buildings"></i> PureAi - Enterprise</a>
+                <a href="./sol-infrastructure"><i class="ph ph-lightning"></i> PureAi - Infrastructure</a>
+            </div>
+        </div>
+        <a href="./innovation">Innovation</a>
+        <div class="nav-dropdown">
+            <a href="#">Open Innovation <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./bohrai"><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" class="cta">Contact</a>
+    </div>
+
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <a href="./" data-mobile-link>Home</a>
+        <a href="./platform" data-mobile-link>Platform</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Products <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./robots-search" data-mobile-link><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots" data-mobile-link><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots" data-mobile-link><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk" data-mobile-link><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics" data-mobile-link><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage" data-mobile-link><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#" data-mobile-link><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#" data-mobile-link><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#" data-mobile-link><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#" data-mobile-link><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Services <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./custom-robotics" data-mobile-link><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter" data-mobile-link><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup" data-mobile-link><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux" data-mobile-link><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes" data-mobile-link><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories" data-mobile-link><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training" data-mobile-link><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw" data-mobile-link><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management" data-mobile-link><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Solutions <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./sol-banking" data-mobile-link><i class="ph ph-bank"></i> Banking &amp; Finance</a>
+                <a href="./sol-healthcare" data-mobile-link><i class="ph ph-heartbeat"></i> Healthcare</a>
+                <a href="./sol-logistics" data-mobile-link><i class="ph ph-truck"></i> Logistics</a>
+                <a href="./sol-manufacturing" data-mobile-link><i class="ph ph-gear-six"></i> Manufacturing</a>
+                <a href="./sol-agriculture" data-mobile-link><i class="ph ph-plant"></i> Agriculture</a>
+                <a href="./sol-aviation" data-mobile-link><i class="ph ph-airplane"></i> Airlines</a>
+                <a href="./sol-education" data-mobile-link><i class="ph ph-graduation-cap"></i> Education</a>
+                <a href="./sol-retail" data-mobile-link><i class="ph ph-storefront"></i> Retail</a>
+                <a href="./sol-enterprise" data-mobile-link><i class="ph ph-buildings"></i> Enterprise</a>
+                <a href="./sol-infrastructure" data-mobile-link><i class="ph ph-lightning"></i> Infrastructure</a>
+            </div>
+        </div>
+
+        <a href="./innovation" data-mobile-link>Innovation</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Open Innovation <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./bohrai" data-mobile-link><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" data-mobile-link>Contact</a>
+    </div>
+
+
+    <div class="page-header"><div class="label hero-anim">Robotics Fleet — Page 4</div><h1 class="hero-anim">Home <em>Cleaning</em> & Warehouse.</h1></div>
+
+    <!-- 31 · DEEBOT X11 -->
+    <section class="robot-showcase accent-cyan" id="deebot-x11"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./deebot-x11.jpg" alt="DEEBOT X11 OmniCyclone" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">31 // Flagship Home Cleaner</div><h2 class="robot-name">DEEBOT X11</h2><p class="robot-subtitle">OmniCyclone Vacuum & Mop System</p><p class="robot-key-desc">A flagship AI-powered robot vacuum and mop system designed for fully autonomous home cleaning — combining high suction, continuous self-cleaning mopping, and intelligent navigation.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-broom"></i></div><div class="desc-item-text"><h4>All-in-One Vacuum + Mop</h4><p>Powerful vacuuming with real-time scrubbing mop technology for complete floor cleaning in a single run.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-brain"></i></div><div class="desc-item-text"><h4>AI-Driven Smart Cleaning</h4><p>AI stain detection, mapping, and obstacle avoidance to intelligently clean different areas of your home.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-arrows-clockwise"></i></div><div class="desc-item-text"><h4>Fully Automated Ecosystem</h4><p>Omni station auto-empties dust, washes mop, dries it, and refills water automatically.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-wind"></i> ~19,500 Pa</span><span class="chip"><i class="ph ph-drop"></i> OZMO Roller 2.0</span><span class="chip"><i class="ph ph-chart-bar"></i> ~1000 m²</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View DEEBOT X11"><span class="rs-lbl">Source</span><span class="rs-url">DEEBOT X11 OmniCyclone - ECOVACS IN</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <!-- 32 · DEEBOT T80 -->
+    <section class="robot-showcase accent-violet" id="deebot-t80"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./deebot-t80.jpg" alt="DEEBOT T80 OMNI" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">32 // Ultra-Slim Cleaner</div><h2 class="robot-name">DEEBOT T80</h2><p class="robot-subtitle">OMNI AI Vacuum & Mop System</p><p class="robot-key-desc">An AI-powered robotic vacuum and mop system for fully automated home cleaning — combining strong suction, real-time self-cleaning mopping, and AIVI 3D navigation.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-broom"></i></div><div class="desc-item-text"><h4>All-in-One Vacuum + Mop</h4><p>Combines vacuuming and roller-based mopping to clean dust, debris, and stains in a single pass.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-eye"></i></div><div class="desc-item-text"><h4>AIVI 3D Navigation</h4><p>Detects obstacles, avoids pets, and optimizes cleaning paths in real time using AI + sensors.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-scissors"></i></div><div class="desc-item-text"><h4>ZeroTangle 3.0 Brush</h4><p>Prevents hair wrapping around brushes — ideal for homes with pets. Ultra-slim ~98 mm design.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-wind"></i> ~18,000 Pa</span><span class="chip"><i class="ph ph-drop"></i> OZMO Roller</span><span class="chip"><i class="ph ph-ruler"></i> ~98 mm Slim</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View DEEBOT T80"><span class="rs-lbl">Source</span><span class="rs-url">DEEBOT T80 OMNI BLACK - ECOVACS GLOBAL</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <!-- 33 · ECOVACS T50 PRO -->
+    <section class="robot-showcase accent-lime" id="ecovacs-t50"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./ecovacs-t50-pro.jpg" alt="ECOVACS T50 PRO OMNI" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">33 // Ultra-Thin Design</div><h2 class="robot-name">ECOVACS T50 PRO</h2><p class="robot-subtitle">OMNI Ultra-Slim Cleaning System</p><p class="robot-key-desc">An ultra-slim, AI-powered robot vacuum and mop system for fully automated home cleaning — combining strong suction, intelligent navigation, and a self-maintaining OMNI station.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-ruler"></i></div><div class="desc-item-text"><h4>Ultra-Thin (~8.1 cm)</h4><p>Slim profile allows cleaning under furniture and tight spaces with ease.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-eye"></i></div><div class="desc-item-text"><h4>AIVI 3.0 AI Navigation</h4><p>AI + sensors to detect objects, map rooms, and optimize cleaning paths.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-arrows-out"></i></div><div class="desc-item-text"><h4>Extendable Edge Mop</h4><p>Advanced edge-cleaning design for better coverage of corners and edges.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-wind"></i> ~15,000 Pa</span><span class="chip"><i class="ph ph-ruler"></i> 8.1 cm Slim</span><span class="chip"><i class="ph ph-arrows-clockwise"></i> Auto OMNI</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View ECOVACS T50 PRO"><span class="rs-lbl">Source</span><span class="rs-url">DEEBOT T50 PRO OMNI Robot Vacuum - ECOVACS India</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <!-- 34 · DEEBOT N50 Pro -->
+    <section class="robot-showcase accent-sky" id="deebot-n50"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./deebot-n50.jpg" alt="DEEBOT N50 Pro Omni" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">34 // Large Home Expert</div><h2 class="robot-name">DEEBOT N50 Pro</h2><p class="robot-subtitle">OMNI AI Cleaning System</p><p class="robot-key-desc">An AI-powered, fully automated vacuum and mop for large homes — combining high suction, intelligent mapping, and a self-maintaining OMNI station for seamless hands-free cleaning.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-broom"></i></div><div class="desc-item-text"><h4>All-in-One Vacuum + Mop</h4><p>Performs both vacuuming and mopping in a single cycle for complete cleaning.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-map-trifold"></i></div><div class="desc-item-text"><h4>TrueMapping 2.0</h4><p>Maps spaces quickly, avoids obstacles precisely with TrueDetect 3D technology.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-battery-charging"></i></div><div class="desc-item-text"><h4>Long Runtime (~300 Min)</h4><p>Large battery enables extended cleaning sessions covering large homes.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-wind"></i> ~25,000 Pa</span><span class="chip"><i class="ph ph-clock"></i> ~300 Min</span><span class="chip"><i class="ph ph-eye"></i> TrueDetect 3D</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View Source"><span class="rs-lbl">Source</span><span class="rs-url">DEEBOT N50 Pro Omni - ECOVACS Website</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <!-- 35 · Roborock Saros 20 Sonic -->
+    <section class="robot-showcase accent-gold" id="saros-20-sonic"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./saros-20-sonic.jpg" alt="Roborock Saros 20 Sonic" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">35 // Sonic Mopping</div><h2 class="robot-name">Saros 20 Sonic</h2><p class="robot-subtitle">Next-Gen Sonic Vacuum & Mop</p><p class="robot-key-desc">A next-generation flagship robot vacuum and mop designed for ultra-deep cleaning — combining extreme suction power, advanced sonic mopping, and fully automated maintenance.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-wave-sine"></i></div><div class="desc-item-text"><h4>VibraRise 5.0 Sonic Mopping</h4><p>High-frequency vibrations scrub floors effectively, removing tough dirt and stains.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-wind"></i></div><div class="desc-item-text"><h4>Extreme Suction (~36,000 Pa)</h4><p>One of the most powerful robot vacuums for deep cleaning carpets and pet hair.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-eye"></i></div><div class="desc-item-text"><h4>StarSight 2.0 AI Navigation</h4><p>Advanced mapping and obstacle detection with 3D sensors for real-time accuracy.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-wind"></i> 36,000 Pa</span><span class="chip"><i class="ph ph-wave-sine"></i> Sonic Mop</span><span class="chip"><i class="ph ph-ruler"></i> ~7.9 cm</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View Source"><span class="rs-lbl">Source</span><span class="rs-url">Roborock Saros 20 Sonic - Beyond Detail. Beyond Clean. | Roborock Global Official Store</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <!-- 36 · Roborock Saros 20 -->
+    <section class="robot-showcase accent-rose" id="saros-20"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./saros-20.jpg" alt="Roborock Saros 20" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">36 // Flagship Performance</div><h2 class="robot-name">Roborock Saros 20</h2><p class="robot-subtitle">AI-Powered Flagship Vacuum & Mop</p><p class="robot-key-desc">A flagship AI-powered robot vacuum and mop for high-performance, fully automated home cleaning — combining ultra-strong suction, advanced navigation, and intelligent self-maintenance.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-wind"></i></div><div class="desc-item-text"><h4>Ultra-High Suction (~36,000 Pa)</h4><p>Ensures deep cleaning of dust, debris, and pet hair across all surfaces.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-eye"></i></div><div class="desc-item-text"><h4>StarSight 2.0 AI Navigation</h4><p>Advanced sensors and AI map environments, detect obstacles, and navigate precisely.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-arrow-up"></i></div><div class="desc-item-text"><h4>AdaptiLift Chassis 3.0</h4><p>Automatically adjusts height to cross thresholds and clean different surfaces smoothly.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-wind"></i> 36,000 Pa</span><span class="chip"><i class="ph ph-ruler"></i> ~7.9 cm Slim</span><span class="chip"><i class="ph ph-arrows-clockwise"></i> RockDock</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View Source"><span class="rs-lbl">Source</span><span class="rs-url">Roborock Saros 20 – AdaptiLift™ Chassis 3.0 for Smooth Threshold Cross | Roborock US Official Store</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <!-- 37 · Q Revo Curv 2 Pro -->
+    <section class="robot-showcase accent-emerald" id="q-revo-curv"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./q-revo-curv.jpg" alt="Roborock Q Revo Curv 2 Pro" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">37 // Hybrid Cleaning</div><h2 class="robot-name">Q Revo Curv 2 Pro</h2><p class="robot-subtitle">Hybrid Vacuum & Mop System</p><p class="robot-key-desc">A high-performance hybrid robot vacuum and mop designed for intelligent, automated home cleaning — combining strong suction, adaptive navigation, and a fully self-maintaining dock.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-broom"></i></div><div class="desc-item-text"><h4>Hybrid Vacuum + Dual Mop</h4><p>Powerful suction with dual spinning mop pads for carpets and hard floors.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-arrow-up"></i></div><div class="desc-item-text"><h4>AdaptiLift Chassis</h4><p>Adjusts height for carpets, thresholds, and uneven surfaces smoothly.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-radar"></i></div><div class="desc-item-text"><h4>RetractSense + LiDAR</h4><p>Ultra-slim body with retractable LiDAR for cleaning under furniture.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-wind"></i> ~25,000 Pa</span><span class="chip"><i class="ph ph-ruler"></i> ~7.9 cm Slim</span><span class="chip"><i class="ph ph-arrows-clockwise"></i> Auto Dock</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View Source"><span class="rs-lbl">Source</span><span class="rs-url">roborock Q Revo Curv 2 Pro Robot Vacuum Cleaner, Slim 7.98 cm, 25000pa | roborockindia.com</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <!-- 38 · Saros 10R -->
+    <section class="robot-showcase accent-amber" id="saros-10r"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./saros-10r.jpg" alt="Roborock Saros 10R" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">38 // Precision Navigator</div><h2 class="robot-name">Saros 10R</h2><p class="robot-subtitle">Ultra-Slim AI Vacuum & Mop</p><p class="robot-key-desc">An ultra-slim, AI-powered robot vacuum and mop for high-performance home cleaning — combining strong suction, precision navigation, and a self-maintaining system for hands-free operation.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-ruler"></i></div><div class="desc-item-text"><h4>Ultra-Slim Design (~7.98 cm)</h4><p>Cleans under furniture and tight spaces where most robots can't reach.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-eye"></i></div><div class="desc-item-text"><h4>AI Object Recognition (100+ types)</h4><p>Identifies pets, objects and navigates with high precision safety.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-arrow-up"></i></div><div class="desc-item-text"><h4>Auto-Lifting (~4 cm Threshold)</h4><p>Adjusts to cross thresholds and adapt to different floor levels.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-wind"></i> ~20,000 Pa</span><span class="chip"><i class="ph ph-eye"></i> 100+ Objects</span><span class="chip"><i class="ph ph-ruler"></i> 7.98 cm</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View Source"><span class="rs-lbl">Source</span><span class="rs-url">roborock Saros 10R Robot Vacuum and Mop 20000pa, Zero-Tangling, Ultra Slim Black | roborockindia.com</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <!-- 39 · HaiPick System 1 -->
+    <section class="robot-showcase accent-pink" id="haipick-1"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./haipick-1.jpg" alt="HaiPick System 1" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">39 // Warehouse Automation</div><h2 class="robot-name">HaiPick System 1</h2><p class="robot-subtitle">Goods-to-Person Warehouse System</p><p class="robot-key-desc">A goods-to-person automated warehouse system using autonomous mobile robots (ACRs) to retrieve and deliver storage containers directly to operators — maximizing efficiency and order fulfillment speed.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-warehouse"></i></div><div class="desc-item-text"><h4>Goods-to-Person Automation</h4><p>Robots bring inventory directly to operators, reducing travel time and increasing productivity.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-robot"></i></div><div class="desc-item-text"><h4>ACR System (12 m Climb)</h4><p>Intelligent robots navigate shelves, climb vertically up to ~12 m for container retrieval.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-check-circle"></i></div><div class="desc-item-text"><h4>99%+ Picking Accuracy</h4><p>Automated system ensures precise order picking and faster fulfillment workflows.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-chart-bar"></i> ~400% Storage</span><span class="chip"><i class="ph ph-package"></i> ~9 Containers/Trip</span><span class="chip"><i class="ph ph-check-circle"></i> 99%+ Accuracy</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View Source"><span class="rs-lbl">Source</span><span class="rs-url">HaiPick System 1 | Hai Robotics</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <!-- 40 · HaiPick System 2 -->
+    <section class="robot-showcase accent-indigo" id="haipick-2"><div class="showcase-inner"><div class="robot-image-wrap showcase-anim"><div class="robot-glow"></div><div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;"><img src="./haipick-2.jpg" alt="HaiPick System 2" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%;"></div></div><div class="robot-content showcase-anim"><div class="robot-index">40 // Mixed Picking</div><h2 class="robot-name">HaiPick System 2</h2><p class="robot-subtitle">Advanced Warehouse Automation</p><p class="robot-key-desc">An advanced goods-to-person warehouse system combining case-handling robots (ACRs) and heavy-duty AMRs to manage both small items and bulk/palletized goods in a single platform.</p><div class="desc-grid"><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-stack"></i></div><div class="desc-item-text"><h4>Mixed Inventory Handling</h4><p>Manages totes, cartons, bulk goods, and pallets together in one system.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-robot"></i></div><div class="desc-item-text"><h4>Dual-Robot Architecture</h4><p>ACRs for container picking + AMRs for heavy items, working in coordination.</p></div></div><div class="desc-item"><div class="desc-item-icon"><i class="ph ph-chart-line-up"></i></div><div class="desc-item-text"><h4>Up to 6× Efficiency</h4><p>Reduces manual movement and streamlines workflows significantly.</p></div></div></div><div class="feature-chips"><span class="chip"><i class="ph ph-chart-bar"></i> ~5× Storage</span><span class="chip"><i class="ph ph-lightning"></i> 6× Efficiency</span><span class="chip"><i class="ph ph-package"></i> Mixed Loads</span></div><a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View Source"><span class="rs-lbl">Source</span><span class="rs-url">HaiPick System 2 | Hai Robotics</span><i class="ph ph-arrow-up-right"></i></a></div></div></section>
+
+    <div class="pagination">
+        <a href="./robots-3" class="prev-btn"><i class="ph ph-arrow-left"></i> Prev</a>
+        <a href="./robots">1</a><a href="./robots-2">2</a><a href="./robots-3">3</a>
+        <span class="active-page">4</span>
+        <a href="./robots-5">5</a><a href="./robots-6">6</a>
+        <a href="./robots-5" class="next-btn">Next <i class="ph ph-arrow-right"></i></a>
+    </div>
+    <div class="back-home"><a href="./"><i class="ph ph-arrow-left"></i> Back to Main Site</a></div>
+    <footer class="plat-footer"><div class="f-copy">© 2026 Pure AI Technologies and Services Pvt Ltd.</div></footer>
+    <script>document.addEventListener("DOMContentLoaded",()=>{gsap.registerPlugin(ScrollTrigger);gsap.from(".hero-anim",{y:50,opacity:0,duration:1,stagger:0.15,ease:"power3.out",delay:0.3});document.querySelectorAll('.robot-showcase').forEach((s,i)=>{const a=s.querySelectorAll('.showcase-anim');const e=i%2!==0;gsap.fromTo(a[0],{x:e?60:-60,opacity:0},{x:0,opacity:1,duration:1,ease:"power3.out",scrollTrigger:{trigger:s,start:"top 75%",toggleActions:"play none none reverse"}});gsap.fromTo(a[1],{x:e?-60:60,opacity:0},{x:0,opacity:1,duration:1,ease:"power3.out",delay:0.2,scrollTrigger:{trigger:s,start:"top 75%",toggleActions:"play none none reverse"}});const g=s.querySelector('.robot-glow');if(g){gsap.to(g,{y:-15,x:10,duration:4,repeat:-1,yoyo:true,ease:"sine.inOut"});}});});</script>
+
+    <script>
+    (function(){
+        var mt = document.getElementById('mobile-toggle');
+        var mo = document.getElementById('mobile-overlay');
+        if (!mt || !mo) return;
+        mt.addEventListener('click', function(){
+            var open = mo.classList.toggle('open');
+            mt.innerHTML = open ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (!open) mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+        });
+        mo.querySelectorAll('[data-mobile-link]').forEach(function(link){
+            link.addEventListener('click', function(){
+                mo.classList.remove('open');
+                mt.innerHTML = '<i class="ph ph-list"></i>';
+                document.body.style.overflow = '';
+            });
+        });
+        mo.querySelectorAll('.mob-accordion-toggle').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var acc = btn.parentElement;
+                var wasOpen = acc.classList.contains('open');
+                mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+                if (!wasOpen) acc.classList.add('open');
+                btn.setAttribute('aria-expanded', !wasOpen);
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIKAGE — Talk to Your Database | Pure AI</title>
+    <meta name="description" content="AIKAGE is an enterprise AI platform that turns natural-language questions into instant insights, charts, and alerts — with built-in data protection and workflow automation.">
+    <link rel="icon" type="image/png" href="./pure-logo-v4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <link rel="stylesheet" href="./product-enquiry.css">
+    <script src="./product-enquiry.js" defer></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-deep:    #050510;
+            --bg-section: #0a0b14;
+            --bg-elev:    #0f1220;
+            --ink:        #f0f2fa;
+            --ink-soft:   rgba(240,242,250,0.65);
+            --ink-mute:   rgba(240,242,250,0.38);
+            --line:       rgba(255,255,255,0.08);
+            --line-str:   rgba(255,255,255,0.14);
+
+            --accent:     #4DEEEA;   /* primary cyan */
+            --accent-2:   #8b8efc;   /* periwinkle */
+            --accent-3:   #FFB347;   /* gold */
+            --emerald:    #46e09b;   /* AIKAGE signature secondary */
+            --rose:       #ff6ec7;
+
+            --font-body:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-head:  'Space Grotesk', 'Inter', sans-serif;
+            --font-mono:  'JetBrains Mono', monospace;
+            --ease-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--ink);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 400;
+        }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; cursor: pointer; background: none; border: 0; color: inherit; }
+        ::selection { background: rgba(77,238,234,0.22); color: #fff; }
+
+        /* ─────────── Navigation ─────────── */
+        nav {
+            position: fixed; inset: 0 0 auto 0;
+            height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 clamp(2rem, 4vw, 4rem);
+            z-index: 9999;
+            background: rgba(5,5,15,0.78);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border-bottom: 1px solid var(--line);
+        }
+        .logo img { height: 28px; display: block; }
+        .nav-links { display: flex; align-items: center; gap: 2.4rem; }
+        .nav-links a {
+            font-family: var(--font-head);
+            font-size: 0.7rem; font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a.cta {
+            border: 1px solid var(--accent);
+            padding: 0.55rem 1.2rem;
+            border-radius: 100px;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+        .nav-links a.cta:hover { background: var(--accent); color: #07080d; box-shadow: 0 0 30px rgba(77,238,234,0.3); }
+        .dd-arrow { font-size: 0.8em; opacity: 0.7; margin-left: 0.2rem; }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown .dd-menu {
+            display: none;
+            position: absolute; top: 100%; left: 50%;
+            transform: translateX(-50%);
+            min-width: 220px;
+            padding: 1rem 0 0.6rem;
+            background: rgba(10,10,15,0.97);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            z-index: 10000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            flex-direction: column;
+        }
+        .nav-dropdown .dd-menu::before {
+            content: ''; position: absolute; top: -20px; left:0; right:0; height: 20px;
+        }
+        .nav-dropdown:hover .dd-menu { display: flex; }
+        .nav-dropdown .dd-menu a {
+            display: flex !important; align-items: center; gap: 0.75rem;
+            padding: 0.7rem 1.3rem !important;
+            font-size: 0.65rem !important;
+            white-space: nowrap;
+        }
+        .nav-dropdown .dd-menu a:hover { color: var(--accent) !important; background: rgba(77,238,234,0.06); }
+        .nav-dropdown .dd-menu a.active { color: var(--accent) !important; }
+        .nav-dropdown .dd-menu a i { font-size: 1.1rem; opacity: 0.55; }
+        .nav-dropdown .dd-menu a:hover i { opacity: 1; color: var(--accent); }
+
+        /* ═══════════════════════════════════════════════════════════
+           HERO
+           ═══════════════════════════════════════════════════════════ */
+        .ak-hero {
+            position: relative;
+            padding: 9rem 1.5rem 5rem;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1360px;
+            margin: 0 auto;
+            isolation: isolate;
+            min-height: 92vh;
+        }
+        .ak-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(520px circle at 18% 35%, rgba(77,238,234,0.14), transparent 55%),
+                radial-gradient(560px circle at 85% 65%, rgba(70,224,155,0.1), transparent 55%),
+                radial-gradient(400px circle at 50% 0%, rgba(139,142,252,0.07), transparent 60%);
+            z-index: -2;
+        }
+        .ak-hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(77,238,234,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77,238,234,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, #000 10%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, #000 10%, transparent 70%);
+            z-index: -3;
+            opacity: 0.6;
+        }
+
+        .ak-brand-chip {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            background: rgba(70,224,155,0.07);
+            border: 1px solid rgba(70,224,155,0.25);
+            color: var(--emerald);
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.8rem;
+        }
+        .ak-brand-chip .dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--emerald);
+            box-shadow: 0 0 12px var(--emerald);
+            animation: pulseDot 1.8s ease-in-out infinite;
+        }
+        @keyframes pulseDot {
+            0%,100% { opacity: 1;   transform: scale(1); }
+            50%     { opacity: 0.4; transform: scale(0.75); }
+        }
+
+        .ak-h1 {
+            font-family: var(--font-head);
+            font-size: clamp(2.5rem, 5.8vw, 4.8rem);
+            font-weight: 300;
+            line-height: 1.04;
+            letter-spacing: -0.035em;
+            margin-bottom: 1.5rem;
+        }
+        .ak-h1 em {
+            font-style: italic;
+            background: linear-gradient(135deg, var(--accent), var(--emerald));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .ak-h1 .hl {
+            color: transparent;
+            background: linear-gradient(135deg, #ffffff 0%, #bac7ff 50%, var(--accent) 100%);
+            -webkit-background-clip: text; background-clip: text;
+        }
+        .ak-lede {
+            color: var(--ink-soft);
+            font-size: clamp(1rem, 1.15vw, 1.1rem);
+            line-height: 1.65;
+            max-width: 54ch;
+            font-weight: 300;
+            margin-bottom: 2.4rem;
+        }
+        .ak-lede strong { color: var(--ink); font-weight: 500; }
+
+        .ak-hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 1rem 1.9rem;
+            border-radius: 100px;
+            background: linear-gradient(135deg, var(--accent), var(--emerald));
+            color: #07080d;
+            font-family: var(--font-head);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            box-shadow: 0 12px 34px rgba(77,238,234,0.28);
+            transition: transform 0.3s var(--ease-expo), box-shadow 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(77,238,234,0.4); }
+        .btn-ghost {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 1rem 1.9rem;
+            border-radius: 100px;
+            border: 1px solid var(--line-str);
+            color: var(--ink);
+            font-family: var(--font-head);
+            font-size: 0.8rem; font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+        .ak-hero-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--line);
+        }
+        .ak-hero-stat-val {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: -0.01em;
+        }
+        .ak-hero-stat-lbl {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-mute);
+            margin-top: 2px;
+        }
+
+        /* ─── Hero live query demo (right column) ─── */
+        .ak-demo {
+            position: relative;
+            border-radius: 18px;
+            background: linear-gradient(180deg, rgba(15,18,32,0.95), rgba(10,11,20,0.9));
+            border: 1px solid var(--line-str);
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(77,238,234,0.08),
+                0 0 60px rgba(77,238,234,0.1);
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .ak-demo::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(400px circle at 0% 0%, rgba(77,238,234,0.08), transparent 60%);
+            z-index: -1;
+        }
+        .ak-demo-head {
+            display: flex; align-items: center; gap: 0.6rem;
+            padding: 0.9rem 1.1rem;
+            border-bottom: 1px solid var(--line);
+            background: rgba(255,255,255,0.01);
+        }
+        .ak-demo-dots { display: flex; gap: 6px; }
+        .ak-demo-dots span {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+        }
+        .ak-demo-dots span:nth-child(1) { background: #ff6057; }
+        .ak-demo-dots span:nth-child(2) { background: #ffbd2e; }
+        .ak-demo-dots span:nth-child(3) { background: #27c93f; }
+        .ak-demo-path {
+            flex: 1;
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            color: var(--ink-mute);
+            letter-spacing: 0.1em;
+            text-align: center;
+        }
+        .ak-demo-tag {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            background: rgba(70,224,155,0.1);
+            color: var(--emerald);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .ak-demo-body { padding: 1.4rem 1.3rem; }
+
+        .ak-question-bar {
+            display: flex; align-items: center; gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            margin-bottom: 1.2rem;
+        }
+        .ak-q-icon {
+            width: 26px; height: 26px;
+            display: grid; place-items: center;
+            background: rgba(77,238,234,0.1);
+            border-radius: 7px;
+            color: var(--accent);
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+        .ak-q-text {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--ink);
+            letter-spacing: 0.01em;
+            flex: 1;
+            min-height: 1.2em;
+        }
+        .ak-q-text::after {
+            content: '▌';
+            color: var(--accent);
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .ak-tbl {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            margin-bottom: 1rem;
+        }
+        .ak-tbl th {
+            text-align: left;
+            padding: 0.55rem 0.7rem;
+            color: var(--ink-mute);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 0.58rem;
+            border-bottom: 1px solid var(--line);
+        }
+        .ak-tbl td {
+            padding: 0.55rem 0.7rem;
+            border-bottom: 1px solid var(--line);
+            color: var(--ink);
+        }
+        .ak-tbl td.num { color: var(--accent); text-align: right; }
+        .ak-tbl td.pos { color: var(--emerald); }
+        .ak-tbl td.neg { color: var(--rose); }
+        .ak-tbl tr.demo-row {
+            opacity: 0;
+            transform: translateY(6px);
+            animation: rowIn 0.5s var(--ease-expo) forwards;
+        }
+        .ak-tbl tr.demo-row:nth-child(1) { animation-delay: 1.4s; }
+        .ak-tbl tr.demo-row:nth-child(2) { animation-delay: 1.55s; }
+        .ak-tbl tr.demo-row:nth-child(3) { animation-delay: 1.7s; }
+        .ak-tbl tr.demo-row:nth-child(4) { animation-delay: 1.85s; }
+        @keyframes rowIn { to { opacity: 1; transform: translateY(0); } }
+
+        .ak-demo-foot {
+            display: flex; gap: 0.8rem; flex-wrap: wrap;
+            padding-top: 0.9rem;
+            border-top: 1px dashed var(--line);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--ink-mute);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .ak-demo-foot .chip {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            padding: 0.25rem 0.55rem;
+            border-radius: 4px;
+            background: rgba(77,238,234,0.05);
+            color: var(--accent);
+        }
+        .ak-demo-foot .chip.em { background: rgba(70,224,155,0.07); color: var(--emerald); }
+        .ak-demo-foot .chip.gd { background: rgba(255,179,71,0.07); color: var(--accent-3); }
+
+        /* Mini sparkline chart below table */
+        .ak-spark { margin-top: 0.4rem; height: 44px; width: 100%; display: block; }
+        .ak-spark path.line { fill: none; stroke: var(--accent); stroke-width: 2; filter: drop-shadow(0 0 6px rgba(77,238,234,0.6)); stroke-dasharray: 400; stroke-dashoffset: 400; animation: sparkDraw 1.8s 2s var(--ease-expo) forwards; }
+        .ak-spark path.area { fill: url(#akSparkFill); opacity: 0; animation: sparkFill 1.2s 2.6s ease forwards; }
+        @keyframes sparkDraw { to { stroke-dashoffset: 0; } }
+        @keyframes sparkFill { to { opacity: 1; } }
+
+        /* ═══════════════════════════════════════════════════════════
+           SECTION UTILITIES
+           ═══════════════════════════════════════════════════════════ */
+        .section {
+            padding: 7rem 1.5rem;
+            position: relative;
+        }
+        .section.tinted {
+            background: var(--bg-section);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .section-inner { max-width: 1280px; margin: 0 auto; }
+
+        .sec-head { text-align: center; max-width: 780px; margin: 0 auto 4rem; }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+        .section-label::before, .section-label::after {
+            content: '';
+            width: 30px; height: 1px;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+        .sec-h2 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4vw, 3.3rem);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+        .sec-h2 em {
+            font-style: italic;
+            background: linear-gradient(135deg, var(--accent), var(--emerald));
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+        .sec-lede {
+            color: var(--ink-soft);
+            font-size: 1rem;
+            line-height: 1.65;
+            margin-top: 1.2rem;
+            font-weight: 300;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.9s var(--ease-expo), transform 0.9s var(--ease-expo);
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .fade-up[data-d="1"] { transition-delay: 0.1s; }
+        .fade-up[data-d="2"] { transition-delay: 0.2s; }
+        .fade-up[data-d="3"] { transition-delay: 0.3s; }
+        .fade-up[data-d="4"] { transition-delay: 0.4s; }
+        .fade-up[data-d="5"] { transition-delay: 0.5s; }
+
+        /* ═══════════════════════════════════════════════════════════
+           VALUE PROP STRIP
+           ═══════════════════════════════════════════════════════════ */
+        .ak-value {
+            padding: 5rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(77,238,234,0.03), transparent 100%);
+            border-top: 1px solid var(--line);
+        }
+        .ak-value-title {
+            font-family: var(--font-head);
+            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .ak-value-title em { color: var(--accent); font-style: italic; }
+        .ak-value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            max-width: 1100px;
+            margin: 3rem auto 0;
+        }
+        .ak-value-cell {
+            padding: 1.2rem 1rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .ak-value-cell:hover { border-color: rgba(77,238,234,0.25); background: rgba(77,238,234,0.03); }
+        .ak-value-cell i { font-size: 1.6rem; color: var(--accent); margin-bottom: 0.6rem; display: inline-block; }
+        .ak-value-cell .t {
+            font-family: var(--font-head);
+            font-size: 0.92rem; font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+        .ak-value-cell .d {
+            font-size: 0.8rem; color: var(--ink-soft); font-weight: 300; line-height: 1.5;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MODULES TABS
+           ═══════════════════════════════════════════════════════════ */
+        .ak-modules-wrap {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 2rem;
+        }
+        .ak-tabs {
+            display: inline-flex;
+            padding: 0.35rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--line);
+            border-radius: 100px;
+            flex-wrap: wrap;
+            gap: 0.2rem;
+        }
+        .ak-tab {
+            padding: 0.7rem 1.3rem;
+            border-radius: 100px;
+            font-family: var(--font-head);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 0.45rem;
+        }
+        .ak-tab i { font-size: 1rem; }
+        .ak-tab:hover { color: var(--ink); }
+        .ak-tab.active {
+            background: linear-gradient(135deg, var(--accent), var(--emerald));
+            color: #07080d;
+            box-shadow: 0 8px 22px rgba(77,238,234,0.3);
+        }
+
+        .ak-panel-wrap {
+            width: 100%;
+            position: relative;
+            max-width: 1200px;
+        }
+        .ak-panel {
+            display: none;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 3rem;
+            background: linear-gradient(180deg, rgba(15,18,32,0.95), rgba(10,11,20,0.9));
+            border: 1px solid var(--line);
+            border-radius: 22px;
+        }
+        .ak-panel.active { display: grid; animation: panelIn 0.5s var(--ease-expo); }
+        @keyframes panelIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .ak-panel-copy h3 {
+            font-family: var(--font-head);
+            font-size: clamp(1.6rem, 2.4vw, 2rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.8rem;
+        }
+        .ak-panel-copy h3 em { color: var(--accent); font-style: italic; }
+        .ak-panel-copy > p {
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.4rem;
+            font-weight: 300;
+        }
+        .ak-panel-copy ul {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 0.6rem;
+        }
+        .ak-panel-copy ul li {
+            display: flex; gap: 0.7rem;
+            align-items: flex-start;
+            font-size: 0.9rem;
+            color: var(--ink-soft);
+            line-height: 1.5;
+        }
+        .ak-panel-copy ul li i {
+            color: var(--emerald);
+            font-size: 1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .ak-panel-viz {
+            position: relative;
+            min-height: 320px;
+            padding: 1.2rem;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex; flex-direction: column; gap: 0.8rem;
+        }
+        .ak-viz-head {
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--ink-mute);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid var(--line);
+        }
+        .ak-viz-head .live {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            color: var(--emerald);
+        }
+        .ak-viz-head .live::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--emerald);
+            animation: pulseDot 1.5s ease-in-out infinite;
+        }
+
+        /* Dashboard stat cards */
+        .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+        .kpi {
+            padding: 0.9rem 0.9rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+        }
+        .kpi .l { font-family: var(--font-mono); font-size: 0.58rem; color: var(--ink-mute); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.3rem; }
+        .kpi .v { font-family: var(--font-head); font-size: 1.35rem; font-weight: 500; letter-spacing: -0.01em; }
+        .kpi .c { font-family: var(--font-mono); font-size: 0.65rem; margin-top: 0.2rem; display: inline-block; }
+        .kpi .c.pos { color: var(--emerald); }
+        .kpi .c.neg { color: var(--rose); }
+
+        /* Redaction visual (Security panel) */
+        .redact-table { width: 100%; font-family: var(--font-mono); font-size: 0.7rem; border-collapse: collapse; }
+        .redact-table th { text-align: left; padding: 0.5rem 0.6rem; color: var(--ink-mute); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.58rem; border-bottom: 1px solid var(--line); }
+        .redact-table td { padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line); }
+        .redact-table td.masked {
+            background: rgba(70,224,155,0.05);
+            color: var(--emerald);
+            font-family: var(--font-mono);
+        }
+        .redact-layers { display: flex; flex-direction: column; gap: 0.5rem; }
+        .layer-chip {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.6rem 0.8rem;
+            background: rgba(70,224,155,0.04);
+            border: 1px dashed rgba(70,224,155,0.2);
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--ink);
+        }
+        .layer-chip .ll {
+            font-size: 0.55rem;
+            color: var(--emerald);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        /* Alerts list (Watchdog) */
+        .alerts-list { display: flex; flex-direction: column; gap: 0.6rem; }
+        .alert-row {
+            display: grid;
+            grid-template-columns: 22px 1fr auto;
+            gap: 0.8rem;
+            padding: 0.7rem 0.8rem;
+            background: rgba(255,255,255,0.02);
+            border-left: 2px solid var(--accent);
+            border-radius: 6px;
+        }
+        .alert-row.pos { border-left-color: var(--emerald); }
+        .alert-row.neg { border-left-color: var(--rose); }
+        .alert-row.gd  { border-left-color: var(--accent-3); }
+        .alert-row i { color: inherit; font-size: 1rem; }
+        .alert-row.pos i { color: var(--emerald); }
+        .alert-row.neg i { color: var(--rose); }
+        .alert-row.gd  i { color: var(--accent-3); }
+        .alert-row .msg { font-size: 0.78rem; color: var(--ink); line-height: 1.4; }
+        .alert-row .meta { font-family: var(--font-mono); font-size: 0.58rem; color: var(--ink-mute); letter-spacing: 0.12em; align-self: center; white-space: nowrap; }
+
+        /* Export visual */
+        .export-files { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+        .export-file {
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .export-file .ef-ico {
+            width: 42px; height: 42px;
+            display: inline-grid; place-items: center;
+            margin-bottom: 0.6rem;
+            border-radius: 10px;
+            background: rgba(77,238,234,0.08);
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+        .export-file .ef-ico.gd { background: rgba(255,179,71,0.08); color: var(--accent-3); }
+        .export-file .ef-name { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink); margin-bottom: 0.2rem; }
+        .export-file .ef-sub { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--emerald); }
+        .export-note {
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--emerald);
+            padding: 0.6rem;
+            border: 1px dashed rgba(70,224,155,0.25);
+            border-radius: 8px;
+            background: rgba(70,224,155,0.05);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           HOW IT WORKS · 3 STEPS
+           ═══════════════════════════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            counter-reset: step;
+        }
+        .step-card {
+            position: relative;
+            padding: 2.2rem 1.8rem;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)),
+                rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .step-card::before {
+            counter-increment: step;
+            content: "0" counter(step);
+            position: absolute;
+            top: 1rem; right: 1.2rem;
+            font-family: var(--font-head);
+            font-size: 4rem;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(77,238,234,0.25);
+            z-index: -1;
+            line-height: 1;
+        }
+        .step-card .s-ico {
+            width: 52px; height: 52px;
+            display: grid; place-items: center;
+            background: rgba(77,238,234,0.08);
+            border: 1px solid rgba(77,238,234,0.2);
+            border-radius: 13px;
+            color: var(--accent);
+            font-size: 1.55rem;
+            margin-bottom: 1.2rem;
+        }
+        .step-card h4 {
+            font-family: var(--font-head);
+            font-size: 1.2rem; font-weight: 500;
+            margin-bottom: 0.6rem;
+        }
+        .step-card p { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.6; font-weight: 300; }
+        .step-card .s-snip {
+            margin-top: 1rem;
+            padding: 0.6rem 0.75rem;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--accent);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CAPABILITIES GRID
+           ═══════════════════════════════════════════════════════════ */
+        .cap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.3rem;
+        }
+        .cap-card {
+            position: relative;
+            padding: 1.8rem 1.6rem;
+            background: rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            transition: transform 0.4s var(--ease-expo), border-color 0.4s, box-shadow 0.4s;
+            isolation: isolate;
+            overflow: hidden;
+        }
+        .cap-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(77,238,234,0.15), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: -1;
+        }
+        .cap-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(77,238,234,0.3);
+            box-shadow: 0 18px 42px rgba(0,0,0,0.4), 0 0 40px rgba(77,238,234,0.1);
+        }
+        .cap-card:hover::before { opacity: 1; }
+        .cap-card .cap-ico {
+            width: 48px; height: 48px;
+            display: grid; place-items: center;
+            border-radius: 12px;
+            background: rgba(77,238,234,0.08);
+            color: var(--accent);
+            font-size: 1.45rem;
+            margin-bottom: 1.1rem;
+        }
+        .cap-card:nth-child(2) .cap-ico { background: rgba(139,142,252,0.08); color: var(--accent-2); }
+        .cap-card:nth-child(3) .cap-ico { background: rgba(70,224,155,0.08); color: var(--emerald); }
+        .cap-card:nth-child(4) .cap-ico { background: rgba(255,179,71,0.08); color: var(--accent-3); }
+        .cap-card:nth-child(5) .cap-ico { background: rgba(255,110,199,0.08); color: var(--rose); }
+        .cap-card h4 {
+            font-family: var(--font-head);
+            font-size: 1.15rem; font-weight: 500;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.55rem;
+        }
+        .cap-card p {
+            color: var(--ink-soft);
+            font-size: 0.88rem;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        .cap-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        .cap-tag {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-mute);
+            padding: 0.2rem 0.55rem;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           BEFORE / AFTER COMPARISON
+           ═══════════════════════════════════════════════════════════ */
+        .compare-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .compare-col {
+            padding: 2rem 1.8rem;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+        }
+        .compare-col.without {
+            background: rgba(255,110,199,0.03);
+            border-color: rgba(255,110,199,0.15);
+        }
+        .compare-col.with {
+            background: rgba(70,224,155,0.04);
+            border-color: rgba(70,224,155,0.22);
+        }
+        .compare-head {
+            display: flex; align-items: center; gap: 0.7rem;
+            padding-bottom: 1.3rem;
+            border-bottom: 1px dashed var(--line);
+            margin-bottom: 1.3rem;
+        }
+        .compare-head .h-ico {
+            width: 40px; height: 40px;
+            display: grid; place-items: center;
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+        .compare-col.without .h-ico { background: rgba(255,110,199,0.1); color: var(--rose); }
+        .compare-col.with .h-ico { background: rgba(70,224,155,0.1); color: var(--emerald); }
+        .compare-head h4 {
+            font-family: var(--font-head);
+            font-size: 1.2rem; font-weight: 500;
+        }
+        .compare-head .hk {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+        .compare-col.without .hk { color: var(--rose); }
+        .compare-col.with .hk { color: var(--emerald); }
+        .compare-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+        .compare-list li {
+            display: flex; gap: 0.6rem;
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+            line-height: 1.5;
+        }
+        .compare-list li i {
+            margin-top: 2px;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+        .compare-col.without li i { color: var(--rose); }
+        .compare-col.with li i { color: var(--emerald); }
+
+        /* ═══════════════════════════════════════════════════════════
+           INTEGRATIONS
+           ═══════════════════════════════════════════════════════════ */
+        .int-scroll {
+            position: relative;
+            overflow: hidden;
+            margin: 2rem -1.5rem 0;
+            padding: 0 1.5rem;
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        }
+        .int-track {
+            display: flex;
+            gap: 0.8rem;
+            animation: intScroll 40s linear infinite;
+            width: max-content;
+        }
+        .int-chip {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.7rem 1.2rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--line);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--ink);
+            white-space: nowrap;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .int-chip:hover { border-color: var(--accent); background: rgba(77,238,234,0.05); }
+        .int-chip i { color: var(--accent); font-size: 1rem; }
+        .int-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 8px var(--emerald); margin-right: 0.2rem; }
+        @keyframes intScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           USE CASES GRID
+           ═══════════════════════════════════════════════════════════ */
+        .uc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.3rem;
+        }
+        .uc-card {
+            padding: 1.7rem 1.5rem;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            transition: border-color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .uc-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(77,238,234,0.25);
+        }
+        .uc-card .uc-ico {
+            width: 46px; height: 46px;
+            display: grid; place-items: center;
+            border-radius: 12px;
+            background: rgba(77,238,234,0.08);
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        .uc-card h4 {
+            font-family: var(--font-head);
+            font-size: 1.1rem; font-weight: 500;
+            margin-bottom: 0.45rem;
+        }
+        .uc-card p { color: var(--ink-soft); font-size: 0.85rem; line-height: 1.55; font-weight: 300; }
+        .uc-card .uc-tag {
+            display: inline-block;
+            margin-top: 0.9rem;
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--emerald);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           BUSINESS IMPACT · STATS
+           ═══════════════════════════════════════════════════════════ */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.3rem;
+        }
+        .impact-cell {
+            padding: 2rem 1.5rem;
+            background: rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        .impact-cell:hover { border-color: rgba(77,238,234,0.28); }
+        .impact-val {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 3.4vw, 2.8rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--accent), var(--emerald));
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+        .impact-sym { color: var(--emerald); -webkit-background-clip: unset; background-clip: unset; -webkit-text-fill-color: initial; }
+        .impact-lbl {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--ink-mute);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 0.4rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           PRICING
+           ═══════════════════════════════════════════════════════════ */
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .price-card {
+            position: relative;
+            padding: 2.4rem 2rem;
+            background: rgba(10,11,20,0.6);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            transition: transform 0.4s var(--ease-expo), border-color 0.4s, box-shadow 0.4s;
+        }
+        .price-card.featured {
+            background:
+                radial-gradient(400px circle at 100% 0%, rgba(70,224,155,0.08), transparent 55%),
+                rgba(10,11,20,0.6);
+            border-color: rgba(70,224,155,0.28);
+        }
+        .price-card:hover { transform: translateY(-3px); border-color: rgba(77,238,234,0.35); }
+        .price-card .p-tag {
+            position: absolute; top: -12px; right: 1.4rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            background: linear-gradient(135deg, var(--accent), var(--emerald));
+            color: #07080d;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .price-card h3 {
+            font-family: var(--font-head);
+            font-size: 1.4rem; font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+        .price-card .p-desc { color: var(--ink-soft); font-size: 0.9rem; font-weight: 300; margin-bottom: 1.5rem; }
+        .price-card .p-price {
+            font-family: var(--font-head);
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.4rem;
+        }
+        .price-card .p-price small {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--ink-mute);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-left: 0.3rem;
+        }
+        .price-card .p-sub {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--emerald);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 1.8rem;
+        }
+        .price-card ul {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 0.7rem;
+            margin-bottom: 2rem;
+        }
+        .price-card ul li {
+            display: flex; gap: 0.6rem;
+            align-items: flex-start;
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+            line-height: 1.5;
+        }
+        .price-card ul li i { color: var(--emerald); font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+
+        /* ═══════════════════════════════════════════════════════════
+           CTA
+           ═══════════════════════════════════════════════════════════ */
+        .ak-cta {
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .ak-cta::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(600px circle at 50% 50%, rgba(77,238,234,0.1), transparent 60%),
+                radial-gradient(400px circle at 30% 80%, rgba(70,224,155,0.08), transparent 55%);
+            pointer-events: none;
+        }
+        .ak-cta h2 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+        }
+        .ak-cta h2 em { color: var(--accent); font-style: italic; }
+        .ak-cta p {
+            color: var(--ink-soft);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.65;
+            font-weight: 300;
+        }
+
+        /* ─── Footer ─── */
+        footer.ak-foot {
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--ink-mute);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            letter-spacing: 0.12em;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        footer.ak-foot a:hover { color: var(--accent); }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 980px) {
+            .ak-hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 7rem 1.2rem 3rem; min-height: auto; }
+            .ak-panel { grid-template-columns: 1fr; padding: 2rem 1.4rem; gap: 1.8rem; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .compare-wrap { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+            .section { padding: 4.5rem 1.2rem; }
+            .ak-h1 { font-size: clamp(2rem, 9vw, 3rem); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001s !important;
+            }
+        }
+    
+        /* ── Mobile Accordion Menu ── */
+        .mobile-toggle { display: none; color: #fff; font-size: 1.6rem; z-index: 10001; padding: 0.6rem; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 9550; display: flex; flex-direction: column; align-items: stretch; padding: 90px 0 2rem; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open { opacity: 1; pointer-events: all; }
+        .mobile-overlay > a { font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.3s, background 0.3s; text-decoration: none; }
+        .mobile-overlay > a:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1rem 2rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; transition: color 0.3s, background 0.3s; }
+        .mob-accordion-toggle:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion-toggle i { font-size: 0.7rem; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); color: #4DEEEA; opacity: 0.6; }
+        .mob-accordion.open .mob-accordion-toggle i { transform: rotate(180deg); }
+        .mob-accordion.open .mob-accordion-toggle { color: #4DEEEA; }
+        .mob-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); background: rgba(255,255,255,0.015); }
+        .mob-accordion.open .mob-accordion-body { max-height: 800px; }
+        .mob-accordion-body a { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 2rem 0.7rem 3rem; font-family: var(--font-display); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, background 0.25s, padding-left 0.25s; border-bottom: 1px solid rgba(255,255,255,0.03); text-decoration: none; }
+        .mob-accordion-body a:last-child { border-bottom: none; }
+        .mob-accordion-body a i { font-size: 1rem; opacity: 0.5; flex-shrink: 0; }
+        .mob-accordion-body a:hover { color: #4DEEEA; background: rgba(77,238,234,0.05); padding-left: 3.4rem; }
+        .mob-accordion-body a:hover i { opacity: 1; color: #4DEEEA; }
+        .mobile-overlay > a, .mobile-overlay > .mob-accordion { transform: translateX(-20px); opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open > a, .mobile-overlay.open > .mob-accordion { transform: translateX(0); opacity: 1; }
+        .mobile-overlay.open > :nth-child(1) { transition-delay: 0.05s; }
+        .mobile-overlay.open > :nth-child(2) { transition-delay: 0.1s; }
+        .mobile-overlay.open > :nth-child(3) { transition-delay: 0.15s; }
+        .mobile-overlay.open > :nth-child(4) { transition-delay: 0.2s; }
+        .mobile-overlay.open > :nth-child(5) { transition-delay: 0.25s; }
+        .mobile-overlay.open > :nth-child(6) { transition-delay: 0.3s; }
+        .mobile-overlay.open > :nth-child(7) { transition-delay: 0.35s; }
+        @media (max-width: 768px) { 
+            .mobile-toggle { display: block !important; visibility: visible !important; opacity: 1 !important; } 
+        }
+
+    
+        /* ── Mobile overflow fix ── */
+        html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
+        nav { max-width: 100vw !important; overflow: visible !important; width: 100% !important; }
+        * { max-width: 100vw; }
+
+    </style>
+    <meta property="og:title" content="AIKAGE — Talk to Your Database | Pure AI">
+    <meta property="og:description" content="AIKAGE is an enterprise AI platform that turns natural-language questions into instant insights, charts, and alerts — with built-in data protection and workflow automation.">
+    <meta property="og:image" content="./pure-logo-v4.png">
+</head>
+<body>
+
+    <!-- ═══════════ NAV ═══════════ -->
+    <nav>
+        <a href="./" class="logo"><img src="./pure-logo-v4.png" alt="Pure AI"></a>
+        <div class="nav-links">
+            <a href="./platform">Platform</a>
+            <div class="nav-dropdown">
+                <a href="./#products">Product <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./robots-search"><i class="ph ph-robot"></i> Robots</a>
+                    <a href="./custom-bots"><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                    <a href="./nano-bots"><i class="ph ph-atom"></i> Nano Bots</a>
+                    <a href="./trading-desk"><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                    <a href="./naolytics"><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                    <a href="./aikage" class="active"><i class="ph ph-shield-check"></i> AIKAGE</a>
+                    <a href="#"><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                    <a href="#"><i class="ph ph-paperclip"></i> CLIP</a>
+                    <a href="#"><i class="ph ph-trend-up"></i> Market Genius</a>
+                    <a href="#"><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="./services">Services <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./custom-robotics"><i class="ph ph-robot"></i> Custom Robotics</a>
+                    <a href="./ai-datacenter"><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                    <a href="./ai-setup"><i class="ph ph-gear-six"></i> AI Set Up</a>
+                    <a href="./ibm-linux"><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                    <a href="./ai-boxes"><i class="ph ph-cube"></i> AI Boxes</a>
+                    <a href="./dark-factories"><i class="ph ph-factory"></i> Dark Factories</a>
+                    <a href="./llm-training"><i class="ph ph-brain"></i> LLM Training</a>
+                    <a href="./enterprise-openclaw"><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                    <a href="./bot-management"><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="./#solutions">Solutions <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./sol-banking"><i class="ph ph-bank"></i> PureAi - Banking &amp; Finance</a>
+                    <a href="./sol-healthcare"><i class="ph ph-heartbeat"></i> PureAi - Healthcare</a>
+                    <a href="./sol-logistics"><i class="ph ph-truck"></i> PureAi - Logistics</a>
+                    <a href="./sol-manufacturing"><i class="ph ph-gear-six"></i> PureAi - Manufacturing</a>
+                    <a href="./sol-agriculture"><i class="ph ph-plant"></i> PureAi - Agriculture</a>
+                    <a href="./sol-aviation"><i class="ph ph-airplane"></i> PureAi - Airlines</a>
+                    <a href="./sol-education"><i class="ph ph-graduation-cap"></i> PureAi - Education</a>
+                    <a href="./sol-retail"><i class="ph ph-storefront"></i> PureAi - Retail</a>
+                    <a href="./sol-enterprise"><i class="ph ph-buildings"></i> PureAi - Enterprise</a>
+                    <a href="./sol-infrastructure"><i class="ph ph-lightning"></i> PureAi - Infrastructure</a>
+                </div>
+            </div>
+            <a href="./innovation">Innovation</a>
+            <div class="nav-dropdown">
+                <a href="#">Open Innovation <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./bohrai"><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+                </div>
+            </div>
+            <a href="./#contact-details" class="cta">Contact</a>
+        </div>
+    
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <a href="./" data-mobile-link>Home</a>
+        <a href="./platform" data-mobile-link>Platform</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Products <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./robots-search" data-mobile-link><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots" data-mobile-link><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots" data-mobile-link><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk" data-mobile-link><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics" data-mobile-link><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage" data-mobile-link><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#" data-mobile-link><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#" data-mobile-link><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#" data-mobile-link><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#" data-mobile-link><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Services <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./custom-robotics" data-mobile-link><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter" data-mobile-link><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup" data-mobile-link><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux" data-mobile-link><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes" data-mobile-link><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories" data-mobile-link><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training" data-mobile-link><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw" data-mobile-link><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management" data-mobile-link><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Solutions <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./sol-banking" data-mobile-link><i class="ph ph-bank"></i> Banking &amp; Finance</a>
+                <a href="./sol-healthcare" data-mobile-link><i class="ph ph-heartbeat"></i> Healthcare</a>
+                <a href="./sol-logistics" data-mobile-link><i class="ph ph-truck"></i> Logistics</a>
+                <a href="./sol-manufacturing" data-mobile-link><i class="ph ph-gear-six"></i> Manufacturing</a>
+                <a href="./sol-agriculture" data-mobile-link><i class="ph ph-plant"></i> Agriculture</a>
+                <a href="./sol-aviation" data-mobile-link><i class="ph ph-airplane"></i> Airlines</a>
+                <a href="./sol-education" data-mobile-link><i class="ph ph-graduation-cap"></i> Education</a>
+                <a href="./sol-retail" data-mobile-link><i class="ph ph-storefront"></i> Retail</a>
+                <a href="./sol-enterprise" data-mobile-link><i class="ph ph-buildings"></i> Enterprise</a>
+                <a href="./sol-infrastructure" data-mobile-link><i class="ph ph-lightning"></i> Infrastructure</a>
+            </div>
+        </div>
+
+        <a href="./innovation" data-mobile-link>Innovation</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Open Innovation <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./bohrai" data-mobile-link><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" data-mobile-link>Contact</a>
+    </div>
+
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="ak-hero">
+        <div class="ak-hero-copy">
+            <div class="ak-brand-chip fade-up">
+                <span class="dot"></span>
+                AIKAGE · Enterprise AI Platform
+            </div>
+            <h1 class="ak-h1 fade-up" data-d="1">
+                <span class="hl">Talk to your database.</span><br>
+                <em>Know every metric.</em>
+            </h1>
+            <p class="ak-lede fade-up" data-d="2">
+                AIKAGE is the centralized AI intelligence layer for the enterprise — ask in plain English, get answers in seconds, and turn every insight into a tracked metric that monitors itself. <strong>Stop waiting on analysts. Replace the Tableau licence. Never miss a number again.</strong>
+            </p>
+            <div class="ak-hero-actions fade-up" data-d="3">
+                <a href="https://aikage.naolytics.com/" target="_blank" rel="noopener" class="btn-primary">
+                    <i class="ph ph-play-circle"></i> Try Live Demo
+                </a>
+                <a href="#how-it-works" class="btn-ghost">
+                    <i class="ph ph-arrow-down"></i> See How It Works
+                </a>
+            </div>
+            <div class="ak-hero-stats fade-up" data-d="4">
+                <div>
+                    <div class="ak-hero-stat-val">&lt; 0.5 s</div>
+                    <div class="ak-hero-stat-lbl">Query to Answer</div>
+                </div>
+                <div>
+                    <div class="ak-hero-stat-val">13+</div>
+                    <div class="ak-hero-stat-lbl">Databases</div>
+                </div>
+                <div>
+                    <div class="ak-hero-stat-val">3-Layer</div>
+                    <div class="ak-hero-stat-lbl">Auto-Redaction</div>
+                </div>
+                <div>
+                    <div class="ak-hero-stat-val">SOC 2</div>
+                    <div class="ak-hero-stat-lbl">Compliant</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LIVE DEMO MOCKUP -->
+        <div class="ak-demo fade-up" data-d="2">
+            <div class="ak-demo-head">
+                <div class="ak-demo-dots"><span></span><span></span><span></span></div>
+                <div class="ak-demo-path">aikage / buzzview</div>
+                <span class="ak-demo-tag">● Live</span>
+            </div>
+            <div class="ak-demo-body">
+                <div class="ak-question-bar">
+                    <span class="ak-q-icon"><i class="ph ph-sparkle"></i></span>
+                    <div class="ak-q-text" id="akQText"></div>
+                </div>
+                <table class="ak-tbl">
+                    <thead><tr><th>Region</th><th>Revenue</th><th>Growth</th><th>Orders</th></tr></thead>
+                    <tbody>
+                        <tr class="demo-row"><td>North America</td><td class="num">$4.2M</td><td class="pos">+18.3%</td><td class="num">12,480</td></tr>
+                        <tr class="demo-row"><td>Europe</td><td class="num">$2.8M</td><td class="pos">+12.1%</td><td class="num">8,340</td></tr>
+                        <tr class="demo-row"><td>Asia Pacific</td><td class="num">$1.9M</td><td class="pos">+24.7%</td><td class="num">6,120</td></tr>
+                        <tr class="demo-row"><td>Latin America</td><td class="num">$680K</td><td class="neg">-3.2%</td><td class="num">2,100</td></tr>
+                    </tbody>
+                </table>
+                <svg class="ak-spark" viewBox="0 0 400 44" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="akSparkFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#4DEEEA" stop-opacity="0.4"/>
+                            <stop offset="100%" stop-color="#4DEEEA" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                    <path class="area" d="M0,38 L40,26 L80,32 L120,20 L160,24 L200,16 L240,12 L280,18 L320,8 L360,10 L400,4 L400,44 L0,44 Z"/>
+                    <path class="line" d="M0,38 L40,26 L80,32 L120,20 L160,24 L200,16 L240,12 L280,18 L320,8 L360,10 L400,4"/>
+                </svg>
+                <div class="ak-demo-foot">
+                    <span class="chip"><i class="ph ph-timer"></i> 0.3s</span>
+                    <span class="chip">4 rows</span>
+                    <span class="chip em"><i class="ph ph-sparkle"></i> AI insight ready</span>
+                    <span class="chip gd"><i class="ph ph-chart-bar"></i> Chart ready</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ VALUE PROP STRIP ═══════════ -->
+    <section class="ak-value">
+        <div class="ak-value-title fade-up">
+            A centralized AI intelligence layer that turns fragmented enterprise data into <em>actionable insight.</em>
+        </div>
+        <div class="ak-value-grid">
+            <div class="ak-value-cell fade-up">
+                <i class="ph-duotone ph-chat-centered-text"></i>
+                <div class="t">Natural language</div>
+                <div class="d">Ask the way you'd ask a colleague.</div>
+            </div>
+            <div class="ak-value-cell fade-up" data-d="1">
+                <i class="ph-duotone ph-lightning"></i>
+                <div class="t">Instant answers</div>
+                <div class="d">Tables, charts &amp; insight in seconds.</div>
+            </div>
+            <div class="ak-value-cell fade-up" data-d="2">
+                <i class="ph-duotone ph-shield-check"></i>
+                <div class="t">Auto-redacted</div>
+                <div class="d">PII masked before anyone sees it.</div>
+            </div>
+            <div class="ak-value-cell fade-up" data-d="3">
+                <i class="ph-duotone ph-bell-ringing"></i>
+                <div class="t">Never miss a number</div>
+                <div class="d">Watchdog pushes alerts to Slack.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ MODULES ═══════════ -->
+    <section class="section tinted" id="modules">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Product</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Every module. <em>One question box.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">Click through the five layers that replace your BI stack — from natural-language queries all the way to compliance-grade audit logs.</p>
+            </div>
+
+            <div class="ak-modules-wrap">
+                <div class="ak-tabs fade-up" data-d="1" role="tablist">
+                    <button class="ak-tab active" data-tab="buzz"><i class="ph ph-sparkle"></i>BuzzView</button>
+                    <button class="ak-tab" data-tab="hive"><i class="ph ph-squares-four"></i>Hive++</button>
+                    <button class="ak-tab" data-tab="watch"><i class="ph ph-bell"></i>Watchdog</button>
+                    <button class="ak-tab" data-tab="sec"><i class="ph ph-shield-check"></i>Security</button>
+                    <button class="ak-tab" data-tab="exp"><i class="ph ph-export"></i>Exports</button>
+                </div>
+
+                <div class="ak-panel-wrap fade-up" data-d="2">
+
+                    <!-- BUZZVIEW -->
+                    <div class="ak-panel active" data-panel="buzz">
+                        <div class="ak-panel-copy">
+                            <h3>Ask anything. Get the <em>answer + chart.</em></h3>
+                            <p>Type the question the way you'd ask a colleague. BuzzView parses intent, queries your database safely, and returns a clean table, a chart, and a one-line summary that explains what the numbers mean.</p>
+                            <ul>
+                                <li><i class="ph ph-check-circle"></i> Plain-English queries across structured &amp; unstructured data</li>
+                                <li><i class="ph ph-check-circle"></i> Auto-generated charts, trends and plain-English insights</li>
+                                <li><i class="ph ph-check-circle"></i> Sub-second response on millions of rows</li>
+                                <li><i class="ph ph-check-circle"></i> Works with Postgres, MySQL, Mongo, Snowflake, BigQuery…</li>
+                            </ul>
+                        </div>
+                        <div class="ak-panel-viz">
+                            <div class="ak-viz-head">
+                                <span>BuzzView · Query</span>
+                                <span class="live">Live</span>
+                            </div>
+                            <div class="ak-question-bar">
+                                <span class="ak-q-icon"><i class="ph ph-sparkle"></i></span>
+                                <span style="font-family:var(--font-mono);font-size:0.78rem;">Show me active users with total spend · last 2 months</span>
+                            </div>
+                            <table class="ak-tbl">
+                                <thead><tr><th>Name</th><th>Spend</th><th>Orders</th><th>Status</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Sarah Chen</td><td class="num">$45,200</td><td class="num">18</td><td class="pos">● Active</td></tr>
+                                    <tr><td>James Rivera</td><td class="num">$38,900</td><td class="num">14</td><td class="pos">● Active</td></tr>
+                                    <tr><td>Maya Patel</td><td class="num">$31,450</td><td class="num">22</td><td class="pos">● Active</td></tr>
+                                    <tr><td>David Kim</td><td class="num">$27,800</td><td class="num">9</td><td class="neg">● At Risk</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="ak-demo-foot" style="border-top:1px dashed var(--line);padding-top:0.7rem;margin-top:0.2rem;">
+                                <span class="chip"><i class="ph ph-timer"></i> 0.4s</span>
+                                <span class="chip em"><i class="ph ph-shield-check"></i> 4 fields redacted</span>
+                                <span class="chip gd"><i class="ph ph-chart-bar"></i> Chart ready</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HIVE++ -->
+                    <div class="ak-panel" data-panel="hive">
+                        <div class="ak-panel-copy">
+                            <h3>Your live dashboard — <em>without the BI bill.</em></h3>
+                            <p>Save any BuzzView answer as a tile on your Hive dashboard. It refreshes on schedule, forecasts trends with AI, and flags anomalies automatically. Replaces Tableau / Looker / Power BI for a fraction of the cost.</p>
+                            <ul>
+                                <li><i class="ph ph-check-circle"></i> Drag-and-drop tiles powered by natural language</li>
+                                <li><i class="ph ph-check-circle"></i> AI-driven forecasts &amp; anomaly detection</li>
+                                <li><i class="ph ph-check-circle"></i> Schedule refresh · pin for the whole team</li>
+                                <li><i class="ph ph-check-circle"></i> One-click drill-down back into BuzzView</li>
+                            </ul>
+                        </div>
+                        <div class="ak-panel-viz">
+                            <div class="ak-viz-head">
+                                <span>Hive Dashboard · Production</span>
+                                <span class="live">Live</span>
+                            </div>
+                            <div class="kpi-grid">
+                                <div class="kpi"><div class="l">Monthly Active Users</div><div class="v">12,847</div><div class="c pos">▲ +12.3%</div></div>
+                                <div class="kpi"><div class="l">Revenue · Quarter</div><div class="v">$2.4M</div><div class="c pos">▲ +8.7%</div></div>
+                                <div class="kpi"><div class="l">Avg Response</div><div class="v">240ms</div><div class="c pos">▼ -18% improved</div></div>
+                                <div class="kpi"><div class="l">Churn Risk · AI</div><div class="v">4.2%</div><div class="c pos">▼ -1.1%</div></div>
+                            </div>
+                            <div class="export-note" style="margin-top:0.3rem;">
+                                Hive++ forecast · next-quarter projection ready
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WATCHDOG -->
+                    <div class="ak-panel" data-panel="watch">
+                        <div class="ak-panel-copy">
+                            <h3>The watchdog that <em>never sleeps.</em></h3>
+                            <p>Save any insight as a Buzz and Watchdog monitors it 24/7. When a metric crosses your threshold it pushes to Slack, Teams, or email — so you know before the meeting starts, not after.</p>
+                            <ul>
+                                <li><i class="ph ph-check-circle"></i> Slack · Teams · Email alerts out of the box</li>
+                                <li><i class="ph ph-check-circle"></i> Threshold, trend and anomaly triggers</li>
+                                <li><i class="ph ph-check-circle"></i> Quiet hours &amp; routing by channel / person</li>
+                                <li><i class="ph ph-check-circle"></i> Every alert includes context + one-click query</li>
+                            </ul>
+                        </div>
+                        <div class="ak-panel-viz">
+                            <div class="ak-viz-head">
+                                <span>Watchdog Alerts</span>
+                                <span class="live">Monitoring</span>
+                            </div>
+                            <div class="alerts-list">
+                                <div class="alert-row neg"><i class="ph ph-trend-down"></i><div class="msg"><strong>Churn risk jumped to 6.1%</strong> — up from 4.2% last week</div><span class="meta">2m · #ops</span></div>
+                                <div class="alert-row pos"><i class="ph ph-trophy"></i><div class="msg"><strong>Revenue hit $2.6M</strong> — Q1 target reached 3 weeks early</div><span class="meta">18m · Teams</span></div>
+                                <div class="alert-row neg"><i class="ph ph-user-minus"></i><div class="msg"><strong>New signups dropped 22%</strong> — Tue vs last Tue</div><span class="meta">1h · Email</span></div>
+                                <div class="alert-row gd"><i class="ph ph-rocket-launch"></i><div class="msg"><strong>APAC orders up 31%</strong> — highest-growth region this month</div><span class="meta">3h · #lead</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECURITY -->
+                    <div class="ak-panel" data-panel="sec">
+                        <div class="ak-panel-copy">
+                            <h3>3-layer redaction, <em>before it leaves the database.</em></h3>
+                            <p>Every team can ask questions freely. Sensitive fields — emails, phones, IDs, custom patterns — are masked automatically before the answer ever reaches a user. Role-based access, approval workflows and full audit trails come standard.</p>
+                            <ul>
+                                <li><i class="ph ph-check-circle"></i> Column restrictions by role (Admin / Analyst / Viewer)</li>
+                                <li><i class="ph ph-check-circle"></i> Regex pattern masking for emails, phones, SSN</li>
+                                <li><i class="ph ph-check-circle"></i> AI PII auto-detect catches anything else</li>
+                                <li><i class="ph ph-check-circle"></i> Immutable audit log · SOC 2 export ready</li>
+                            </ul>
+                        </div>
+                        <div class="ak-panel-viz">
+                            <div class="ak-viz-head">
+                                <span>Security · Redaction Layers</span>
+                                <span class="live">Active</span>
+                            </div>
+                            <div class="redact-layers">
+                                <div class="layer-chip"><div><div class="ll">Layer 1 · Column Restrictions</div>Hide entire columns from specific roles</div><i class="ph ph-lock-key" style="color:var(--emerald);"></i></div>
+                                <div class="layer-chip"><div><div class="ll">Layer 2 · Pattern Masking</div>Regex rules for emails, phones, custom patterns</div><i class="ph ph-eye-slash" style="color:var(--emerald);"></i></div>
+                                <div class="layer-chip"><div><div class="ll">Layer 3 · PII Auto-Detect</div>AI scanner catches anything layers 1 &amp; 2 miss</div><i class="ph ph-robot" style="color:var(--emerald);"></i></div>
+                            </div>
+                            <table class="redact-table" style="margin-top:0.3rem;">
+                                <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>SSN</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Sarah Chen</td><td class="masked">sa***@***.com</td><td class="masked">+1 ***-***-4521</td><td class="masked">***-**-7890</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- EXPORTS -->
+                    <div class="ak-panel" data-panel="exp">
+                        <div class="ak-panel-copy">
+                            <h3>Share the numbers. <em>Not the personal data.</em></h3>
+                            <p>Download any answer as Excel, CSV or PDF. Sensitive fields are already stripped out by the redaction layer — so the file you hand to the board or attach to an email is clean by default.</p>
+                            <ul>
+                                <li><i class="ph ph-check-circle"></i> Excel · CSV · PDF with a single click</li>
+                                <li><i class="ph ph-check-circle"></i> Redaction is enforced at export time, not client-side</li>
+                                <li><i class="ph ph-check-circle"></i> Every export is logged in the audit trail</li>
+                                <li><i class="ph ph-check-circle"></i> Optional watermarking for sensitive exports</li>
+                            </ul>
+                        </div>
+                        <div class="ak-panel-viz">
+                            <div class="ak-viz-head">
+                                <span>Safe Exports</span>
+                                <span class="live">Redacted</span>
+                            </div>
+                            <div class="export-files">
+                                <div class="export-file"><div class="ef-ico"><i class="ph ph-file-pdf"></i></div><div class="ef-name">orders_march.pdf</div><div class="ef-sub">PII Removed</div></div>
+                                <div class="export-file"><div class="ef-ico gd"><i class="ph ph-file-xls"></i></div><div class="ef-name">orders_march.xlsx</div><div class="ef-sub">PII Removed</div></div>
+                            </div>
+                            <div class="export-note">Redacted export — 9 fields masked · safe to share externally</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ HOW IT WORKS · 3 STEPS ═══════════ -->
+    <section class="section" id="how-it-works">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">How It Works</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Three steps. <em>That's all your team needs.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">From question to tracked metric — no technical skills required.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card fade-up">
+                    <div class="s-ico"><i class="ph-duotone ph-chat-centered-text"></i></div>
+                    <h4>Ask a question</h4>
+                    <p>Type it the way you'd ask a colleague. "What's our revenue this quarter?" or "Which region is growing fastest?" — plain English, nothing else.</p>
+                    <div class="s-snip">» what was revenue by region last 90 days?</div>
+                </div>
+                <div class="step-card fade-up" data-d="1">
+                    <div class="s-ico"><i class="ph-duotone ph-chart-bar"></i></div>
+                    <h4>Get the answer &amp; chart</h4>
+                    <p>Results appear as a table with charts, trends and a one-line summary that explains what the numbers mean. Sensitive fields are already masked.</p>
+                    <div class="s-snip">→ 4 regions · 0.3s · AI summary · chart ready</div>
+                </div>
+                <div class="step-card fade-up" data-d="2">
+                    <div class="s-ico"><i class="ph-duotone ph-bell-ringing"></i></div>
+                    <h4>Save it. Track it. Get alerted.</h4>
+                    <p>Turn any answer into a tracked Buzz. Watchdog monitors changes, predicts trends and pushes alerts to Slack, Teams, or email — 24/7.</p>
+                    <div class="s-snip">✓ buzz saved · alerting @ops · every 1h</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ KEY CAPABILITIES ═══════════ -->
+    <section class="section tinted">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Capabilities</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Built for <em>enterprise intelligence.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">Five pillars that take AIKAGE from "a nice chat box" to the central nervous system of your data operation.</p>
+            </div>
+            <div class="cap-grid">
+                <div class="cap-card fade-up">
+                    <div class="cap-ico"><i class="ph-duotone ph-brain"></i></div>
+                    <h4>AI-Powered Analytics</h4>
+                    <p>Interact with your data through natural language — no SQL, no dashboards, no training. Process structured and unstructured sources for real-time insight.</p>
+                    <div class="cap-tags"><span class="cap-tag">NL → SQL</span><span class="cap-tag">Sub-sec</span><span class="cap-tag">Cited</span></div>
+                </div>
+                <div class="cap-card fade-up" data-d="1">
+                    <div class="cap-ico"><i class="ph-duotone ph-cube-transparent"></i></div>
+                    <h4>Multi-Modal Intelligence</h4>
+                    <p>Text, documents, structured datasets and operational streams analysed in a single interface for a holistic view of business performance.</p>
+                    <div class="cap-tags"><span class="cap-tag">Text</span><span class="cap-tag">Docs</span><span class="cap-tag">Streams</span></div>
+                </div>
+                <div class="cap-card fade-up" data-d="2">
+                    <div class="cap-ico"><i class="ph-duotone ph-flow-arrow"></i></div>
+                    <h4>Workflow Automation</h4>
+                    <p>Automate repetitive analysis, reporting, and operational decisions. Let humans focus on strategy while AIKAGE handles the repetitive reporting loop.</p>
+                    <div class="cap-tags"><span class="cap-tag">Reports</span><span class="cap-tag">Alerts</span><span class="cap-tag">Triggers</span></div>
+                </div>
+                <div class="cap-card fade-up" data-d="3">
+                    <div class="cap-ico"><i class="ph-duotone ph-chart-line-down"></i></div>
+                    <h4>Cost Optimization</h4>
+                    <p>Identify cost-saving opportunities, optimize workflows, and surface wasted resources — driven by AI optimization running continuously in the background.</p>
+                    <div class="cap-tags"><span class="cap-tag">Finops</span><span class="cap-tag">Waste</span><span class="cap-tag">Forecast</span></div>
+                </div>
+                <div class="cap-card fade-up" data-d="4">
+                    <div class="cap-ico"><i class="ph-duotone ph-plugs-connected"></i></div>
+                    <h4>Enterprise Integration</h4>
+                    <p>Plugs into existing systems in minutes — unified data access, cross-functional insight, and scalable deployment across every department.</p>
+                    <div class="cap-tags"><span class="cap-tag">SSO/SAML</span><span class="cap-tag">REST</span><span class="cap-tag">On-prem</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ BEFORE / AFTER ═══════════ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Before &amp; After</div>
+                <h2 class="sec-h2 fade-up" data-d="1">What changes when you <em>switch to AIKAGE.</em></h2>
+            </div>
+            <div class="compare-wrap">
+                <div class="compare-col without fade-up">
+                    <div class="compare-head">
+                        <div class="h-ico"><i class="ph ph-x-circle"></i></div>
+                        <h4>Without AIKAGE</h4>
+                        <span class="hk">Status Quo</span>
+                    </div>
+                    <ul class="compare-list">
+                        <li><i class="ph ph-x"></i> Waiting days for a report from the data team</li>
+                        <li><i class="ph ph-x"></i> Paying $70k+/yr for BI tools most people can't use</li>
+                        <li><i class="ph ph-x"></i> Stale dashboards nobody trusts anymore</li>
+                        <li><i class="ph ph-x"></i> Sensitive data leaking through manual exports</li>
+                        <li><i class="ph ph-x"></i> Nobody knows a number dropped until the next meeting</li>
+                        <li><i class="ph ph-x"></i> New hires need months to learn Tableau or Looker</li>
+                    </ul>
+                </div>
+                <div class="compare-col with fade-up" data-d="1">
+                    <div class="compare-head">
+                        <div class="h-ico"><i class="ph ph-check-circle"></i></div>
+                        <h4>With AIKAGE</h4>
+                        <span class="hk">On day one</span>
+                    </div>
+                    <ul class="compare-list">
+                        <li><i class="ph ph-check"></i> Ask in plain English, get the answer now</li>
+                        <li><i class="ph ph-check"></i> One tool everyone can use at a fraction of the cost</li>
+                        <li><i class="ph ph-check"></i> Saved Buzzes auto-refresh and alert on changes</li>
+                        <li><i class="ph ph-check"></i> Auto-redaction baked in — every export is clean</li>
+                        <li><i class="ph ph-check"></i> Watchdog catches it and pushes to Slack, Teams, email</li>
+                        <li><i class="ph ph-check"></i> If you can type a question, you can use AIKAGE</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ INTEGRATIONS ═══════════ -->
+    <section class="section tinted">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Integrations</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Connect everything. <em>Ask anything.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">One platform, 13+ databases. Add a connection in 30 seconds — and start asking questions.</p>
+            </div>
+            <div class="int-scroll">
+                <div class="int-track">
+                    <!-- first pass -->
+                    <span class="int-chip"><span class="dot"></span>PostgreSQL <small style="opacity:.5;margin-left:.25rem;">Schema cache</small></span>
+                    <span class="int-chip"><span class="dot"></span>MySQL <small style="opacity:.5;margin-left:.25rem;">SSL</small></span>
+                    <span class="int-chip"><span class="dot"></span>MariaDB</span>
+                    <span class="int-chip"><span class="dot"></span>SQLite <small style="opacity:.5;margin-left:.25rem;">Zero config</small></span>
+                    <span class="int-chip"><span class="dot"></span>SQL Server</span>
+                    <span class="int-chip"><span class="dot"></span>Oracle <small style="opacity:.5;margin-left:.25rem;">TNS</small></span>
+                    <span class="int-chip"><span class="dot"></span>MongoDB <small style="opacity:.5;margin-left:.25rem;">Aggregation</small></span>
+                    <span class="int-chip"><span class="dot"></span>ClickHouse</span>
+                    <span class="int-chip"><span class="dot"></span>DuckDB</span>
+                    <span class="int-chip"><span class="dot"></span>CockroachDB</span>
+                    <span class="int-chip"><span class="dot"></span>Redshift <small style="opacity:.5;margin-left:.25rem;">AWS</small></span>
+                    <span class="int-chip"><span class="dot"></span>BigQuery <small style="opacity:.5;margin-left:.25rem;">GCP</small></span>
+                    <span class="int-chip"><span class="dot"></span>Snowflake</span>
+                    <!-- duplicate for seamless loop -->
+                    <span class="int-chip"><span class="dot"></span>PostgreSQL</span>
+                    <span class="int-chip"><span class="dot"></span>MySQL</span>
+                    <span class="int-chip"><span class="dot"></span>MariaDB</span>
+                    <span class="int-chip"><span class="dot"></span>SQLite</span>
+                    <span class="int-chip"><span class="dot"></span>SQL Server</span>
+                    <span class="int-chip"><span class="dot"></span>Oracle</span>
+                    <span class="int-chip"><span class="dot"></span>MongoDB</span>
+                    <span class="int-chip"><span class="dot"></span>ClickHouse</span>
+                    <span class="int-chip"><span class="dot"></span>DuckDB</span>
+                    <span class="int-chip"><span class="dot"></span>CockroachDB</span>
+                    <span class="int-chip"><span class="dot"></span>Redshift</span>
+                    <span class="int-chip"><span class="dot"></span>BigQuery</span>
+                    <span class="int-chip"><span class="dot"></span>Snowflake</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ USE CASES ═══════════ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Use Cases</div>
+                <h2 class="sec-h2 fade-up" data-d="1">One platform. <em>Every business function.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">From finance forecasts to HR workforce planning — AIKAGE works wherever data lives.</p>
+            </div>
+            <div class="uc-grid">
+                <div class="uc-card fade-up">
+                    <div class="uc-ico"><i class="ph-duotone ph-bank"></i></div>
+                    <h4>Finance</h4>
+                    <p>Cost analysis, revenue forecasting, margin tracking and runway projections — without exporting a single CSV.</p>
+                    <div class="uc-tag">Forecasting · Finops</div>
+                </div>
+                <div class="uc-card fade-up" data-d="1">
+                    <div class="uc-ico"><i class="ph-duotone ph-users-four"></i></div>
+                    <h4>HR &amp; People</h4>
+                    <p>Workforce optimization, attrition risk, DEI analytics and comp benchmarking — all with PII masked by default.</p>
+                    <div class="uc-tag">Attrition · Hiring</div>
+                </div>
+                <div class="uc-card fade-up" data-d="2">
+                    <div class="uc-ico"><i class="ph-duotone ph-gear-six"></i></div>
+                    <h4>Operations</h4>
+                    <p>Process automation, SLA monitoring, throughput analysis and anomaly detection across every operational stream.</p>
+                    <div class="uc-tag">Automation · SLA</div>
+                </div>
+                <div class="uc-card fade-up" data-d="3">
+                    <div class="uc-ico"><i class="ph-duotone ph-megaphone"></i></div>
+                    <h4>Sales &amp; Marketing</h4>
+                    <p>Pipeline health, funnel analytics, campaign ROI and churn prediction — ask and answer in the same breath.</p>
+                    <div class="uc-tag">Pipeline · Funnel</div>
+                </div>
+                <div class="uc-card fade-up" data-d="4">
+                    <div class="uc-ico"><i class="ph-duotone ph-headset"></i></div>
+                    <h4>Customer Support</h4>
+                    <p>Intelligent query handling, ticket clustering, CSAT monitoring and SLA breach forecasts before they happen.</p>
+                    <div class="uc-tag">CSAT · Tickets</div>
+                </div>
+                <div class="uc-card fade-up" data-d="5">
+                    <div class="uc-ico"><i class="ph-duotone ph-shield-star"></i></div>
+                    <h4>Compliance &amp; Risk</h4>
+                    <p>Continuous audit trail, policy-violation detection and board-ready compliance exports — SOC 2, GDPR, HIPAA ready.</p>
+                    <div class="uc-tag">SOC 2 · GDPR</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ BUSINESS IMPACT ═══════════ -->
+    <section class="section tinted">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Business Impact</div>
+                <h2 class="sec-h2 fade-up" data-d="1">The numbers customers <em>actually feel.</em></h2>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-cell fade-up">
+                    <div class="impact-val" data-c="85"><span>0</span><span class="impact-sym">%</span></div>
+                    <div class="impact-lbl">Less manual analysis time</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="1">
+                    <div class="impact-val" data-c="10"><span>0</span><span class="impact-sym">×</span></div>
+                    <div class="impact-lbl">Faster decisions</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="2">
+                    <div class="impact-val" data-c="70"><span>0</span><span class="impact-sym">%</span></div>
+                    <div class="impact-lbl">BI tool cost reduction</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="3">
+                    <div class="impact-val" data-c="100"><span>0</span><span class="impact-sym">%</span></div>
+                    <div class="impact-lbl">PII redaction coverage</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="4">
+                    <div class="impact-val" data-c="30"><span>0</span><span class="impact-sym">s</span></div>
+                    <div class="impact-lbl">To connect a database</div>
+                </div>
+                <div class="impact-cell fade-up" data-d="5">
+                    <div class="impact-val"><span style="-webkit-text-fill-color:initial;background:none;color:var(--accent);">24/7</span></div>
+                    <div class="impact-lbl">Watchdog monitoring</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ PRICING ═══════════ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="sec-head">
+                <div class="section-label fade-up">Pricing</div>
+                <h2 class="sec-h2 fade-up" data-d="1">Try free. <em>Go Pro when you're ready.</em></h2>
+                <p class="sec-lede fade-up" data-d="2">Full demo with every feature unlocked. No credit card. No time limit.</p>
+            </div>
+            <div class="price-grid">
+                <div class="price-card fade-up">
+                    <h3>Full Demo</h3>
+                    <p class="p-desc">Explore every feature — no restrictions.</p>
+                    <div class="p-price">$0<small>free forever</small></div>
+                    <div class="p-sub">Every feature unlocked</div>
+                    <ul>
+                        <li><i class="ph ph-check-circle"></i> BuzzView — ask in plain English</li>
+                        <li><i class="ph ph-check-circle"></i> Hive++ with predictions &amp; monitoring</li>
+                        <li><i class="ph ph-check-circle"></i> Watchdog alerts (Slack, Teams, email)</li>
+                        <li><i class="ph ph-check-circle"></i> Auto-redaction &amp; approval workflows</li>
+                        <li><i class="ph ph-check-circle"></i> Admin · Analyst · Viewer roles</li>
+                    </ul>
+                    <a href="https://aikage.naolytics.com/" target="_blank" rel="noopener" class="btn-ghost" style="width:100%;justify-content:center;">Launch Demo <i class="ph ph-arrow-right"></i></a>
+                </div>
+                <div class="price-card featured fade-up" data-d="1">
+                    <span class="p-tag">Production</span>
+                    <h3>Pro Edition</h3>
+                    <p class="p-desc">Production-ready for your organisation.</p>
+                    <div class="p-price">Talk to Sales</div>
+                    <div class="p-sub">SLA · SSO · On-prem / Private cloud</div>
+                    <ul>
+                        <li><i class="ph ph-check-circle"></i> Everything in Demo, production-grade</li>
+                        <li><i class="ph ph-check-circle"></i> Bring your own LLM (OpenAI, Claude, Ollama)</li>
+                        <li><i class="ph ph-check-circle"></i> On-premise or private cloud deployment</li>
+                        <li><i class="ph ph-check-circle"></i> SSO / SAML / Active Directory</li>
+                        <li><i class="ph ph-check-circle"></i> Custom masking &amp; compliance packs</li>
+                        <li><i class="ph ph-check-circle"></i> SLA, audit export &amp; enterprise support</li>
+                    </ul>
+                    <a href="./#contact-details" class="btn-primary" style="width:100%;justify-content:center;">Contact Sales <i class="ph ph-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ CTA ═══════════ -->
+    <section class="ak-cta">
+        <h2 class="fade-up">Know your numbers. <em>Before the meeting starts.</em></h2>
+        <p class="fade-up" data-d="1">Join the teams who replaced expensive BI tools with a single question box. Your data stays private. Your team moves faster. Your dashboard updates itself.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="fade-up" data-d="2">
+            <a href="https://aikage.naolytics.com/" target="_blank" rel="noopener" class="btn-primary"><i class="ph ph-rocket-launch"></i> Launch Free Demo</a>
+            <a href="./#contact-details" class="btn-ghost"><i class="ph ph-chat-teardrop-text"></i> Talk to Sales</a>
+        </div>
+    </section>
+
+    <footer class="ak-foot">
+        <div>© 2026 Pure AI Technologies · AIKAGE is a Naolytics product.</div>
+        <div>
+            <a href="https://aikage.naolytics.com/" target="_blank" rel="noopener">aikage.naolytics.com</a> ·
+            <a href="./#contact-details">Contact</a> ·
+            SOC 2 Compliant
+        </div>
+    </footer>
+
+    <script>
+        /* ─── Fade-up reveal ─── */
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+        /* ─── Hero demo: typewriter effect on question bar ─── */
+        (function typeQuery() {
+            const el = document.getElementById('akQText');
+            if (!el) return;
+            const msg = 'What was revenue by region last 90 days?';
+            let i = 0;
+            const tick = () => {
+                el.textContent = msg.slice(0, i);
+                if (i < msg.length) {
+                    i++;
+                    setTimeout(tick, 35 + Math.random() * 40);
+                }
+            };
+            setTimeout(tick, 500);
+        })();
+
+        /* ─── Modules tab switcher ─── */
+        document.querySelectorAll('.ak-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.dataset.tab;
+                document.querySelectorAll('.ak-tab').forEach(b => b.classList.toggle('active', b === btn));
+                document.querySelectorAll('.ak-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === target));
+            });
+        });
+
+        /* ─── Capability cards · cursor spotlight ─── */
+        document.querySelectorAll('.cap-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const r = card.getBoundingClientRect();
+                card.style.setProperty('--mx', ((e.clientX - r.left) / r.width  * 100) + '%');
+                card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100) + '%');
+            });
+        });
+
+        /* ─── Impact counters ─── */
+        const countIo = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                const span = e.target.querySelector('span');
+                if (!span) return;
+                const target = parseFloat(e.target.dataset.c);
+                if (isNaN(target)) return;
+                const dur = 1400;
+                const start = performance.now();
+                const step = (t) => {
+                    const p = Math.min((t - start) / dur, 1);
+                    const v = Math.floor(target * (1 - Math.pow(1 - p, 3)));
+                    span.textContent = v;
+                    if (p < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+                countIo.unobserve(e.target);
+            });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('.impact-val[data-c]').forEach(el => countIo.observe(el));
+    </script>
+
+
+    <script>
+    (function(){
+        var mt = document.getElementById('mobile-toggle');
+        var mo = document.getElementById('mobile-overlay');
+        if (!mt || !mo) return;
+        mt.addEventListener('click', function(){
+            var open = mo.classList.toggle('open');
+            mt.innerHTML = open ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (!open) mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+        });
+        mo.querySelectorAll('[data-mobile-link]').forEach(function(link){
+            link.addEventListener('click', function(){
+                mo.classList.remove('open');
+                mt.innerHTML = '<i class="ph ph-list"></i>';
+                document.body.style.overflow = '';
+            });
+        });
+        mo.querySelectorAll('.mob-accordion-toggle').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var acc = btn.parentElement;
+                var wasOpen = acc.classList.contains('open');
+                mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+                if (!wasOpen) acc.classList.add('open');
+                btn.setAttribute('aria-expanded', !wasOpen);
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>

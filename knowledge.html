@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge — Pure AI</title>
+    <meta name="description" content="Pure AI Knowledge Hub — Research papers, guides, insights and deep-dives into autonomous intelligence, robotics, and AI infrastructure.">
+    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" href="./pure-logo-v4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="./style.css?v=16">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#050505;--bg2:#0a0a0a;--accent:#4DEEEA;--accent2:#8B5CF6;--accent3:#FFB347;--txt:#f0f0f0;--txt2:rgba(255,255,255,.55);--txt3:rgba(255,255,255,.35);--bdr:rgba(255,255,255,.06);--bdr2:rgba(255,255,255,.12);--ff:'Inter',sans-serif;--fd:'Space Grotesk',sans-serif;--fm:'JetBrains Mono',monospace;--ease:cubic-bezier(.16,1,.3,1)}
+        html{scroll-behavior:smooth;overflow:auto!important;height:auto!important}
+        body{font-family:var(--ff);background:var(--bg);color:var(--txt);overflow-x:hidden;overflow-y:auto!important;height:auto!important;-webkit-font-smoothing:antialiased}
+        a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
+
+        /* NAV */
+        nav{position:fixed;top:0;left:0;right:0;height:80px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(2rem,4vw,4rem);z-index:9000;background:rgba(5,5,5,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr)}
+        .logo img{height:28px}
+        .nav-links{display:flex;align-items:center;gap:2.5rem}
+        .nav-links a{font-family:var(--fd);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--txt2);transition:color .3s}
+        .nav-links a:hover,.nav-links a.active{color:var(--accent)}
+        .nav-links a.cta{background:transparent;border:1px solid var(--accent);padding:.5rem 1.2rem;border-radius:100px;color:var(--accent);transition:all .3s}
+        .nav-links a.cta:hover{background:var(--accent);color:var(--bg)}
+        .nav-dropdown{position:relative;display:flex;align-items:center}
+        .nav-dropdown>a{display:flex;align-items:center;gap:.35rem;cursor:pointer}
+        .nav-dropdown>a .dd-arrow{font-size:.6rem;transition:transform .3s;display:inline-block}
+        .nav-dropdown:hover>a .dd-arrow{transform:rotate(180deg)}
+        .nav-dropdown .dd-menu{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:220px;padding:1rem 0 .6rem;background:rgba(10,10,10,.97);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:12px;z-index:10000;box-shadow:0 20px 50px rgba(0,0,0,.6);flex-direction:column}
+        .nav-dropdown .dd-menu::before{content:'';position:absolute;top:-20px;left:0;right:0;height:20px;background:transparent}
+        .nav-dropdown:hover .dd-menu{display:flex}
+        .nav-dropdown .dd-menu a{display:flex!important;align-items:center!important;gap:.75rem!important;padding:.7rem 1.3rem!important;font-size:.65rem!important;letter-spacing:.15em!important;color:rgba(255,255,255,.5)!important;transition:all .25s!important;white-space:nowrap!important}
+        .nav-dropdown .dd-menu a:hover{color:var(--accent)!important;background:rgba(77,238,234,.06)!important}
+        .nav-dropdown .dd-menu a i{font-size:1.1rem;opacity:.5}
+        .nav-dropdown .dd-menu a:hover i{opacity:1;color:var(--accent)}
+
+        /* MOBILE */
+        .mobile-toggle{display:none;background:none;border:none;color:var(--txt);font-size:1.5rem}
+        .mobile-overlay{display:none;position:fixed;inset:0;background:rgba(5,5,5,.97);z-index:8999;flex-direction:column;padding:6rem 2rem 2rem;gap:1rem;overflow-y:auto}
+        .mobile-overlay.open{display:flex}
+        .mobile-overlay a{font-family:var(--fd);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt2);padding:.6rem 0}
+        @media(max-width:1024px){.nav-links{display:none}.mobile-toggle{display:block}}
+
+        /* HERO */
+        .k-hero{min-height:60vh;padding:10rem 2rem 4rem;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+        .k-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(600px circle at 30% 40%,rgba(77,238,234,.1),transparent 60%),radial-gradient(500px circle at 70% 60%,rgba(139,92,246,.08),transparent 60%);pointer-events:none}
+        .k-hero .label{font-family:var(--fd);font-size:.65rem;font-weight:500;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+        .k-hero .label::before{content:'';width:30px;height:1px;background:var(--accent)}
+        .k-hero h1{font-family:var(--fd);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;letter-spacing:-.02em;line-height:1.1;margin-bottom:1.5rem}
+        .k-hero h1 em{font-style:normal;color:var(--accent)}
+        .k-hero p{font-size:1.05rem;color:var(--txt2);max-width:640px;line-height:1.7;font-weight:300}
+
+        /* FILTER BAR */
+        .filter-bar{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:2.5rem}
+        .filter-btn{padding:.55rem 1.3rem;border-radius:100px;border:1px solid var(--bdr2);background:transparent;color:var(--txt2);font-family:var(--fm);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;transition:all .3s}
+        .filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(77,238,234,.06)}
+
+        /* ARTICLES GRID */
+        .k-section{padding:4rem clamp(1.5rem,5vw,5rem);max-width:1300px;margin:0 auto}
+        .k-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem}
+        .k-card{background:rgba(255,255,255,.02);border:1px solid var(--bdr);border-radius:16px;padding:2rem;transition:all .4s var(--ease);position:relative;overflow:hidden}
+        .k-card:hover{border-color:rgba(77,238,234,.25);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+        .k-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .3s}
+        .k-card:hover::before{opacity:1}
+        .k-card .tag{font-family:var(--fm);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;display:inline-flex;align-items:center;gap:.5rem}
+        .k-card .tag i{font-size:.85rem}
+        .k-card h3{font-family:var(--fd);font-size:1.15rem;font-weight:500;margin-bottom:.75rem;line-height:1.35}
+        .k-card p{font-size:.88rem;color:var(--txt2);line-height:1.7;font-weight:300}
+        .k-card .meta{display:flex;align-items:center;gap:1rem;margin-top:1.5rem;font-family:var(--fm);font-size:.6rem;letter-spacing:.15em;color:var(--txt3);text-transform:uppercase}
+        .k-card .meta i{font-size:.8rem}
+
+        /* FEATURED */
+        .featured{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:4rem}
+        .featured .k-card{padding:2.5rem}
+        .featured .k-card h3{font-size:1.35rem}
+        @media(max-width:768px){.featured{grid-template-columns:1fr}.k-grid{grid-template-columns:1fr}}
+
+        /* CTA BANNER */
+        .k-cta{text-align:center;padding:5rem 2rem;border-top:1px solid var(--bdr);margin-top:4rem}
+        .k-cta h2{font-family:var(--fd);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;margin-bottom:1rem}
+        .k-cta h2 em{font-style:normal;color:var(--accent)}
+        .k-cta p{color:var(--txt2);font-size:.95rem;margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto}
+        .k-cta .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 2rem;border-radius:100px;font-family:var(--fd);font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;background:var(--accent);color:var(--bg);transition:all .35s;border:none}
+        .k-cta .btn:hover{background:#fff;transform:translateY(-2px);box-shadow:0 14px 40px rgba(77,238,234,.3)}
+
+        /* FOOTER */
+        footer{padding:3rem clamp(1.5rem,4vw,4rem);border-top:1px solid var(--bdr);display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+        .f-links{display:flex;flex-wrap:wrap;gap:2rem;justify-content:center}
+        .f-links a{font-family:var(--fd);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);transition:color .3s}
+        .f-links a:hover{color:var(--accent)}
+        .f-copy{font-size:.7rem;color:var(--txt3)}
+
+        /* ANIMATIONS */
+        .fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .8s var(--ease)}
+        .fade-up.visible{opacity:1;transform:translateY(0)}
+    </style>
+    <meta property="og:title" content="Knowledge — Pure AI">
+    <meta property="og:description" content="Pure AI Knowledge Hub — Research papers, guides, insights and deep-dives into autonomous intelligence, robotics, and AI infrastructure.">
+    <meta property="og:image" content="./pure-logo-v4.png">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="./" class="logo" data-cursor>
+            <img src="./pure-logo-v4.png" alt="Pure AI">
+        </a>
+        <div class="nav-links">
+            <a href="./platform" data-cursor>Platform</a>
+            <div class="nav-dropdown">
+                <a href="./#products" data-cursor>Product <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./robots-search"><i class="ph ph-robot"></i> Robots</a>
+                    <a href="./custom-bots"><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                    <a href="./nano-bots"><i class="ph ph-atom"></i> Nano Bots</a>
+                    <a href="./trading-desk"><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                    <a href="./naolytics"><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                    <a href="./aikage"><i class="ph ph-shield-check"></i> AIKAGE</a>
+                    <a href="#"><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                    <a href="#"><i class="ph ph-paperclip"></i> CLIP</a>
+                    <a href="#"><i class="ph ph-trend-up"></i> Market Genius</a>
+                    <a href="#"><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+                </div>
+            </div>
+            <a href="./digital-workers" data-cursor>Digital Workers</a>
+            <div class="nav-dropdown">
+                <a href="./services" data-cursor>Services <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./custom-robotics"><i class="ph ph-robot"></i> Custom Robotics</a>
+                    <a href="./ai-datacenter"><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                    <a href="./ai-setup"><i class="ph ph-gear-six"></i> AI Set Up</a>
+                    <a href="./ibm-linux"><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                    <a href="./ai-boxes"><i class="ph ph-cube"></i> AI Boxes</a>
+                    <a href="./dark-factories"><i class="ph ph-factory"></i> Dark Factories</a>
+                    <a href="./llm-training"><i class="ph ph-brain"></i> LLM Training</a>
+                    <a href="./enterprise-openclaw"><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                    <a href="./bot-management"><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="./#solutions" data-cursor>Solutions <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./sol-banking"><i class="ph ph-bank"></i> PureAi - Banking & Finance</a>
+                    <a href="./sol-healthcare"><i class="ph ph-heartbeat"></i> PureAi - Healthcare</a>
+                    <a href="./sol-logistics"><i class="ph ph-truck"></i> PureAi - Logistics</a>
+                    <a href="./sol-manufacturing"><i class="ph ph-gear-six"></i> PureAi - Manufacturing</a>
+                    <a href="./sol-agriculture"><i class="ph ph-plant"></i> PureAi - Agriculture</a>
+                    <a href="./sol-aviation"><i class="ph ph-airplane"></i> PureAi - Airlines</a>
+                    <a href="./sol-education"><i class="ph ph-graduation-cap"></i> PureAi - Education</a>
+                    <a href="./sol-retail"><i class="ph ph-storefront"></i> PureAi - Retail</a>
+                    <a href="./sol-enterprise"><i class="ph ph-buildings"></i> PureAi - Enterprise</a>
+                    <a href="./sol-infrastructure"><i class="ph ph-lightning"></i> PureAi - Infrastructure</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#" data-cursor>Open Innovation <i class="ph ph-caret-down dd-arrow"></i></a>
+                <div class="dd-menu">
+                    <a href="./bohrai"><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+                </div>
+            </div>
+            <a href="./innovation" data-cursor>Innovation</a>
+            <a href="./knowledge" class="active" data-cursor>Knowledge</a>
+            <a href="./#contact-details" class="cta" data-cursor>Contact</a>
+        </div>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+    </nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <a href="./" data-mobile-link>Home</a>
+        <a href="./platform" data-mobile-link>Platform</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Products <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./robots-search" data-mobile-link><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots" data-mobile-link><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots" data-mobile-link><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk" data-mobile-link><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics" data-mobile-link><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage" data-mobile-link><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#" data-mobile-link><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#" data-mobile-link><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#" data-mobile-link><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#" data-mobile-link><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+        <a href="./digital-workers" data-mobile-link>Digital Workers</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Services <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./custom-robotics" data-mobile-link><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter" data-mobile-link><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup" data-mobile-link><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux" data-mobile-link><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes" data-mobile-link><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories" data-mobile-link><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training" data-mobile-link><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw" data-mobile-link><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management" data-mobile-link><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Solutions <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./sol-banking" data-mobile-link><i class="ph ph-bank"></i> Banking &amp; Finance</a>
+                <a href="./sol-healthcare" data-mobile-link><i class="ph ph-heartbeat"></i> Healthcare</a>
+                <a href="./sol-logistics" data-mobile-link><i class="ph ph-truck"></i> Logistics</a>
+                <a href="./sol-manufacturing" data-mobile-link><i class="ph ph-gear-six"></i> Manufacturing</a>
+                <a href="./sol-agriculture" data-mobile-link><i class="ph ph-plant"></i> Agriculture</a>
+                <a href="./sol-aviation" data-mobile-link><i class="ph ph-airplane"></i> Airlines</a>
+                <a href="./sol-education" data-mobile-link><i class="ph ph-graduation-cap"></i> Education</a>
+                <a href="./sol-retail" data-mobile-link><i class="ph ph-storefront"></i> Retail</a>
+                <a href="./sol-enterprise" data-mobile-link><i class="ph ph-buildings"></i> Enterprise</a>
+                <a href="./sol-infrastructure" data-mobile-link><i class="ph ph-lightning"></i> Infrastructure</a>
+            </div>
+        </div>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Open Innovation <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./bohrai" data-mobile-link><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./innovation" data-mobile-link>Innovation</a>
+        <a href="./knowledge" data-mobile-link>Knowledge</a>
+        <a href="./#contact-details" data-mobile-link>Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="k-hero">
+        <div class="label fade-up">Knowledge Hub</div>
+        <h1 class="fade-up"><em>Intelligence</em> begins<br>with understanding.</h1>
+        <p class="fade-up">Research papers, technical deep-dives, deployment guides, and strategic insights from the autonomous intelligence frontier.</p>
+        <div class="filter-bar fade-up">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="research">Research</button>
+            <button class="filter-btn" data-filter="guide">Guides</button>
+            <button class="filter-btn" data-filter="insight">Insights</button>
+            <button class="filter-btn" data-filter="whitepaper">Whitepapers</button>
+        </div>
+    </section>
+
+    <!-- FEATURED -->
+    <div class="k-section">
+        <div class="featured">
+            <a href="./dark-infrastructure-blog" class="k-card fade-up" data-cat="whitepaper" style="display: block;">
+                <div class="tag"><i class="ph ph-shield-check"></i> Cybersecurity Architecture</div>
+                <h3>PureAI Dark Infrastructure: A Technical Blueprint</h3>
+                <p>A deep dive into the security architecture, zero-trust network overlay, and decentralized micro-segmentation shielding PureAI's autonomous edge nodes.</p>
+                <div class="meta">
+                    <span><i class="ph ph-calendar"></i> May 29, 2026</span>
+                    <span><i class="ph ph-clock"></i> 12 min read</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- ARTICLES GRID -->
+        <div class="k-grid">
+            <a href="./autonomous-mission-intelligence-blog" class="k-card fade-up" data-cat="research">
+                <div class="tag"><i class="ph ph-rocket-launch"></i> Aerospace Systems</div>
+                <h3>Autonomous Mission Intelligence Systems: How Agentic AI Will Power Deep Space Exploration</h3>
+                <p>The transition from command-driven machines to cognitive space entities and why the spacecraft of tomorrow will understand, adapt, and decide.</p>
+                <div class="meta">
+                    <span><i class="ph ph-calendar"></i> May 29, 2026</span>
+                    <span><i class="ph ph-clock"></i> 8 min read</span>
+                </div>
+            </a>
+            <a href="./medical-blogs" class="k-card fade-up" data-cat="research">
+                <div class="tag"><i class="ph ph-heartbeat"></i> Medical Intelligence</div>
+                <h3>Autonomous Surgical Intelligence: The Future of Medicine</h3>
+                <p>An in-depth review of cognitive clinical workflows, surgical intelligence systems, and autonomous robotic operations in modern healthcare.</p>
+                <div class="meta">
+                    <span><i class="ph ph-calendar"></i> May 30, 2026</span>
+                    <span><i class="ph ph-clock"></i> 10 min read</span>
+                </div>
+            </a>
+            <a href="./BlogEdu/blog.html" class="k-card fade-up" data-cat="insight">
+                <div class="tag"><i class="ph ph-graduation-cap"></i> Education Intelligence</div>
+                <h3>What If Teachers Could See What Students Never Say?</h3>
+                <p>The hidden intelligence layer transforming modern classrooms. A deep look at how AI is finally making the invisible side of learning visible.</p>
+                <div class="meta">
+                    <span><i class="ph ph-calendar"></i> June 1, 2026</span>
+                    <span><i class="ph ph-clock"></i> 8 min read</span>
+                </div>
+            </a>
+            <a href="./shareable.html" class="k-card fade-up" data-cat="research">
+                <div class="tag"><i class="ph ph-cpu"></i> Silicon Architecture</div>
+                <h3>Re-engineering Silicon for the Age of Artificial Intelligence</h3>
+                <p>Explore how PureAI Global builds open architecture edge AI silicon chip platforms for positive human impact.</p>
+                <div class="meta">
+                    <span><i class="ph ph-calendar"></i> June 2, 2026</span>
+                    <span><i class="ph ph-clock"></i> 7 min read</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="k-cta fade-up">
+        <h2>Want to go <em>deeper?</em></h2>
+        <p>Access exclusive research, early briefings, and direct channels to our engineering teams.</p>
+        <a href="./#contact-details" class="btn">Request Access <i class="ph ph-arrow-right"></i></a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="f-links">
+            <a href="./platform">Platform</a>
+            <a href="./nano-bots">Nano Bots</a>
+            <a href="./custom-bots">Custom Bots</a>
+            <a href="./trading-desk">Trading Desk</a>
+            <a href="./robots-search">Robots</a>
+            <a href="./services">Services</a>
+            <a href="./innovation">Innovation</a>
+            <a href="./knowledge">Knowledge</a>
+            <a href="./#contact-details">Contact</a>
+        </div>
+        <div class="f-copy">&copy; 2026 Pure AI Technologies and Services Pvt Ltd.</div>
+    </footer>
+
+    <script>
+        // Mobile toggle & accordions
+        const mt=document.getElementById('mobile-toggle'),mo=document.getElementById('mobile-overlay');
+        if(mt && mo){
+            mt.addEventListener('click',()=>{
+                const open=mo.classList.toggle('open');
+                mt.querySelector('i').className=open?'ph ph-x':'ph ph-list';
+                document.body.style.overflow=open?'hidden':'';
+                if(!open){
+                    mo.querySelectorAll('.mob-accordion').forEach(a=>a.classList.remove('open'));
+                }
+            });
+            document.querySelectorAll('[data-mobile-link]').forEach(link=>{
+                link.addEventListener('click',()=>{
+                    mo.classList.remove('open');
+                    mt.querySelector('i').className='ph ph-list';
+                    document.body.style.overflow='';
+                });
+            });
+            mo.querySelectorAll('.mob-accordion-toggle').forEach(btn=>{
+                btn.addEventListener('click',()=>{
+                    const acc=btn.parentElement;
+                    const wasOpen=acc.classList.contains('open');
+                    mo.querySelectorAll('.mob-accordion').forEach(a=>a.classList.remove('open'));
+                    if(!wasOpen)acc.classList.add('open');
+                    btn.setAttribute('aria-expanded',!wasOpen);
+                });
+            });
+        }
+
+        // Filter
+        document.querySelectorAll('.filter-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                const f=btn.dataset.filter;
+                document.querySelectorAll('.k-card').forEach(c=>{
+                    if(f==='all'||c.dataset.cat===f){c.style.display='';c.style.opacity='1';c.style.transform=''}
+                    else{c.style.display='none'}
+                });
+            });
+        });
+
+        // Fade-up on scroll
+        const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1});
+        document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+    </script>
+</body>
+</html>

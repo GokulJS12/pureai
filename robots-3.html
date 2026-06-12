@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics Fleet — Page 3 — Pure AI</title>
+    <meta name="description" content="Pure AI Robotics Fleet Page 3 — Service Robots, Cleaning Bots, Drones, and Industrial Delivery Systems.">
+    <link rel="icon" type="image/png" href="./pure-logo-v4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #050505; --bg-section: #0a0a0a; --bg-card: #0d0d0d;
+            --accent: #4DEEEA; --accent-orange: #FF6B35; --accent-gold: #FFB347;
+            --text-hero: #f0f0f0; --text-secondary: rgba(255,255,255,0.55);
+            --text-muted: rgba(255,255,255,0.35); --border: rgba(255,255,255,0.06);
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--bg-dark); color: var(--text-hero); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
+
+        /* ── Navigation ── */
+        nav { position: fixed; top: 0; left: 0; right: 0; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(2rem, 4vw, 4rem); z-index: 9999; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .logo img { height: 28px; }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links a { font-family: var(--font-display); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a.cta { background: transparent; border: 1px solid var(--accent); padding: 0.5rem 1.2rem; border-radius: 100px; color: var(--accent); transition: all 0.3s; }
+        .nav-links a.cta:hover { background: var(--accent); color: var(--bg-dark); }
+        .nav-dropdown { position: relative; display: flex; align-items: center; }
+        .nav-dropdown > a { display: flex; align-items: center; gap: 0.35rem; cursor: pointer; }
+        .nav-dropdown > a .dd-arrow { font-size: 0.6rem; transition: transform 0.3s; display: inline-block; }
+        .nav-dropdown:hover > a .dd-arrow { transform: rotate(180deg); }
+        .nav-dropdown .dd-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 200px; padding: 0.6rem 0; background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; z-index: 10000; box-shadow: 0 20px 50px rgba(0,0,0,0.6); flex-direction: column; margin-top: 0; padding-top: 1rem; }
+        .nav-dropdown .dd-menu::before { content: ''; position: absolute; top: -20px; left: 0; right: 0; height: 20px; background: transparent; }
+        .nav-dropdown:hover .dd-menu { display: flex; }
+        .nav-dropdown .dd-menu a { display: flex !important; align-items: center !important; gap: 0.75rem !important; padding: 0.7rem 1.3rem !important; font-size: 0.65rem !important; letter-spacing: 0.15em !important; color: rgba(255,255,255,0.5) !important; transition: all 0.25s !important; white-space: nowrap !important; opacity: 1 !important; }
+        .nav-dropdown .dd-menu a:hover { color: var(--accent) !important; background: rgba(77,238,234,0.06) !important; }
+        .nav-dropdown .dd-menu a::after { display: none !important; width: 0 !important; }
+        .nav-dropdown .dd-menu a i { font-size: 1.1rem; opacity: 0.5; }
+        .nav-dropdown .dd-menu a:hover i { opacity: 1; color: var(--accent); }
+
+        /* ── Page Header ── */
+        .page-header { padding: 10rem 2rem 4rem; text-align: center; }
+        .page-header .label { font-family: var(--font-display); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; }
+        .page-header .label::before, .page-header .label::after { content: ''; width: 40px; height: 1px; background: var(--accent); }
+        .page-header h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1.1; }
+        .page-header h1 em { font-style: italic; color: var(--accent); }
+
+        /* ── Showcase ── */
+        .robot-showcase { padding: 6rem 0; position: relative; border-top: 1px solid var(--border); }
+        .robot-showcase:nth-child(odd) { background: var(--bg-dark); }
+        .robot-showcase:nth-child(even) { background: var(--bg-section); }
+        .showcase-inner { max-width: 1300px; margin: 0 auto; padding: 0 clamp(2rem, 5vw, 6rem); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .robot-showcase:nth-child(even) .showcase-inner { direction: rtl; }
+        .robot-showcase:nth-child(even) .showcase-inner > * { direction: ltr; }
+        .robot-image-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+        .robot-image-frame { position: relative; width: 100%; max-width: 480px; aspect-ratio: 3/4; border-radius: 24px; overflow: hidden; border: 1px solid var(--border); background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005)); }
+        .robot-image-frame img { width: 100%; height: 100%; object-fit: contain; padding: 1.5rem; transition: transform 0.8s var(--ease-out-expo); }
+        .robot-showcase:hover .robot-image-frame img { transform: scale(1.05); }
+        .robot-image-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, rgba(5,5,5,0.6) 100%); pointer-events: none; }
+        .robot-glow { position: absolute; width: 250px; height: 250px; border-radius: 50%; filter: blur(80px); opacity: 0.4; z-index: -1; }
+        .robot-content { padding: 1rem 0; }
+        .robot-index { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem; }
+        .robot-name { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+        .robot-subtitle { font-size: 0.9rem; font-weight: 300; font-style: italic; margin-bottom: 2rem; }
+        .robot-key-desc { font-size: 1rem; color: var(--text-secondary); font-weight: 300; line-height: 1.8; margin-bottom: 2.5rem; border-left: 2px solid; padding-left: 1.5rem; }
+        .desc-grid { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem; }
+        .desc-item { display: flex; gap: 1rem; align-items: flex-start; }
+        .desc-item-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
+        .desc-item-text h4 { font-family: var(--font-display); font-size: 0.85rem; font-weight: 500; margin-bottom: 0.3rem; }
+        .desc-item-text p { font-size: 0.8rem; color: var(--text-secondary); font-weight: 300; line-height: 1.6; }
+        .feature-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+        .chip { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1rem; border-radius: 100px; border: 1px solid; }
+        .chip i { font-size: 0.85rem; }
+
+        /* ── Source Link ── */
+        .robot-source { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.55rem 0.95rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.55); text-decoration: none; transition: all 0.35s ease; width: fit-content; }
+        .robot-source:hover { border-color: var(--robot-accent, rgba(255,255,255,0.3)); color: #fff; background: rgba(255,255,255,0.04); transform: translateX(2px); }
+        .robot-source .rs-lbl { text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.55rem; padding-right: 0.65rem; border-right: 1px solid rgba(255,255,255,0.12); color: var(--robot-accent, #4DEEEA); }
+        .robot-source .rs-url { font-weight: 500; letter-spacing: 0.02em; }
+        .robot-source i { font-size: 0.85rem; color: var(--robot-accent, #4DEEEA); transition: transform 0.35s ease; }
+        .robot-source:hover i { transform: translate(2px, -2px); }
+
+        /* ── Accent Colors ── */
+        .accent-cyan { --robot-accent: #4DEEEA; }
+        .accent-cyan .robot-glow { background: rgba(77,238,234,0.3); }
+        .accent-cyan .robot-name, .accent-cyan .robot-subtitle { color: var(--robot-accent); }
+        .accent-cyan .robot-key-desc { border-color: rgba(77,238,234,0.3); }
+        .accent-cyan .desc-item-icon { background: rgba(77,238,234,0.08); color: #4DEEEA; }
+        .accent-cyan .chip { color: #4DEEEA; border-color: rgba(77,238,234,0.2); }
+        .accent-cyan .robot-image-frame { border-color: rgba(77,238,234,0.1); }
+
+        .accent-violet { --robot-accent: #8B5CF6; }
+        .accent-violet .robot-glow { background: rgba(139,92,246,0.25); }
+        .accent-violet .robot-name, .accent-violet .robot-subtitle { color: var(--robot-accent); }
+        .accent-violet .robot-key-desc { border-color: rgba(139,92,246,0.3); }
+        .accent-violet .desc-item-icon { background: rgba(139,92,246,0.08); color: #8B5CF6; }
+        .accent-violet .chip { color: #8B5CF6; border-color: rgba(139,92,246,0.2); }
+        .accent-violet .robot-image-frame { border-color: rgba(139,92,246,0.1); }
+
+        .accent-lime { --robot-accent: #84CC16; }
+        .accent-lime .robot-glow { background: rgba(132,204,22,0.25); }
+        .accent-lime .robot-name, .accent-lime .robot-subtitle { color: var(--robot-accent); }
+        .accent-lime .robot-key-desc { border-color: rgba(132,204,22,0.3); }
+        .accent-lime .desc-item-icon { background: rgba(132,204,22,0.08); color: #84CC16; }
+        .accent-lime .chip { color: #84CC16; border-color: rgba(132,204,22,0.2); }
+        .accent-lime .robot-image-frame { border-color: rgba(132,204,22,0.1); }
+
+        .accent-sky { --robot-accent: #38BDF8; }
+        .accent-sky .robot-glow { background: rgba(56,189,248,0.25); }
+        .accent-sky .robot-name, .accent-sky .robot-subtitle { color: var(--robot-accent); }
+        .accent-sky .robot-key-desc { border-color: rgba(56,189,248,0.3); }
+        .accent-sky .desc-item-icon { background: rgba(56,189,248,0.08); color: #38BDF8; }
+        .accent-sky .chip { color: #38BDF8; border-color: rgba(56,189,248,0.2); }
+        .accent-sky .robot-image-frame { border-color: rgba(56,189,248,0.1); }
+
+        .accent-gold { --robot-accent: #FFB347; }
+        .accent-gold .robot-glow { background: rgba(255,179,71,0.25); }
+        .accent-gold .robot-name, .accent-gold .robot-subtitle { color: var(--robot-accent); }
+        .accent-gold .robot-key-desc { border-color: rgba(255,179,71,0.3); }
+        .accent-gold .desc-item-icon { background: rgba(255,179,71,0.08); color: #FFB347; }
+        .accent-gold .chip { color: #FFB347; border-color: rgba(255,179,71,0.2); }
+        .accent-gold .robot-image-frame { border-color: rgba(255,179,71,0.1); }
+
+        .accent-blue { --robot-accent: #60A5FA; }
+        .accent-blue .robot-glow { background: rgba(96,165,250,0.25); }
+        .accent-blue .robot-name, .accent-blue .robot-subtitle { color: var(--robot-accent); }
+        .accent-blue .robot-key-desc { border-color: rgba(96,165,250,0.3); }
+        .accent-blue .desc-item-icon { background: rgba(96,165,250,0.08); color: #60A5FA; }
+        .accent-blue .chip { color: #60A5FA; border-color: rgba(96,165,250,0.2); }
+        .accent-blue .robot-image-frame { border-color: rgba(96,165,250,0.1); }
+
+        .accent-emerald { --robot-accent: #10B981; }
+        .accent-emerald .robot-glow { background: rgba(16,185,129,0.25); }
+        .accent-emerald .robot-name, .accent-emerald .robot-subtitle { color: var(--robot-accent); }
+        .accent-emerald .robot-key-desc { border-color: rgba(16,185,129,0.3); }
+        .accent-emerald .desc-item-icon { background: rgba(16,185,129,0.08); color: #10B981; }
+        .accent-emerald .chip { color: #10B981; border-color: rgba(16,185,129,0.2); }
+        .accent-emerald .robot-image-frame { border-color: rgba(16,185,129,0.1); }
+
+        .accent-mint { --robot-accent: #34D399; }
+        .accent-mint .robot-glow { background: rgba(52,211,153,0.25); }
+        .accent-mint .robot-name, .accent-mint .robot-subtitle { color: var(--robot-accent); }
+        .accent-mint .robot-key-desc { border-color: rgba(52,211,153,0.3); }
+        .accent-mint .desc-item-icon { background: rgba(52,211,153,0.08); color: #34D399; }
+        .accent-mint .chip { color: #34D399; border-color: rgba(52,211,153,0.2); }
+        .accent-mint .robot-image-frame { border-color: rgba(52,211,153,0.1); }
+
+        .accent-amber { --robot-accent: #F59E0B; }
+        .accent-amber .robot-glow { background: rgba(245,158,11,0.25); }
+        .accent-amber .robot-name, .accent-amber .robot-subtitle { color: var(--robot-accent); }
+        .accent-amber .robot-key-desc { border-color: rgba(245,158,11,0.3); }
+        .accent-amber .desc-item-icon { background: rgba(245,158,11,0.08); color: #F59E0B; }
+        .accent-amber .chip { color: #F59E0B; border-color: rgba(245,158,11,0.2); }
+        .accent-amber .robot-image-frame { border-color: rgba(245,158,11,0.1); }
+
+        .accent-rose { --robot-accent: #FB7185; }
+        .accent-rose .robot-glow { background: rgba(251,113,133,0.25); }
+        .accent-rose .robot-name, .accent-rose .robot-subtitle { color: var(--robot-accent); }
+        .accent-rose .robot-key-desc { border-color: rgba(251,113,133,0.3); }
+        .accent-rose .desc-item-icon { background: rgba(251,113,133,0.08); color: #FB7185; }
+        .accent-rose .chip { color: #FB7185; border-color: rgba(251,113,133,0.2); }
+        .accent-rose .robot-image-frame { border-color: rgba(251,113,133,0.1); }
+
+        /* ── Pagination ── */
+        .pagination { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 4rem 2rem 2rem; }
+        .pagination a, .pagination span { font-family: var(--font-display); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.75rem 1.5rem; border-radius: 100px; border: 1px solid var(--border); color: var(--text-secondary); transition: all 0.3s; text-decoration: none; }
+        .pagination a:hover { border-color: var(--accent); color: var(--accent); }
+        .pagination .active-page { background: var(--accent); color: var(--bg-dark); border-color: var(--accent); font-weight: 600; }
+        .pagination .prev-btn, .pagination .next-btn { display: inline-flex; align-items: center; gap: 0.5rem; border-color: rgba(77,238,234,0.3); color: var(--accent); }
+        .pagination .prev-btn:hover, .pagination .next-btn:hover { background: rgba(77,238,234,0.1); }
+
+        /* ── Back to Home ── */
+        .back-home { text-align: center; padding: 2rem 2rem 6rem; }
+        .back-home a { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.3s; }
+        .back-home a:hover { color: var(--accent); }
+        .plat-footer { padding: 3rem clamp(2rem, 6vw, 6rem) 2rem; border-top: 1px solid var(--border); text-align: center; }
+        .plat-footer .f-copy { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
+
+        @media (max-width: 992px) { .showcase-inner { grid-template-columns: 1fr; gap: 2.5rem; } .robot-showcase:nth-child(even) .showcase-inner { direction: ltr; } .robot-image-frame { max-width: 340px; margin: 0 auto; } }
+        @media (max-width: 768px) { .nav-links { display: none; } .page-header { padding: 8rem 1.5rem 3rem; } .robot-showcase { padding: 4rem 0; } .robot-image-frame { max-width: 280px; } }
+        @media (max-width: 480px) { .desc-item { flex-direction: column; gap: 0.5rem; } }
+        body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 9999; }
+    
+        /* ── Mobile Accordion Menu ── */
+        .mobile-toggle { display: none; color: #fff; font-size: 1.6rem; z-index: 10001; padding: 0.6rem; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 9550; display: flex; flex-direction: column; align-items: stretch; padding: 90px 0 2rem; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open { opacity: 1; pointer-events: all; }
+        .mobile-overlay > a { font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.3s, background 0.3s; text-decoration: none; }
+        .mobile-overlay > a:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1rem 2rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; transition: color 0.3s, background 0.3s; }
+        .mob-accordion-toggle:hover { color: #4DEEEA; background: rgba(77,238,234,0.04); }
+        .mob-accordion-toggle i { font-size: 0.7rem; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); color: #4DEEEA; opacity: 0.6; }
+        .mob-accordion.open .mob-accordion-toggle i { transform: rotate(180deg); }
+        .mob-accordion.open .mob-accordion-toggle { color: #4DEEEA; }
+        .mob-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); background: rgba(255,255,255,0.015); }
+        .mob-accordion.open .mob-accordion-body { max-height: 800px; }
+        .mob-accordion-body a { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 2rem 0.7rem 3rem; font-family: var(--font-display); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, background 0.25s, padding-left 0.25s; border-bottom: 1px solid rgba(255,255,255,0.03); text-decoration: none; }
+        .mob-accordion-body a:last-child { border-bottom: none; }
+        .mob-accordion-body a i { font-size: 1rem; opacity: 0.5; flex-shrink: 0; }
+        .mob-accordion-body a:hover { color: #4DEEEA; background: rgba(77,238,234,0.05); padding-left: 3.4rem; }
+        .mob-accordion-body a:hover i { opacity: 1; color: #4DEEEA; }
+        .mobile-overlay > a, .mobile-overlay > .mob-accordion { transform: translateX(-20px); opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .mobile-overlay.open > a, .mobile-overlay.open > .mob-accordion { transform: translateX(0); opacity: 1; }
+        .mobile-overlay.open > :nth-child(1) { transition-delay: 0.05s; }
+        .mobile-overlay.open > :nth-child(2) { transition-delay: 0.1s; }
+        .mobile-overlay.open > :nth-child(3) { transition-delay: 0.15s; }
+        .mobile-overlay.open > :nth-child(4) { transition-delay: 0.2s; }
+        .mobile-overlay.open > :nth-child(5) { transition-delay: 0.25s; }
+        .mobile-overlay.open > :nth-child(6) { transition-delay: 0.3s; }
+        .mobile-overlay.open > :nth-child(7) { transition-delay: 0.35s; }
+        @media (max-width: 768px) { 
+            .mobile-toggle { display: block !important; visibility: visible !important; opacity: 1 !important; } 
+        }
+
+    
+        /* ── Mobile overflow fix ── */
+        html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
+        nav { max-width: 100vw !important; overflow: visible !important; width: 100% !important; }
+        * { max-width: 100vw; }
+
+    </style>
+    <link rel="stylesheet" href="./product-enquiry.css">
+    <script src="./product-enquiry.js" defer></script>
+    <meta property="og:title" content="Robotics Fleet — Page 3 — Pure AI">
+    <meta property="og:description" content="Pure AI Robotics Fleet Page 3 — Service Robots, Cleaning Bots, Drones, and Industrial Delivery Systems.">
+    <meta property="og:image" content="./pure-logo-v4.png">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+    <a href="./" class="logo"><img src="./pure-logo-v4.png" alt="Pure AI"></a>
+    <div class="nav-links">
+        <a href="./platform">Platform</a>
+        <div class="nav-dropdown">
+            <a href="./#products">Product <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./robots-search"><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots"><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots"><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk"><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics"><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage"><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#"><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#"><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#"><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#"><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="./services">Services <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./custom-robotics"><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter"><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup"><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux"><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes"><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories"><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training"><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw"><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management"><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+        <div class="nav-dropdown">
+            <a href="./#solutions">Solutions <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./sol-banking"><i class="ph ph-bank"></i> PureAi - Banking &amp; Finance</a>
+                <a href="./sol-healthcare"><i class="ph ph-heartbeat"></i> PureAi - Healthcare</a>
+                <a href="./sol-logistics"><i class="ph ph-truck"></i> PureAi - Logistics</a>
+                <a href="./sol-manufacturing"><i class="ph ph-gear-six"></i> PureAi - Manufacturing</a>
+                <a href="./sol-agriculture"><i class="ph ph-plant"></i> PureAi - Agriculture</a>
+                <a href="./sol-aviation"><i class="ph ph-airplane"></i> PureAi - Airlines</a>
+                <a href="./sol-education"><i class="ph ph-graduation-cap"></i> PureAi - Education</a>
+                <a href="./sol-retail"><i class="ph ph-storefront"></i> PureAi - Retail</a>
+                <a href="./sol-enterprise"><i class="ph ph-buildings"></i> PureAi - Enterprise</a>
+                <a href="./sol-infrastructure"><i class="ph ph-lightning"></i> PureAi - Infrastructure</a>
+            </div>
+        </div>
+        <a href="./innovation">Innovation</a>
+        <div class="nav-dropdown">
+            <a href="#">Open Innovation <i class="ph ph-caret-down dd-arrow"></i></a>
+            <div class="dd-menu">
+                <a href="./bohrai"><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" class="cta">Contact</a>
+    </div>
+
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <a href="./" data-mobile-link>Home</a>
+        <a href="./platform" data-mobile-link>Platform</a>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Products <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./robots-search" data-mobile-link><i class="ph ph-robot"></i> Robots</a>
+                <a href="./custom-bots" data-mobile-link><i class="ph ph-wrench"></i> Custom Build Robots</a>
+                <a href="./nano-bots" data-mobile-link><i class="ph ph-atom"></i> Nano Bots</a>
+                <a href="./trading-desk" data-mobile-link><i class="ph ph-chart-line-up"></i> Trading Desk</a>
+                <a href="./naolytics" data-mobile-link><i class="ph ph-chart-pie-slice"></i> Naolytics</a>
+                <a href="./aikage" data-mobile-link><i class="ph ph-shield-check"></i> AIKAGE</a>
+                <a href="#" data-mobile-link><i class="ph ph-desktop-tower"></i> PAPA OS</a>
+                <a href="#" data-mobile-link><i class="ph ph-paperclip"></i> CLIP</a>
+                <a href="#" data-mobile-link><i class="ph ph-trend-up"></i> Market Genius</a>
+                <a href="#" data-mobile-link><i class="ph ph-magnifying-glass"></i> SEO Genius</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Services <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./custom-robotics" data-mobile-link><i class="ph ph-robot"></i> Custom Robotics</a>
+                <a href="./ai-datacenter" data-mobile-link><i class="ph ph-hard-drives"></i> AI Datacenter</a>
+                <a href="./ai-setup" data-mobile-link><i class="ph ph-gear-six"></i> AI Set Up</a>
+                <a href="./ibm-linux" data-mobile-link><i class="ph ph-linux-logo"></i> IBM Linux</a>
+                <a href="./ai-boxes" data-mobile-link><i class="ph ph-cube"></i> AI Boxes</a>
+                <a href="./dark-factories" data-mobile-link><i class="ph ph-factory"></i> Dark Factories</a>
+                <a href="./llm-training" data-mobile-link><i class="ph ph-brain"></i> LLM Training</a>
+                <a href="./enterprise-openclaw" data-mobile-link><i class="ph ph-hand-grabbing"></i> OpenClaw</a>
+                <a href="./bot-management" data-mobile-link><i class="ph ph-clock-clockwise"></i> 24/7 Bot Mgmt</a>
+            </div>
+        </div>
+
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Solutions <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./sol-banking" data-mobile-link><i class="ph ph-bank"></i> Banking &amp; Finance</a>
+                <a href="./sol-healthcare" data-mobile-link><i class="ph ph-heartbeat"></i> Healthcare</a>
+                <a href="./sol-logistics" data-mobile-link><i class="ph ph-truck"></i> Logistics</a>
+                <a href="./sol-manufacturing" data-mobile-link><i class="ph ph-gear-six"></i> Manufacturing</a>
+                <a href="./sol-agriculture" data-mobile-link><i class="ph ph-plant"></i> Agriculture</a>
+                <a href="./sol-aviation" data-mobile-link><i class="ph ph-airplane"></i> Airlines</a>
+                <a href="./sol-education" data-mobile-link><i class="ph ph-graduation-cap"></i> Education</a>
+                <a href="./sol-retail" data-mobile-link><i class="ph ph-storefront"></i> Retail</a>
+                <a href="./sol-enterprise" data-mobile-link><i class="ph ph-buildings"></i> Enterprise</a>
+                <a href="./sol-infrastructure" data-mobile-link><i class="ph ph-lightning"></i> Infrastructure</a>
+            </div>
+        </div>
+
+        <a href="./innovation" data-mobile-link>Innovation</a>
+        <div class="mob-accordion">
+            <button class="mob-accordion-toggle" aria-expanded="false">Open Innovation <i class="ph ph-caret-down"></i></button>
+            <div class="mob-accordion-body">
+                <a href="./bohrai" data-mobile-link><i class="ph ph-lightbulb"></i> BOHRAI Hub</a>
+            </div>
+        </div>
+        <a href="./#contact-details" data-mobile-link>Contact</a>
+    </div>
+
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="label hero-anim">Robotics Fleet — Page 3</div>
+        <h1 class="hero-anim">Service, <em>Cleaning</em> & Aerial.</h1>
+    </div>
+
+    <!-- ═══ 21 · PuduBot 2 ═══ -->
+    <section class="robot-showcase accent-cyan" id="pudubot-2">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;">
+                    <img src="./pudu-pudubot2.jpg" alt="PuduBot 2 Delivery Robot" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%; background: #ffffff;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">21 // Indoor Delivery</div>
+                <h2 class="robot-name">PuduBot 2</h2>
+                <p class="robot-subtitle">Autonomous Indoor Delivery Robot</p>
+                <p class="robot-key-desc">
+                    An advanced autonomous indoor delivery robot designed for restaurants, hotels, hospitals, and commercial spaces — focusing on efficient, reliable, and intelligent item transport using AI navigation and multi-sensor perception.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-path"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Universal Indoor Delivery</h4>
+                            <p>Delivers food, parcels, and supplies autonomously, reducing staff workload and improving service efficiency.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-map-trifold"></i></div>
+                        <div class="desc-item-text">
+                            <h4>AI Navigation (VSLAM + LiDAR)</h4>
+                            <p>Uses PUDU VSLAM+ marker-less mapping + dual LiDAR for accurate positioning and smooth movement in crowded spaces.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-devices"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Multi-Scenario Service Platform</h4>
+                            <p>Supports delivery, patrol, guiding, and dish return modes, adaptable across industries.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-package"></i> ~40 kg Load</span>
+                    <span class="chip"><i class="ph ph-battery-charging"></i> 10–24h Runtime</span>
+                    <span class="chip"><i class="ph ph-arrows-out-cardinal"></i> 360° Perception</span>
+                </div>
+                <a class="robot-source" href="https://www.pudurobotics.com" target="_blank" rel="noopener noreferrer" aria-label="View PuduBot 2">
+                    <span class="rs-lbl">Source</span>
+                    <span class="rs-url">Smart Delivery Robot-Pudu Robotics</span>
+                    <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 22 · HolaBot ═══ -->
+    <section class="robot-showcase accent-violet" id="holabot">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;">
+                    <img src="./pudu-holabot.jpg" alt="HolaBot Delivery Robot" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%; background: #ffffff;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">22 // Bulk Delivery</div>
+                <h2 class="robot-name">HolaBot</h2>
+                <p class="robot-subtitle">High-Capacity Autonomous Delivery Robot</p>
+                <p class="robot-key-desc">
+                    A high-capacity autonomous delivery robot designed for restaurants, hospitals, and service environments — focused on efficient bulk transport, contactless operations, and intelligent human interaction using voice and pager control.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-truck"></i></div>
+                        <div class="desc-item-text">
+                            <h4>High-Capacity Delivery Robot</h4>
+                            <p>Built for heavy-duty indoor delivery, carrying large volumes of food, dishes, and medical supplies in a single trip.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-hand-waving"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Contactless Smart Workflow</h4>
+                            <p>Enables contactless delivery in restaurants and hospitals, improving hygiene and operational efficiency.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-microphone"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Voice + Pager Interaction</h4>
+                            <p>6-mic array with voice recognition and pager calling, allowing staff to summon and control the robot easily.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-package"></i> ~60 kg / 120L</span>
+                    <span class="chip"><i class="ph ph-bell-ringing"></i> Smart Pager</span>
+                    <span class="chip"><i class="ph ph-speaker-high"></i> Sound Tracking</span>
+                </div>
+                <a class="robot-source" href="https://www.pudurobotics.com" target="_blank" rel="noopener noreferrer" aria-label="View HolaBot">
+                    <span class="rs-lbl">Source</span>
+                    <span class="rs-url">Smart Delivery Robot-Pudu Robotics</span>
+                    <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 23 · DINERBOT T11 ═══ -->
+    <section class="robot-showcase accent-lime" id="dinerbot-t11">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;">
+                    <img src="./keenon-dinerbot-t11.jpg" alt="Keenon DINERBOT T11" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%; background: #ffffff;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">23 // Narrow-Aisle Specialist</div>
+                <h2 class="robot-name">DINERBOT T11</h2>
+                <p class="robot-subtitle">AI Indoor Delivery & Marketing Robot</p>
+                <p class="robot-key-desc">
+                    An AI-powered indoor delivery and service robot designed for restaurants and hospitality — specialized for navigating narrow aisles while efficiently delivering food, items, and marketing content.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-arrows-in"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Narrow-Aisle Delivery (~49 cm)</h4>
+                            <p>Built for tight spaces, ideal for crowded restaurants and cafés where other robots can't fit.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-radar"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Multi-Sensor Navigation</h4>
+                            <p>Uses LiDAR + VSLAM + stereo vision for precise mapping and autonomous delivery.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-monitor-play"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Service + Marketing Hybrid</h4>
+                            <p>18.5" interactive display for ads, menus, and customer engagement, blending operations with branding.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-tray"></i> ~20 kg Capacity</span>
+                    <span class="chip"><i class="ph ph-arrows-in"></i> 49 cm Passage</span>
+                    <span class="chip"><i class="ph ph-monitor"></i> 18.5" Display</span>
+                </div>
+                <a class="robot-source" href="https://www.keenon.com" target="_blank" rel="noopener noreferrer" aria-label="View Keenon DINERBOT T11">
+                    <span class="rs-lbl">Source</span>
+                    <span class="rs-url">KEENON Robotics - Smart Service Robots & Solutions</span>
+                    <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 24 · DINERBOT T10 ═══ -->
+    <section class="robot-showcase accent-sky" id="dinerbot-t10">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;">
+                    <img src="./keenon-dinerbot-t10.jpg" alt="Keenon DINERBOT T10" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%; background: #ffffff;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">24 // Interactive Service</div>
+                <h2 class="robot-name">DINERBOT T10</h2>
+                <p class="robot-subtitle">AI Interactive Delivery Robot</p>
+                <p class="robot-key-desc">
+                    An AI-powered interactive delivery robot designed for restaurants and hospitality — combining autonomous navigation, high-capacity delivery, and customer engagement through voice, touch, and visual interaction.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-robot"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Autonomous Service & Delivery</h4>
+                            <p>Delivers food and items efficiently in restaurants, hotels, and malls, reducing staff workload.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-smiley"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Interactive Customer Experience</h4>
+                            <p>Multimodal interaction with voice, touch, visual feedback, and moving head expressions.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-monitor-play"></i></div>
+                        <div class="desc-item-text">
+                            <h4>23.8" Marketing Display</h4>
+                            <p>Large HD screen for ads, guidance, and interaction — a delivery and marketing tool in one.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-package"></i> ~40 kg Load</span>
+                    <span class="chip"><i class="ph ph-arrows-in"></i> 59 cm Passage</span>
+                    <span class="chip"><i class="ph ph-monitor"></i> 23.8" Screen</span>
+                </div>
+                <a class="robot-source" href="https://www.foxtechrobot.com" target="_blank" rel="noopener noreferrer" aria-label="View Keenon DINERBOT T10">
+                    <span class="rs-lbl">Source</span>
+                    <span class="rs-url">Transport-Robot | Foxtech</span>
+                    <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 25 · KEENON S300 ═══ -->
+    <section class="robot-showcase accent-gold" id="keenon-s300">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame">
+                    <img src="./robot-keenon-s300.png" alt="KEENON S300 Transport Robot" style="object-fit: cover; padding: 0; width: 100%; height: 100%;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">25 // Heavy Transport</div>
+                <h2 class="robot-name">KEENON S300</h2>
+                <p class="robot-subtitle">Heavy-Load Autonomous Transport Robot</p>
+                <p class="robot-key-desc">
+                    A heavy-load autonomous delivery robot designed for industrial and logistics environments — capable of transporting extremely large payloads with AI-driven navigation, high safety, and continuous operation.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-factory"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Heavy-Duty Industrial Transport</h4>
+                            <p>Built for warehouses, factories, hospitals, and logistics centers, automating movement of large and heavy goods.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-barbell"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Ultra-High Payload (300 kg)</h4>
+                            <p>Handles pallets, shelves, and bulk materials, suitable for heavy industrial logistics.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-shield-check"></i></div>
+                        <div class="desc-item-text">
+                            <h4>360° Advanced Safety</h4>
+                            <p>Dual LiDAR, 3D vision, and emergency stop for safe operation in human environments.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-package"></i> 300 kg Load</span>
+                    <span class="chip"><i class="ph ph-wifi-slash"></i> Offline Mode</span>
+                    <span class="chip"><i class="ph ph-path"></i> Multi-Mode Nav</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 26 · Automated Boat (USV) ═══ -->
+    <section class="robot-showcase accent-blue" id="automated-boat">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;">
+                    <img src="./automated-boat.jpg" alt="Automated USV Boat" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%; background: #ffffff;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">26 // Unmanned Surface Vehicle</div>
+                <h2 class="robot-name">Automated Boat</h2>
+                <p class="robot-subtitle">Autonomous Unmanned Surface Vehicle (USV)</p>
+                <p class="robot-key-desc">
+                    Autonomous robotic boats designed for water-based operations such as inspection, cleaning, surveying, and monitoring — using AI navigation, sensor fusion, and remote/autonomous control systems.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-boat"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Autonomous Water Robot</h4>
+                            <p>Operates without onboard human control using autopilot across lakes, rivers, and reservoirs.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-wrench"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Multi-Function Operations</h4>
+                            <p>Cleaning, inspection, mapping, rescue, and environmental monitoring with modular payloads.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-compass-tool"></i></div>
+                        <div class="desc-item-text">
+                            <h4>AI + Sensor Navigation</h4>
+                            <p>Uses SLAM, radar, cameras, and GPS/RTK for autonomous obstacle avoidance and mission execution.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-game-controller"></i> Hybrid Control</span>
+                    <span class="chip"><i class="ph ph-puzzle-piece"></i> Modular Payload</span>
+                    <span class="chip"><i class="ph ph-sun"></i> All-Weather</span>
+                </div>
+                <a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View Automated USV Boat">
+                    <span class="rs-lbl">Source</span>
+                    <span class="rs-url">SMURF USV Cleaning Boat RC Boat For Water Pollution Monitoring Lake Weeds Cleaning 50KG Load Capaci…</span>
+                    <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 27 · KLEENBOT C55 ═══ -->
+    <section class="robot-showcase accent-emerald" id="kleenbot-c55">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame">
+                    <img src="./robot-kleenbot-c55.png" alt="KLEENBOT C55 Cleaning Robot" style="object-fit: cover; padding: 0; width: 100%; height: 100%;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">27 // Commercial Cleaning</div>
+                <h2 class="robot-name">KLEENBOT C55</h2>
+                <p class="robot-subtitle">Professional Autonomous Cleaning Robot</p>
+                <p class="robot-key-desc">
+                    A professional-grade autonomous cleaning robot designed for medium to large commercial spaces — combining sweeping, scrubbing, and vacuuming into a single AI-powered system for continuous, high-efficiency cleaning.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-broom"></i></div>
+                        <div class="desc-item-text">
+                            <h4>All-in-One Cleaning System</h4>
+                            <p>Integrates sweeping + scrubbing + vacuuming in one robot, full floor cleaning in a single pass.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-buildings"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Large Commercial Spaces (3000+ m²)</h4>
+                            <p>Built for malls, hospitals, factories, airports, and parking areas.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-cell-tower"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Smart Control & Automation</h4>
+                            <p>Remote scheduling, monitoring, and reporting through mobile apps or cloud platforms.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-chart-bar"></i> ~1100 m²/h</span>
+                    <span class="chip"><i class="ph ph-arrows-in"></i> 65 cm Passage</span>
+                    <span class="chip"><i class="ph ph-cloud"></i> Cloud Platform</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 28 · KLEENBOT C40 ═══ -->
+    <section class="robot-showcase accent-mint" id="kleenbot-c40">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;">
+                    <img src="./kleenbot-c40.jpg" alt="KLEENBOT C40 Cleaning Robot" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%; background: #ffffff;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">28 // 4-in-1 Cleaning</div>
+                <h2 class="robot-name">KLEENBOT C40</h2>
+                <p class="robot-subtitle">Compact 4-in-1 Autonomous Cleaner</p>
+                <p class="robot-key-desc">
+                    A compact, professional 4-in-1 autonomous cleaning robot designed for commercial environments — combining sweeping, vacuuming, scrubbing, and mopping with AI-driven navigation for efficient, hands-free floor maintenance.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-sparkle"></i></div>
+                        <div class="desc-item-text">
+                            <h4>4-in-1 Intelligent Cleaning</h4>
+                            <p>Sweeping, vacuuming, scrubbing, and mopping in a single machine for complete floor cleaning.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-storefront"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Commercial & High-Traffic Spaces</h4>
+                            <p>Ideal for offices, malls, hospitals, hotels, and airports, especially indoor environments.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-radar"></i></div>
+                        <div class="desc-item-text">
+                            <h4>AI-Powered Autonomous Navigation</h4>
+                            <p>LiDAR + stereo vision + SLAM-based mapping for full coverage without human intervention.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-chart-bar"></i> ~1100 m²/h</span>
+                    <span class="chip"><i class="ph ph-battery-charging"></i> Auto-Charge</span>
+                    <span class="chip"><i class="ph ph-arrows-in"></i> 65 cm Passage</span>
+                </div>
+                <a class="robot-source" href="#" target="_blank" rel="noopener noreferrer" aria-label="View KLEENBOT C40">
+                    <span class="rs-lbl">Source</span>
+                    <span class="rs-url">C40 – SPARK Robotics</span>
+                    <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 29 · KEENON S100 ═══ -->
+    <section class="robot-showcase accent-amber" id="keenon-s100">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;">
+                    <img src="./keenon-s100.jpg" alt="KEENON S100 Transport Robot" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%; background: #ffffff;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">29 // Heavy-Load Transport</div>
+                <h2 class="robot-name">KEENON S100</h2>
+                <p class="robot-subtitle">Heavy-Load Autonomous Delivery Robot</p>
+                <p class="robot-key-desc">
+                    A heavy-load autonomous delivery robot designed for industrial and commercial environments — built to transport goods efficiently with AI navigation, high safety, and continuous 24/7 operation.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-package"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Heavy-Load Transport (100 kg+)</h4>
+                            <p>Handles heavy and bulky items with stable transport in warehouses, hospitals, and factories.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-clock-countdown"></i></div>
+                        <div class="desc-item-text">
+                            <h4>24/7 Continuous Operation</h4>
+                            <p>Battery swap in ~15 seconds, auto-charging, and manual charging for nonstop workflow.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-shield-check"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Advanced Safety System</h4>
+                            <p>360° obstacle avoidance, anti-collision strips, and emergency stop for safe human-robot collaboration.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-barbell"></i> 100 kg+ Load</span>
+                    <span class="chip"><i class="ph ph-battery-charging"></i> 15s Swap</span>
+                    <span class="chip"><i class="ph ph-arrows-out-cardinal"></i> 360° Safety</span>
+                </div>
+                <a class="robot-source" href="https://www.keenon.com" target="_blank" rel="noopener noreferrer" aria-label="View KEENON S100">
+                    <span class="rs-lbl">Source</span>
+                    <span class="rs-url">KEENON Robotics - Smart Service Robots & Solutions</span>
+                    <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 30 · Drone Cleaning System ═══ -->
+    <section class="robot-showcase accent-rose" id="drone-cleaning">
+        <div class="showcase-inner">
+            <div class="robot-image-wrap showcase-anim">
+                <div class="robot-glow"></div>
+                <div class="robot-image-frame" style="background:#ffffff; --frame-overlay:none;">
+                    <img src="./dji-cleaning-drone.jpg" alt="Drone Cleaning System" style="object-fit: contain; padding: 1.25rem; width: 100%; height: 100%; background: #ffffff;">
+                </div>
+            </div>
+            <div class="robot-content showcase-anim">
+                <div class="robot-index">30 // Aerial Cleaning</div>
+                <h2 class="robot-name">Drone Cleaning</h2>
+                <p class="robot-subtitle">Aerial High-Rise Cleaning System</p>
+                <p class="robot-key-desc">
+                    An advanced aerial cleaning solution that uses industrial drones equipped with high-pressure spraying systems and tethered power to clean high-rise buildings, solar panels, and infrastructure safely and efficiently.
+                </p>
+                <div class="desc-grid">
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-airplane-tilt"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Aerial High-Rise Cleaning</h4>
+                            <p>Cleans tall buildings, glass facades, solar panels, and structures without scaffolding or manual labor.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-drop"></i></div>
+                        <div class="desc-item-text">
+                            <h4>High-Pressure System (110–160 bar)</h4>
+                            <p>Powerful water jets for removing dirt, dust, and contaminants from surfaces at altitude.</p>
+                        </div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-item-icon"><i class="ph ph-puzzle-piece"></i></div>
+                        <div class="desc-item-text">
+                            <h4>Modular Payload System</h4>
+                            <p>Supports cleaning, coating/painting, and solar panel washing configurations.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-chips">
+                    <span class="chip"><i class="ph ph-arrow-up"></i> ~50–60 m+ Height</span>
+                    <span class="chip"><i class="ph ph-plug"></i> Tethered Power</span>
+                    <span class="chip"><i class="ph ph-drop"></i> Multi-Angle Spray</span>
+                </div>
+                <a class="robot-source" href="https://www.dji.com" target="_blank" rel="noopener noreferrer" aria-label="View Drone Cleaning System">
+                    <span class="rs-lbl">Source</span>
+                    <span class="rs-url">DJI Drone Cleaning System | High-Pressure Aerial Cleaning Solutions</span>
+                    <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <a href="./robots-2" class="prev-btn"><i class="ph ph-arrow-left"></i> Prev</a>
+        <a href="./robots">1</a>
+        <a href="./robots-2">2</a>
+        <span class="active-page">3</span>
+        <a href="./robots-4">4</a>
+        <a href="./robots-5">5</a>
+        <a href="./robots-6">6</a>
+        <a href="./robots-4" class="next-btn">Next <i class="ph ph-arrow-right"></i></a>
+    </div>
+
+    <!-- Back to Home -->
+    <div class="back-home">
+        <a href="./"><i class="ph ph-arrow-left"></i> Back to Main Site</a>
+    </div>
+
+    <footer class="plat-footer">
+        <div class="f-copy">© 2026 Pure AI Technologies and Services Pvt Ltd.</div>
+    </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from(".hero-anim", { y: 50, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.3 });
+        document.querySelectorAll('.robot-showcase').forEach((section, i) => {
+            const anims = section.querySelectorAll('.showcase-anim');
+            const isEven = i % 2 !== 0;
+            gsap.fromTo(anims[0], { x: isEven ? 60 : -60, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 75%", toggleActions: "play none none reverse" } });
+            gsap.fromTo(anims[1], { x: isEven ? -60 : 60, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.2, scrollTrigger: { trigger: section, start: "top 75%", toggleActions: "play none none reverse" } });
+            const glow = section.querySelector('.robot-glow');
+            if (glow) { gsap.to(glow, { y: -15, x: 10, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut" }); }
+        });
+    });
+    </script>
+
+
+    <script>
+    (function(){
+        var mt = document.getElementById('mobile-toggle');
+        var mo = document.getElementById('mobile-overlay');
+        if (!mt || !mo) return;
+        mt.addEventListener('click', function(){
+            var open = mo.classList.toggle('open');
+            mt.innerHTML = open ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (!open) mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+        });
+        mo.querySelectorAll('[data-mobile-link]').forEach(function(link){
+            link.addEventListener('click', function(){
+                mo.classList.remove('open');
+                mt.innerHTML = '<i class="ph ph-list"></i>';
+                document.body.style.overflow = '';
+            });
+        });
+        mo.querySelectorAll('.mob-accordion-toggle').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var acc = btn.parentElement;
+                var wasOpen = acc.classList.contains('open');
+                mo.querySelectorAll('.mob-accordion').forEach(function(a){ a.classList.remove('open'); });
+                if (!wasOpen) acc.classList.add('open');
+                btn.setAttribute('aria-expanded', !wasOpen);
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>

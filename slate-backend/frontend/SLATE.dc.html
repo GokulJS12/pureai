@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<!-- SLATE backend integration: point the client at the API, then load it. -->
+<script>window.SLATE_API_BASE = 'http://localhost:8787';</script>
+<script src="./slate-api.js"></script>
 </head>
 <body>
 <x-dc>
@@ -772,6 +775,31 @@
   </div>
   </sc-if>
 
+  <!-- LOGIN (shown when GET /api/auth/me returns 401) -->
+  <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:70;background:radial-gradient(135% 110% at 50% 38%, #FFFFFF 0%, #F4F2EE 58%, #ECE8E1 100%);display:flex;align-items:center;justify-content:center;padding:24px;animation:slateFade .5s ease;">
+    <div style="width:380px;max-width:100%;background:#F9F8F6;border:1px solid #E4E1DA;border-radius:18px;box-shadow:0 30px 90px rgba(26,25,23,.18);padding:34px 32px;animation:slateUpFade .5s both;">
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:24px;">
+        <div style="width:30px;height:30px;border-radius:50%;background:conic-gradient(from 210deg,#2F6BFF,#0E7A6B,#2F6BFF);position:relative;flex-shrink:0;"><div style="position:absolute;inset:3px;border-radius:50%;background:#F9F8F6;"></div><div style="position:absolute;inset:10px;border-radius:50%;background:#2F6BFF;"></div></div>
+        <span style="font:600 14px Inter;letter-spacing:.04em;color:#1A1917;">SLATE</span>
+        <span style="font:400 11px Inter;color:#A8A49B;">by Pure AI</span>
+      </div>
+      <h1 style="font-family:Satoshi,Inter,sans-serif;font-weight:600;font-size:26px;letter-spacing:-.02em;color:#1A1917;margin:0 0 6px;">{{ authTitle }}</h1>
+      <p style="font:400 13.5px/1.5 Inter;color:#9A9790;margin:0 0 22px;">{{ authSub }}</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <input ref="{{ authEmailRef }}" onKeyDown="{{ onAuthKey }}" placeholder="you@example.com" style="width:100%;border:1px solid #E4E1DA;border-radius:11px;background:#fff;padding:12px 14px;outline:none;font:400 14px Inter;color:#1A1917;">
+        <input ref="{{ authPassRef }}" onKeyDown="{{ onAuthKey }}" type="password" placeholder="Password" style="width:100%;border:1px solid #E4E1DA;border-radius:11px;background:#fff;padding:12px 14px;outline:none;font:400 14px Inter;color:#1A1917;">
+      </div>
+      <sc-if value="{{ hasAuthError }}" hint-placeholder-val="{{ false }}">
+        <div style="font:400 12.5px Inter;color:#C58A86;margin-top:12px;">{{ authError }}</div>
+      </sc-if>
+      <button onClick="{{ doAuth }}" style="width:100%;margin-top:20px;background:#1A1917;color:#fff;border:0;border-radius:12px;padding:13px;cursor:pointer;font:600 14px Inter;" style-hover="background:#000">{{ authCta }}</button>
+      <button onClick="{{ toggleAuthMode }}" style="width:100%;margin-top:12px;background:transparent;border:0;cursor:pointer;font:500 13px Inter;color:#2F6BFF;padding:6px;">{{ authSwitch }}</button>
+      <div style="font:400 11px/1.5 Inter;color:#C4C1B9;text-align:center;margin-top:14px;">Your words stay on your device and your own server. No third parties.</div>
+    </div>
+  </div>
+  </sc-if>
+
  </div>
 </div>
 </x-dc>
@@ -788,7 +816,13 @@ class Component extends DCLogic {
     try { saved = JSON.parse(localStorage.getItem(PKEY)) || {}; } catch (e) {}
     const booted = typeof sessionStorage !== 'undefined' && sessionStorage.getItem('slate-booted') === '1';
     this.jref = React.createRef();
-    this.state = Object.assign(this.defaults(), saved, { thinking: false, booted: booted, search: '', jPeriod: 'Morning', jMood: 'calm' });
+    this.authEmailRef = React.createRef();
+    this.authPassRef = React.createRef();
+    this.state = Object.assign(this.defaults(), saved, {
+      thinking: false, booted: booted, search: '', jPeriod: 'Morning', jMood: 'calm',
+      // backend auth/sync state
+      showLogin: false, authMode: 'login', authError: '', syncing: false,
+    });
   }
 
   defaults() {
@@ -859,8 +893,20 @@ class Component extends DCLogic {
     try {
       const slim = {};
       PERSIST.forEach(k => { slim[k] = this.state[k]; });
-      localStorage.setItem(PKEY, JSON.stringify(slim));
+      localStorage.setItem(PKEY, JSON.stringify(slim));   // offline cache
     } catch (e) {}
+    this.syncToApi();                                      // mirror to backend
+  }
+  // Debounced full-state mirror to the API. Chat is owned by POST /api/chat,
+  // so it's excluded here. Only runs once we have an authenticated session.
+  syncToApi() {
+    if (!this._authed || this.state.showLogin || typeof SlateAPI === 'undefined') return;
+    clearTimeout(this._sync);
+    this._sync = setTimeout(() => {
+      const snap = {};
+      PERSIST.forEach(k => { if (k !== 'chat') snap[k] = this.state[k]; });
+      SlateAPI.putState(snap).catch(() => {});             // offline-tolerant
+    }, 700);
   }
   set(patch, cb) { this.setState(patch, () => { this.persist(); if (cb) cb(); }); }
 
@@ -875,12 +921,39 @@ class Component extends DCLogic {
     };
     this._fit(); setTimeout(this._fit, 60); setTimeout(this._fit, 300);
     window.addEventListener('resize', this._fit);
+    this.hydrateFromApi();
+  }
+  // Source of truth on load: fetch the server state and replace local state.
+  // Falls back silently to the localStorage seed if the API is unreachable.
+  hydrateFromApi() {
+    if (typeof SlateAPI === 'undefined') return;
+    SlateAPI.me()
+      .then(() => SlateAPI.state())
+      .then((s) => { this._authed = true; this.setState(Object.assign({ showLogin: false }, s), () => this.persist()); })
+      .catch((err) => {
+        if (err && err.status === 401) this.setState({ showLogin: true });
+        // any other failure: keep running offline on the localStorage seed
+      });
   }
   componentWillUnmount() { clearTimeout(this._boot); clearTimeout(this._think); this.stopAudio(); if (this._fit) window.removeEventListener('resize', this._fit); }
   finishBoot() {
     clearTimeout(this._boot);
     try { sessionStorage.setItem('slate-booted', '1'); } catch (e) {}
     this.setState({ booted: true });
+  }
+
+  // ---------- backend auth ----------
+  toggleAuthMode() { this.setState({ authMode: this.state.authMode === 'login' ? 'signup' : 'login', authError: '' }); }
+  onAuthKey(e) { if (e.key === 'Enter') { e.preventDefault(); this.doAuth(); } }
+  doAuth() {
+    if (typeof SlateAPI === 'undefined') return;
+    const email = ((this.authEmailRef.current && this.authEmailRef.current.value) || '').trim();
+    const pass = (this.authPassRef.current && this.authPassRef.current.value) || '';
+    if (!email || !pass) { this.setState({ authError: 'Please enter your email and a password.' }); return; }
+    this.setState({ authError: '' });
+    const p = this.state.authMode === 'signup' ? SlateAPI.signup(email, pass) : SlateAPI.login(email, pass);
+    p.then(() => { this.setState({ showLogin: false }, () => this.hydrateFromApi()); })
+     .catch((err) => { this.setState({ authError: (err && err.message) || 'Something went wrong. Please try again.' }); });
   }
 
   // ---------- navigation ----------
@@ -1021,15 +1094,32 @@ class Component extends DCLogic {
     if (/(summar|notes)/.test(t)) return 'From your recent notes, a quiet theme keeps surfacing: you want to be more present and less rushed. Would you like to turn that into one small intention for the week?';
     return this.pick(ask);
   }
+  // Offline fallback reply using the local rule engine (kept for parity).
+  localReply(text) {
+    const r = { id: 's' + Date.now(), role: 'slate', text: this.replyTo(text) };
+    this.set({ chat: this.state.chat.concat(r), thinking: false });
+  }
   sendChat(text) {
     text = (text || '').trim(); if (!text) return;
     const u = { id: 'u' + Date.now(), role: 'user', text: text };
     this.set({ chat: this.state.chat.concat(u), thinking: true, screen: 'chat' });
     clearTimeout(this._think);
-    this._think = setTimeout(() => {
-      const r = { id: 's' + Date.now(), role: 'slate', text: this.replyTo(text) };
-      this.set({ chat: this.state.chat.concat(r), thinking: false });
-    }, 1600);
+    if (this._authed && typeof SlateAPI !== 'undefined') {
+      // Reply is generated server-side by the rule engine; keep the ~1.6s
+      // "thinking" pause on the client for the same feel.
+      const started = Date.now();
+      SlateAPI.sendChat(text).then((res) => {
+        const wait = Math.max(0, 1600 - (Date.now() - started));
+        this._think = setTimeout(() => {
+          const chat = this.state.chat.slice();
+          chat[chat.length - 1] = res.user;   // swap optimistic msg for the persisted one
+          chat.push(res.slate);               // append the server's reply
+          this.set({ chat: chat, thinking: false });
+        }, wait);
+      }).catch(() => { this._think = setTimeout(() => this.localReply(text), 1600); });
+    } else {
+      this._think = setTimeout(() => this.localReply(text), 1600);
+    }
   }
   sendFromChat() { const el = this.chatRef.current; if (el) { this.sendChat(el.value); el.value = ''; } }
   onChatKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); this.sendFromChat(); } }
@@ -1255,6 +1345,16 @@ class Component extends DCLogic {
     return {
       // boot
       showBoot: !s.booted, skipBoot: () => this.skipBoot(),
+      // backend auth overlay
+      showLogin: s.showLogin,
+      authIsSignup: s.authMode === 'signup',
+      authTitle: s.authMode === 'signup' ? 'Create your space' : 'Welcome back',
+      authSub: s.authMode === 'signup' ? 'A calm place that remembers you. Your words stay yours.' : 'Sign in to pick up where you left off.',
+      authCta: s.authMode === 'signup' ? 'Create account' : 'Sign in',
+      authSwitch: s.authMode === 'signup' ? 'Already have a space? Sign in' : 'New here? Create your space',
+      authError: s.authError, hasAuthError: !!s.authError,
+      authEmailRef: this.authEmailRef, authPassRef: this.authPassRef,
+      onAuthKey: (e) => this.onAuthKey(e), doAuth: () => this.doAuth(), toggleAuthMode: () => this.toggleAuthMode(),
       // identity
       userName: s.twin.name, userInitial: (s.twin.name || 'M').slice(0, 1).toUpperCase(),
       greeting: gp[0], greetingSub: gp[1],

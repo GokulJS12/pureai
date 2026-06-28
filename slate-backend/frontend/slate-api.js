@@ -41,6 +41,7 @@
 
     // --- bootstrap ---
     state: () => req('GET', '/api/state'),
+    putState: (snapshot) => req('PUT', '/api/state', snapshot),
 
     // --- notes ---
     listNotes: () => req('GET', '/api/notes'),

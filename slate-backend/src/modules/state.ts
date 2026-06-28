@@ -7,6 +7,7 @@ import { listChat } from './chat/repo.js';
 import { getTwin } from './twin/repo.js';
 import { getLife } from './life/repo.js';
 import { getSettings } from './settings/repo.js';
+import { parseStatePayload, replaceState } from './stateRepo.js';
 
 /**
  * GET /api/state — the entire `slate-state-v1`-shaped object for the user, so
@@ -38,5 +39,14 @@ export async function stateRoutes(app: FastifyInstance): Promise<void> {
       ambientVol: settings.ambientVol,
       mood: settings.mood,
     };
+  });
+
+  // PUT /api/state — bulk replace the user's state from a client snapshot
+  // (debounced mirror). Chat is excluded; it's owned by POST /api/chat.
+  app.put('/api/state', async (req) => {
+    const { user } = req as AuthedRequest;
+    const payload = parseStatePayload(req.body);
+    replaceState(user.id, payload);
+    return { ok: true };
   });
 }

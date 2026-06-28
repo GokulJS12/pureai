@@ -162,5 +162,47 @@ describe('derived: behavior, calendar, catalog', () => {
   });
 });
 
+describe('bulk state sync (PUT /api/state)', () => {
+  it('replaces the user state from a snapshot and round-trips via GET', async () => {
+    const snapshot = {
+      notes: [{ id: 'n_keep', title: 'Synced', body: 'from client', tag: 'T', pinned: true, updated: 123 }],
+      activeNoteId: 'n_keep',
+      journal: [],
+      tasks: [{ id: 't_keep', title: 'one', priority: 'high', due: 'Today', done: false }],
+      twin: {
+        name: 'Synced Maya',
+        about: 'a',
+        learning: 'l',
+        comm: 'c',
+        interests: ['X', 'Y'],
+        goals: [{ id: 'g_keep', t: 'goal', meta: 'm' }],
+        memories: [{ id: 'm_keep', t: 'mem', when: 'now' }],
+      },
+      life: { career: { question: 'q', pros: ['p1'], cons: [], note: 'n' } },
+      lifeCat: 'career',
+      screen: 'twin',
+      ambientVol: 0.9,
+    };
+    const put = await app.inject({ method: 'PUT', url: '/api/state', headers: { cookie }, payload: snapshot });
+    expect(put.statusCode).toBe(200);
+
+    const state = (await app.inject({ url: '/api/state', headers: { cookie } })).json();
+    expect(state.notes).toHaveLength(1);
+    expect(state.notes[0].title).toBe('Synced');
+    expect(state.notes[0].pinned).toBe(true);
+    expect(state.activeNoteId).toBe('n_keep');
+    expect(state.twin.name).toBe('Synced Maya');
+    expect(state.twin.interests).toEqual(['X', 'Y']);
+    expect(state.life.career.pros).toEqual(['p1']);
+    expect(state.lifeCat).toBe('career');
+    expect(state.screen).toBe('twin');
+    expect(state.ambientVol).toBe(0.9);
+  });
+
+  it('requires auth', async () => {
+    expect((await app.inject({ method: 'PUT', url: '/api/state', payload: {} })).statusCode).toBe(401);
+  });
+});
+
 // satisfy unused-helper lint in strict configs
 void auth;

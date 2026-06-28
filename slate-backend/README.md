@@ -48,7 +48,11 @@ or `http://localhost:5173` for the standalone static server.
 
 - `npm run dev:api` — API only (`:8787`).
 - `npm run serve:frontend` — static front end only (`:5173`).
-- `npm test` — run the vitest suite.
+- `npm test` — run the vitest suite (24 unit/integration tests).
+- `npm run test:e2e` — full UI functional test in Chromium (needs Playwright + a
+  running server). Drives the real app and verifies every feature against the
+  backend (20 checks: auth, all 13 screens, notes, tasks, journal, chat engine,
+  twin, life boards, settings, behavior, calendar, catalog, persistence).
 - `npm run build` — type-check & emit to `dist/`; `npm start` runs the build.
 
 ### Environment

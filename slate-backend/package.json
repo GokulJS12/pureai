@@ -18,7 +18,8 @@
     "seed": "tsx src/db/seed.ts",
     "app": "npm run build && electron .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "node e2e/functional.cjs"
   },
   "dependencies": {
     "@fastify/cookie": "^9.3.1",

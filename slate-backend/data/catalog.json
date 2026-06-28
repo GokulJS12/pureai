@@ -1,0 +1,33 @@
+{
+  "practiceModes": [
+    { "glyph": "🎓", "label": "Professor", "note": "Explains, then quizzes you" },
+    { "glyph": "🤝", "label": "Friend", "note": "Warm and honest" },
+    { "glyph": "💼", "label": "CEO", "note": "Direct, big-picture" },
+    { "glyph": "🎤", "label": "Interviewer", "note": "Calm, probing questions" },
+    { "glyph": "📰", "label": "Journalist", "note": "Draws out the story" },
+    { "glyph": "📖", "label": "Storyteller", "note": "Turns ideas into tales" }
+  ],
+  "libraryItems": [
+    { "title": "Four Thousand Weeks", "meta": "Reading · 62%", "cover": "linear-gradient(150deg,#2F6BFF,#0E7A6B)" },
+    { "title": "The Tao of Stillness", "meta": "Saved", "cover": "linear-gradient(150deg,#B08A3E,#8A6A2A)" },
+    { "title": "On Deep Work", "meta": "Finished", "cover": "linear-gradient(150deg,#6E8E72,#4A6A50)" },
+    { "title": "Letters to a Young Poet", "meta": "Saved", "cover": "linear-gradient(150deg,#C58A86,#9A5A56)" }
+  ],
+  "stories": [
+    { "cat": "Calm", "title": "The lighthouse keeper", "meta": "6 min · a quiet story about patience", "art": "linear-gradient(150deg,#DCE7F5,#B8CDE8)" },
+    { "cat": "Reflection", "title": "A bowl of morning rain", "meta": "4 min · on small beginnings", "art": "linear-gradient(150deg,#E4EFE4,#C4DCC6)" },
+    { "cat": "Wonder", "title": "The cartographer of feelings", "meta": "8 min · mapping an inner world", "art": "linear-gradient(150deg,#F4ECDA,#E4D2AE)" }
+  ],
+  "events": [
+    { "time": "11:00 AM", "title": "Call with the research team", "tag": "Work" },
+    { "time": "4:30 PM", "title": "Tea with Priya", "tag": "People" },
+    { "time": "6:30 PM", "title": "Evening walk by the river", "tag": "Wellbeing" }
+  ],
+  "quotes": [
+    "Begin where you are. That is always enough.",
+    "You do not have to carry everything at once.",
+    "The quiet moments are the ones that shape us.",
+    "Slow is not the same as behind.",
+    "Attention is the simplest form of care you can offer a day."
+  ]
+}

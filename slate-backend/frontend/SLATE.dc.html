@@ -3,9 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- React must be on window before the DC runtime boots (offline, vendored). -->
+<script src="./vendor/react.production.min.js"></script>
+<script src="./vendor/react-dom.production.min.js"></script>
 <script src="./support.js"></script>
-<!-- SLATE backend integration: point the client at the API, then load it. -->
-<script>window.SLATE_API_BASE = 'http://localhost:8787';</script>
+<!-- SLATE backend integration: same-origin API base, then the client. -->
+<script>window.SLATE_API_BASE = window.location.origin;</script>
 <script src="./slate-api.js"></script>
 </head>
 <body>

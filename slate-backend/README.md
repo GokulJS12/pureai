@@ -11,15 +11,40 @@ multi-session, server-backed product.
 
 ---
 
-## Quick start
+## Run as a desktop app (Electron)
+
+**Slate** ships as an Electron desktop app that bundles the API and the MVP
+front end into one window.
+
+```bash
+cd slate-backend
+npm install         # downloads the Electron binary (needs network access)
+npm run app         # builds the backend, launches the Slate desktop app
+```
+
+`npm run app` compiles the backend to `dist/`, then Electron (`electron/main.cjs`)
+starts the API as a child process, waits for `/api/health`, and opens the SLATE
+UI served same-origin from `http://127.0.0.1:8787`. The SQLite database lives in
+the OS app-data directory (`app.getPath('userData')/slate.db`) so it persists
+across restarts and updates. Sign up in-app, or use the demo `maya@slate.local /
+slate` (run `npm run seed` once to create it).
+
+> The front end renders with vendored React 18 (`frontend/vendor/`) and the DC
+> runtime — no network needed at runtime. Verified to render in the same
+> Chromium engine Electron uses (login → seeded dashboard → server-backed chat).
+
+## Quick start (web / headless)
 
 ```bash
 cd slate-backend
 npm install
 npm run migrate     # create / update the SQLite schema (idempotent)
 npm run seed        # create the demo account  maya@slate.local / slate
-npm run dev         # API on :8787  +  static front end on :5173
+npm run dev         # API on :8787 (also serves the UI) + static front end on :5173
 ```
+
+Open `http://localhost:8787/SLATE.dc.html` for the same-origin app (recommended),
+or `http://localhost:5173` for the standalone static server.
 
 - `npm run dev:api` — API only (`:8787`).
 - `npm run serve:frontend` — static front end only (`:5173`).
@@ -80,8 +105,11 @@ slate-backend/
       responses.ts           # reply copy constants (ported from front end)
       behavior.ts            # derived behaviour metrics from real activity
     util/ errors.ts ids.ts time.ts
-  scripts/serve-frontend.mjs # dependency-free static server for ./frontend
-  frontend/                  # the SLATE front end + slate-api.js client
+  electron/main.cjs          # Slate desktop app: spawns backend, opens the window
+  scripts/
+    serve-frontend.mjs       # dependency-free static server for ./frontend
+    copy-assets.mjs          # copies schema.sql + migrations into dist on build
+  frontend/                  # the SLATE front end, slate-api.js client, vendored React
   data/                      # SQLite file lives here (gitignored)
   tests/
 ```

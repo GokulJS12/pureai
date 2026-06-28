@@ -1,6 +1,9 @@
 import Fastify, { type FastifyInstance } from 'fastify';
 import cookie from '@fastify/cookie';
 import cors from '@fastify/cors';
+import fastifyStatic from '@fastify/static';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { ZodError } from 'zod';
 import { HttpError } from './util/errors.js';
 import { migrate } from './db/migrate.js';
@@ -20,6 +23,9 @@ import { catalogRoutes } from './modules/catalog/routes.js';
 const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-only-insecure-secret-change-me';
 const DEV_ORIGIN = process.env.DEV_ORIGIN || 'http://localhost:5173';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const FRONTEND_DIR = resolve(__dirname, '../frontend');
+
 export async function buildServer(): Promise<FastifyInstance> {
   const app = Fastify({ logger: process.env.NODE_ENV !== 'test' });
 
@@ -29,6 +35,10 @@ export async function buildServer(): Promise<FastifyInstance> {
   });
 
   await app.register(cookie, { secret: SESSION_SECRET });
+
+  // Serve the front end from the same origin as the API (so the Electron app
+  // and browser get cookies with no CORS dance). /api/* routes take precedence.
+  await app.register(fastifyStatic, { root: FRONTEND_DIR, prefix: '/' });
 
   // Global error handler → clean JSON.
   app.setErrorHandler((err, _req, reply) => {

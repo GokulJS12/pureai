@@ -28,3 +28,13 @@
     X-Frame-Options          = "SAMEORIGIN"
     Referrer-Policy          = "strict-origin-when-cross-origin"
     Permissions-Policy       = "geolocation=(), microphone=(), camera=()"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/inquiries"
+  to = "/.netlify/functions/inquiries"
+  status = 200
+  force = true

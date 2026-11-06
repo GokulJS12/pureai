@@ -1,0 +1,15 @@
+{
+  "name": "pureai-website",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/inquiries.test.cjs tests/client.test.cjs",
+    "start:inquiries": "node server/start.cjs",
+    "test:browser": "node --test tests/browser.test.cjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

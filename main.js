@@ -1,3 +1,70 @@
+// Shared by both dynamically mounted contact dialogs; no visitor data is persisted.
+let pureaiSecurityScript;
+function pureaiLoadSecurity() {
+    if (window.turnstile) return Promise.resolve(window.turnstile);
+    if (!pureaiSecurityScript) pureaiSecurityScript = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        const timer = setTimeout(() => reject(new Error('Security check unavailable. Please retry.')), 12000);
+        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        script.onload = () => { clearTimeout(timer); resolve(window.turnstile); };
+        script.onerror = () => { clearTimeout(timer); script.remove(); reject(new Error('Security check unavailable. Please retry.')); };
+        document.head.appendChild(script);
+    }).catch(error => { pureaiSecurityScript = null; throw error; });
+    return pureaiSecurityScript;
+}
+function pureaiBindInquiry(form, source, readFields, onAccepted) {
+    const notice = document.createElement('div');
+    notice.style.cssText = 'font-size:12px;line-height:1.6;margin:12px 0;color:inherit';
+    notice.innerHTML = `<label style="display:flex;gap:8px;align-items:flex-start"><input type="checkbox" name="inquiry-consent" required style="width:auto;margin-top:4px"> <span>I agree that Pure AI may use these details to respond to my inquiry. <a href="/inquiry-privacy" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">Inquiry privacy notice</a>. No marketing signup.</span></label><label hidden>Leave blank<input name="website" tabindex="-1" autocomplete="off"></label><div data-security></div><p data-inquiry-status role="status" aria-live="polite" tabindex="-1"></p>`;
+    form.insertBefore(notice, form.querySelector('button[type="submit"]'));
+    const status = notice.querySelector('[data-inquiry-status]');
+    let pending = false;
+    let requestId;
+    let lastPayload;
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (pending || !form.reportValidity()) return;
+        pending = true;
+        const button = form.querySelector('button[type="submit"]');
+        const original = button.innerHTML;
+        button.disabled = true;
+        button.textContent = 'Sending…';
+        form.setAttribute('aria-busy', 'true');
+        status.textContent = 'Checking security and submitting your inquiry…';
+        let widget;
+        try {
+            const fields = readFields();
+            const fingerprint = JSON.stringify(fields);
+            if (fingerprint !== lastPayload) { requestId = crypto.randomUUID(); lastPayload = fingerprint; }
+            const configResponse = await fetch('/api/inquiries', { cache: 'no-store', signal: AbortSignal.timeout(12000) });
+            const config = await configResponse.json();
+            if (!configResponse.ok || typeof config.siteKey !== 'string') throw new Error('Inquiry service is unavailable. Please retry or email gkai@pureaiglobal.com directly.');
+            const security = await pureaiLoadSecurity();
+            const token = await new Promise((resolve, reject) => {
+                const timer = setTimeout(() => reject(new Error('Security check timed out. Please retry.')), 120000);
+                const fail = () => { clearTimeout(timer); reject(new Error('Security check failed. Please retry.')); };
+                widget = security.render(notice.querySelector('[data-security]'), { sitekey: config.siteKey, action: 'inquiry', callback: token => { clearTimeout(timer); resolve(token); }, 'error-callback': fail, 'expired-callback': fail });
+            });
+            const response = await fetch('/api/inquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...fields, source, requestId, consent: notice.querySelector('[name="inquiry-consent"]').checked, website: notice.querySelector('[name="website"]').value, token }), signal: AbortSignal.timeout(20000) });
+            const result = await response.json();
+            if (response.status !== 202 || result.accepted !== true || result.reference !== requestId) throw new Error(result.error || 'Delivery was not confirmed. Please retry.');
+            status.textContent = `Your inquiry has been accepted for delivery. Reference: ${result.reference}. Response times vary.`;
+            onAccepted(result);
+            form.reset();
+            requestId = lastPayload = undefined;
+        } catch (error) {
+            status.textContent = error instanceof SyntaxError || error.name === 'TimeoutError' || error.name === 'TypeError' ? 'Delivery could not be confirmed. Your details are still here. Please retry or email gkai@pureaiglobal.com directly.' : error.message;
+            status.focus();
+        } finally {
+            if (widget !== undefined && window.turnstile) window.turnstile.remove(widget);
+            pending = false;
+            button.disabled = false;
+            button.innerHTML = original;
+            form.removeAttribute('aria-busy');
+        }
+    });
+}
+
 /**
  * ═══════════════════════════════════════════════════════════
  * PURE AI — Immersive Cinematic Experience v3
@@ -1400,26 +1467,26 @@
                     <p class="ail-subtitle">It seems you're interested in Pure AI. We'd be happy to discuss it in detail. Please share your contact details and your query below.</p>
                 </div>
 
-                <form class="ail-form" id="ail-form" novalidate>
+                <form class="ail-form" id="ail-form">
                     <div class="ail-row">
                         <div class="ail-field">
                             <label class="ail-field-label" for="ail-name">Full Name *</label>
-                            <input class="ail-input" type="text" id="ail-name" name="name" placeholder="Your full name" required>
+                            <input class="ail-input" type="text" id="ail-name" maxlength="160" name="name" placeholder="Your full name" required>
                         </div>
                         <div class="ail-field">
                             <label class="ail-field-label" for="ail-email">Email *</label>
-                            <input class="ail-input" type="email" id="ail-email" name="email" placeholder="you@company.com" required>
+                            <input class="ail-input" type="email" id="ail-email" maxlength="254" name="email" placeholder="you@company.com" required>
                         </div>
                     </div>
 
                     <div class="ail-field">
                         <label class="ail-field-label" for="ail-phone">Phone (optional)</label>
-                        <input class="ail-input" type="tel" id="ail-phone" name="phone" placeholder="+1 (555) 000-0000">
+                        <input class="ail-input" type="tel" id="ail-phone" maxlength="40" name="phone" placeholder="+1 (555) 000-0000">
                     </div>
 
                     <div class="ail-field">
                         <label class="ail-field-label" for="ail-query">Your query *</label>
-                        <textarea class="ail-textarea" id="ail-query" name="query" rows="4" placeholder="Tell us a bit more about what you'd like to explore..." required></textarea>
+                        <textarea class="ail-textarea" id="ail-query" maxlength="5000" name="query" rows="4" placeholder="Tell us a bit more about what you'd like to explore..." required></textarea>
                     </div>
 
                     <button class="ail-submit" type="submit" id="ail-submit">
@@ -1429,14 +1496,14 @@
 
                     <p class="ail-footer-hint">
                         <i class="ph ph-shield-check"></i>
-                        Encrypted in transit • Response within 24 hours
+                        Please do not include passwords, identity documents or payment details.
                     </p>
                 </form>
 
                 <div class="ail-success" id="ail-success">
                     <div class="ail-check"><i class="ph-bold ph-check"></i></div>
                     <h3 class="ail-success-title">Transmission received</h3>
-                    <p class="ail-success-sub">Thank you <span id="ail-success-name">there</span>. Our team will reach out within 24 hours to continue the conversation.</p>
+                    <p class="ail-success-sub">Thank you <span id="ail-success-name">there</span>. Response times vary.</p>
                     <button class="ail-success-close" type="button" data-ail-close>Close</button>
                 </div>
             </div>
@@ -1451,35 +1518,22 @@
             if (e.key === 'Escape' && modal.classList.contains('is-open')) ailCloseModal();
         });
 
-        // Form submit
         const form = modal.querySelector('#ail-form');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name   = form.querySelector('#ail-name');
-            const email  = form.querySelector('#ail-email');
-            const query  = form.querySelector('#ail-query');
-
-            let ok = true;
-            [name, email, query].forEach(input => {
-                const invalid = !input.value.trim() ||
-                    (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim()));
-                input.setAttribute('aria-invalid', invalid ? 'true' : 'false');
-                if (invalid) ok = false;
-            });
-            if (!ok) return;
-
-            const btn = form.querySelector('#ail-submit');
-            btn.disabled = true;
-            btn.innerHTML = '<span>Sending…</span><i class="ph ph-circle-notch"></i>';
-
-            // Demo: pretend to POST. Replace with real endpoint when backend exists.
-            setTimeout(() => {
-                form.style.display = 'none';
-                const successEl = modal.querySelector('#ail-success');
-                const nameEl    = modal.querySelector('#ail-success-name');
-                if (nameEl) nameEl.textContent = name.value.trim().split(' ')[0] || 'there';
-                successEl.classList.add('is-visible');
-            }, 900);
+        pureaiBindInquiry(form, 'ai-interest', () => ({
+            name: form.querySelector('#ail-name').value.trim(),
+            email: form.querySelector('#ail-email').value.trim(),
+            phone: form.querySelector('#ail-phone').value.trim(),
+            message: form.querySelector('#ail-query').value.trim()
+        }), result => {
+            form.style.display = 'none';
+            modal.querySelector('#ail-success-name').textContent = form.querySelector('#ail-name').value.trim().split(' ')[0] || 'there';
+            const success = modal.querySelector('#ail-success');
+            success.classList.add('is-visible');
+            success.setAttribute('role', 'status');
+            success.setAttribute('tabindex', '-1');
+            success.querySelector('.ail-success-title').textContent = 'Inquiry accepted for delivery';
+            success.querySelector('.ail-success-sub').textContent = 'Thank you. Your inquiry has been accepted for delivery. Response times vary. Reference: ' + result.reference;
+            success.focus();
         });
     }
 
@@ -2023,15 +2077,15 @@
         <div class="contact-modal-content">
             <button class="contact-close" id="contact-close-btn">&times;</button>
             <h3 class="contact-modal-title">Get In Touch</h3>
-            <p class="contact-modal-subtitle">Send us a message and we'll get back to you shortly.</p>
+            <p class="contact-modal-subtitle">Send us a message to discuss your inquiry. Response times vary.</p>
             <form id="pureai-contact-form">
                 <div class="contact-form-group">
-                    <div><input type="text" id="contact-fname" class="contact-input" placeholder="First Name" required></div>
-                    <div><input type="text" id="contact-lname" class="contact-input" placeholder="Last Name" required></div>
+                    <div><input type="text" id="contact-fname" aria-label="First name" maxlength="80" class="contact-input" placeholder="First Name" required></div>
+                    <div><input type="text" id="contact-lname" aria-label="Last name" maxlength="79" class="contact-input" placeholder="Last Name" required></div>
                 </div>
-                <input type="email" id="contact-email" class="contact-input" placeholder="Email Address" required>
-                <input type="tel" id="contact-phone" class="contact-input" placeholder="Phone Number" required>
-                <textarea id="contact-message" class="contact-input" placeholder="Your Message" required></textarea>
+                <input type="email" id="contact-email" aria-label="Email address" maxlength="254" class="contact-input" placeholder="Email Address" required>
+                <input type="tel" id="contact-phone" aria-label="Phone number (optional)" maxlength="40" class="contact-input" placeholder="Phone Number (optional)">
+                <textarea id="contact-message" aria-label="Your message" maxlength="5000" class="contact-input" placeholder="Your Message" required></textarea>
                 <button type="submit" class="contact-submit">Send Message</button>
             </form>
         </div>
@@ -2073,29 +2127,10 @@
         }
     });
 
-    // Handle form submission via mailto
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const fname = document.getElementById('contact-fname').value;
-        const lname = document.getElementById('contact-lname').value;
-        const email = document.getElementById('contact-email').value;
-        const phone = document.getElementById('contact-phone').value;
-        const message = document.getElementById('contact-message').value;
-
-        const subject = encodeURIComponent('New Contact Inquiry from ' + fname + ' ' + lname);
-        const body = encodeURIComponent(
-            "Name: " + fname + " " + lname + "\n" +
-            "Email: " + email + "\n" +
-            "Phone: " + phone + "\n\n" +
-            "Message:\n" + message
-        );
-
-        window.location.href = 'mailto:gkai@pureaiglobal.com?subject=' + subject + '&body=' + body;
-        
-        // Optional: close modal and reset form after short delay
-        setTimeout(() => {
-            closeModal();
-            form.reset();
-        }, 500);
-    });
+    pureaiBindInquiry(form, 'contact', () => ({
+        name: document.getElementById('contact-fname').value.trim() + ' ' + document.getElementById('contact-lname').value.trim(),
+        email: document.getElementById('contact-email').value.trim(),
+        phone: document.getElementById('contact-phone').value.trim(),
+        message: document.getElementById('contact-message').value.trim()
+    }), () => {});
 })();

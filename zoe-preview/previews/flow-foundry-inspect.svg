@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1366 768"><defs><linearGradient id="grad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f8fcfa"/><stop offset="1" stop-color="#e8f5ef"/></linearGradient><radialGradient id="orb"><stop stop-color="#d7fff0"/><stop offset=".5" stop-color="#16ac80"/><stop offset="1" stop-color="#00654a"/></radialGradient><pattern id="grid" width="23" height="23" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#bdd9ca"/></pattern></defs>
+<rect x="0" y="0" width="1366" height="768" rx="0" fill="url(#grad)" stroke="none"/>
+<rect x="0" y="0" width="1366" height="58" rx="0" fill="#fff" stroke="#d6e6dd"/>
+<text x="24" y="39" font-family="Inter,Arial,sans-serif" font-size="34" fill="#067b58" font-weight="700" text-anchor="start">zoe.</text>
+<text x="120" y="36" font-family="Inter,Arial,sans-serif" font-size="14" fill="#214d3c" font-weight="700" text-anchor="start">MSB Platform  /  Money-changing</text>
+<text x="1030" y="36" font-family="Inter,Arial,sans-serif" font-size="12" fill="#128662" font-weight="700" text-anchor="start">WORKFLOW · EXPANDED INSPECT MODE</text>
+<rect x="12" y="70" width="66" height="682" rx="13" fill="#fff" stroke="#deebe4"/>
+<rect x="25" y="91" width="40" height="40" rx="12" fill="#007c58" stroke="none"/>
+<text x="45" y="120" font-family="Inter,Arial,sans-serif" font-size="22" fill="white" font-weight="700" text-anchor="middle">✦</text>
+<text x="45" y="215" font-family="Inter,Arial,sans-serif" font-size="22" fill="#5e9c86" font-weight="700" text-anchor="middle">↔</text>
+<text x="45" y="285" font-family="Inter,Arial,sans-serif" font-size="19" fill="#5e9c86" font-weight="700" text-anchor="middle">▤</text>
+<text x="45" y="355" font-family="Inter,Arial,sans-serif" font-size="21" fill="#007a56" font-weight="700" text-anchor="middle">↗</text>
+<rect x="90" y="70" width="302" height="682" rx="13" fill="#fff" stroke="#deebe4"/>
+<text x="115" y="104" font-family="Inter,Arial,sans-serif" font-size="12" fill="#118466" font-weight="700" text-anchor="start">OPERATIONAL PRICING</text>
+<text x="115" y="140" font-family="Inter,Arial,sans-serif" font-size="23" fill="#123a2f" font-weight="700" text-anchor="start">Live Board Rates</text>
+<text x="115" y="166" font-family="Inter,Arial,sans-serif" font-size="12" fill="#82a398" font-weight="400" text-anchor="start">Current approved FX quotations</text>
+<rect x="112" y="194" width="254" height="76" rx="11" fill="#fafefc" stroke="#d5e6de"/>
+<text x="130" y="225" font-family="Inter,Arial,sans-serif" font-size="14" fill="#285247" font-weight="700" text-anchor="start">USD / MYR</text>
+<text x="349" y="250" font-family="Inter,Arial,sans-serif" font-size="21" fill="#07694d" font-weight="700" text-anchor="end">4.2500</text>
+<text x="130" y="249" font-family="Inter,Arial,sans-serif" font-size="11" fill="#168b68" font-weight="400" text-anchor="start">Published · Synced</text>
+<rect x="112" y="285" width="254" height="76" rx="11" fill="#fafefc" stroke="#d5e6de"/>
+<text x="130" y="225" font-family="Inter,Arial,sans-serif" font-size="14" fill="#285247" font-weight="700" text-anchor="start">SGD / MYR</text>
+<text x="349" y="250" font-family="Inter,Arial,sans-serif" font-size="21" fill="#07694d" font-weight="700" text-anchor="end">3.2640</text>
+<text x="130" y="249" font-family="Inter,Arial,sans-serif" font-size="11" fill="#168b68" font-weight="400" text-anchor="start">Published · Synced</text>
+<rect x="112" y="376" width="254" height="76" rx="11" fill="#fafefc" stroke="#d5e6de"/>
+<text x="130" y="225" font-family="Inter,Arial,sans-serif" font-size="14" fill="#285247" font-weight="700" text-anchor="start">EUR / MYR</text>
+<text x="349" y="250" font-family="Inter,Arial,sans-serif" font-size="21" fill="#07694d" font-weight="700" text-anchor="end">4.6200</text>
+<text x="130" y="249" font-family="Inter,Arial,sans-serif" font-size="11" fill="#168b68" font-weight="400" text-anchor="start">Published · Synced</text>
+<rect x="112" y="467" width="254" height="76" rx="11" fill="#fafefc" stroke="#d5e6de"/>
+<text x="130" y="225" font-family="Inter,Arial,sans-serif" font-size="14" fill="#285247" font-weight="700" text-anchor="start">GBP / MYR</text>
+<text x="349" y="250" font-family="Inter,Arial,sans-serif" font-size="21" fill="#07694d" font-weight="700" text-anchor="end">5.3600</text>
+<text x="130" y="249" font-family="Inter,Arial,sans-serif" font-size="11" fill="#168b68" font-weight="400" text-anchor="start">Published · Synced</text>
+<rect x="405" y="70" width="358" height="682" rx="13" fill="#fff" stroke="#deebe4"/>
+<text x="430" y="107" font-family="Inter,Arial,sans-serif" font-size="19" fill="#0a543e" font-weight="700" text-anchor="start">ZOE</text>
+<text x="479" y="107" font-family="Inter,Arial,sans-serif" font-size="12" fill="#8da89e" font-weight="400" text-anchor="start">/ Workflow intelligence</text>
+<circle cx="446" cy="153" r="24" fill="url(#orb)"/>
+<text x="446" y="161" font-family="Inter,Arial,sans-serif" font-size="24" fill="white" font-weight="700" text-anchor="middle">✦</text>
+<rect x="429" y="193" width="312" height="71" rx="14" fill="#edf8f2" stroke="#d7ece1"/>
+<text x="447" y="216" font-family="Inter,Arial,sans-serif" font-size="10" fill="#17805e" font-weight="700" text-anchor="start">WORKFLOW CONTEXT</text>
+<text x="447" y="239" font-family="Inter,Arial,sans-serif" font-size="14" fill="#154c39" font-weight="700" text-anchor="start">WF-16 · FX Rate Integrity</text>
+<rect x="429" y="287" width="312" height="97" rx="14" fill="#f9fcfa" stroke="#d9e9e0"/>
+<text x="444" y="313" font-family="Inter,Arial,sans-serif" font-size="13" fill="#224b3d" font-weight="400" text-anchor="start">Can you explain the rate tolerance</text>
+<text x="444" y="336" font-family="Inter,Arial,sans-serif" font-size="13" fill="#224b3d" font-weight="400" text-anchor="start">check and approval gate?</text>
+<rect x="429" y="403" width="312" height="130" rx="14" fill="#ebf8f1" stroke="#d1ebdb"/>
+<text x="444" y="429" font-family="Inter,Arial,sans-serif" font-size="12" fill="#04815d" font-weight="700" text-anchor="start">✦ ZOE</text>
+<text x="444" y="451" font-family="Inter,Arial,sans-serif" font-size="12" fill="#234e3d" font-weight="400" text-anchor="start">The rule compares the proposed rate</text>
+<text x="444" y="471" font-family="Inter,Arial,sans-serif" font-size="12" fill="#234e3d" font-weight="400" text-anchor="start">with the approved board and routes</text>
+<text x="444" y="491" font-family="Inter,Arial,sans-serif" font-size="12" fill="#234e3d" font-weight="400" text-anchor="start">exceptions for manager approval.</text>
+<rect x="429" y="612" width="312" height="113" rx="15" fill="#fff" stroke="#9fd9bf"/>
+<text x="445" y="638" font-family="Inter,Arial,sans-serif" font-size="13" fill="#93a99e" font-weight="400" text-anchor="start">Ask ZOE to modify this workflow…</text>
+<text x="445" y="693" font-family="Inter,Arial,sans-serif" font-size="15" fill="#6f9b8c" font-weight="400" text-anchor="start">♬   ⊕    Auto  ▾</text>
+<rect x="694" y="672" width="31" height="33" rx="8" fill="#007b58" stroke="none"/>
+<text x="710" y="695" font-family="Inter,Arial,sans-serif" font-size="16" fill="white" font-weight="700" text-anchor="middle">➜</text>
+<rect x="776" y="70" width="579" height="682" rx="13" fill="#fff" stroke="#deebe4"/>
+<text x="802" y="108" font-family="Inter,Arial,sans-serif" font-size="18" fill="#007c5d" font-weight="700" text-anchor="start">Workflow</text>
+<text x="909" y="108" font-family="Inter,Arial,sans-serif" font-size="15" fill="#6b9485" font-weight="400" text-anchor="start">Activity</text>
+<rect x="1232" y="85" width="100" height="33" rx="9" fill="#e8f7f1" stroke="#cce9dc"/>
+<text x="1282" y="106" font-family="Inter,Arial,sans-serif" font-size="12" fill="#13765b" font-weight="700" text-anchor="middle">⛶ Expand</text>
+<text x="804" y="149" font-family="Inter,Arial,sans-serif" font-size="12" fill="#1a765b" font-weight="700" text-anchor="start">FX RATE INTEGRITY  /  WF-16</text>
+<text x="803" y="180" font-family="Inter,Arial,sans-serif" font-size="21" fill="#1b4136" font-weight="700" text-anchor="start">7-stage business workflow</text>
+<rect x="799" y="196" width="529" height="470" rx="14" fill="url(#grid)" stroke="#d4e5dc"/>
+<text x="817" y="224" font-family="Inter,Arial,sans-serif" font-size="11" fill="#638e80" font-weight="700" text-anchor="start">VIEW: INSPECT</text>
+<g fill="none" stroke="#1a9872" stroke-width="2"><path d="M967 298 H1023"/><path d="M1166 298 H1207 V385 H1215"/><path d="M960 454 H1023"/><path d="M1166 454 H1213"/><path d="M1095 483 V540"/><path d="M894 338 V420 H816 V454 H824"/></g>
+<rect x="821" y="270" width="147" height="68" rx="9" fill="#fff" stroke="#93cbb5"/>
+<rect x="830" y="279" width="21" height="21" rx="6" fill="#cceee0" stroke="none"/>
+<text x="859" y="297" font-family="Inter,Arial,sans-serif" font-size="12" fill="#164938" font-weight="700" text-anchor="start">Rate quotation</text>
+<text x="835" y="322" font-family="Inter,Arial,sans-serif" font-size="10" fill="#7c9a8e" font-weight="400" text-anchor="start">Trigger · Completed</text>
+<rect x="1022" y="270" width="147" height="68" rx="9" fill="#fff" stroke="#93cbb5"/>
+<rect x="1031" y="279" width="21" height="21" rx="6" fill="#cceee0" stroke="none"/>
+<text x="1060" y="297" font-family="Inter,Arial,sans-serif" font-size="12" fill="#164938" font-weight="700" text-anchor="start">Retrieve rates</text>
+<text x="1036" y="322" font-family="Inter,Arial,sans-serif" font-size="10" fill="#7c9a8e" font-weight="400" text-anchor="start">Data · Completed</text>
+<rect x="821" y="419" width="147" height="68" rx="9" fill="#fff" stroke="#93cbb5"/>
+<rect x="830" y="428" width="21" height="21" rx="6" fill="#d3e7f7" stroke="none"/>
+<text x="859" y="446" font-family="Inter,Arial,sans-serif" font-size="12" fill="#164938" font-weight="700" text-anchor="start">Spread check</text>
+<text x="835" y="471" font-family="Inter,Arial,sans-serif" font-size="10" fill="#7c9a8e" font-weight="400" text-anchor="start">Rule · Completed</text>
+<rect x="1022" y="419" width="147" height="68" rx="9" fill="#fff" stroke="#93cbb5"/>
+<rect x="1031" y="428" width="21" height="21" rx="6" fill="#fff0cf" stroke="none"/>
+<text x="1060" y="446" font-family="Inter,Arial,sans-serif" font-size="12" fill="#164938" font-weight="700" text-anchor="start">Approval gate</text>
+<text x="1036" y="471" font-family="Inter,Arial,sans-serif" font-size="10" fill="#7c9a8e" font-weight="400" text-anchor="start">Human · Pending</text>
+<rect x="1099" y="539" width="166" height="65" rx="9" fill="#fff" stroke="#93cbb5"/>
+<rect x="1108" y="548" width="21" height="21" rx="6" fill="#dbf2e6" stroke="none"/>
+<text x="1137" y="566" font-family="Inter,Arial,sans-serif" font-size="12" fill="#164938" font-weight="700" text-anchor="start">Record decision</text>
+<text x="1113" y="591" font-family="Inter,Arial,sans-serif" font-size="10" fill="#7c9a8e" font-weight="400" text-anchor="start">Audit evidence</text>
+<rect x="810" y="610" width="507" height="43" rx="8" fill="#f8fcfa" stroke="#d8e9de"/>
+<text x="824" y="638" font-family="Inter,Arial,sans-serif" font-size="12" fill="#286e56" font-weight="600" text-anchor="start">−      75%      +        Fit View       Minimap      Auto arrange</text>
+<text x="800" y="706" font-family="Inter,Arial,sans-serif" font-size="12" fill="#789789" font-weight="400" text-anchor="start">Selected: Approval gate · View input/output and audit evidence</text></svg>

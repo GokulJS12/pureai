@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1366 768" width="1366" height="768">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5fbf8"/><stop offset="1" stop-color="#e9f3ef"/></linearGradient>
+<radialGradient id="orb"><stop stop-color="#effffb"/><stop offset=".4" stop-color="#22b891"/><stop offset=".8" stop-color="#087f62"/><stop offset="1" stop-color="#086b54"/></radialGradient>
+<radialGradient id="halo"><stop stop-color="#00b988" stop-opacity=".28"/><stop offset="1" stop-color="#00b988" stop-opacity="0"/></radialGradient>
+<linearGradient id="mint"><stop stop-color="#eefaf4"/><stop offset="1" stop-color="#f9fcfb"/></linearGradient>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="13" flood-color="#174d3e" flood-opacity=".08"/></filter>
+</defs>
+<rect x="0" y="0" width="1366" height="768" rx="14" fill="url(#bg)" stroke="none" stroke-width="1"/>
+<rect x="0" y="0" width="1366" height="59" rx="0" fill="#fff" stroke="#dce8e2" stroke-width="1"/>
+<text x="26" y="40" fill="#007b59" font-size="34" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">zoe.</text>
+<text x="111" y="36" fill="#244a40" font-size="14" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">MSB Platform</text>
+<text x="212" y="36" fill="#77948a" font-size="12" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Class A  ›  Money-changing  ›  Live Board Rates</text>
+<rect x="1018" y="16" width="125" height="27" rx="8" fill="#ebf7ef" stroke="#d4e8db" stroke-width="1"/>
+<text x="1080" y="34" fill="#257256" font-size="10" font-weight="600" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">Synthetic demo data</text>
+<rect x="1150" y="16" width="144" height="27" rx="8" fill="#fff" stroke="#cfe5db" stroke-width="1"/>
+<text x="1222" y="34" fill="#235c4e" font-size="11" font-weight="600" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">Focus workspace</text>
+<circle cx="1331" cy="30" r="17" fill="#006c52"/>
+<text x="1331" y="35" fill="#fff" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">D</text>
+<rect x="12" y="72" width="67" height="684" rx="16" fill="#fff" stroke="#d8e8df" stroke-width="1"/>
+<rect x="25" y="89" width="41" height="41" rx="14" fill="#087d5f" stroke="none" stroke-width="1"/>
+<text x="46" y="116" fill="#fff" font-size="23" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">◉</text>
+<text x="46" y="145" fill="#2a6c56" font-size="9" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">CLASS A</text>
+<text x="46" y="214" fill="#719a8a" font-size="24" font-weight="600" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">⇄</text>
+<text x="46" y="260" fill="#719a8a" font-size="22" font-weight="600" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">▤</text>
+<rect x="21" y="286" width="51" height="50" rx="12" fill="#e2f5ec" stroke="#acd8c6" stroke-width="1"/>
+<text x="46" y="317" fill="#006f52" font-size="24" font-weight="600" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">↗</text>
+<text x="46" y="368" fill="#9bb4aa" font-size="15" font-weight="600" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">•••</text>
+<rect x="90" y="72" width="390" height="684" rx="16" fill="#fff" stroke="#d8e8df" stroke-width="1"/>
+<text x="110" y="106" fill="#06845d" font-size="11" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">MONEY-CHANGING BUSINESS · OPERATIONS</text>
+<text x="110" y="139" fill="#153c32" font-size="27" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Live Board Rates</text>
+<text x="110" y="163" fill="#79998d" font-size="13" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Approved quotations, spreads and publication</text>
+<text x="110" y="183" fill="#79998d" font-size="13" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">status across counters</text>
+<rect x="320" y="205" width="141" height="36" rx="10" fill="#007553" stroke="none" stroke-width="1"/>
+<text x="391" y="228" fill="#fff" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">+ Rate proposal</text>
+<rect x="109" y="254" width="112" height="96" rx="13" fill="#f8fcfa" stroke="#daeae2" stroke-width="1"/>
+<text x="121" y="274" fill="#81988f" font-size="9" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">PUBLISHED PAIRS</text>
+<text x="121" y="315" fill="#0a6c51" font-size="24" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">06</text>
+<rect x="233" y="254" width="112" height="96" rx="13" fill="#f8fcfa" stroke="#daeae2" stroke-width="1"/>
+<text x="245" y="274" fill="#81988f" font-size="9" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">PENDING REVIEWS</text>
+<text x="245" y="315" fill="#0a6c51" font-size="24" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">1</text>
+<rect x="357" y="254" width="112" height="96" rx="13" fill="#f8fcfa" stroke="#daeae2" stroke-width="1"/>
+<text x="369" y="274" fill="#81988f" font-size="9" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">COUNTER SYNC</text>
+<text x="369" y="315" fill="#0a6c51" font-size="24" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">4/4</text>
+<text x="110" y="378" fill="#23483c" font-size="16" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Published quotations</text>
+<rect x="109" y="393" width="353" height="42" rx="13" fill="#fafdfb" stroke="#d6e8dd" stroke-width="1"/>
+<text x="130" y="419" fill="#8aa499" font-size="13" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">⌕  Search currencies or pairs</text>
+<rect x="109" y="445" width="353" height="62" rx="14" fill="#fff" stroke="#d5e7dc" stroke-width="1"/>
+<rect x="122" y="455" width="38" height="40" rx="10" fill="#e4f7ee" stroke="none" stroke-width="1"/>
+<text x="141" y="481" fill="#03815c" font-size="20" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">$</text>
+<text x="173" y="470" fill="#22483c" font-size="13" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">USD/MYR</text>
+<text x="173" y="487" fill="#8ca398" font-size="10" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">US Dollar</text>
+<text x="450" y="474" fill="#08634c" font-size="18" font-weight="700" text-anchor="end" font-family="Inter,Arial,Helvetica,sans-serif">4.2500</text>
+<text x="450" y="491" fill="#168a69" font-size="9" font-weight="600" text-anchor="end" font-family="Inter,Arial,Helvetica,sans-serif">↑ +0.12% · MYR</text>
+<rect x="109" y="516" width="353" height="62" rx="14" fill="#fff" stroke="#d5e7dc" stroke-width="1"/>
+<rect x="122" y="526" width="38" height="40" rx="10" fill="#e4f7ee" stroke="none" stroke-width="1"/>
+<text x="141" y="552" fill="#03815c" font-size="20" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">S$</text>
+<text x="173" y="541" fill="#22483c" font-size="13" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">SGD/MYR</text>
+<text x="173" y="558" fill="#8ca398" font-size="10" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Singapore Dollar</text>
+<text x="450" y="545" fill="#08634c" font-size="18" font-weight="700" text-anchor="end" font-family="Inter,Arial,Helvetica,sans-serif">3.2640</text>
+<text x="450" y="562" fill="#168a69" font-size="9" font-weight="600" text-anchor="end" font-family="Inter,Arial,Helvetica,sans-serif">↑ +0.12% · MYR</text>
+<rect x="109" y="587" width="353" height="62" rx="14" fill="#fff" stroke="#d5e7dc" stroke-width="1"/>
+<rect x="122" y="597" width="38" height="40" rx="10" fill="#e4f7ee" stroke="none" stroke-width="1"/>
+<text x="141" y="623" fill="#03815c" font-size="20" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">€</text>
+<text x="173" y="612" fill="#22483c" font-size="13" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">EUR/MYR</text>
+<text x="173" y="629" fill="#8ca398" font-size="10" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Euro</text>
+<text x="450" y="616" fill="#08634c" font-size="18" font-weight="700" text-anchor="end" font-family="Inter,Arial,Helvetica,sans-serif">4.6200</text>
+<text x="450" y="633" fill="#168a69" font-size="9" font-weight="600" text-anchor="end" font-family="Inter,Arial,Helvetica,sans-serif">↑ +0.12% · MYR</text>
+<rect x="109" y="658" width="353" height="62" rx="14" fill="#fff" stroke="#d5e7dc" stroke-width="1"/>
+<rect x="122" y="668" width="38" height="40" rx="10" fill="#e4f7ee" stroke="none" stroke-width="1"/>
+<text x="141" y="694" fill="#03815c" font-size="20" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">£</text>
+<text x="173" y="683" fill="#22483c" font-size="13" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">GBP/MYR</text>
+<text x="173" y="700" fill="#8ca398" font-size="10" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">British Pound</text>
+<text x="450" y="687" fill="#08634c" font-size="18" font-weight="700" text-anchor="end" font-family="Inter,Arial,Helvetica,sans-serif">5.3600</text>
+<text x="450" y="704" fill="#168a69" font-size="9" font-weight="600" text-anchor="end" font-family="Inter,Arial,Helvetica,sans-serif">↑ +0.12% · MYR</text>
+<rect x="491" y="72" width="804" height="684" rx="16" fill="#fff" stroke="#d9e9e1" stroke-width="1"/>
+<rect x="491" y="72" width="804" height="80" rx="16" fill="#fff" stroke="#dbe9e3" stroke-width="1"/>
+<circle cx="535" cy="109" r="39" fill="url(#halo)"/>
+<circle cx="535" cy="109" r="23" fill="url(#orb)"/>
+<text x="535" y="116" fill="#fff" font-size="23" font-weight="600" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">✦</text>
+<text x="574" y="107" fill="#134638" font-size="20" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">ZOE</text>
+<text x="622" y="107" fill="#82a497" font-size="12" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">/ your operating intelligence</text>
+<circle cx="577" cy="129" r="4" fill="#2cbb88"/>
+<text x="589" y="133" fill="#278d68" font-size="11" font-weight="600" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Ready to assist</text>
+<rect x="515" y="164" width="163" height="27" rx="8" fill="#edf8f2" stroke="none" stroke-width="1"/>
+<text x="597" y="182" fill="#24745d" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">✦ Class A · Live Board Rates</text>
+<text x="724" y="182" fill="#87a296" font-size="11" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Business context attached</text>
+<circle cx="846" cy="296" r="95" fill="url(#halo)"/>
+<circle cx="846" cy="296" r="32" fill="url(#orb)"/>
+<text x="846" y="306" fill="#fff" font-size="32" font-weight="600" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">✦</text>
+<text x="663" y="383" fill="#15523e" font-size="34" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Good evening.</text>
+<text x="663" y="427" fill="#068c62" font-size="32" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">What can I help you decide?</text>
+<text x="663" y="455" fill="#759689" font-size="14" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Investigate prices, explain exceptions and</text>
+<text x="663" y="475" fill="#759689" font-size="14" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">design governed business workflows with ZOE.</text>
+<rect x="646" y="495" width="482" height="68" rx="15" fill="url(#mint)" stroke="#cfe9db" stroke-width="1"/>
+<text x="668" y="518" fill="#348765" font-size="10" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">TODAY AT A GLANCE</text>
+<text x="668" y="541" fill="#2d5447" font-size="13" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">FX rate proposal awaiting manager approval</text>
+<rect x="511" y="597" width="763" height="129" rx="18" fill="#fff" stroke="#b2e1cf" stroke-width="1.4"/>
+<text x="536" y="622" fill="#17865e" font-size="11" font-weight="700" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">✧  ZOE READY  ·  DEMONSTRATION MODE</text>
+<text x="538" y="657" fill="#96ada3" font-size="15" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">Ask ZOE to explain, compare, create or investigate...</text>
+<text x="539" y="696" fill="#7fa598" font-size="17" font-weight="400" text-anchor="start" font-family="Inter,Arial,Helvetica,sans-serif">♧    ◉    ♫        Auto  ▾</text>
+<rect x="1211" y="679" width="43" height="37" rx="11" fill="#006d51" stroke="none" stroke-width="1"/>
+<text x="1232" y="704" fill="#fff" font-size="21" font-weight="700" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">➜</text>
+<rect x="1306" y="72" width="48" height="684" rx="16" fill="#fff" stroke="#d8e8df" stroke-width="1"/>
+<rect x="1312" y="90" width="36" height="38" rx="12" fill="#eff8f3" stroke="#d2e8da" stroke-width="1"/>
+<text x="1330" y="117" fill="#22896a" font-size="21" font-weight="600" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">⌘</text>
+<text x="1330" y="165" fill="#579985" font-size="22" font-weight="400" text-anchor="middle" font-family="Inter,Arial,Helvetica,sans-serif">◷</text></svg>
